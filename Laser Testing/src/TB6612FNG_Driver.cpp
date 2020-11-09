@@ -9,6 +9,7 @@
  *                           Also I need to figure out how to pass the instantiation of the hardware timer class to
  *                           through this class (e.g. TIM1, TIM2, TIM3, etc) so that the timer can be changed as needed
  *                           instead of being set in the header file as it is currently. 
+ *  @date 8 Nov 5:42PM 2020  Added this file to the github repository.
  * 
  * 
  * 
