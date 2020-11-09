@@ -1,0 +1,1 @@
+{"type": "library", "name": "CMSIS DSP", "version": "1.0.0+sha.bee8561", "spec": {"owner": null, "id": null, "name": "Arduino_Core_STM32", "requirements": null, "url": "git+https://github.com/stm32duino/Arduino_Core_STM32.git"}}

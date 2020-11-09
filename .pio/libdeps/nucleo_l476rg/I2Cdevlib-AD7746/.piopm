@@ -1,0 +1,1 @@
+{"type": "library", "name": "I2Cdevlib-AD7746", "version": "0.0.0+sha.e75c80d", "spec": {"owner": null, "id": null, "name": "i2cdevlib", "requirements": null, "url": "git+https://github.com/jrowberg/i2cdevlib.git"}}
