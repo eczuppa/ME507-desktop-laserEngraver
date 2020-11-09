@@ -36,8 +36,8 @@ class TB6612FNG
     // Setup PWM timer
     // This is not done correctly, ask Ridgely about how to do it right
     // class methods need to be able to accept object input, some sort of pass by reference is needed
-    TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(digitalPinToPinName(_pwm_input_pin), PinMap_PWM);
-    HardwareTimer *MotorTmr = new HardwareTimer(Instance);
+    // TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(digitalPinToPinName(_pwm_input_pin), PinMap_PWM);
+    HardwareTimer *MotorTmr = new HardwareTimer(TIM3);
 
 
     public:
