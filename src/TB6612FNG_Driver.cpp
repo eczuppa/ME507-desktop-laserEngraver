@@ -65,6 +65,7 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
 
 void TB6612FNG::setDutyCycle(int8_t duty_cycle)
 { 
+    uint8_t u_duty_cycle;
     // +/- Saturation Protection for SetPWM method of HardwareTimer class
     if (duty_cycle > 100)
     {
@@ -75,15 +76,16 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     {
         duty_cycle = -100;
     }
-    
-    // sets motor direction based on input dutycyle
+
+    // sets motor direction based on input dutycyle and u_dutycycle for HardwareTimer API (expects 0 to 100%)
     
     // Spin Clockwise
     if (duty_cycle < 0)
     {
         digitalWrite(_motor_dir_pin_1, LOW);   
         digitalWrite(_motor_dir_pin_2, LOW);
-        digitalWrite(_motor_dir_pin_1, HIGH);   
+        digitalWrite(_motor_dir_pin_1, HIGH);
+        u_duty_cycle = duty_cycle* -1;   
     }
     
     // Spin Counter Clockwise
@@ -91,19 +93,22 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     {
         digitalWrite(_motor_dir_pin_1, LOW);   
         digitalWrite(_motor_dir_pin_2, LOW);
-        digitalWrite(_motor_dir_pin_2, HIGH); 
+        digitalWrite(_motor_dir_pin_2, HIGH);
+        u_duty_cycle = duty_cycle; 
     }
     
     // Something went horribly wrong, just stop what you are doing
     else
     {
         digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW); 
+        digitalWrite(_motor_dir_pin_2, LOW);
+        u_duty_cycle = 0; 
     }
     
     // Updates duty cycle to input or saturated input without 
     // reinitializing the PWM mode of MotorTmr
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, duty_cycle);
+    
+    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, u_duty_cycle);
 }
 
 /** @brief software E-Stop for dual H-bridge chip
