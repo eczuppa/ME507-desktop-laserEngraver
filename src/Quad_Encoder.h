@@ -34,14 +34,25 @@ class Quad_Encoder
     TIM_TypeDef *_p_eTIM;       // pointer that contains user passed-in timer object (TIM1, TIM2, etc)
     HardwareTimer *EncTmr;      // Instance of Hardware Timer class used for an instance of the encoder class
 
+    // Count Variables:
+    uint32_t _lastcount;     // the previous count from the timer counter register
+    uint32_t _count;         // the current count from the timer counter register
+    
+    // Position Variables
+    uint64_t _abspos;       // position in the global frame 
+    uint64_t _incpos;       // position in the incremental frame
+    
+
+    // Software correction for encoder wiring
+    bool _invert;
+
     public:
     // Constructor and method declarations here
 
     // Constructor for quadrature encoder class
-    Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, uint32_t bound = 1000);
+    Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, uint32_t bound = 1000, bool invert = false);
 
     uint64_t enc_read(void);    // encoder read method to get current position in encoder ticks with direction and under/over flow checking
-    uint64_t get_abspos(void);  // gets absolute position from encoder for working from CNC machine home
     uint64_t get_incpos(void);  // gets incremental position if wokring from a refrence offset from CNC machine home
     void enc_zero(void);        // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
 
