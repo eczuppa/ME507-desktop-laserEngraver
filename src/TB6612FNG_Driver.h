@@ -34,17 +34,16 @@ class TB6612FNG
     uint8_t _pwm_tim_chan_num;
 
     // Setup PWM timer
-    // This is not done correctly, ask Ridgely about how to do it right
-    // class methods need to be able to accept object input, some sort of pass by reference is needed
-    // TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(digitalPinToPinName(_pwm_input_pin), PinMap_PWM);
-    HardwareTimer *MotorTmr = new HardwareTimer(TIM3);
-
+    // Timer Number and Timer Channel Number 
+    uint8_t _pwm_tim_chan_num;
+    TIM_TypeDef * _p_timer;
+    HardwareTimer *MotorTmr;
 
     public:
     // Constructor and class methods here
 
     // Constructor
-    TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num);
+    TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, TIM_TypeDef * _p_timer);
 
     // Class Methods
     void setDutyCycle(int8_t duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input           

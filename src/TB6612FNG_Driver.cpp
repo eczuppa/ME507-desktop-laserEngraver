@@ -30,7 +30,7 @@
  *  @param   _pwm_tim_chan_num the channel number (1,2,3, or 4) of the timer specified that is attached to the pwm input pin 
  */
 
-TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num)
+TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, TIM_TypeDef * _p_timer)
 {
     // Save inputs to class member data
     _standby_pin = stby_pin;
@@ -38,6 +38,9 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
     _motor_dir_pin_2 = mot_pin_2;
     _pwm_input_pin = a_pwm_pin;
     _pwm_tim_chan_num = a_tim_chan_num;
+
+    // Setup PWM timer
+    MotorTmr = new HardwareTimer(_p_timer);
 
     // Initalize Standby and Motor Direction digital pins
     pinMode(_standby_pin, OUTPUT);
