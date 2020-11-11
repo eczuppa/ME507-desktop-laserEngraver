@@ -14,7 +14,7 @@
 
 
 //Function to interpret gcode
-void interpret_gcode_line();
+void interpret_gcode_line(char *line);
 
 
 #endif //GCODE_H

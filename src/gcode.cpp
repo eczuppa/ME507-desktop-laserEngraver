@@ -14,11 +14,12 @@
 
 
 //interpret gcode
-void interpret_gcode_line(String line) 
+void interpret_gcode_line(char *line) 
 {
     //Define constants for use in actual function
     uint8_t char_counter = -1;  
     char letter;
+    float value;
 
 
     while(line[++char_counter] != '\0')
@@ -29,19 +30,31 @@ void interpret_gcode_line(String line)
         //Check if letter signifies a comment in the gcode
         if (letter == GCODE_COMMENT)
         {
-            Serial << "Comment Found: " << line.substring(char_counter+1) << endl;
-            //Once comment has been found, skip to the end of the line to end the loop. 
-            char_counter = line.length();
+            //Find a comment, print it!
+            // Serial << "Comment Found: " << line.substring(char_counter+1) << endl;
+
+            //Once comment has been found, skip to the end of the line to end the line loop. 
+            // char_counter = line.length();
         }
-        //If not a comment, check for the letter command
+
+        //If not a comment, check for the letter commands.
         else 
         {
+            //If not a letter...
             if((letter < 'A') || (letter > 'Z')) 
             { 
-            Serial << letter << " is not a letter" << endl;
-            } 
-            // [Expected word letter]
-            // if (!read_float(line, &char_counter, &value)) { FAIL(STATUS_BAD_NUMBER_FORMAT); } // [Expected word value]
+                Serial << letter << "Error in Gcode: Not starting with letter" << endl;
+            }
+            //Otherwise, it is a letter, all good! Not a comment or an invalid command. 
+            //Move on and read the number now. 
+            char_counter++;
+
+            if ((!read_float(line, &char_counter, &value) )) // [Expected word value]
+            {
+                Serial << "Error in Gcode: Letter not followed by number" << endl;
+            }
+
+            Serial << letter;
         }
     }
     return;
