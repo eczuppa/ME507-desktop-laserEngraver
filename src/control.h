@@ -32,6 +32,20 @@ protected:
     // Do I need to call this "setpoint_P"?
     // I don't think I need to cause it's protected within this class, right?
 
+    // feedback comes from the encoder
+    float current_feedback;
+    float feedback;
+
+    // time will come from our overall timer
+    float current_time;
+    float last_time;
+
+    // error will be computed as a difference between setpoint and feedback
+    float error;
+    float last_error;
+
+
+
 public:
 
     // ----- Define the Constructor -----
@@ -92,6 +106,23 @@ protected:
     // Will this need to be a 1X2 array? setpoint_PI: [x, y]
     // Do I need to call this "setpoint_PI"?
     // I don't think I need to cause it's protected within this class, cheers?
+
+
+    // feedback comes from the encoder
+    float current_feedback;
+    float feedback;
+
+    // time will come from our overall timer
+    float current_time;
+    float last_time;
+
+    // error will be computed as a difference between setpoint and feedback
+    float error;
+    float last_error;
+
+    float integral_cumulation;
+    float integral_cumulation_max;
+
 
 public:
 
@@ -163,6 +194,24 @@ protected:
     // Will this need to be a 1X2 array? setpoint_PI: [x, y]
     // Do I need to call this "setpoint_PID"?
     // I don't think I need to cause it's protected within this class, yeah?
+
+    // feedback comes from the encoder
+    float current_feedback;
+    float feedback;
+
+    // time will come from our overall timer
+    float current_time;
+    float last_time;
+
+    // error will be computed as a difference between setpoint and feedback
+    float error;
+    float last_error;
+
+    float integral_cumulation;
+    float integral_cumulation_max;
+
+    float derivative_per_cycle;
+
 
 public:
 
