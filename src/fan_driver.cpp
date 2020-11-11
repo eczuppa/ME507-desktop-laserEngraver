@@ -189,6 +189,17 @@ void task_sim (void* p_params)
 }
 
 
+
+
+
+
+// *************************************************************** //
+
+//        This code will need to be moved into the main.cpp        //
+
+// *************************************************************** //
+
+
 /** @brief   Arduino setup function which runs once at program startup.
  *  @details This function sets up a serial port for communication and creates
  *           the tasks which will be run.
