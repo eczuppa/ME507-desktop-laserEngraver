@@ -28,9 +28,7 @@ protected:
     // The value for the Setpoint, this is the commanded position from GCode
     float setpoint;                   // potentially make this a large integer instead of a float
 
-    // Will this need to be a 1X2 array? setpoint_P: [x, y]
-    // Do I need to call this "setpoint_P"?
-    // I don't think I need to cause it's protected within this class, right?
+
 
     // feedback comes from the encoder
     float current_feedback;
@@ -60,15 +58,13 @@ public:
     // The P Control Loop: takes in current position from encoder and 
     // compares this with the setpoint data. Calculate Error and calculate
     // the new motor command. Return the new motor command as a float.
-    float control_loop_P (float encoder_position);      
-    
-    // Note: encoder_position is the position calculated from the encoder
-    // We will probably need to have a encoder_position be an array:
-    // [encoder_position_x, encoder_position_y]
-
+    float control_loop_P (float encoder_position);
 
     // set_gain_kP allows the user to input a new gain value. Allows us to change the Protected variable
-    float set_gain_kP (float gain_kP_new);        // This will be for testing only
+    void set_gain_kP (float gain_kP_new);        // This will be for testing only
+
+    // get_gain_kP allows the user to get the new gain value.
+    float get_gain_kP ();                        // This will be for testing only
 
     // change_setpoint_kp allows the user to input a new gain value. Allows us to change the Protected variable
     float change_setpoint_P (float setpoint_new);        // This will allow the GCode to overwrite the initial setpoint
@@ -145,14 +141,23 @@ public:
     // [encoder_position_x, encoder_position_y]
 
 
-    // set_gain_kP allows the user to input a new gain value for the proportional 
-    // part of the controller. Allows us to change the Protected variable.
-    float set_gain_kP (float gain_kP_new);        // This will be for testing only
+    // set_gain_PI allows the user to input both kP and kI
+    void set_gain_PI (float gain_kP_new, float gain_kI_new);
 
-    // set_gain_kI allows the user to input a new gain value for the integral 
-    // part of the controller. Allows us to change the Protected variable.
-    float set_gain_kI (float gain_kI_new);        // This will be for testing only
- 
+    // set_gain_kP allows the user to input a new gain value. Allows us to change the Protected variable
+    void set_gain_kP (float gain_kP_new);        // This will be for testing only
+
+    // get_gain_kP allows the user to get the new gain value.
+    float get_gain_kP ();                        // This will be for testing only
+
+    // set_gain_kI allows the user to input a new gain value for the integral part of the controller. 
+    // Allows us to change the Protected variable.
+    void set_gain_kI (float gain_kI_new);        // This will be for testing only
+
+    // get_gain_kI allows the user to get the new gain value. 
+    float get_gain_kI ();                        // This will be for testing only
+
+
     // change_setpoint_PI allows the user to input a new gain value. Allows us to 
     // change the Protected variable. The GCode will continually overwrite this value
     float change_setpoint_PI (float setpoint_new);        // This will allow the GCode to overwrite the initial setpoint
@@ -234,17 +239,29 @@ public:
     // [encoder_position_x, encoder_position_y]
 
 
-    // set_gain_kP allows the user to input a new gain value for the proportional 
-    // part of the controller. Allows us to change the Protected variable.
-    float set_gain_kP (float gain_kP_new);        // This will be for testing only
+    // set_gain_PID allows the user to input kP, kI and kD
+    void set_gain_PID (float gain_kP_new, float gain_kI_new, float gain_kD_new);
 
-    // set_gain_kI allows the user to input a new gain value for the integral 
-    // part of the controller. Allows us to change the Protected variable.
-    float set_gain_kI (float gain_kI_new);        // This will be for testing only
+    // set_gain_kP allows the user to input a new gain value. Allows us to change the Protected variable
+    void set_gain_kP (float gain_kP_new);        // This will be for testing only
+
+    // get_gain_kP allows the user to get the new gain value.
+    float get_gain_kP ();                        // This will be for testing only
+
+    // set_gain_kI allows the user to input a new gain value for the integral part of the controller. 
+    // Allows us to change the Protected variable.
+    void set_gain_kI (float gain_kI_new);        // This will be for testing only
+
+    // get_gain_kI allows the user to get the new gain value. 
+    float get_gain_kI ();                        // This will be for testing only
+
+    // set_gain_kD allows the user to input a new gain value for the derivative part of the controller. 
+    // Allows us to change the Protected variable.
+    void set_gain_kD (float gain_kD_new);        // This will be for testing only
+
+    // get_gain_kD allows the user to get the new gain value. 
+    float get_gain_kD ();                        // This will be for testing only
  
-    // set_gain_kD allows the user to input a new gain value for the integral 
-    // part of the controller. Allows us to change the Protected variable.
-    float set_gain_kD (float gain_kD_new);        // This will be for testing only
 
     // change_setpoint_PID allows the user to input a new gain value. Allows us to 
     // change the Protected variable. The GCode will continually overwrite this value

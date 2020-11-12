@@ -31,6 +31,9 @@
 
 // How to give the output from the control loop to back to the motor? Shares/queues?
 
+// Will the "setpoint" variable need to be a 1X2 array? setpoint_P: [x, y]?
+// Or will we just have 5 instances of Controller_PID, motor1_x, motor1_y, motor2_x, motor2_y, laser_power
+// Do I need to call it "setpoint_P"? ... I don't think I need to cause it's protected within this class, right?
 
 
 
@@ -135,11 +138,19 @@ float Controller_P::control_loop_P (float encoder_position)
 /** @brief   Set the controller's gain coefficient kP
  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
  */
- float Controller_P::set_gain_kP (float gain_kP_new)
+ void Controller_P::set_gain_kP (float gain_kP_new)
  {
     // In order to be able to change the protected variable "gain_kP"
     gain_kP = gain_kP_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kP
+ *  @param   gain_kP The value for the controller's gain coefficient, kP
+ */
+ float Controller_P::get_gain_kP ()
+ {
+    // In order to be able to change the protected variable "gain_kP"
     return gain_kP;
 
  }
@@ -157,6 +168,12 @@ float Controller_P::change_setpoint_P (float setpoint_new)
 
     return setpoint;
  }
+
+
+
+
+
+
 
 
 
@@ -272,6 +289,7 @@ float Controller_PI::control_loop_PI (float encoder_position)
 
 
     // This code could be nice so the code doesn't accidently crash the laser head!
+    // Still need to define the upper and lower bounds in the header file
     // //Trim the output to the bounds if needed.
     // if(outputBounded)
     // {
@@ -288,16 +306,36 @@ float Controller_PI::control_loop_PI (float encoder_position)
 }
 
 
+/** @brief   Set the controller's gain coefficient kP and kI in one method
+ *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+ *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+ */
+ void Controller_PI::set_gain_PI (float gain_kP_new, float gain_kI_new)
+ {
+    // In order to be able to change the protected variable "gain_kP" and "gain_kI"
+    gain_kP = gain_kP_new;
+
+    gain_kI = gain_kI_new;
+    
+ }
 
 
 /** @brief   Set the controller's gain coefficient kP
  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
  */
- float Controller_PI::set_gain_kP (float gain_kP_new)
+ void Controller_PI::set_gain_kP (float gain_kP_new)
  {
     // In order to be able to change the protected variable "gain_kP"
     gain_kP = gain_kP_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kP
+ *  @param   gain_kP The value for the controller's gain coefficient, kP
+ */
+ float Controller_PI::get_gain_kP ()
+ {
+    // In order to be able to change the protected variable "gain_kP"
     return gain_kP;
 
  }
@@ -306,14 +344,23 @@ float Controller_PI::control_loop_PI (float encoder_position)
 /** @brief   Set the controller's gain coefficient kI
  *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
  */
- float Controller_PI::set_gain_kI (float gain_kI_new)
+ void Controller_PI::set_gain_kI (float gain_kI_new)
  {
     // In order to be able to change the protected variable "gain_kI"
     gain_kI = gain_kI_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kI
+ *  @param   gain_kI The value for the controller's gain coefficient, kI
+ */
+ float Controller_PI::get_gain_kI ()
+ {
+    // In order to be able to change the protected variable "gain_kI"
     return gain_kI;
 
  }
+
 
 /** @brief   Set the controller's setpoint
  *  @param   setpoint_new A new value for the controller's setpoint. This value will be contantly
@@ -472,41 +519,85 @@ float Controller_PID::control_loop_PID (float encoder_position)
 
 
 
+
+/** @brief   Set the controller's gain coefficient kP and kI in one method
+ *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+ *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+ */
+ void Controller_PID::set_gain_PID (float gain_kP_new, float gain_kI_new, float gain_kD_new)
+ {
+    // In order to be able to change the protected variable "gain_kP" and "gain_kI"
+    gain_kP = gain_kP_new;
+
+    gain_kI = gain_kI_new;
+
+    gain_kD = gain_kD_new;
+    
+ }
+
+
 /** @brief   Set the controller's gain coefficient kP
  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
  */
- float Controller_PID::set_gain_kP (float gain_kP_new)
+ void Controller_PID::set_gain_kP (float gain_kP_new)
  {
     // In order to be able to change the protected variable "gain_kP"
     gain_kP = gain_kP_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kP
+ *  @param   gain_kP The value for the controller's gain coefficient, kP
+ */
+ float Controller_PID::get_gain_kP ()
+ {
+    // In order to be able to change the protected variable "gain_kP"
     return gain_kP;
 
  }
 
+
 /** @brief   Set the controller's gain coefficient kI
  *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
  */
- float Controller_PID::set_gain_kI (float gain_kI_new)
+ void Controller_PID::set_gain_kI (float gain_kI_new)
  {
     // In order to be able to change the protected variable "gain_kP"
     gain_kI = gain_kI_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kI
+ *  @param   gain_kI The value for the controller's gain coefficient, kI
+ */
+ float Controller_PID::get_gain_kI ()
+ {
+    // In order to be able to change the protected variable "gain_kI"
     return gain_kI;
 
  }
 
+
 /** @brief   Set the controller's gain coefficient kD
  *  @param   gain_kD_new A new value for the controller's gain coefficient, kD
  */
- float Controller_PID::set_gain_kD (float gain_kD_new)
+ void Controller_PID::set_gain_kD (float gain_kD_new)
  {
-    // In order to be able to change the protected variable "gain_kP"
+    // In order to be able to change the protected variable "gain_kD"
     gain_kD = gain_kD_new;
 
+ }
+
+/** @brief   Get the controller's gain coefficient kD
+ *  @param   gain_kD The value for the controller's gain coefficient, kD
+ */
+ float Controller_PID::get_gain_kD ()
+ {
+    // In order to be able to change the protected variable "gain_kD"
     return gain_kD;
 
  }
+
 
 
 
