@@ -17,6 +17,9 @@
 //Standard and copied libraries
 #include <Arduino.h>
 #include <PrintStream.h>
+#if (defined STM32L4xx || defined STM32F4xx)
+    #include <STM32FreeRTOS.h>
+#endif
 #include "taskshare.h"
 #include "taskqueue.h"
 #include "baseshare.h"
