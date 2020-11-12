@@ -13,6 +13,9 @@
 #define GCODE_H
 
 
+#define GCODE_COMMENT ';'
+
+
 //Function to interpret gcode
 void interpret_gcode_line(char *line);
 

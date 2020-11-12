@@ -38,9 +38,9 @@ void setup()
     // Values in line are set one by one when data is recieved from the serial port. 
     // Here, we need to simulate what line will look like to use for testing.  
 
-    String test_line = "; Testing code Text file";
-    // test_line = "G21; Set units to mm";
-    // test_line = "G1 X46.18 Y39.20 S1.00 F600";
+    String test_line = "; Testing code text file";
+    test_line = "G21; Set units to mm";
+    test_line = "G1 X46.12 Y39.20 S1.00 F600";
 
     ///Set each character in static char @c line to match our test string, just like it 
     ///would in the parser (once that's finished)
