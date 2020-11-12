@@ -106,7 +106,7 @@ void interpret_gcode_line(char *line)
                             //Set incremental positioning
                         default:
                             //Error: Unsupported Gcode
-                        
+                            Serial << "Unsupported G Command" << endl;
                     }
                     break;
                 case 'M':
@@ -124,6 +124,7 @@ void interpret_gcode_line(char *line)
                             break;
                         default:
                             //ERROR: Unsupported Mcode
+                            Serial << "Unsupported M Command" << endl;
                     }
                     break;
                 case 'X':
@@ -142,9 +143,16 @@ void interpret_gcode_line(char *line)
                     break;
                 default:
                     //ERROR: Unsupported command
-
-            }
-        }
+                    Serial << "Unsupported Letter Command" << endl;
+                    
+            }//switch (letter)
+        }//else (Not a comment or space)
     }
+
+    //Outside of the while loop: Testing matrix library
+    BLA::Matrix<3,2> A;
+
+    Serial << A << endl;
+    
     return;
 }

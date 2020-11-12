@@ -25,6 +25,10 @@
 #include "baseshare.h"
 
 
+//From Github
+#include "BasicLinearAlgebra.h"
+
+
 
 //ME507 Laser Library
 #include "control.h"
@@ -33,6 +37,7 @@
 #include "Quad_Encoder.h"
 #include "TB6612FNG_Driver.h"
 #include "nuts_bolts.h"
+
 
 
 
