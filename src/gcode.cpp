@@ -12,13 +12,18 @@
 //This function will interpret a single line of Gcode to enter into the main command array. 
 void interpret_gcode_line(char *line) 
 {
-    //Define constants for use in actual function
+    //Define constants for use in function
     uint8_t char_counter = 0;  
     char letter;
     float value;
-    uint16_t int_value = 0;
-    uint16_t mantissa = 0;
+    int16_t int_value = 0;
+    int16_t mantissa = 0;
     String str_line = line;     //Convert line into a string for use of string functions
+
+
+    //Create matrices for decoded gcode to enter
+    BLA::Matrix<1,2> Move_and_Laser;
+    BLA::Matrix<1,8> XYSF;
 
     //Start looping through the line, character by character. Check each character to match 
     //it with certain commands. 
@@ -77,6 +82,9 @@ void interpret_gcode_line(char *line)
             mantissa =  round(100*(value - int_value)); // Compute mantissa for Gxx.xx commands.
             // NOTE: Rounding must be used to catch small floating point errors. 
 
+            //Test commands to see that we're interpreting right
+            Serial << "Command is: " << letter << int_value << "." << mantissa << endl;
+
             //How to interpret commands: take information and send to main code array.s
             switch (letter)
             {
@@ -91,19 +99,19 @@ void interpret_gcode_line(char *line)
                             //Linear Interpolation
                             break;
                         case 20:
-                            //Unit conversion to in
+                            //Unit conversion to in: NOT sent to matrix
                             break;
                         case 21:
-                            //Unit conversion to mm
+                            //Unit conversion to mm: NOT sent to matrix
                             break;
                         case 28:
                             //Home machine
                             break;
                         case 90:
-                            //Set absolute positioning
+                            //Set absolute positioning: NOT sent to matrix
                             break;
                         case 91:
-                            //Set incremental positioning
+                            //Set incremental positioning: NOT sent to matrix
                         default:
                             //Error: Unsupported Gcode
                             Serial << "Unsupported G Command" << endl;
@@ -150,9 +158,9 @@ void interpret_gcode_line(char *line)
     }
 
     //Outside of the while loop: Testing matrix library
-    BLA::Matrix<3,2> A;
+    
 
-    Serial << A << endl;
+    Serial << XYSF << endl;
     
     return;
 }
