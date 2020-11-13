@@ -68,6 +68,7 @@ void task_ui (void* p_params)
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
     Serial.setTimeout (0xFFFFFFFF);
+    Serial << "I am ready for input" << endl;
 
     // The task's infinite loop goes here
     for (;;)

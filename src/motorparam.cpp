@@ -28,6 +28,7 @@ void motor_task (void* p_params)
     TB6612FNG LeftMotor(16, 37, 36, A7, 1, TIM3);
     int32_t duty_cycle;
     TickType_t xLastWakeTime = xTaskGetTickCount();
+    Serial << "motor is setup" << endl;
 
     for (;;)
     {
@@ -45,7 +46,8 @@ void encoder_task (void* p_params)
     // TIM_TypeDef *a_p_eTIM = TIM8;
     Quad_Encoder LeftEncoder (39, 38, TIM8);
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    int64_t a_position;
+    int32_t a_position;
+    Serial << "encoder is set up" << endl;
 
     for (;;)
     {
