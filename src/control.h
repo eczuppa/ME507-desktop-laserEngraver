@@ -18,6 +18,12 @@
  *           "set_gain_kP", and "change_setpoint_P"
  */
 
+
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
+
+#include "libraries&constants.h"
+
 class Controller_P
 {
 protected:
@@ -270,3 +276,4 @@ public:
 
  
 };
+#endif  //CONTROLLER_H

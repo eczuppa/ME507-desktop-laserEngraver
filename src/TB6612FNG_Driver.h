@@ -10,10 +10,10 @@
  */
 
 
-#include <stdint.h>
+#ifndef TB6612FNGDRIVER_H
+#define TB6612FNGDRIVER_H
 
-#include <HardwareTimer.h>
-#include <pins_arduino.h>
+#include "libraries&constants.h"
 
 class TB6612FNG 
 {
@@ -52,3 +52,5 @@ class TB6612FNG
 
 
 };
+
+#endif //TB6612FNGDRIVER_H

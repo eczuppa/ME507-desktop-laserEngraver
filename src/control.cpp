@@ -13,9 +13,8 @@
  * 
  */
 
-#include <Arduino.h>
-#include <PrintStream.h>
-#include "control.h"
+
+#include "libraries&constants.h"
 
 
 // ------ General Questions about the code ------

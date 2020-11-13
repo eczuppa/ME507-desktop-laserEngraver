@@ -23,6 +23,9 @@
 #include "taskshare.h"
 #include "taskqueue.h"
 #include "baseshare.h"
+#include <HardwareTimer.h>
+#include <stdint.h>
+#include <pins_arduino.h>
 
 
 //From Github
@@ -37,6 +40,7 @@
 #include "Quad_Encoder.h"
 #include "TB6612FNG_Driver.h"
 #include "nuts_bolts.h"
+#include "motorparam.h"
 
 
 

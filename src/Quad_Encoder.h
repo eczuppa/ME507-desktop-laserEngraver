@@ -14,8 +14,12 @@
  * 
  */
 
-#include <stdint.h>
-#include <HardwareTimer.h>
+
+
+#ifndef QUADENCODER_H
+#define QUADENCODER_H
+
+#include "libraries&constants.h"
 
 class Quad_Encoder
 {
@@ -53,8 +57,10 @@ class Quad_Encoder
     Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, uint32_t bound = 1000, bool invert = false);
 
     uint64_t enc_read(void);    // encoder read method to get current position in encoder ticks with direction and under/over flow checking
-    uint64_t get_incpos(void);  // gets incremental position if wokring from a refrence offset from CNC machine home
+    //uint64_t get_incpos(void);  // gets incremental position if wokring from a refrence offset from CNC machine home
     void enc_zero(void);        // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
 
 
 };
+
+#endif //QUADENCODER_H
