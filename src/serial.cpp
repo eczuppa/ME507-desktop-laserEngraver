@@ -6,7 +6,8 @@
 #include "serial.h"
 #include "taskshare.h"
 
-extern Share<int32_t> s_duty_cycle ("Power");
+extern Queue<int32_t> encoder_queue;
+Share<int32_t> s_duty_cycle ("Power");
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
  *  @details This function reads an integer which is typed by a user into a
@@ -62,7 +63,7 @@ void task_ui (void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
     int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
-
+    int32_t enc_pos_out;
 
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
@@ -77,6 +78,12 @@ void task_ui (void* p_params)
         user_power = parseIntWithEcho(Serial);
         // Take output of parseIntWithEcho and put in share duty_cycle
         s_duty_cycle.put(user_power);
+
+        // Print Current Encoder Position
+        encoder_queue.get(enc_pos_out);
+        Serial << "The current Encoder position in ticks is: " << enc_pos_out << endl;
+
+
         vTaskDelay(UI_period);
 
     }

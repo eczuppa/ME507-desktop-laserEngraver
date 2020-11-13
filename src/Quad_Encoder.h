@@ -21,6 +21,11 @@
 
 #include "libraries&constants.h"
 
+/** @brief  Write what the class does
+ * 
+ * @details More descriptive description of the class
+ * 
+ */
 class Quad_Encoder
 {
     protected:
@@ -56,7 +61,7 @@ class Quad_Encoder
     // Constructor for quadrature encoder class
     Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, uint32_t bound = 1000, bool invert = false);
 
-    uint64_t enc_read(void);    // encoder read method to get current position in encoder ticks with direction and under/over flow checking
+    int64_t enc_read(void);    // encoder read method to get current position in encoder ticks with direction and under/over flow checking
     //uint64_t get_incpos(void);  // gets incremental position if wokring from a refrence offset from CNC machine home
     void enc_zero(void);        // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
 

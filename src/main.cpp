@@ -12,9 +12,6 @@
 
 
 #include "libraries&constants.h"
-#if (defined STM32L4xx || defined STM32F4xx)
-    #include <STM32FreeRTOS.h>
-#endif
 
 
 void setup() 
@@ -24,13 +21,18 @@ void setup()
     Serial.begin (115200);
     delay (2000);
     Serial << endl << "Laser Program Initializing" << endl;
+    xTaskCreate(motor_task, "test motor", 1024, NULL, 2, NULL);
+    xTaskCreate(encoder_task, "test encoder", 2048, NULL, 3, NULL);
+    xTaskCreate(task_ui, "user", 1536, NULL, 1, NULL);
+    vTaskStartScheduler();
+    
 
     //======================================================================================
 
     //Choose your testing section:
     // #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
-    // #define ETHAN_TESTING 2
+    #define ETHAN_TESTING 2
 
     //======================================================================================
     
@@ -76,6 +78,8 @@ void setup()
     
     //Ethan test section
     #ifdef ETHAN_TESTING
+
+    
 
 
 

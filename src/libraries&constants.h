@@ -41,6 +41,8 @@
 #include "TB6612FNG_Driver.h"
 #include "nuts_bolts.h"
 #include "motorparam.h"
+#include "serial.h"
+#include "limit_switch.h"
 
 
 

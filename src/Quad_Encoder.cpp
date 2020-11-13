@@ -31,7 +31,7 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeD
 
 }
 
-uint64_t Quad_Encoder::enc_read(void)
+int64_t Quad_Encoder::enc_read(void)
 {
     uint32_t delta;
     _count = EncTmr -> getCount();
