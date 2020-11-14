@@ -108,7 +108,9 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     // Updates duty cycle to input or saturated input without 
     // reinitializing the PWM mode of MotorTmr
     
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, u_duty_cycle);
+    MotorTmr -> pauseChannel(_pwm_tim_chan_num);
+    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, u_duty_cycle, PERCENT_COMPARE_FORMAT);
+    MotorTmr -> resumeChannel(_pwm_tim_chan_num);
 }
 
 /** @brief software E-Stop for dual H-bridge chip

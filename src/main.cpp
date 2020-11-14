@@ -80,12 +80,12 @@ void setup()
                 "test motor", 
                 1024, 
                 NULL, 
-                1, 
+                4, 
                 NULL);
     Serial << "motor task init done" << endl;
     xTaskCreate(encoder_task,
                 "test encoder",
-                2048,
+                4096,
                 NULL,
                 4,
                 NULL);
@@ -93,15 +93,14 @@ void setup()
 
     xTaskCreate(task_ui,
                 "user", 
-                1536, 
+                4096, 
                 NULL,
-                2,
+                7,
                 NULL);
     Serial << "ui task init done" << endl;
 
-    #if (defined STM32L4xx || defined STM32F4xx)
-        vTaskStartScheduler ();
-    #endif
+
+    vTaskStartScheduler ();
 
 
 
@@ -118,8 +117,6 @@ void setup()
 
 }
 
-void loop() {
-    // put your main code here, to run repeatedly:
-    //Serial << " - ";
-    //delay(5000);
+void loop()
+{
 }

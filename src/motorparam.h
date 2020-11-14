@@ -18,6 +18,6 @@ const TickType_t motor_period = 100;
 
 void encoder_task (void* p_params);
 
-const TickType_t encoder_period = 200;
+const TickType_t encoder_period = 10;
 
 #endif // MOTORPARAM_H

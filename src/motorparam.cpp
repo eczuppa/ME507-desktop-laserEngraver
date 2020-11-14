@@ -8,7 +8,7 @@
 
 
 #include "libraries&constants.h"
-#include <variant.h>
+
 
 extern Share<int32_t> s_duty_cycle;
 Queue<int32_t> encoder_queue (100,"position");
@@ -26,9 +26,10 @@ void motor_task (void* p_params)
 
 
     TB6612FNG LeftMotor(16, 37, 36, A7, 1, TIM3);
+    LeftMotor.enable();
     int32_t duty_cycle;
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    Serial << "motor is setup" << endl;
+    //Serial << "motor is setup" << endl;
 
     for (;;)
     {
@@ -41,12 +42,15 @@ void motor_task (void* p_params)
 
 void encoder_task (void* p_params)
 {
-    // uint8_t L_enc_sigpin_A = 39; // PC7
-    // uint8_t L_enc_sigpin_B = 38; // PC6
+    // uint8_t L_enc_sigpin_A = 9; // PC7
+    
+    // uint8_t L_enc_sigpin_B = 34; // PC6
+    
     // TIM_TypeDef *a_p_eTIM = TIM8;
-    Quad_Encoder LeftEncoder (39, 38, TIM8);
+    Quad_Encoder LeftEncoder (9, 34, TIM8);
+    LeftEncoder.enc_zero();
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    int32_t a_position;
+    int32_t a_position = 0;
     Serial << "encoder is set up" << endl;
 
     for (;;)

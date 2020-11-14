@@ -6,6 +6,8 @@
 #include "serial.h"
 #include "taskshare.h"
 
+
+
 extern Queue<int32_t> encoder_queue;
 Share<int32_t> s_duty_cycle ("Power");
 
@@ -68,20 +70,24 @@ void task_ui (void* p_params)
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
     Serial.setTimeout (0xFFFFFFFF);
-    Serial << "I am ready for input" << endl;
+    //Serial << "I am ready for input" << endl;
 
     // The task's infinite loop goes here
     for (;;)
     {
         // Ask for User input in a desired range
-        Serial << "Enter desired Duty Cycle (+/-255): " << endl;
+        Serial << "Enter desired Duty Cycle (+/-100%): " << endl;
         // Use parseIntWithEcho to get integer entered into serial monitor
         user_power = parseIntWithEcho(Serial);
         // Take output of parseIntWithEcho and put in share duty_cycle
         s_duty_cycle.put(user_power);
 
         // Print Current Encoder Position
-        encoder_queue.get(enc_pos_out);
+        
+        if (!encoder_queue.is_empty())
+        {
+            encoder_queue.get(enc_pos_out);
+        }
         Serial << "The current Encoder position in ticks is: " << enc_pos_out << endl;
 
 
