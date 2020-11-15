@@ -21,6 +21,7 @@
 
 // How are we communicating with the encoders and GCode? I was thinking shares and queues but
 // could/should we use function pointers instead?
+// Use Shares and Queues!!
 
 // I've set everything as floats, but maybe some should be double's or int's?
 
@@ -29,10 +30,15 @@
 // What should we be calling the output of the control loop? "output"? "setpoint_new"?
 
 // How to give the output from the control loop to back to the motor? Shares/queues?
+// The output is 0-100% 
 
 // Will the "setpoint" variable need to be a 1X2 array? setpoint_P: [x, y]?
 // Or will we just have 5 instances of Controller_PID, motor1_x, motor1_y, motor2_x, motor2_y, laser_power
 // Do I need to call it "setpoint_P"? ... I don't think I need to cause it's protected within this class, right?
+
+// timing, potentially use Micros or Millis
+// Potentially use VTaskDelayUntil
+
 
 
 
@@ -260,8 +266,20 @@ float Controller_PI::control_loop_PI (float encoder_position)
     // Do integral calculations per cycle
     float integral_per_cycle = (last_error + error / 2) * delta_time;       // numerically doing an integral
 
+
+
+    // Should we? Compare to a Saturation for Motor (CONSTANT) (+- 100%) and do an IF statement from there
+    // This would probably work well for velocity control but maybe not so well for position control
+   
     //Add this cycle's integral to the integral cumulation
     integral_cumulation += integral_per_cycle;
+
+
+
+    // PLEASE CHANGE ******** Compare integral_cumulation * gain_kI to some saturation 
+    // max value so our numbers don't get to huge.
+   
+
 
     // make sure that this integral_cumulation does not exceed a max value or get super huge
     if (integral_cumulation > integral_cumulation_max)
@@ -277,7 +295,8 @@ float Controller_PI::control_loop_PI (float encoder_position)
 
     // Implement control loop and motor control command
 
-    float output = error * gain_kP + integral_per_cycle * gain_kI;             // I think "output" is the same as "setpoint_new"
+    float output = error * gain_kP + integral_cumulation * gain_kI;             // I think "output" is the same as "setpoint_new"
+
 
 
 
@@ -486,7 +505,7 @@ float Controller_PID::control_loop_PID (float encoder_position)
 
     // Implement control loop and motor control command
 
-    float output = (error * gain_kP) + (integral_per_cycle * gain_kI) + (derivative_per_cycle * gain_kD);             // I think "output" is the same as "setpoint_new"
+    float output = (error * gain_kP) + (integral_cumulation * gain_kI) + (derivative_per_cycle * gain_kD);             // I think "output" is the same as "setpoint_new"
 
 
 

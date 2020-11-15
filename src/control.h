@@ -24,6 +24,9 @@
 
 #include "libraries&constants.h"
 
+// Controller to take in 3 Gains, P I D and Setpoint (GCode) and a Feedback (Encoder)
+
+
 class Controller_P
 {
 protected:
