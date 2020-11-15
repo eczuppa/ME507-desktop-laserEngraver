@@ -36,364 +36,11 @@
 // Or will we just have 5 instances of Controller_PID, motor1_x, motor1_y, motor2_x, motor2_y, laser_power
 // Do I need to call it "setpoint_P"? ... I don't think I need to cause it's protected within this class, right?
 
+// The control loops will need to control both motors, x and y for each. In order to achieve an [X, Y]
+// position, both motors will need to be moving at the same time
+
 // timing, potentially use Micros or Millis
 // Potentially use VTaskDelayUntil
-
-
-
-
-
-// ------------ P Controller ------------ //
-
-
-/** @brief   Creates a Proportional only controller to drive a motor
- *  @details This constructor sets up the Proportional only controller. It does this
- *           by taking in a gain value and a setpoint (gotten from the GCode). It reads
- *           the actual position from the encoder output, compares this to the theoretical
- *           position from the setpoint (initially from the GCode), computes an error value 
- *           and updates the setpoint (motor command) to minimize the error.
- *           It also will have functions that allow the gain and setpoint protected variables
- *           to be changed by either the user or by the GCode.
- *  @param   kP_gain This is the parameter for the input gain for the Proportional control
- *  @param   setpoint_initial This is the initial value of the setpoint 
- */
-
-Controller_P::Controller_P (float kP_gain, float setpoint_initial)
-{
-    // Save the parameter and initialize it as "gain_KP" 
-    gain_kP = kP_gain;
-
-    // Save the parameter and initialize it as "setpoint" 
-    setpoint = setpoint_initial;
-
-    // Parameters that are used in this class specifically
-
-    current_feedback = 0;
-    feedback = 0;
-
-    current_time = 0;
-    last_time = 0;
-
-    error = 0;
-    last_error = 0;
-
-
-
-    // Set up any pins that need to be configured here
-
-}
-
-
-/** @brief   Set up the Proportional only control loop
- *  @details Takes the encoder's position and compares this with the current 
- *           setpoint from the GCode. Does calculations to determine a new motor 
- *           command and return this new motor command.
- *  @param   encoder_position This input is the value of perceived position sent 
- *           from the encoder
- *  @returns The current value of the filter's output
- */
-float Controller_P::control_loop_P (float encoder_position)
-{
-
-    // Take in the encoder position from either a share or a queue
-    // Use function pointer to do this? See example PID code
-
-    // current_feedback = encoder_share.get ()          // fill in with correct names
-
-
-    // Calculate the error between the current setpoint and the encoder position
-
-    error = setpoint - current_feedback;
-
-
-
-    // // ----- Won't need delta_time for a Proportional Controller only -----
-    // // calculate delta_time from grabbing current_time
-
-    // // current_time = timer_share.get ()          // fill in with correct names
-
-    // float delta_time = current_time - last_time;
-
-    // // Save this for the next iteration
-    // current_time = last_time;
-
-
-
-    // Implement control loop and motor control command
-
-    float output = error * gain_kP;             // I think "output" is the same as "setpoint_new"
-
-
-
-    // prepare variables for the next iteration, make sure this line is after when the 
-    // get used above in the control loop code
-    current_time = last_time;
-    error = last_error;
-
-
-
-    // Return the result of the motor command
-        // ????? Will this result then go back into the motor, which will 
-        // in turn come back to this function as a encoder reading?
-        // I think yes, but maybe not
-
-}
-
-
-/** @brief   Set the controller's gain coefficient kP
- *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
- */
- void Controller_P::set_gain_kP (float gain_kP_new)
- {
-    // In order to be able to change the protected variable "gain_kP"
-    gain_kP = gain_kP_new;
-
- }
-
-/** @brief   Get the controller's gain coefficient kP
- *  @param   gain_kP The value for the controller's gain coefficient, kP
- */
- float Controller_P::get_gain_kP ()
- {
-    // In order to be able to change the protected variable "gain_kP"
-    return gain_kP;
-
- }
-
-
-/** @brief   Set the controller's setpoint
- *  @param   setpoint_new A new value for the controller's setpoint. This value will be contantly
- *           being updated by the GCode processor
- */
-float Controller_P::change_setpoint_P (float setpoint_new)
- {
-    // In order to be able to change the protected variable "setpoint"
-    // The GCode processer will use this to constantly feed in new datapoints from the GCode
-    setpoint = setpoint_new;
-
-    return setpoint;
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ------------ PI Controller ------------ //
-
-/** @brief   Creates a Proportional and Integral  controller to drive a motor
- *  @details This constructor sets up the Proportional and Integral controller. It does this
- *           by taking in two gain values and a setpoint (gotten from the GCode). It reads
- *           the actual position from the encoder output, compares this to the theoretical
- *           position from the setpoint (initially from the GCode), computes an error value 
- *           and updates the setpoint (motor command) to minimize the error.
- *           It also will have functions that allow the gain and setpoint protected variables
- *           to be changed by either the user or by the GCode.
- *  @param   kP_gain This is the parameter for the input gain for the Proportional control
- *  @param   kI_gain This is the parameter for the input gain for the Integral control
- *  @param   setpoint_initial This is the initial value of the setpoint 
- */
-
-Controller_PI::Controller_PI (float kP_gain, float kI_gain, float setpoint_initial)
-{
-    // Save the parameter and initialize it as "gain_KP" 
-    gain_kP = kP_gain;
-
-    // Save the parameter and initialize it as "gain_KI" 
-    gain_kI = kI_gain;
-
-    // Save the parameter and initialize it as "setpoint" 
-    setpoint = setpoint_initial;
-
-    // Parameters that are used in this class specifically
-
-    current_feedback = 0;
-    feedback = 0;
-
-    current_time = 0;
-    last_time = 0;
-
-    error = 0;
-    last_error = 0;
-
-    integral_cumulation = 0;
-    integral_cumulation_max = 10000;            // Set this number when we have better understanding of the device parameters
-
-
-    // Set up any pins that need to be configured here
-
-}
-
-
-/** @brief   Set up the Proportional and Integral control loop
- *  @details Takes the encoder's position and compares this with the current 
- *           setpoint from the GCode. Does calculations to determine a new motor 
- *           command and return this new motor command.
- *  @param   encoder_position This input is the value of perceived position sent 
- *           from the encoder
- *  @returns The current value of the filter's output
- */
-float Controller_PI::control_loop_PI (float encoder_position)
-{
-
-    // Take in the encoder position from either a share or a queue
-    // Use function pointer to do this? See example PID code
-
-    // current_feedback = encoder_share.get ()          // fill in with correct names
-
-
-    // Calculate the error between the current setpoint and the encoder position
-    error = setpoint - current_feedback;
-
-
-
-    // // calculate delta_time from grabbing current_time
-    // current_time = timer_share.get ()          // fill in with correct names
-
-    float delta_time = current_time - last_time;
-
-    // Save this for the next iteration
-    current_time = last_time;
-
-
-    // Do integral calculations per cycle
-    float integral_per_cycle = (last_error + error / 2) * delta_time;       // numerically doing an integral
-
-
-
-    // Should we? Compare to a Saturation for Motor (CONSTANT) (+- 100%) and do an IF statement from there
-    // This would probably work well for velocity control but maybe not so well for position control
-   
-    //Add this cycle's integral to the integral cumulation
-    integral_cumulation += integral_per_cycle;
-
-
-
-    // PLEASE CHANGE ******** Compare integral_cumulation * gain_kI to some saturation 
-    // max value so our numbers don't get to huge.
-   
-
-
-    // make sure that this integral_cumulation does not exceed a max value or get super huge
-    if (integral_cumulation > integral_cumulation_max)
-    {
-        integral_cumulation = integral_cumulation_max;      // set to max value 
-    }
-    if (integral_cumulation < -integral_cumulation_max)
-    {
-        integral_cumulation = -integral_cumulation_max;      // set to neg max value 
-    }
-
-
-
-    // Implement control loop and motor control command
-
-    float output = error * gain_kP + integral_cumulation * gain_kI;             // I think "output" is the same as "setpoint_new"
-
-
-
-
-    // prepare variables for the next iteration, make sure this line is after when the 
-    // get used above in the control loop code
-    current_time = last_time;
-    error = last_error;
-
-
-    // This code could be nice so the code doesn't accidently crash the laser head!
-    // Still need to define the upper and lower bounds in the header file
-    // //Trim the output to the bounds if needed.
-    // if(outputBounded)
-    // {
-    //   if(output > outputUpperBound) output = outputUpperBound;
-    //   if(output < outputLowerBound) output = outputLowerBound;
-    // }
-
-
-    // Return the result of the motor command
-        // ????? Will this result then go back into the motor, which will 
-        // in turn come back to this function as a encoder reading?
-        // I think yes, but maybe not
-
-}
-
-
-/** @brief   Set the controller's gain coefficient kP and kI in one method
- *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
- *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
- */
- void Controller_PI::set_gain_PI (float gain_kP_new, float gain_kI_new)
- {
-    // In order to be able to change the protected variable "gain_kP" and "gain_kI"
-    gain_kP = gain_kP_new;
-
-    gain_kI = gain_kI_new;
-    
- }
-
-
-/** @brief   Set the controller's gain coefficient kP
- *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
- */
- void Controller_PI::set_gain_kP (float gain_kP_new)
- {
-    // In order to be able to change the protected variable "gain_kP"
-    gain_kP = gain_kP_new;
-
- }
-
-/** @brief   Get the controller's gain coefficient kP
- *  @param   gain_kP The value for the controller's gain coefficient, kP
- */
- float Controller_PI::get_gain_kP ()
- {
-    // In order to be able to change the protected variable "gain_kP"
-    return gain_kP;
-
- }
-
-
-/** @brief   Set the controller's gain coefficient kI
- *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
- */
- void Controller_PI::set_gain_kI (float gain_kI_new)
- {
-    // In order to be able to change the protected variable "gain_kI"
-    gain_kI = gain_kI_new;
-
- }
-
-/** @brief   Get the controller's gain coefficient kI
- *  @param   gain_kI The value for the controller's gain coefficient, kI
- */
- float Controller_PI::get_gain_kI ()
- {
-    // In order to be able to change the protected variable "gain_kI"
-    return gain_kI;
-
- }
-
-
-/** @brief   Set the controller's setpoint
- *  @param   setpoint_new A new value for the controller's setpoint. This value will be contantly
- *           being updated by the GCode processor
- */
-float Controller_PI::change_setpoint_PI (float setpoint_new)
- {
-    // In order to be able to change the protected variable "setpoint"
-    // The GCode processer will use this to constantly feed in new datapoints from the GCode
-    setpoint = setpoint_new;
-
-    return setpoint;
- }
-
-
 
 
 
@@ -415,7 +62,7 @@ float Controller_PI::change_setpoint_PI (float setpoint_new)
  *  @param   setpoint_initial This is the initial value of the setpoint 
  */
 
-Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, float setpoint_initial)
+Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, float setpoint_initial, float feedback_initial)
 {
     // Save the parameter and initialize it as "gain_KP" 
     gain_kP = kP_gain;
@@ -426,13 +73,19 @@ Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, flo
     // Save the parameter and initialize it as "gain_KD" 
     gain_kI = kI_gain;
 
-    // Save the parameter and initialize it as "setpoint" 
+    // Save the parameter and initialize it as "setpoint"
+    // Is this some sort of GCode_Share value?
     setpoint = setpoint_initial;
+
+    // Save the parameter and initialize it as "feedback"
+    // Is this some sort of Encoder_Share value?
+    feedback = feedback_initial;
+
+
 
     // Parameters that are used in this class specifically
 
     current_feedback = 0;
-    feedback = 0;
 
     current_time = 0;
     last_time = 0;
@@ -453,15 +106,16 @@ Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, flo
  *  @details Takes the encoder's position and compares this with the current 
  *           setpoint from the GCode. Does calculations to determine a new motor 
  *           command and return this new motor command.
- *  @param   encoder_position This input is the value of perceived position sent 
- *           from the encoder
+//  *  @param   encoder_position This input is the value of perceived position sent 
+//  *           from the encoder - - - - > i don't think we need an input to this method
  *  @returns The current value of the filter's output
  */
-float Controller_PID::control_loop_PID (float encoder_position)
+void Controller_PID::control_loop_PID ()
 {
 
     // Take in the encoder position from either a share or a queue
-    // Use function pointer to do this? See example PID code
+    // Do I need to define the share's and queues as inputs in the control_loop_PID(**Define Here**)?
+    // Also will I need to configure an output (instead of it just being "void")?
 
     // current_feedback = encoder_share.get ()          // fill in with correct names
 
@@ -530,8 +184,6 @@ float Controller_PID::control_loop_PID (float encoder_position)
         // I think yes, but maybe not
 
 }
-
-
 
 
 
@@ -631,3 +283,380 @@ float Controller_PID::change_setpoint_PID (float setpoint_new)
 
     return setpoint;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // * * * * * * * * * * This is the P and PI controllers only code * * * * * * * * * 
+
+// // Will need to be updated to match the PID controller code if you want to run it well
+
+
+// // ------------ P Controller ------------ //
+
+
+// /** @brief   Creates a Proportional only controller to drive a motor
+//  *  @details This constructor sets up the Proportional only controller. It does this
+//  *           by taking in a gain value and a setpoint (gotten from the GCode). It reads
+//  *           the actual position from the encoder output, compares this to the theoretical
+//  *           position from the setpoint (initially from the GCode), computes an error value 
+//  *           and updates the setpoint (motor command) to minimize the error.
+//  *           It also will have functions that allow the gain and setpoint protected variables
+//  *           to be changed by either the user or by the GCode.
+//  *  @param   kP_gain This is the parameter for the input gain for the Proportional control
+//  *  @param   setpoint_initial This is the initial value of the setpoint 
+//  */
+
+// Controller_P::Controller_P (float kP_gain, float setpoint_initial)
+// {
+//     // Save the parameter and initialize it as "gain_KP" 
+//     gain_kP = kP_gain;
+
+//     // Save the parameter and initialize it as "setpoint" 
+//     setpoint = setpoint_initial;
+
+//     // Parameters that are used in this class specifically
+
+//     current_feedback = 0;
+//     feedback = 0;
+
+//     current_time = 0;
+//     last_time = 0;
+
+//     error = 0;
+//     last_error = 0;
+
+
+
+//     // Set up any pins that need to be configured here
+
+// }
+
+
+// /** @brief   Set up the Proportional only control loop
+//  *  @details Takes the encoder's position and compares this with the current 
+//  *           setpoint from the GCode. Does calculations to determine a new motor 
+//  *           command and return this new motor command.
+//  *  @param   encoder_position This input is the value of perceived position sent 
+//  *           from the encoder
+//  *  @returns The current value of the filter's output
+//  */
+// float Controller_P::control_loop_P (float encoder_position)
+// {
+
+//     // Take in the encoder position from either a share or a queue
+//     // Use function pointer to do this? See example PID code
+
+//     // current_feedback = encoder_share.get ()          // fill in with correct names
+
+
+//     // Calculate the error between the current setpoint and the encoder position
+
+//     error = setpoint - current_feedback;
+
+
+
+//     // // ----- Won't need delta_time for a Proportional Controller only -----
+//     // // calculate delta_time from grabbing current_time
+
+//     // // current_time = timer_share.get ()          // fill in with correct names
+
+//     // float delta_time = current_time - last_time;
+
+//     // // Save this for the next iteration
+//     // current_time = last_time;
+
+
+
+//     // Implement control loop and motor control command
+
+//     float output = error * gain_kP;             // I think "output" is the same as "setpoint_new"
+
+
+
+//     // prepare variables for the next iteration, make sure this line is after when the 
+//     // get used above in the control loop code
+//     current_time = last_time;
+//     error = last_error;
+
+
+
+//     // Return the result of the motor command
+//         // ????? Will this result then go back into the motor, which will 
+//         // in turn come back to this function as a encoder reading?
+//         // I think yes, but maybe not
+
+// }
+
+
+// /** @brief   Set the controller's gain coefficient kP
+//  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+//  */
+//  void Controller_P::set_gain_kP (float gain_kP_new)
+//  {
+//     // In order to be able to change the protected variable "gain_kP"
+//     gain_kP = gain_kP_new;
+
+//  }
+
+// /** @brief   Get the controller's gain coefficient kP
+//  *  @param   gain_kP The value for the controller's gain coefficient, kP
+//  */
+//  float Controller_P::get_gain_kP ()
+//  {
+//     // In order to be able to change the protected variable "gain_kP"
+//     return gain_kP;
+
+//  }
+
+
+// /** @brief   Set the controller's setpoint
+//  *  @param   setpoint_new A new value for the controller's setpoint. This value will be contantly
+//  *           being updated by the GCode processor
+//  */
+// float Controller_P::change_setpoint_P (float setpoint_new)
+//  {
+//     // In order to be able to change the protected variable "setpoint"
+//     // The GCode processer will use this to constantly feed in new datapoints from the GCode
+//     setpoint = setpoint_new;
+
+//     return setpoint;
+//  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // ------------ PI Controller ------------ //
+
+// /** @brief   Creates a Proportional and Integral  controller to drive a motor
+//  *  @details This constructor sets up the Proportional and Integral controller. It does this
+//  *           by taking in two gain values and a setpoint (gotten from the GCode). It reads
+//  *           the actual position from the encoder output, compares this to the theoretical
+//  *           position from the setpoint (initially from the GCode), computes an error value 
+//  *           and updates the setpoint (motor command) to minimize the error.
+//  *           It also will have functions that allow the gain and setpoint protected variables
+//  *           to be changed by either the user or by the GCode.
+//  *  @param   kP_gain This is the parameter for the input gain for the Proportional control
+//  *  @param   kI_gain This is the parameter for the input gain for the Integral control
+//  *  @param   setpoint_initial This is the initial value of the setpoint 
+//  */
+
+// Controller_PI::Controller_PI (float kP_gain, float kI_gain, float setpoint_initial)
+// {
+//     // Save the parameter and initialize it as "gain_KP" 
+//     gain_kP = kP_gain;
+
+//     // Save the parameter and initialize it as "gain_KI" 
+//     gain_kI = kI_gain;
+
+//     // Save the parameter and initialize it as "setpoint" 
+//     setpoint = setpoint_initial;
+
+//     // Parameters that are used in this class specifically
+
+//     current_feedback = 0;
+//     feedback = 0;
+
+//     current_time = 0;
+//     last_time = 0;
+
+//     error = 0;
+//     last_error = 0;
+
+//     integral_cumulation = 0;
+//     integral_cumulation_max = 10000;            // Set this number when we have better understanding of the device parameters
+
+
+//     // Set up any pins that need to be configured here
+
+// }
+
+
+// /** @brief   Set up the Proportional and Integral control loop
+//  *  @details Takes the encoder's position and compares this with the current 
+//  *           setpoint from the GCode. Does calculations to determine a new motor 
+//  *           command and return this new motor command.
+//  *  @param   encoder_position This input is the value of perceived position sent 
+//  *           from the encoder
+//  *  @returns The current value of the filter's output
+//  */
+// float Controller_PI::control_loop_PI (float encoder_position)
+// {
+
+//     // Take in the encoder position from either a share or a queue
+//     // Use function pointer to do this? See example PID code
+
+//     // current_feedback = encoder_share.get ()          // fill in with correct names
+
+
+//     // Calculate the error between the current setpoint and the encoder position
+//     error = setpoint - current_feedback;
+
+
+
+//     // // calculate delta_time from grabbing current_time
+//     // current_time = timer_share.get ()          // fill in with correct names
+
+//     float delta_time = current_time - last_time;
+
+//     // Save this for the next iteration
+//     current_time = last_time;
+
+
+//     // Do integral calculations per cycle
+//     float integral_per_cycle = (last_error + error / 2) * delta_time;       // numerically doing an integral
+
+
+
+//     // Should we? Compare to a Saturation for Motor (CONSTANT) (+- 100%) and do an IF statement from there
+//     // This would probably work well for velocity control but maybe not so well for position control
+   
+//     //Add this cycle's integral to the integral cumulation
+//     integral_cumulation += integral_per_cycle;
+
+
+
+//     // PLEASE CHANGE ******** Compare integral_cumulation * gain_kI to some saturation 
+//     // max value so our numbers don't get to huge.
+   
+
+
+//     // make sure that this integral_cumulation does not exceed a max value or get super huge
+//     if (integral_cumulation > integral_cumulation_max)
+//     {
+//         integral_cumulation = integral_cumulation_max;      // set to max value 
+//     }
+//     if (integral_cumulation < -integral_cumulation_max)
+//     {
+//         integral_cumulation = -integral_cumulation_max;      // set to neg max value 
+//     }
+
+
+
+//     // Implement control loop and motor control command
+
+//     float output = error * gain_kP + integral_cumulation * gain_kI;             // I think "output" is the same as "setpoint_new"
+
+
+
+
+//     // prepare variables for the next iteration, make sure this line is after when the 
+//     // get used above in the control loop code
+//     current_time = last_time;
+//     error = last_error;
+
+
+//     // This code could be nice so the code doesn't accidently crash the laser head!
+//     // Still need to define the upper and lower bounds in the header file
+//     // //Trim the output to the bounds if needed.
+//     // if(outputBounded)
+//     // {
+//     //   if(output > outputUpperBound) output = outputUpperBound;
+//     //   if(output < outputLowerBound) output = outputLowerBound;
+//     // }
+
+
+//     // Return the result of the motor command
+//         // ????? Will this result then go back into the motor, which will 
+//         // in turn come back to this function as a encoder reading?
+//         // I think yes, but maybe not
+
+// }
+
+
+// /** @brief   Set the controller's gain coefficient kP and kI in one method
+//  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+//  *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+//  */
+//  void Controller_PI::set_gain_PI (float gain_kP_new, float gain_kI_new)
+//  {
+//     // In order to be able to change the protected variable "gain_kP" and "gain_kI"
+//     gain_kP = gain_kP_new;
+
+//     gain_kI = gain_kI_new;
+    
+//  }
+
+
+// /** @brief   Set the controller's gain coefficient kP
+//  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+//  */
+//  void Controller_PI::set_gain_kP (float gain_kP_new)
+//  {
+//     // In order to be able to change the protected variable "gain_kP"
+//     gain_kP = gain_kP_new;
+
+//  }
+
+// /** @brief   Get the controller's gain coefficient kP
+//  *  @param   gain_kP The value for the controller's gain coefficient, kP
+//  */
+//  float Controller_PI::get_gain_kP ()
+//  {
+//     // In order to be able to change the protected variable "gain_kP"
+//     return gain_kP;
+
+//  }
+
+
+// /** @brief   Set the controller's gain coefficient kI
+//  *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+//  */
+//  void Controller_PI::set_gain_kI (float gain_kI_new)
+//  {
+//     // In order to be able to change the protected variable "gain_kI"
+//     gain_kI = gain_kI_new;
+
+//  }
+
+// /** @brief   Get the controller's gain coefficient kI
+//  *  @param   gain_kI The value for the controller's gain coefficient, kI
+//  */
+//  float Controller_PI::get_gain_kI ()
+//  {
+//     // In order to be able to change the protected variable "gain_kI"
+//     return gain_kI;
+
+//  }
+
+
+// /** @brief   Set the controller's setpoint
+//  *  @param   setpoint_new A new value for the controller's setpoint. This value will be contantly
+//  *           being updated by the GCode processor
+//  */
+// float Controller_PI::change_setpoint_PI (float setpoint_new)
+//  {
+//     // In order to be able to change the protected variable "setpoint"
+//     // The GCode processer will use this to constantly feed in new datapoints from the GCode
+//     setpoint = setpoint_new;
+
+//     return setpoint;
+//  }
+
+
+
+
