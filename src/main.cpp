@@ -64,41 +64,51 @@ void setup()
     //MATTHEW test section
     #ifdef MATTHEW_TESTING
 
-    // Set up a singular line of GCode that will go into the control loop for motor A
-    float GCode_A_pos = 4;              // this will go into a share GCode_share that will be the "desired" input for position
-    float GCode_A_vel = 10;             // this will go into a share GCode_share that will be the "desired" input for velocity
+    // Set up share's in "share_testing.h and share_testing.cpp"
+    #include "share_testing.h"
 
-    // Set up a singular line of encoder code that will go into the control loop for motor A
-    float encoder_A_pos = 4.2;          // this will go into a share Encoder_share that will be the "actual" input for position
-    float encoder_A_vel = 10.2;         // this will go into a share Encoder_share that will be the "actual" input for velocity
+
+    // workflow: now we must go over to the control.cpp file and declare an "extern" in order 
+    // to be able to use the my_share.get functionality
+    // ... Now I don't know if I need to do this actually...
+    // Ask about this
+
+
+    //declare the shares again as an "extern" so this file can read them
+    extern Share<float> GCode_share_pos;
+    extern Share<float> GCode_share_vel;
+    extern Share<float> encoder_share_pos;
+    extern Share<float> encoder_share_vel;
+
+    // We still gotta ".get" those fine values in "share_testing" now don't we?
+
+    // make some constants that will receive the values that are in the shares
+    float position_desired;
+    float position_actual;
+    float velocity_desired;
+    float velocity_actual;
+
+    float testing_output = 0;
+
+    // ".get" the values from the shares
+    GCode_share_pos.get (position_desired);          // get data out of the share
+    encoder_share_pos.get (position_actual);         // get data out of the share
+    GCode_share_vel.get (velocity_desired);          // get data out of the share
+    encoder_share_vel.get (velocity_actual);         // get data out of the share   
+
+    // Set up an instance of class "controller_PID" to see if the shares worked! (and to see if everything else works)
+    // Start by setting up a class for just motor A
 
     // Set up the gain's for PID controller
     float kP = 10;
     float kI = 0.1;
     float kD = 0.01;
 
-    // Now it's time to set up the share's so I can set up an instance of the class
-    // Initial set up of shares
-    Share<float> GCode_share_pos ("Desired Position");
-    Share<float> GCode_share_vel ("Desired Velocity");
-    Share<float> encoder_share_pos ("Actual Position");
-    Share<float> encoder_share_vel ("Actual Velocity");
-
-    // Putting values into shares... like a boss
-    GCode_share_pos.put (GCode_A_pos);          // put data into share
-    GCode_share_vel.put (GCode_A_vel);          // put data into share
-    encoder_share_pos.put (encoder_A_pos);      // put data into share
-    encoder_share_vel.put (encoder_A_vel);      // put data into share    
-
-    // workflow: now we must go over to the control.cpp file and declare an "extern" in order 
-    // to be able to use the my_share.get functionality
+    // Create instance called motor_A with some fun inputs
+    Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual);
 
 
-
-    // Set up an instance of class "controller_PID" to see if the shares worked! (and to see if everything else works)
-    // Start by setting up a class for just motor A
-
-
+    testing_output = motor_A.get_output();
 
 
 

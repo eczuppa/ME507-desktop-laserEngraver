@@ -94,6 +94,8 @@ protected:
     float output_filter;
     float output_PWM;
 
+    float output;
+
 public:
 
     // ----- Define the Constructor -----
@@ -142,18 +144,20 @@ public:
  
 
     // set_pos_desired_PID allows the GCode to continually feed in new position commands
-    float set_pos_desired_PID (float pos_desired_new);        // This will allow the GCode to overwrite it's previous commands
+    void set_pos_desired_PID (float pos_desired_new);        // This will allow the GCode to overwrite it's previous commands
 
     // get_pos_desired_PID helps with testing
     float get_pos_desired_PID ();
 
 
     // set_vel_desired_PID allows the GCode to continually feed in new velocity commands
-    float set_vel_desired_PID (float vel_desired_new);        // This will allow the GCode to overwrite it's previous commands
+    void set_vel_desired_PID (float vel_desired_new);        // This will allow the GCode to overwrite it's previous commands
 
     // get_vel_desired_PID helps with testing
     float get_vel_desired_PID ();
 
+    // get_output displays the output from the PID loop
+    float get_output ();                               // Value will be fed to the motors, PWM
 
 
 

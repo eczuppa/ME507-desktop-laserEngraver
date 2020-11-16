@@ -33,7 +33,7 @@
 
 // Should we include the "output_filter" and "output_PWM" variables as inputs so we can tune them easier?
 
-
+// Do I need to have the shares and queues in this file or will then just be in the "main" and be inputs?
 
 // What should we be calling the output of the control loop? "output"? "setpoint_new"?
 
@@ -116,11 +116,12 @@ Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, flo
 
 
     integral_cumulation = 0;
-    integral_cumulation_max = 100;            // Set this number when we have a better understanding of the device parameters
+    integral_cumulation_max = 100;           // Set this number when we have a better understanding of the device parameters
 
     output_filter = 10;                      // Set this number when we have a better understanding of the device parameters
-    output_PWM = 1;                             // Set this number so that the units work out for outputing a PWM signal
-
+    output_PWM = 1;                          // Set this number so that the units work out for outputing a PWM signal
+    
+    output = 0;                              // This is the value of the final output of the control loop
     // Set up any pins that need to be configured here
 
 }
@@ -217,7 +218,7 @@ void Controller_PID::control_loop_PID ()
     // Multiply "output_sum2" by the constant "output_PWM" in order to output a PWM signal
 
 
-    int32_t output = output_sum2 * output_PWM;
+    output = output_sum2 * output_PWM;
 
 
 
@@ -331,7 +332,7 @@ void Controller_PID::control_loop_PID ()
  *  @param   pos_desired_new A new value for the controller's desired position. This value will be contantly
  *           being updated by the GCode processor
  */
-float Controller_PID::set_pos_desired_PID (float pos_desired_new)
+void Controller_PID::set_pos_desired_PID (float pos_desired_new)
  {
     // In order to be able to change the protected variable "pos_desired"
     // The GCode processer will use this to constantly feed in new datapoints from the GCode
@@ -355,13 +356,14 @@ float Controller_PID::get_pos_desired_PID ()
  *  @param   vel_desired_new A new value for the controller's desired velocity. This value will be contantly
  *           being updated by the GCode processor
  */
-float Controller_PID::set_vel_desired_PID (float vel_desired_new)
+void Controller_PID::set_vel_desired_PID (float vel_desired_new)
  {
     // In order to be able to change the protected variable "vel_desired"
     // The GCode processer will use this to constantly feed in new datapoints from the GCode
     vel_desired = vel_desired_new;
 
 
+   
  }
 
 /** @brief   Get the controller's desired velocity command that comes from the GCode
@@ -374,7 +376,14 @@ float Controller_PID::get_vel_desired_PID ()
  }
 
 
-
+/** @brief   Get the output of the control loop
+ *  @param   output The value for the controller's desired velocity. 
+ */
+float Controller_PID::get_output ()
+ {
+    // Return the "output" value, will be used to (hopefully) correct the motors and make this control loop worthwhile
+    return output;
+ }
 
 
 
