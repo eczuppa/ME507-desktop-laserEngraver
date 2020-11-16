@@ -49,40 +49,57 @@ protected:
     // The value of the gain for the Derivative part of the Controller: kD
     float gain_kD;
 
-    // The value for the Setpoint, this is the commanded position from GCode
-    float setpoint;                     // potentially make this a large integer instead of a float
-    // This will be in terms of A and B (converted from X and Y values in the kinematics module)
+    // Position Desired and Actual:
 
-    // This is the value for Feedback that comes from the encoder
-    float feedback;
-    // This will be in terms of linear A and B that will be calculated in the kinematics module 
+    float pos_desired;          // comes from the GCode (setpoint/target)
+    float pos_actual;           // comes from the encoder (feedback)
 
 
+    // Velocity Desired and Actual:
+
+    float vel_desired;          // comes from the GCode (setpoint/target)
+    float vel_actual;           // comes from the encoder (feedback)
 
 
-    // current_feedback is the current value coming from the from the encoder
-    float current_feedback;
+    // // The value for the Setpoint, this is the commanded position from GCode
+    // float setpoint;                     // potentially make this a large integer instead of a float
+    // // This will be in terms of A and B (converted from X and Y values in the kinematics module)
 
-    // time will come from our overall timer
+    // // This is the value for Feedback that comes from the encoder
+    // float feedback;
+    // // This will be in terms of linear A and B that will be calculated in the kinematics module 
+
+
+    // This is the current actual position and velocity (feedback) that is 
+    // continually being read by the encoder.
+    float pos_actual_current;
+    float vel_actual_current;
+
+    // time will come from our overall timer (using millis or something)
     float current_time;
     float last_time;
 
-    // error will be computed as a difference between setpoint and feedback
-    float error;
-    float last_error;
+    // The error will be computed as th difference between the Desired and the Actual
+    float pos_error;
+    float pos_last_error;
+
+    float vel_error;
+    float vel_last_error;
 
     float integral_cumulation;
     float integral_cumulation_max;
 
     float derivative_per_cycle;
 
+    float output_filter;
+    float output_PWM;
 
 public:
 
     // ----- Define the Constructor -----
 
-    // Constructor for Controller_P that takes in a gain, setpoint, and feedback
-    Controller_PID (float kP_gain, float kI_gain, float kD_gain, float setpoint_initial, float feedback_initial);              
+    // Constructor for Controller_P that takes in a gain, position desired, position actual, velocity desired, and velocity actual)
+    Controller_PID (float kP_gain, float kI_gain, float kD_gain, float pos_desired_initial, float pos_actual_initial, float vel_desired_initial, float vel_actual_initial);              
     // Note: make these input values equal to the Protected variables in the .cpp file
 
 
@@ -96,7 +113,7 @@ public:
     // We will use this loop to control the A (left) and B (right) motors
     // Might need to include inputs and outputs for this one instead of just "void"
 
-    
+
 
 
 
@@ -124,12 +141,18 @@ public:
     float get_gain_kD ();                        // This will be for testing only
  
 
-    // change_setpoint_PID allows the user to input a new gain value. Allows us to 
-    // change the Protected variable. The GCode will continually overwrite this value
-    float change_setpoint_PID (float setpoint_new);        // This will allow the GCode to overwrite the initial setpoint
+    // set_pos_desired_PID allows the GCode to continually feed in new position commands
+    float set_pos_desired_PID (float pos_desired_new);        // This will allow the GCode to overwrite it's previous commands
+
+    // get_pos_desired_PID helps with testing
+    float get_pos_desired_PID ();
 
 
+    // set_vel_desired_PID allows the GCode to continually feed in new velocity commands
+    float set_vel_desired_PID (float vel_desired_new);        // This will allow the GCode to overwrite it's previous commands
 
+    // get_vel_desired_PID helps with testing
+    float get_vel_desired_PID ();
 
 
 
