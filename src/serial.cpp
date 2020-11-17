@@ -8,7 +8,7 @@
 
 
 
-extern Queue<int32_t> encoder_queue;
+extern Queue<float> encoder_queue;
 Share<int32_t> s_duty_cycle ("Power");
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
@@ -64,8 +64,8 @@ int32_t parseIntWithEcho (Stream& stream)
 void task_ui (void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
-    int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
-    int32_t enc_pos_out;
+    //int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
+    float enc_pos_out;
 
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
@@ -75,12 +75,12 @@ void task_ui (void* p_params)
     // The task's infinite loop goes here
     for (;;)
     {
-        // Ask for User input in a desired range
-        Serial << "Enter desired Duty Cycle (+/-100%): " << endl;
-        // Use parseIntWithEcho to get integer entered into serial monitor
-        user_power = parseIntWithEcho(Serial);
-        // Take output of parseIntWithEcho and put in share duty_cycle
-        s_duty_cycle.put(user_power);
+        // // Ask for User input in a desired range
+        // Serial << "Enter desired Duty Cycle (+/-100%): " << endl;
+        // // Use parseIntWithEcho to get integer entered into serial monitor
+        // user_power = parseIntWithEcho(Serial);
+        // // Take output of parseIntWithEcho and put in share duty_cycle
+        // s_duty_cycle.put(user_power);
 
         // Print Current Encoder Position
         
@@ -88,7 +88,7 @@ void task_ui (void* p_params)
         {
             encoder_queue.get(enc_pos_out);
         }
-        Serial << "The current Encoder position in ticks is: " << enc_pos_out << endl;
+        Serial << "The current Encoder position in mm is: " << enc_pos_out << endl;
 
 
         vTaskDelay(UI_period);
