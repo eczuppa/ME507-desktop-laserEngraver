@@ -22,7 +22,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "libraries&constants.h"
+// #include "libraries&constants.h"
 
 // Controller to take in 3 Gains, P I D and Setpoint (GCode) and a Feedback (Encoder)
 
@@ -158,6 +158,9 @@ public:
 
     // get_output displays the output from the PID loop
     float get_output ();                               // Value will be fed to the motors, PWM
+
+    // get_pos_error displays the position error from the PID loop
+    float get_pos_error ();                               // Value of position error
 
 
 

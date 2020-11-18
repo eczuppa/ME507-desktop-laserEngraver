@@ -116,14 +116,13 @@ Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, flo
 
 
     integral_cumulation = 0;
-    integral_cumulation_max = 100;           // Set this number when we have a better understanding of the device parameters
+    integral_cumulation_max = 1000;           // Set this number when we have a better understanding of the device parameters
 
-    output_filter = 10;                      // Set this number when we have a better understanding of the device parameters
+    output_filter = 1;                      // Set this number when we have a better understanding of the device parameters
     output_PWM = 1;                          // Set this number so that the units work out for outputing a PWM signal
     
     output = 0;                              // This is the value of the final output of the control loop
-    // Set up any pins that need to be configured here
-
+    
 }
 
 
@@ -150,7 +149,7 @@ void Controller_PID::control_loop_PID ()
    //  current_time = timer_share.get ()          // fill in with correct names
 
     // FOR TESTING ONLY
-    current_time = 1000;                        // ms
+    current_time = 100;                        // ms
 
 
     float delta_time = current_time - last_time;
@@ -170,14 +169,11 @@ void Controller_PID::control_loop_PID ()
 
 
     // Error between the currect "desired" and the "actual" encoder position/velocity
-    pos_error = pos_desired - pos_actual_current;
+    pos_error = pos_desired - pos_actual_current;           // This is not being fed values from the inputs
     vel_error = vel_desired - vel_actual_current;
 
 
     
-
-
-
 
     // Do integral calculations per cycle (using the position error)
     float integral_per_cycle = (pos_last_error + pos_error / 2) * delta_time;       // numerically doing an integral using midpoint calc
@@ -221,7 +217,7 @@ void Controller_PID::control_loop_PID ()
     output = output_sum2 * output_PWM;
 
 
-
+   //  Serial << "Output" << output << endl;
 
 
     // prepare variables for the next iteration, make sure this line is after when the 
@@ -229,6 +225,7 @@ void Controller_PID::control_loop_PID ()
     current_time = last_time;
     pos_error = pos_last_error;
     vel_error = vel_last_error;
+    pos_actual_current = pos_actual;         // This should update the current position
 
 
 
@@ -385,7 +382,16 @@ float Controller_PID::get_output ()
     return output;
  }
 
+// FOR TESTING
 
+/** @brief   Get the position error of the control loop
+ *  @param   pos_error The value for the controller's position error. 
+ */
+float Controller_PID::get_pos_error ()
+ {
+    // Return the "pos_error" value, will be used to (hopefully) correct the motors and make this control loop worthwhile
+    return pos_error;
+ }
 
 
 
