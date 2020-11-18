@@ -13,6 +13,7 @@
 //-----------------------MICROCONTROLLER UI FILES: FOR TESTING-------------------------------
 
 extern Queue<float> encoder_queue;
+
 Share<int32_t> s_duty_cycle ("Power");
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
@@ -70,6 +71,8 @@ void task_ui (void* p_params)
     (void)p_params;                   // Does nothing but shut up a compiler warning
     //int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
     float enc_pos_out;
+    float enc_vel_out;
+    float enc_dt_out;
 
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
@@ -91,8 +94,11 @@ void task_ui (void* p_params)
         if (!encoder_queue.is_empty())
         {
             encoder_queue.get(enc_pos_out);
+            encoder_queue.get(enc_vel_out);
+            encoder_queue.get(enc_dt_out);
         }
-        Serial << "The current Encoder position in mm is: " << enc_pos_out << endl;
+        //Serial << enc_vel_out << endl;
+        Serial << "pos,vel,delta_time is: " << enc_pos_out <<"          "<< enc_vel_out << "            " << enc_dt_out <<endl;
 
 
         vTaskDelay(UI_period);

@@ -11,7 +11,7 @@
 
 
 extern Share<int32_t> s_duty_cycle;
-Queue<float> encoder_queue (200,"position");
+Queue<float> encoder_queue (600,"position");
 
 // void motor_task (void* p_params)
 // {
@@ -51,12 +51,23 @@ void encoder_task (void* p_params)
     LeftEncoder.enc_zero();
     TickType_t xLastWakeTime = xTaskGetTickCount();
     float a_position;
+    float a_velocity;
+    int32_t a_dt;
     //Serial << LeftEncoder.get_overflow() << LeftEncoder.get_prescale() << endl;
 
     for (;;)
     {
-        a_position = LeftEncoder.enc_read_vel();
+        // get position, velocity, and change in time from the encoder
+        a_velocity = LeftEncoder.enc_read_vel();
+        a_dt = LeftEncoder.get_enc_dt();
+        a_position = LeftEncoder.enc_read_pos();
+        
+
+        // put all those values into their respective queues for printing out (parameterization purposes)
         encoder_queue.put(a_position);
+        encoder_queue.put(a_velocity);
+        encoder_queue.put(a_dt);
+        
         vTaskDelayUntil(&xLastWakeTime,encoder_period);
     }
 
