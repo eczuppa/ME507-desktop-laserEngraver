@@ -102,6 +102,8 @@ void task_ui (void* p_params)
 
 //---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
 
+extern Queue<String> string_to_print;
+
 
 /** @brief      Task which reads the serial port and echos back what it sees.
  *  @details    This task reads an input into the serial port (from the python UI
@@ -113,6 +115,51 @@ void echo_serial(void* p_params)
     (void)p_params;                   // Does nothing but shut up a compiler warning
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
-    Serial.setTimeout (0xFFFFFFFF);
+    // Serial.setTimeout (0xFFFFFFFF);
+
+    char incomingByte[64]; // for incoming serial data
+
+    // strcpy(incomingByte,"G1 X46.12 Y39.20 S1.00 F600");
+
+    // Serial << strlen(incomingByte);
+
+    for(;;)
+    {
+        if (Serial.available() > 0) 
+        {
+            //Clear incomingByte char array before entering new data
+            memset(incomingByte, '\0', strlen(incomingByte)*sizeof(char)); 
+            
+            // read the incoming byte:
+            Serial.readBytes(incomingByte,64);
+
+            incomingByte[strlen(incomingByte)] = '\n';
+
+            // Echo what you got:
+            Serial << incomingByte;
+            
+        }
+        vTaskDelay(100);
+    }
 }
-    
+
+
+
+
+/** @brief      Task which reads the serial port and echos back what it sees.
+ *  @details    This task reads an input into the serial port (from the python UI
+ *              script presumably) and echos it back so the source knows what was sent. 
+ *  @param   p_params A pointer to function parameters which we don't use.
+ */
+void print_serial(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
+    // Set the timeout for reading from the serial port to the maximum
+    // possible value, essentially forever for a real-time control program
+    Serial.setTimeout (0xFFFFFFFF);
+
+    //Work in progress...
+
+
+}
+
