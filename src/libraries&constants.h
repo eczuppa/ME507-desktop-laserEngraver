@@ -32,7 +32,6 @@
 #include "BasicLinearAlgebra.h"
 
 
-
 //ME507 Laser Library
 #include "control.h"
 #include "debouncer.h"

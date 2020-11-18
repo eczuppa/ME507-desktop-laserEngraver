@@ -1,12 +1,16 @@
+/** @file serial.cpp
+ *      This file defines functions that will print to and read the serial port in order to 
+ *      communicate with the python script that sends the Gcode to the laser. 
+ *
+ *  @author  Niko Banks
+ *  @author  Ethan Czuppa
+ *  @date    Nov 10 2020 
+ * 
+*/
+#include "libraries&constants.h"
 
 
-#if (defined STM32L4xx || defined STM32F4xx)
-    #include <STM32FreeRTOS.h>
-#endif
-#include "serial.h"
-#include "taskshare.h"
-
-
+//-----------------------MICROCONTROLLER UI FILES: FOR TESTING-------------------------------
 
 extern Queue<float> encoder_queue;
 Share<int32_t> s_duty_cycle ("Power");
@@ -95,3 +99,20 @@ void task_ui (void* p_params)
 
     }
 }
+
+//---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
+
+
+/** @brief      Task which reads the serial port and echos back what it sees.
+ *  @details    This task reads an input into the serial port (from the python UI
+ *              script presumably) and echos it back so the source knows what was sent. 
+ *  @param   p_params A pointer to function parameters which we don't use.
+ */
+void echo_serial(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
+    // Set the timeout for reading from the serial port to the maximum
+    // possible value, essentially forever for a real-time control program
+    Serial.setTimeout (0xFFFFFFFF);
+}
+    
