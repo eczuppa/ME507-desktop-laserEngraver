@@ -1,6 +1,7 @@
 /** @file gcode.cpp
  *      This file defines functions for to interpret lines of gcode into commands 
- *      that control the laser cutter. 
+ *      that control the laser cutter. Many of the methods used in this file were inspired
+ *      by GRBL code.
  *
  *  @author  Niko Banks
  *  @date    Nov 10 2020 
@@ -12,7 +13,7 @@
 //This function will interpret a single line of Gcode to enter into the main command array. 
 void interpret_gcode_line(char *line) 
 {
-    //Define constants for use in function
+    //Define variables for use in function: Decoding Gcode
     uint8_t char_counter = 0;  
     char letter;
     float value;
@@ -20,10 +21,15 @@ void interpret_gcode_line(char *line)
     int16_t mantissa = 0;
     String str_line = line;     //Convert line into a string for use of string functions
 
+    //Define variables for use in function: Using decoded Gcode
+    float X = 0;
+    float Y = 0;
+    uint8_t S = 0;
+    float F = 0;
 
-    //Create matrices for decoded gcode to enter
-    BLA::Matrix<1,2> Move_and_Laser;
-    BLA::Matrix<1,8> XYSF;
+    //Define state variables
+    uint8_t move_type = NONE;
+    bool units = MILLIMETERS;
 
     //Start looping through the line, character by character. Check each character to match 
     //it with certain commands. 
@@ -36,7 +42,9 @@ void interpret_gcode_line(char *line)
         if (letter == GCODE_COMMENT)
         {
             //Find a comment, print it!
-            Serial << "Comment Found: " << str_line.substring(char_counter+1) << endl;
+            print_serial("Comment Found: ");
+            print_serial(str_line.substring(char_counter+1));
+            print_serial('\n');
             //Once comment has been found, skip to the end of the line to end the line loop. 
             char_counter = str_line.length();
         }
@@ -53,7 +61,7 @@ void interpret_gcode_line(char *line)
             if((letter < 'A') || (letter > 'Z')) 
             { 
                 //REPLACE WITH RTOS PRINTER FUNCTION
-                Serial << letter << "Error in Gcode: Not starting with letter" << endl;
+                print_serial("Error in Gcode: Not starting with letter");
                 return;
             }
             //Otherwise, it is a letter, all good! Not a comment or an invalid command. 
@@ -65,7 +73,7 @@ void interpret_gcode_line(char *line)
             if ((!read_float(line, &char_counter, &value) ))
             {
                 //REPLACE WITH RTOS PRINTER FUNCTION
-                Serial << "Error in Gcode: Letter not followed by number" << endl;
+                print_serial("Error in Gcode: Letter not followed by number");
                 return;
             }
             //At this point, we have a letter and a floating point number. Now, lets get
@@ -83,8 +91,10 @@ void interpret_gcode_line(char *line)
             // NOTE: Rounding must be used to catch small floating point errors. 
 
             //Test commands to see that we're interpreting right
-            Serial << "Command is: " << letter << int_value << "." << mantissa << endl;
+            // Serial << "Command is: " << letter << int_value << "." << mantissa << endl;
 
+
+            
             //How to interpret commands: take information and send to main code array.s
             switch (letter)
             {
@@ -94,15 +104,17 @@ void interpret_gcode_line(char *line)
                     {
                         case 0:
                             //Rapid movement (travel)
+                            move_type = TRAVEL;
                             break;
                         case 1: 
                             //Linear Interpolation
+                            move_type = LIN_INTERP;
                             break;
                         case 20:
-                            //Unit conversion to in: NOT sent to matrix
+                            //Unit conversion to in
                             break;
                         case 21:
-                            //Unit conversion to mm: NOT sent to matrix
+                            //Unit conversion to mm (default)
                             break;
                         case 28:
                             //Home machine
@@ -114,7 +126,7 @@ void interpret_gcode_line(char *line)
                             //Set incremental positioning: NOT sent to matrix
                         default:
                             //Error: Unsupported Gcode
-                            Serial << "Unsupported G Command" << endl;
+                            print_serial("ERROR: Unsupported G Command in line __");
                     }
                     break;
                 case 'M':
@@ -132,35 +144,72 @@ void interpret_gcode_line(char *line)
                             break;
                         default:
                             //ERROR: Unsupported Mcode
-                            Serial << "Unsupported M Command" << endl;
+                            print_serial("ERROR: Unsupported M Command in line __");
                     }
                     break;
+
                 case 'X':
-                    //Change X position
-    
+                    // Change/set X position if indicated correctly
+                    if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    {
+                        X = value;
+                        //Send value to output?
+                    }
+                    else
+                    {
+                        print_serial("Error in line __: No G0 or G1 indicator");
+                    }
                     break;
+
                 case 'Y':
-                    //Change Y position
+                    // Change/set Y position
+                    if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    {
+                        Y = value;
+                        //Send value to output?
+                    }
+                    else
+                    {
+                        print_serial("Error in line __: No G0 or G1 indicator");
+                    }
+                    break;
+
+                case 'S':
+                    // Change/set laser PWM power
+                    if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    {
+                        S = int_value*100 + mantissa;     //Power interpreted as pct (0 to 100)
+                        //Send value to output?
+                    }
+                    else
+                    {
+                        print_serial("Error in line __: No G0 or G1 indicator");
+                    }
  
                     break;
-                case 'S':
-                    //Change laser PWM power
-                    break;
+
                 case 'F':
                     //Change speed settings
+                    if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    {
+                        F = value;
+                        //Send value to output?
+                    }
+                    else
+                    {
+                        print_serial("Error in line __: No G0 or G1 indicator");
+                    }
                     break;
+
                 default:
                     //ERROR: Unsupported command
-                    Serial << "Unsupported Letter Command" << endl;
+                     print_serial("ERROR: Unsupported Letter Command in line __");
                     
             }//switch (letter)
         }//else (Not a comment or space)
     }
 
-    //Outside of the while loop: Testing matrix library
     
-
-    Serial << XYSF << endl;
     
     return;
 }

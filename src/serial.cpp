@@ -9,11 +9,111 @@
 */
 #include "libraries&constants.h"
 
+//---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
+
+extern Queue<String> strings_to_print;
+extern Queue<String> read_strings;
+
+
+/** @brief      Task which reads the serial port and echos back what it sees.
+ *  @details    This task reads an input into the serial port (from the python UI
+ *              script presumably) and echos it back so the source knows what was sent. 
+ *  @param   p_params A pointer to function parameters which we don't use.
+ */
+void task_read_serial(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
+    // Set the timeout for reading from the serial port to the maximum
+    // possible value, essentially forever for a real-time control program
+    Serial.setTimeout (0xFFFFFFFF);
+
+    char incomingByte[64]; // for incoming serial data
+
+    // strcpy(incomingByte,"G1 X46.12 Y39.20 S1.00 F600");
+
+    // Serial << strlen(incomingByte);
+
+    for(;;)
+    {
+        if (Serial.available() > 0) 
+        {
+            //Clear incomingByte char array before entering new data
+            memset(incomingByte, '\0', sizeof(incomingByte)*sizeof(char)); 
+            
+            // read the incoming byte:
+            Serial.readBytes(incomingByte,64);
+
+            incomingByte[strlen(incomingByte)] = '\n';
+
+            //Put incomingByte data into the read_string
+            read_strings.put(incomingByte);
+
+            //Temporarily echo
+            strings_to_print.put(incomingByte);
+            
+        }
+        vTaskDelay(10);
+    }
+}
+
+
+
+
+/** @brief      Task which prints any string that is sent to the strings_to_print queue. 
+ *  @details    This task reads checks if there is anything in the strings_to_print queue, 
+ *              and if there is something, it prints it to the serial port. 
+ *  @param   p_params A pointer to function parameters which we don't use.
+ */
+void task_print_serial(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
+    // Set the timeout for reading from the serial port to the maximum
+    // possible value, essentially forever for a real-time control program
+    Serial.setTimeout (0xFFFFFFFF);
+
+    //Initialize string to print
+    String print_string;
+
+    for(;;)
+    {
+        //When you get a string in the string_to_print queue...
+        if (strings_to_print.any())
+        {
+            //Get it from the queue...
+            strings_to_print.get(print_string);
+            
+            //Then print it!
+            Serial << print_string;
+        }
+        vTaskDelay(10);
+    }
+    
+
+}
+
+/** @brief      Task which loads the print queue with something to print
+ *  @details    This function adds things to the printing queue which will be printed by
+ *              the @c task_print_serial task function. The function is overloaded to 
+ *              allow for a variety of inputs.
+ *  @param      p_params A pointer to function parameters which we don't use.
+ */
+void print_serial(String printed_string)
+{
+    strings_to_print.put(printed_string);
+}
+
+void print_serial(float printed_float)
+{
+    strings_to_print.put((String)printed_float);
+}
+
+
+
 
 //-----------------------MICROCONTROLLER UI FILES: FOR TESTING-------------------------------
 
-extern Queue<float> encoder_queue;
 
+extern Queue<float> encoder_queue;
 Share<int32_t> s_duty_cycle ("Power");
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
@@ -105,67 +205,3 @@ void task_ui (void* p_params)
 
     }
 }
-
-//---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
-
-extern Queue<String> string_to_print;
-
-
-/** @brief      Task which reads the serial port and echos back what it sees.
- *  @details    This task reads an input into the serial port (from the python UI
- *              script presumably) and echos it back so the source knows what was sent. 
- *  @param   p_params A pointer to function parameters which we don't use.
- */
-void echo_serial(void* p_params)
-{
-    (void)p_params;                   // Does nothing but shut up a compiler warning
-    // Set the timeout for reading from the serial port to the maximum
-    // possible value, essentially forever for a real-time control program
-    // Serial.setTimeout (0xFFFFFFFF);
-
-    char incomingByte[64]; // for incoming serial data
-
-    // strcpy(incomingByte,"G1 X46.12 Y39.20 S1.00 F600");
-
-    // Serial << strlen(incomingByte);
-
-    for(;;)
-    {
-        if (Serial.available() > 0) 
-        {
-            //Clear incomingByte char array before entering new data
-            memset(incomingByte, '\0', strlen(incomingByte)*sizeof(char)); 
-            
-            // read the incoming byte:
-            Serial.readBytes(incomingByte,64);
-
-            incomingByte[strlen(incomingByte)] = '\n';
-
-            // Echo what you got:
-            Serial << incomingByte;
-            
-        }
-        vTaskDelay(100);
-    }
-}
-
-
-
-
-/** @brief      Task which reads the serial port and echos back what it sees.
- *  @details    This task reads an input into the serial port (from the python UI
- *              script presumably) and echos it back so the source knows what was sent. 
- *  @param   p_params A pointer to function parameters which we don't use.
- */
-void print_serial(void* p_params)
-{
-    (void)p_params;                   // Does nothing but shut up a compiler warning
-    // Set the timeout for reading from the serial port to the maximum
-    // possible value, essentially forever for a real-time control program
-    Serial.setTimeout (0xFFFFFFFF);
-
-    //Work in progress...
-
-
-}
-

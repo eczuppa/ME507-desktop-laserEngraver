@@ -14,7 +14,8 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
-Queue<String> string_to_print(16,"String Printer");
+Queue<String> strings_to_print(16,"String Printer");
+Queue<String> read_strings(32,"read_val");
 
 
 void setup() 
@@ -31,7 +32,7 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    // #define NIKO_TESTING 0
+    #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
 
@@ -43,12 +44,21 @@ void setup()
     #define LINE_BUFFER_SIZE 80
 
 
-    // Create a task to read acceleration values
-    xTaskCreate (echo_serial,                   //Task Function name
-                 "Echoing Serial",              // Name for printouts
+    // Create a task to read inputs from the serial port
+    xTaskCreate (task_read_serial,              //Task Function name
+                 "Reading Serial",              // Name for printouts
                  4096,                          // Stack size
                  NULL,                          // Parameters for task fn.
-                 6,                             // Priority
+                 8,                             // Priority
+                 NULL);                         // Task handle
+
+
+    // Create a task to read inputs from the serial port
+    xTaskCreate (task_print_serial,             //Task Function name
+                 "Printing Serial",             // Name for printouts
+                 4096,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 3,                             // Priority
                  NULL);                         // Task handle
 
     // static char line[LINE_BUFFER_SIZE]; // Line to be executed. Zero-terminated.

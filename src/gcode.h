@@ -15,6 +15,16 @@
 
 #define GCODE_COMMENT ';'
 
+#define TRAVEL_SPEED 600
+
+//Define travel types
+#define TRAVEL 0
+#define LIN_INTERP 1
+#define NONE 2
+
+//Define unit systems
+#define MILLIMETERS 0
+#define INCHES 1
 
 //Function to interpret gcode
 void interpret_gcode_line(char *line);
