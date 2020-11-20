@@ -222,7 +222,7 @@ int32_t parseIntWithEcho (Stream& stream)
 void task_ui (void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
-    //int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
+    // int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
     float enc_pos_out;
     float enc_vel_out;
     float enc_dt_out;
@@ -250,8 +250,9 @@ void task_ui (void* p_params)
             encoder_queue.get(enc_vel_out);
             encoder_queue.get(enc_dt_out);
         }
-        //Serial << enc_vel_out << endl;
+        // Serial << enc_vel_out << endl;
         Serial << "pos,vel,delta_time is: " << enc_pos_out <<"          "<< enc_vel_out << "            " << enc_dt_out <<endl;
+        // Serial << "pos,vel,delta_time is: " <<"          "<< enc_vel_out << "            " << enc_dt_out <<endl;
 
 
         vTaskDelay(UI_period);

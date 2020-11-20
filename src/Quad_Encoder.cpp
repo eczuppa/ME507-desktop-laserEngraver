@@ -21,7 +21,7 @@
  */
 
 #include "Quad_Encoder.h"
-
+#include "stopwatch.h"
 // ================================================
 // ||                                            ||
 // ||            Class  CONSTANTS                ||
@@ -38,6 +38,7 @@ const float MOMENT_ARM = 5.95; // radius of timing pulley on motor in [mm]
 // enc_read() method while slowly rotating the motor output shaft through 1 rotation
 // several times to ensure that the this conversion is correct.
 const float TICK_TO_RAD = 0.022520; // radians per encoder tick
+
 
 
 
@@ -126,7 +127,6 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeD
     
     // Initialize last count for the encoder read method to the current count, should be zero.
     _lastcount = EncTmr -> getCount();
-    _lasttime = millis();
 
 }
 
@@ -168,7 +168,7 @@ int32_t Quad_Encoder::enc_read(void)
         delta = count - _lastcount;
     }
 
-    //delta = count - _lastcount;
+    // delta = count - _lastcount;
 
     // Handle encoder inversion if wiring does not match expected setup
     if (_invert)
@@ -201,48 +201,52 @@ float Quad_Encoder::enc_read_pos(void)
     return (MOMENT_ARM*current_tick*TICK_TO_RAD);
 }
 
-
-/** @brief   calculates the instantenous tangential velocity of the drive elements connected to the motor and returns that value in [mm/sec] 
- *  @details determines the change in encoder state (current and last position - ticks - and time - milliseconds) and calculates the resulting
- *           instantenous tangential velocity of the drive elements connected to the motor (in this case a timing belt drive by a timing pulley)
- *           based on physical system constants @param MOMENT_ARM and @param TICK_TO_RAD to output the velocity in mm/sec. 
- *  @param   _delta_time the class member variable that keeps track of the time difference 
- * 
- */
-float Quad_Encoder::enc_read_vel(void)
+float Quad_Encoder::enc_d_pos(void)
 {
-    
-    // method specific varaibles, do not need to be saved
-    int32_t now_pos_ticks;    // the current value from the encoder read method
-    int32_t delta_pos_ticks;  // the difference between the current encoder read value and the last one
-    float vel_ticks;          // the instanteous velocity from the encoder in ticks/sec
-
-    // Get current time using arduino millis() function, do not try to use this in an interrupt
-    _currtime = millis();
-    
-    // compute the change in time
-    _delta_time = _currtime - _lasttime;
-    
-    // Read the encoder now so the time we just computed will be relevant to the values we read
-    now_pos_ticks = enc_read();
-    
-    // Calculate the change in position from our current encoder read call
-    delta_pos_ticks = now_pos_ticks - _last_abspos;
-    
-    // Calculate the instantenous velocity 
-    vel_ticks = (delta_pos_ticks / _delta_time)*1000; // in units of  [ticks/sec]
-    
-    // reintialize the _lasttime, first set by the constructor and now just by this method
-    _lasttime = _currtime;
-    
-    return(vel_ticks*MOMENT_ARM*TICK_TO_RAD);   // belt velocity in units of [mm/sec]
-
+    return (MOMENT_ARM*(_abspos - _last_abspos)*TICK_TO_RAD);
 }
 
-int32_t Quad_Encoder::get_enc_dt(void)
-{
-    return(_delta_time);
-}
+// /** @brief   calculates the instantenous tangential velocity of the drive elements connected to the motor and returns that value in [mm/sec] 
+//  *  @details determines the change in encoder state (current and last position - ticks - and time - milliseconds) and calculates the resulting
+//  *           instantenous tangential velocity of the drive elements connected to the motor (in this case a timing belt drive by a timing pulley)
+//  *           based on physical system constants @param MOMENT_ARM and @param TICK_TO_RAD to output the velocity in mm/sec. 
+//  *  @param   _delta_time the class member variable that keeps track of the time difference 
+//  * 
+//  */
+// float Quad_Encoder::enc_read_vel(void)
+// {
+    
+//     // method specific varaibles, do not need to be saved
+//     int32_t now_pos_ticks;    // the current value from the encoder read method
+//     int32_t delta_pos_ticks;  // the difference between the current encoder read value and the last one
+//     float vel_ticks;          // the instanteous velocity from the encoder in ticks/sec
+
+//     // Get current time using arduino millis() function, do not try to use this in an interrupt
+//     _currtime = velTmr.elapsed();
+    
+//     // compute the change in time
+//     _delta_time = _currtime - _lasttime;
+    
+//     // Read the encoder now so the time we just computed will be relevant to the values we read
+//     now_pos_ticks = enc_read();
+    
+//     // Calculate the change in position from our current encoder read call
+//     delta_pos_ticks = now_pos_ticks - _last_abspos;
+    
+//     // Calculate the instantenous velocity 
+//     vel_ticks = (delta_pos_ticks*1000000) / (_delta_time); // in units of  [ticks/sec]
+    
+//     // reintialize the _lasttime, first set by the constructor and now just by this method
+//     _lasttime = _currtime;
+    
+//     return(vel_ticks*MOMENT_ARM*TICK_TO_RAD);   // belt velocity in units of [mm/sec]
+
+// }
+
+// int32_t Quad_Encoder::get_enc_dt(void)
+// {
+//     return(_delta_time);
+// }
 
 
 /** @brief   resets _abspos, the accumulated encoder ticks variable, to 0

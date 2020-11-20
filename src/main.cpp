@@ -254,9 +254,7 @@ void share_testing_receive (void* p_params)
                 NULL,
                 4,
                 NULL);
-    Serial << "encoder task init done" << endl;
-
-
+    // Serial << "encoder task init done" << endl;
 
     xTaskCreate(task_ui,
                 "user", 

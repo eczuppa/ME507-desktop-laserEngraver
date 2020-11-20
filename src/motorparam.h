@@ -12,12 +12,12 @@
 
 void motor_task (void* p_params);
 
-const TickType_t motor_period = 100;
+const TickType_t motor_period = 1000;
 
 
 
 void encoder_task (void* p_params);
 
-const TickType_t encoder_period = 10;
+const TickType_t encoder_period = 2;
 
 #endif // MOTORPARAM_H
