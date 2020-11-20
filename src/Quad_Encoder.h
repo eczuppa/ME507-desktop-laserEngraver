@@ -44,20 +44,22 @@ class Quad_Encoder
     // NOTE: Please ensure that the hardware timer you have selected has at least 2 timer channels!
     TIM_TypeDef *_p_eTIM;       // pointer that contains user passed-in timer object (TIM1, TIM2, etc)
     HardwareTimer *EncTmr;      // Instance of Hardware Timer class used for an instance of the encoder class
+    // StopWatch * &_p_clock;
+    // TIM_TypeDef *_p_vTIM;       // pointer that contains user passed-in timer object (TIM1, TIM2, etc)
+    // HardwareTimer *VelTmr;      // Instance of Hardware Timer class used for an instance of the encoder class
 
     // Count Variables:
     uint16_t _lastcount;     // the previous count from the timer counter register
     uint16_t _count;         // the current count from the timer counter register
-    
     // Position Variables
     int32_t _abspos;       // position in the global frame 
     int32_t _last_abspos;  // the previous postion in the gobal frame
 
     // Velocity variables
-    int32_t _absvel;
-    int32_t _lasttime;
-    int32_t _currtime;
-    int32_t _delta_time;
+    //int32_t _absvel;
+    //int32_t _lasttime;
+    //int32_t _currtime;
+    //int32_t _delta_time;
     
 
     // Software correction for encoder wiring
@@ -71,7 +73,8 @@ class Quad_Encoder
 
     int32_t enc_read(void);        // encoder read method to get current position in encoder ticks with direction and under/over flow checking
     float enc_read_pos(void);      // relies on encoder read method but the oput is the linear displacement of the belt due to the motor's rotation
-    float enc_read_vel(void);      // relies on encoder read position method but the output is the tangential velocity in the direction of the belt at the motor's drive pulley
+    float enc_d_pos (void);
+    //float enc_read_vel(void);      // relies on encoder read position method but the output is the tangential velocity in the direction of the belt at the motor's drive pulley
     void enc_zero(void);           // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
 
     // Get -er methods

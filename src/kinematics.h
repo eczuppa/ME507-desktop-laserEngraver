@@ -14,29 +14,40 @@
  *  @date 16 Nov 2020 wrote skeleton of module for kinematics_CoreXY class, added doxygen comments for documentation
  * 
  */
+#include <stdint.h>
 
-class kinematics_coreXY
+class Kinematics_coreXY
 {
     protected:
     // Class member data 
     // FROM LAST GCODE COMMAND
     // variable to store the GCODE X position 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _X_last;
     
     // variable to store the GCODE Y position 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
-
-    // variable to store the GCODE F feed rate 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _Y_last;
     
+    // variable to store the GCODE F feed rate 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _F_last;
     
     // FROM CURRENT GCODE COMMAND
     // variable to store the GCODE X position 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _X_current;
     
     // variable to store the GCODE Y position 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _Y_current;
 
     // variable to store the GCODE F feed rate 100s, 10s, and 1s place value and decimal portion (aka the Mantissa)
+    float _F_current;
 
     // variable to hold transformed result of X,Y position FOR CURRENT GCODE COMMAND specific to a motor 
+    float _A_setpoint;
 
     // variable to hold transfromed result of X,Y position FOR CURRENT GCODE COMMAND specific to a motor 
+    float _B_setpoint;
+
+    float _A_feed;
+    float _B_feed;
 
     // Method specific variables that do not need to be saved 
     // variable to hold cartesian x-componet of feed rate based on direction of path between the current command and last command
@@ -52,7 +63,24 @@ class kinematics_coreXY
     // A = x + y;  B = x - y;
 
     public:
-    kinematics_coreXY();
+    // Constructor
+    Kinematics_coreXY();
+    // Methods
+    
+    void set_current_XYF(float g_X_c, float g_Y_c, float g_F_c);
+    void update_XYF(void);
+
+    float transform_A(void);  // Takes X and Y position commands and returns Motor A setpoint
+    float transfrom_B(void);  // Takes X and Y position commands and creates Motor B setpoint
+    float transform_F_A(void);  // Takes F, and X,Y current and Last and returns Motor A_F
+    float transform_F_B(void);  // Takes F, and X,Y current and Last and returns Motor A_F
+
+
+
+
+    
+
+
 
 };
     

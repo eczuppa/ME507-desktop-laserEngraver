@@ -28,6 +28,7 @@ Queue<float> encoder_queue (600,"position");
 //     TB6612FNG LeftMotor(16, 37, 36, A7, 1, TIM3);
 //     LeftMotor.enable();
 //     int32_t duty_cycle;
+//     uint16_t count = 0;
 //     TickType_t xLastWakeTime = xTaskGetTickCount();
 //     //Serial << "motor is setup" << endl;
 
@@ -35,10 +36,27 @@ Queue<float> encoder_queue (600,"position");
 //     {
 //         s_duty_cycle.get(duty_cycle);
 //         LeftMotor.setDutyCycle(duty_cycle); 
+//         if (count < 100 )
+//         {
+//             count++;
+//         }
+//         else if (count >=1000)
+//         {
+//             LeftMotor.brake();
+            
+//         }
 //         vTaskDelayUntil(&xLastWakeTime,motor_period);
 //     }
 
 // }
+void encoder_callback (void* p_params)
+{
+    (void) p_params;
+    for(;;)
+    {
+
+    }
+}
 
 void encoder_task (void* p_params)
 {
@@ -47,8 +65,10 @@ void encoder_task (void* p_params)
     // uint8_t L_enc_sigpin_B = 34; // PC6
 
     // TIM_TypeDef *a_p_eTIM = TIM8;
-    Quad_Encoder LeftEncoder (PC6, PC7, TIM8);
+    StopWatch velTmr(TIM2,PA0);
+    Quad_Encoder LeftEncoder (PC6,PC7,TIM8);
     LeftEncoder.enc_zero();
+    velTmr.restart();
     TickType_t xLastWakeTime = xTaskGetTickCount();
     float a_position;
     float a_velocity;
@@ -58,16 +78,16 @@ void encoder_task (void* p_params)
     for (;;)
     {
         // get position, velocity, and change in time from the encoder
-        a_velocity = LeftEncoder.enc_read_vel();
-        a_dt = LeftEncoder.get_enc_dt();
         a_position = LeftEncoder.enc_read_pos();
+        a_dt = velTmr.elapsed_time();
+        a_velocity = (LeftEncoder.enc_d_pos()*1000000) /a_dt;
         
 
         // put all those values into their respective queues for printing out (parameterization purposes)
         encoder_queue.put(a_position);
         encoder_queue.put(a_velocity);
         encoder_queue.put(a_dt);
-        
+        velTmr.restart();
         vTaskDelayUntil(&xLastWakeTime,encoder_period);
     }
 

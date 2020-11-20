@@ -130,3 +130,14 @@ void TB6612FNG::enable(void)
 {
     digitalWrite(_standby_pin, HIGH);
 }
+
+/** @brief method to brake motors
+ *  @details based on the truth table for the TB6612FNG driver chip and sparkfun's arduino library for this IC
+ */
+void TB6612FNG::brake(void)
+{
+    // Places chip in short brake mode instead of coasting to a stop
+    digitalWrite(_motor_dir_pin_1, HIGH);
+    digitalWrite(_motor_dir_pin_2, HIGH);
+    setDutyCycle(0);
+}

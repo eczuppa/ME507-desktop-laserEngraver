@@ -46,7 +46,7 @@ class TB6612FNG
 
     // Class Methods
     void setDutyCycle(int8_t duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input           
-    // void brake(void);                        // Makes motor hold in place?? (should be accomplished by PID position control) 
+    void brake(void);                        // Makes motor hold in place?? (should be accomplished by PID position control) 
     void disable(void);                      // Software Emergency stop
     void enable(void);                       // Software reset of motor driver chip
 

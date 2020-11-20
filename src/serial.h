@@ -24,6 +24,7 @@ int32_t parseIntWithEcho (Stream& stream);
 
 //Function to ask for inputs for encoder
 void task_ui (void* p_params);
+const TickType_t UI_period = 100; // UI task's latency
 
 // UI task's latency
 const TickType_t UI_period = 10; 

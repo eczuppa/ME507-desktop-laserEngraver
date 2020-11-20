@@ -28,6 +28,7 @@
 #include <pins_arduino.h>
 
 
+
 //From Github
 #include "BasicLinearAlgebra.h"
 
@@ -42,7 +43,8 @@
 #include "motorparam.h"
 #include "serial.h"
 #include "limit_switch.h"
-
+#include "kinematics.h"
+#include "stopwatch.h"
 
 
 
