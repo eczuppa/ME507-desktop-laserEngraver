@@ -26,8 +26,6 @@ int32_t parseIntWithEcho (Stream& stream);
 void task_ui (void* p_params);
 const TickType_t UI_period = 100; // UI task's latency
 
-// UI task's latency
-const TickType_t UI_period = 10; 
 
 //Function to read incomming messages from the serial port
 void task_read_serial(void* p_params);

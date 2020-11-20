@@ -17,7 +17,19 @@
 Queue<char[LINE_BUFFER_SIZE]> chars_to_print(32,"char array printer");
 Queue<char[LINE_BUFFER_SIZE]> read_chars(32,"read_val");
 
-
+/**
+ * In order to achieve sub-millisecond task timing, the default value of configTick_RATE_HZ was changed to (SysClock)/10000 instead of (SysClock)/1000. 
+ * This means every RTOS tick is 1/10th of a millisecond instead of 1 millisecond. This comes at the cost of reducing the time slice each task can be 
+ * given before the CPU is overloaded by how fast the RTOS is trying to run. 
+ * Use this version with a lower powered microcontroller at your own risk. This fork was created solely for this config change for a grbl-like 
+ * (but not compatible ... yet) desktop laser cutter than uses a STM32 Nucleo L476RG. Also, delay quantities in vTaskDelay or vTaskDelayUntil can be updated
+ *  to account for the change in TICK_RATE_HZ by using the pdMS_TO_TICKS() macro as follows:
+ *         const TickType_t xBlockTime = pdMS_TO_TICKS( 100 );
+ *         vTaskDelay( xBlockTime ); 
+ * from https://arduino.stackexchange.com/questions/25746/changing-the-tick-time-in-freertos 
+ * answered by FreeRTOS.org and rebatoma. This approach is significantly more convenient than 
+ * going through and updating all the delay periods for each of your tasks.
+ */ 
 
 
 void setup() 
