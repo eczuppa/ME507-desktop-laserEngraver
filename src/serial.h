@@ -19,16 +19,6 @@
 #define LINE_BUFFER_SIZE 80
 
 
-//Function to parse ints sent in the serial port
-int32_t parseIntWithEcho (Stream& stream);
-
-//Function to ask for inputs for encoder
-void task_ui (void* p_params);
-const TickType_t UI_period = 100; // UI task's latency
-
-// UI task's latency
-const TickType_t UI_period = 10; 
-
 //Function to read incomming messages from the serial port
 void task_read_serial(void* p_params);
 
@@ -39,6 +29,15 @@ void task_print_serial(void* p_params);
 void print_serial(String string_to_print);
 void print_serial(float printed_float);
 void print_serial(char string_to_print[LINE_BUFFER_SIZE]);
+
+
+
+//Function to parse ints sent in the serial port
+int32_t parseIntWithEcho (Stream& stream);
+
+//Function to ask for inputs for encoder
+void task_ui (void* p_params);
+const TickType_t UI_period = 100; // UI task's latency
 
 
 #endif // SERIAL_H
