@@ -67,14 +67,22 @@ class Kinematics_coreXY
     Kinematics_coreXY();
     // Methods
     
-    void set_current_XYF(float g_X_c, float g_Y_c, float g_F_c);
-    void update_XYF(void);
-    void reset_XYF(void);
+    // Route inputted floats from array to poper class member data
+    void set_current_XYF(float g_X_c, float g_Y_c, float g_F_c);           // sets the class member data for X,Y,F for the current line 
+    void update_XYF(void);                                                 // updates the _last class member data for X,Y,F (for the last line)
+    void reset_XYF(void);                                                  // sets the _last X,Y,F data to 0 for the home position in preparation to run another file
 
-    float transform_A(void);  // Takes X and Y position commands and returns Motor A setpoint
-    float transfrom_B(void);  // Takes X and Y position commands and creates Motor B setpoint
-    float transform_F_A(void);  // Takes F, and X,Y current and Last and returns Motor A_F
-    float transform_F_B(void);  // Takes F, and X,Y current and Last and returns Motor A_F
+    // Kinematic transformation calculation methods
+    void transform_A(void);        // Takes X and Y position commands and returns Motor A setpoint
+    void transfrom_B(void);        // Takes X and Y position commands and creates Motor B setpoint
+    void transform_F_A(void);      // Takes F, and X,Y current and Last and returns Motor A_F
+    void transform_F_B(void);      // Takes F, and X,Y current and Last and returns Motor A_F
+
+    // Get-er methods for quickly accessing saved class member data
+    float get_A_setpoint(void);
+    float get_B_setpoint(void);
+    float get_F_A(void);
+    float get_F_B(void);
 
 
 

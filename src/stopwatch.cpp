@@ -1,13 +1,16 @@
-#include "stopwatch.h"
-// This class is an implementaiton of example code from 
 
+#include "stopwatch.h"
 
 // StopWatch Constructor
 StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
 {
+    // save inputs to class member data 
     _p_Stpwtch = p_Stpwtch;
     _tmrpin = tmrpin;
+    // create a new HardwareTimer instance
     a_Tmr = new HardwareTimer(_p_Stpwtch);
+    // Initialize the timer into OUTPUT_COMPARE with on output
+    // and set it to count at 1 MHz
     a_Tmr -> pause();
     a_Tmr -> setMode(1,TIMER_OUTPUT_COMPARE, _tmrpin);
     a_Tmr -> setOverflow(1000000, MICROSEC_FORMAT);
@@ -40,3 +43,4 @@ void StopWatch::restart(void)
     a_Tmr -> setCount(0, MICROSEC_FORMAT);
     a_Tmr -> resume();
 }
+
