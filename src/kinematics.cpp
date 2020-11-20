@@ -87,3 +87,13 @@ float Kinematics_coreXY::transform_F_B(void)
     
     return _B_feed;
 }
+
+void Kinematics_coreXY::reset_XYF(void)
+{
+    // Create Zeroth line for what the home point would be
+    // Allows user to run multiple files and reset all last GCODE values to 0 
+    // when the current file reaches the end and the laser is now ready for a new file
+    _X_last = 0;
+    _Y_last = 0;
+    _F_last = 0;
+}
