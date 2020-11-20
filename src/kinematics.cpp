@@ -37,19 +37,19 @@ void Kinematics_coreXY::update_XYF(void)
     _F_last = _F_current;
 }
 // Takes X and Y position commands and returns Motor A setpoint
-float Kinematics_coreXY::transform_A(void)
+void Kinematics_coreXY::transform_A(void)
 {
     _A_setpoint = _X_current + _Y_current;
-    return (_A_setpoint);
+    // return (_A_setpoint);
 }
 // Takes X and Y position commands and creates Motor B setpoint
-float Kinematics_coreXY::transfrom_B(void)
+void Kinematics_coreXY::transfrom_B(void)
 {
     _B_setpoint = _X_current - _Y_current;
-    return (_B_setpoint);
+    // return (_B_setpoint);
 }  
 // Takes F, and X,Y current and Last and returns Motor A_F and B_F
-float Kinematics_coreXY::transform_F_A(void)
+void Kinematics_coreXY::transform_F_A(void)
 {
     // Gets the vector components of the laser velocity between the current and last points
     // and returns the transformed A and B feed rates.
@@ -65,11 +65,11 @@ float Kinematics_coreXY::transform_F_A(void)
     // Transform X and Y components of the dir_vector scaled by F to velocity setpoints for motor A and B.
     _A_feed = dir_Vector(1,1) + dir_Vector(1,2);
     
-    return _A_feed; 
+    // return _A_feed; 
 
 }  
 
-float Kinematics_coreXY::transform_F_B(void)
+void Kinematics_coreXY::transform_F_B(void)
 {
     // Gets the vector components of the laser velocity between the current and last points
     // and returns the transformed A and B feed rates.
@@ -96,4 +96,24 @@ void Kinematics_coreXY::reset_XYF(void)
     _X_last = 0;
     _Y_last = 0;
     _F_last = 0;
+}
+
+float Kinematics_coreXY::get_A_setpoint(void)
+{
+    return _A_setpoint;
+}
+
+float Kinematics_coreXY::get_B_setpoint(void)
+{
+    return _B_setpoint;
+}
+
+float Kinematics_coreXY::get_F_A(void)
+{
+    return _A_feed;
+}
+
+float Kinematics_coreXY::get_F_B(void)
+{
+    return _B_feed;
 }

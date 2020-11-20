@@ -32,14 +32,14 @@ void task_debouncer (void* p_params)
     // Given input pin PB5 and threshhold of 5
     Debouncer limit_switch_x(PB5, 5);     
     // Define some output variable that the "update" function can spit out to
-    bool output_limit_switch_x = 0;
+    bool output_limit_switch_x = false;
 
 
     // Make "limit_switch_y" as the switch we want to debounce
     // Given input pin PB3 and threshhold of 5
     Debouncer limit_switch_y(PB3, 5);     
     // Define some output variable that the "update" function can spit out to
-    bool output_limit_switch_y = 0;
+    bool output_limit_switch_y = false;
 
 
     for (;;)
@@ -58,17 +58,7 @@ void task_debouncer (void* p_params)
 }
 
 
-/** @brief   Arduino setup function which runs once at program startup.
- *  @details This function sets up a serial port for communication and creates the
- *           tasks which will be run.
- */
-// void setup () 
-// {
-//     // Start the serial port, wait a short time, then say hello. Use the
-//     // non-RTOS delay() function because the RTOS hasn't been started yet
-//     Serial.begin (115200);
-//     delay (2000);
-//     Serial << endl << endl << "Running a Debouncer on a button or switch" << endl;
+// task creation declaration which will be migrated to main.
 
 //     // Create a task which prints a more agreeable message
 //     xTaskCreate (task_debouncer,
@@ -78,20 +68,6 @@ void task_debouncer (void* p_params)
 //                  3,                                // Priority
 //                  NULL);
 
-//     // If using an STM32, we need to call the scheduler startup function now;
-//     // if using an ESP32, it has already been called for us
-//     #if (defined STM32L4xx || defined STM32F4xx)
-//         vTaskStartScheduler ();
-//     #endif
-// }
 
 
-// /** @brief   Arduino's low-priority loop function, which we don't use.
-//  *  @details A non-RTOS Arduino program runs all of its continuously running
-//  *           code in this function after @c setup() has finished. When using
-//  *           FreeRTOS, @c loop() implements a low priority task on most
-//  *           microcontrollers, and crashes on some others, so we'll not use it.
-//  */
-// void loop () 
-// {
-// }
+
