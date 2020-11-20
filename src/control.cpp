@@ -55,9 +55,6 @@
 
 
 
-// Declare the shares and queues that this file needs to draw from
-
-
 
 
  // ------------ PID Controller ------------ //
@@ -77,42 +74,49 @@
  *  @param   pos_actual_initial This is the initial value of the postion gotten from the Encoder
  *  @param   vel_desired_initial This is the initial value of the velocity gotten from the GCode
  *  @param   vel_actual_initial This is the initial value of the velocity gotten from the Encoder
+ *  @param   delta_time_initial This is the initial value of the delta time gotten from the Encoder
  */
 
-Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, float pos_desired_initial, float pos_actual_initial, float vel_desired_initial, float vel_actual_initial)
+Controller_PID::Controller_PID (float kP, float kI, float kD, float pos_desired_initial, float pos_actual_initial, float vel_desired_initial, float vel_actual_initial, float delta_time_initial)
 {
     // Save the parameter and initialize it as "gain_KP" 
-    gain_kP = kP_gain;
+    gain_kP = kP;
 
     // Save the parameter and initialize it as "gain_KI" 
-    gain_kI = kI_gain;
+    gain_kI = kI;
 
     // Save the parameter and initialize it as "gain_KD" 
-    gain_kI = kI_gain;
+    gain_kI = kD;
 
     // From the GCode: "Desired" (setpoint) (I'm pretty sure this is going to be some sort of GCode_Share value)
-    pos_desired = pos_desired_initial;          // Save the parameter and initialize it
-    vel_desired = vel_desired_initial;          // Save the parameter and initialize it
+    pos_desired = pos_desired_initial;       // Save the parameter and initialize it
+    vel_desired = vel_desired_initial;       // Save the parameter and initialize it
 
     // From the Encoder: "Actual" (feedback) (I'm pretty sure this is going to be some sort of Encoder_Share value)
-    pos_actual = pos_actual_initial;          // Save the parameter and initialize it
-    vel_actual = vel_actual_initial;          // Save the parameter and initialize it
+    pos_actual = pos_actual_initial;         // Save the parameter and initialize it
+    
+    // WOAH WOAH WOAH this value gets calculated using the pos_actual and delta_time?!?!?!
+    vel_actual = vel_actual_initial;         // Save the parameter and initialize it
+    // Should current_time be the input from the encoder instead?
 
+    delta_time = delta_time_initial;         // Save the parameter and initialize it
 
     // Parameters that are used in this class specifically
 
-    pos_actual_current = 0;
-    vel_actual_current = 0;
+   //  pos_actual_current = 0;
+   //  vel_actual_current = 0;
 
+    pos_last = 0;
+    vel_last = 0;
+    
+   //  current_time = 10;
+   //  last_time = 0;
 
-    current_time = 0;
-    last_time = 0;
-
-    pos_error = 0;
-    pos_last_error = 0;
+    pos_error = 2;
+    pos_error_last = 0;
 
     vel_error = 0;
-    vel_last_error = 0;
+    vel_error_last = 0;
 
 
     integral_cumulation = 0;
@@ -126,13 +130,10 @@ Controller_PID::Controller_PID (float kP_gain, float kI_gain, float kD_gain, flo
 }
 
 
-/** @brief   Set up the Proportional only control loop
+/** @brief   Set up the PID control loop
  *  @details Takes the encoder's position and compares this with the current 
  *           setpoint from the GCode. Does calculations to determine a new motor 
- *           command and return this new motor command.
- *  @param   --------- This input is the value of perceived position sent 
- *           from the encoder - - - - > i don't think we need an input to this method
- *  @returns The current value of the filter's output
+ *           command.
  */
 void Controller_PID::control_loop_PID ()
 {
@@ -144,18 +145,19 @@ void Controller_PID::control_loop_PID ()
     // current_feedback = encoder_share.get ()          // fill in with correct names
 
 
+   // Serial << "Printing from control_loop_PID file" << endl;
 
-    // // calculate delta_time from grabbing current_time
+   // // calculate delta_time from grabbing current_time
    //  current_time = timer_share.get ()          // fill in with correct names
 
-    // FOR TESTING ONLY
-    current_time = 100;                        // ms
+   // // FOR TESTING ONLY
+   //  current_time = 100;                        // 0.1 * ms
 
 
-    float delta_time = current_time - last_time;
+   //  float delta_time = current_time - last_time;            // Now we are getting this from the encoder
 
-    // Save this for the next iteration
-    current_time = last_time;
+   //  // Save this for the next iteration
+   //  current_time = last_time;       // This is done later
 
 
 
@@ -163,20 +165,24 @@ void Controller_PID::control_loop_PID ()
     // Calculate the vel_actual_current using postion and time
     // This needs to be calculated every time using the position because 
     // the encoder only meausures the position
-    float delta_position = pos_actual_current - pos_actual;
+   //  float delta_position = pos_actual_current - pos_actual;
 
-    vel_actual_current = delta_position / delta_time;
+   //  vel_actual_current = delta_position / delta_time;
+
+    float delta_position = pos_actual - pos_last;
+
+   //  vel_actual = delta_position / delta_time;            // This is coming from a velocity method in the encoder class
 
 
     // Error between the currect "desired" and the "actual" encoder position/velocity
-    pos_error = pos_desired - pos_actual_current;           // This is not being fed values from the inputs
-    vel_error = vel_desired - vel_actual_current;
+    pos_error = pos_desired - pos_actual;           // This is not being fed values from the inputs
+    vel_error = vel_desired - vel_actual;
 
-
-    
+   // Serial << "pos_error:  " << pos_error << endl;
+   // Serial << "vel_error:  " << vel_actual << endl;
 
     // Do integral calculations per cycle (using the position error)
-    float integral_per_cycle = (pos_last_error + pos_error / 2) * delta_time;       // numerically doing an integral using midpoint calc
+    float integral_per_cycle = (pos_error_last + pos_error / 2) * delta_time;       // numerically doing an integral using midpoint calc
 
     //Add this cycle's integral to the integral cumulation
     integral_cumulation += integral_per_cycle;
@@ -194,7 +200,7 @@ void Controller_PID::control_loop_PID ()
 
     // Do the derivative calculations per cycle (using the velocity error)
 
-    derivative_per_cycle = (vel_error - vel_last_error) / delta_time;
+    derivative_per_cycle = (vel_error - vel_error_last) / delta_time;
 
 
 
@@ -215,17 +221,15 @@ void Controller_PID::control_loop_PID ()
 
 
     output = output_sum2 * output_PWM;
-
-
-   //  Serial << "Output" << output << endl;
+   //  Serial << "output:  " << output << endl;
 
 
     // prepare variables for the next iteration, make sure this line is after when the 
     // get used above in the control loop code
-    current_time = last_time;
-    pos_error = pos_last_error;
-    vel_error = vel_last_error;
-    pos_actual_current = pos_actual;         // This should update the current position
+    last_time = current_time;       // Don't think we need this anymore cause the delta_time is an input
+    pos_error_last = pos_error;     // ?!?!?!?!?!??????? how do these "redefines" work?
+    vel_error_last = vel_error;
+    pos_last = pos_actual;         // This should update the current actual position
 
 
 
@@ -248,25 +252,25 @@ void Controller_PID::control_loop_PID ()
  *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
  *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
  */
- void Controller_PID::set_gain_PID (float gain_kP_new, float gain_kI_new, float gain_kD_new)
+ void Controller_PID::set_gain_PID (float kP, float kI, float kD)
  {
     // In order to be able to change the protected variable "gain_kP" and "gain_kI"
-    gain_kP = gain_kP_new;
+    gain_kP = kP;
 
-    gain_kI = gain_kI_new;
+    gain_kI = kI;
 
-    gain_kD = gain_kD_new;
+    gain_kD = kD;
     
  }
 
 
 /** @brief   Set the controller's gain coefficient kP
- *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
+ *  @param   kP A new value for the controller's gain coefficient, kP
  */
- void Controller_PID::set_gain_kP (float gain_kP_new)
+ void Controller_PID::set_gain_kP (float kP)
  {
     // In order to be able to change the protected variable "gain_kP"
-    gain_kP = gain_kP_new;
+    gain_kP = kP;
 
  }
 
@@ -275,19 +279,17 @@ void Controller_PID::control_loop_PID ()
  */
  float Controller_PID::get_gain_kP ()
  {
-    // In order to be able to change the protected variable "gain_kP"
     return gain_kP;
-
  }
 
 
 /** @brief   Set the controller's gain coefficient kI
- *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+ *  @param   kI A new value for the controller's gain coefficient, kI
  */
- void Controller_PID::set_gain_kI (float gain_kI_new)
+ void Controller_PID::set_gain_kI (float kI)
  {
-    // In order to be able to change the protected variable "gain_kP"
-    gain_kI = gain_kI_new;
+    // In order to be able to change the protected variable "gain_kI"
+    gain_kI = kI;
 
  }
 
@@ -296,19 +298,17 @@ void Controller_PID::control_loop_PID ()
  */
  float Controller_PID::get_gain_kI ()
  {
-    // In order to be able to change the protected variable "gain_kI"
     return gain_kI;
-
  }
 
 
 /** @brief   Set the controller's gain coefficient kD
- *  @param   gain_kD_new A new value for the controller's gain coefficient, kD
+ *  @param   kD A new value for the controller's gain coefficient, kD
  */
- void Controller_PID::set_gain_kD (float gain_kD_new)
+ void Controller_PID::set_gain_kD (float kD)
  {
     // In order to be able to change the protected variable "gain_kD"
-    gain_kD = gain_kD_new;
+    gain_kD = kD;
 
  }
 
@@ -317,47 +317,67 @@ void Controller_PID::control_loop_PID ()
  */
  float Controller_PID::get_gain_kD ()
  {
-    // In order to be able to change the protected variable "gain_kD"
     return gain_kD;
-
  }
 
 
 
 
 /** @brief   Set the controller's desired position command that comes from the GCode
- *  @param   pos_desired_new A new value for the controller's desired position. This value will be contantly
+ *  @param   pos_desired_initial A new value for the controller's desired position. This value will be contantly
  *           being updated by the GCode processor
  */
-void Controller_PID::set_pos_desired_PID (float pos_desired_new)
+void Controller_PID::set_pos_desired (float pos_desired_initial)
  {
     // In order to be able to change the protected variable "pos_desired"
     // The GCode processer will use this to constantly feed in new datapoints from the GCode
-    pos_desired = pos_desired_new;
+    pos_desired = pos_desired_initial;
 
  }
-
 
 /** @brief   Get the controller's desired position command that comes from the GCode
  *  @param   pos_desired The value for the controller's desired position. 
  */
-float Controller_PID::get_pos_desired_PID ()
+float Controller_PID::get_pos_desired ()
  {
-    // Return the "pos_desired" value, will mostly be used for testing
+    // Return the "pos_desired" value
     return pos_desired;
+ }
+
+
+/** @brief   Set the controller's actual position command that comes from the encoder
+ *  @param   pos_actual_initial A new value for the controller's actual position. This value will be contantly
+ *           being updated by the encoder processor
+ */
+void Controller_PID::set_pos_actual (float pos_actual_initial)
+ {
+    // In order to be able to change the protected variable "pos_actual"
+    // The encoder processer will use this to constantly feed in new datapoints from the encoder
+    pos_actual = pos_actual_initial;
+
+ }
+
+
+/** @brief   Get the controller's actual position command that comes from the encoder
+ *  @param   pos_actual The value for the controller's actual position. 
+ */
+float Controller_PID::get_pos_actual ()
+ {
+    // Return the "pos_actual" value
+    return pos_actual;
  }
 
 
 
 /** @brief   Set the controller's desired velocity command that comes from the GCode
- *  @param   vel_desired_new A new value for the controller's desired velocity. This value will be contantly
+ *  @param   vel_desired_initial A new value for the controller's desired velocity. This value will be contantly
  *           being updated by the GCode processor
  */
-void Controller_PID::set_vel_desired_PID (float vel_desired_new)
+void Controller_PID::set_vel_desired (float vel_desired_initial)
  {
     // In order to be able to change the protected variable "vel_desired"
     // The GCode processer will use this to constantly feed in new datapoints from the GCode
-    vel_desired = vel_desired_new;
+    vel_desired = vel_desired_initial;
 
 
    
@@ -366,11 +386,35 @@ void Controller_PID::set_vel_desired_PID (float vel_desired_new)
 /** @brief   Get the controller's desired velocity command that comes from the GCode
  *  @param   vel_desired The value for the controller's desired velocity. 
  */
-float Controller_PID::get_vel_desired_PID ()
+float Controller_PID::get_vel_desired ()
  {
     // Return the "vel_desired" value, will mostly be used for testing
     return vel_desired;
  }
+
+
+/** @brief   Set the controller's actual velocity command that comes from the encoder
+ *  @param   vel_actual_initial A new value for the controller's actual velocity. This value will be contantly
+ *           being updated by the encoder processor
+ */
+void Controller_PID::set_vel_actual (float vel_actual_initial)
+ {
+    // In order to be able to change the protected variable "vel_actual"
+    // The encoder processer will use this to constantly feed in new datapoints from the encoder
+    vel_actual = vel_actual_initial;
+
+ }
+
+
+/** @brief   Get the controller's actual position command that comes from the encoder
+ *  @param   pos_actual The value for the controller's actual position. 
+ */
+float Controller_PID::get_vel_actual ()
+ {
+    // Return the "vel_actual" value
+    return vel_actual;
+ }
+
 
 
 /** @brief   Get the output of the control loop

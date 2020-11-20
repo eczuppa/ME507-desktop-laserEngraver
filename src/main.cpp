@@ -18,6 +18,8 @@ Queue<char[LINE_BUFFER_SIZE]> chars_to_print(32,"char array printer");
 Queue<char[LINE_BUFFER_SIZE]> read_chars(32,"read_val");
 
 
+
+
 void setup() 
 {
     // Start the serial port, wait a short time, then say hello. Use the
@@ -96,98 +98,107 @@ void setup()
 
     // ˇˇˇˇˇ Paste this code above Setup()  ˇˇˇˇˇ
 
-    #include "share_testing.h"
+#include "share_testing.h"
 
-    // Now it's time to set up the share's so I can set up an instance of the class
-    // Initial set up of shares
-    Share<float> GCode_share_pos ("Desired Position");
-    Share<float> GCode_share_vel ("Desired Velocity");
-    Share<float> encoder_share_pos ("Actual Position");
-    Share<float> encoder_share_vel ("Actual Velocity");
+// Now it's time to set up the share's so I can set up an instance of the class
+// Initial set up of shares
+Share<float> GCode_share_pos ("Desired Position");
+Share<float> GCode_share_vel ("Desired Velocity");
+Share<float> encoder_share_pos ("Actual Position");
+Share<float> encoder_share_vel ("Actual Velocity");
+Share<float> encoder_share_time ("Current Delta Time");
 
 
+void share_testing_receive (void* p_params)
+{
+    (void)p_params;                             // Shuts up a compiler warning
+    
 
-    void share_testing_receive (void* p_params)
+    // make some constants that will receive the values that are in the shares
+    float position_desired;
+    float position_actual;
+    float velocity_desired;
+    float velocity_actual;
+    float delta_time;
+
+    // Set up the gain's for PID controller
+    float kP = 1;
+    float kI = 1;
+    float kD = 1;
+
+
+    // Serial << "PRINT ME, main.cpp file" << endl;
+
+    
+    for (;;)
     {
-        (void)p_params;                             // Shuts up a compiler warning
+
+
+
+        // ".get" the values from the shares
+        GCode_share_pos.get (position_desired);          // get data out of the share
+        encoder_share_pos.get (position_actual);         // get data out of the share
+        GCode_share_vel.get (velocity_desired);          // get data out of the share
+        encoder_share_vel.get (velocity_actual);         // get data out of the share   
+        encoder_share_time.get (delta_time);             // get data out of the share
+        // Set up an instance of class "controller_PID" to see if the shares worked! (and to see if everything else works)
+        // Start by setting up a class for just motor A
+
+
+
+        // Create instance called motor_A with some fun inputs
+        // Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual);
+        Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual, delta_time);
+
+        // // Create instance called motor_A with some number inputs
+        // Controller_PID motor_A (1, 0.1, 0.01, 40, 40.2, 100, 100.2);
+
+        // Gotta actually run/call the control loop method
+        motor_A.control_loop_PID();
+
+
+        // use set functions to continually update from the share's
+        motor_A.set_pos_desired(position_desired);
+        motor_A.set_pos_actual(position_actual);
+        motor_A.set_vel_desired(velocity_desired);
+        motor_A.set_vel_actual(velocity_actual);
+       
+
+
+        float testing_output = motor_A.get_output();
+        float testing_position_desired = motor_A.get_pos_desired();       // Position desired from control loop
+        float testing_pos_error = motor_A.get_pos_error();                    // Get position error
+
+        // Get a bunch of values to test things
+        Serial << "Printing from main.cpp file" << endl;
+
+        Serial << "Desired Position (Shared):  " << position_desired << endl;               // Position desired from share
+        Serial << "Desired Position (Control Loop):  " << testing_position_desired << endl;       // Position desired from control loop
         
-
-        // make some constants that will receive the values that are in the shares
-        float position_desired;
-        float position_actual;
-        float velocity_desired;
-        float velocity_actual;
-
-        // make some constants that will receive the outputs from the control loop constructor
-        float testing_output = 0;
-        float testing_position_desired = 0;
-        float testing_pos_error = 0;
-
-        // Set up the gain's for PID controller
-        float kP = 1;
-        float kI = 1;
-        float kD = 1;
-
-
-        Serial << "PRINT ME, main.cpp file" << endl;
-
+        // Serial << "Current Position:  " << position_actual << endl;
+        // // Serial << "Desired Velocity:  " << velocity_desired << endl;
+        // // Serial << "Current Velocity:  " << velocity_actual << endl;
         
-        for (;;)
-        {
+        Serial << "Output:  " << testing_output << endl;
+        Serial << "Error, Position:  " << testing_pos_error << endl;
 
+        // Serial << "______________________________" << endl;
 
-
-            // ".get" the values from the shares
-            GCode_share_pos.get (position_desired);          // get data out of the share
-            encoder_share_pos.get (position_actual);         // get data out of the share
-            GCode_share_vel.get (velocity_desired);          // get data out of the share
-            encoder_share_vel.get (velocity_actual);         // get data out of the share   
-
-            // Set up an instance of class "controller_PID" to see if the shares worked! (and to see if everything else works)
-            // Start by setting up a class for just motor A
-
-
-
-            // Create instance called motor_A with some fun inputs
-            Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual);
-
-            // // Create instance called motor_A with some number inputs
-            // Controller_PID motor_A (10, 0.1, 0.01, 4, 4.2, 10, 10.2);
-
-
-            testing_output = motor_A.get_output();
-            testing_position_desired = motor_A.get_pos_desired_PID();       // Position desired from control loop
-            testing_pos_error = motor_A.get_pos_error();                    // Get position error
-
-            // Get a bunch of values to test things
-
-            Serial << "Desired Position (Shared)" << position_desired << endl;               // Position desired from share
-            Serial << "Desired Position (Control Loop)" << testing_position_desired << endl;       // Position desired from control loop
-            Serial << "Current Position" << position_actual << endl;
-            Serial << "Desired Velocity" << velocity_desired << endl;
-            Serial << "Current Velocity" << velocity_actual << endl;
-            
-            Serial << "Output" << testing_output << endl;
-            Serial << "Error, Position: " << testing_pos_error << endl;
-
-            // Serial << "PRINT ME" << endl;
-            // Then set up the a task... and maybe plot something to see how the response is? 
-            // This one might get a little complicated... but should be a grand time
-            
-            vTaskDelay (1000);
-        }
-        Serial << "PRINT ME, main.cpp file" << endl;
-        // Timing accuracy isn't extremely important, so use the simpler delay
+        // Serial << "PRINT ME" << endl;
+        // Then set up the a task... and maybe plot something to see how the response is? 
+        // This one might get a little complicated... but should be a grand time
         
+        // Timing accuracy isn't extremely FOR TESTING RIGHT NOW important, so use the simpler delay
+        vTaskDelay (1000);
     }
+    
+}
+
+
+
 
     // ^^^^^ Paste this code above Setup()  ^^^^^^
 
-
-
-
-    // Set up share's in "share_testing.h and share_testing.cpp"
-    // #include "share_testing.h"
 
 
     // workflow: now we must go over to the control.cpp file and declare an "extern" in order 
@@ -196,16 +207,6 @@ void setup()
     // Ask about this
 
 
-    // //declare the shares again as an "extern" so this file can read them
-    // extern Share<float> GCode_share_pos;
-    // extern Share<float> GCode_share_vel;
-    // extern Share<float> encoder_share_pos;
-    // extern Share<float> encoder_share_vel;
-
-
-
-
-    // We still gotta ".get" those fine values in "share_testing" now don't we?
 
     xTaskCreate (share_testing_send,
                 "test sharing",
@@ -227,6 +228,8 @@ void setup()
 
     // Start running the tasks, sir!
     vTaskStartScheduler ();
+
+
 
 
 
