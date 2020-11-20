@@ -63,10 +63,10 @@ void task_read_serial(void* p_params)
             read_chars.put(line);
 
             //Add a newline (\n) char to the end to signify to the python script that the line has ended
-            line[strlen(line)] = '\n';
+            // line[strlen(line)] = '\n';
 
             //Temporarily echo
-            print_serial(line);
+            // print_serial(line);
             // Serial << line;
 
             // Reset line and incomingByte for next time
@@ -154,9 +154,25 @@ void print_serial(char printed_char[LINE_BUFFER_SIZE])
         chars_to_print.put(char_print);
 }
 
+void print_serial(char printed_char)
+{
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //Assign char to char array
+        char_print[0] = printed_char;
+    //Put into queue
+        chars_to_print.put(char_print);
+}
 
-
-
+void print_serial(const char* printed_char)
+{
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //Assign const char* to char array
+        strcpy(char_print,printed_char);
+    //Put into queue
+        chars_to_print.put(char_print);
+}
 
 
 

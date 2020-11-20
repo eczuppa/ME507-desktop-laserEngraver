@@ -1,5 +1,5 @@
 /** @file gcode.h
- *    This file contains the header for a gcode interpreting function.
+ *    This file contains the header for a file comtaining gcode interpreting functions.
  * 
  *    The full Doxygen header for the function is in the .cpp file, so there is
  *    just a brief description of the function here. 
@@ -28,10 +28,7 @@
 
 
 //Function to interpret gcode
-void interpret_line(char *line);
-
-//Task function to translate and send out necessary control data
-void task_translate(void* p_params);
+void interpret_gcode_line(char *line);
 
 
 #endif //GCODE_H

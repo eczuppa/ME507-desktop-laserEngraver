@@ -29,6 +29,8 @@ void task_print_serial(void* p_params);
 void print_serial(String string_to_print);
 void print_serial(float printed_float);
 void print_serial(char string_to_print[LINE_BUFFER_SIZE]);
+void print_serial(char printed_char);
+void print_serial(const char* printed_char);
 
 
 

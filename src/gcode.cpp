@@ -10,15 +10,14 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
-extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
-
+using namespace BLA;
 
 /** @brief      Function which reads a single line of gcode and begins to decode it. 
  *  @details    This function reads a line of gcode and splits it up into the separate commands. 
  *              It then sends out the appropriate data to finish translation.
  *  @param      line A line of gcode to be interpreted. 
  */
-void interpret_line(char *line) 
+void interpret_gcode_line(char *line) 
 {
     //Define variables for use in function: Decoding Gcode
     uint8_t char_counter = 0;  
@@ -33,6 +32,13 @@ void interpret_line(char *line)
     float Y = 0;
     uint8_t S = 0;
     float F = 0;
+
+    //Define variables that state which outputs have changed
+    // Matrix<4,1,Array<4,1,bool> > cmds;
+    bool X_cmd = 0;
+    bool Y_cmd = 0;
+    bool S_cmd = 0;
+    bool F_cmd = 0;
 
     //Define state variables
     uint8_t move_type = NONE;
@@ -49,9 +55,10 @@ void interpret_line(char *line)
         if (letter == GCODE_COMMENT)
         {
             //Find a comment, print it!
-            print_serial("Comment Found: ");
+            // print_serial("Comment Found: ");
             print_serial(str_line.substring(char_counter+1));
-            print_serial('\n');
+            print_serial('\n'); //end transmission
+
             //Once comment has been found, skip to the end of the line to end the line loop. 
             char_counter = str_line.length();
         }
@@ -160,7 +167,7 @@ void interpret_line(char *line)
                     if (move_type == LIN_INTERP or move_type == TRAVEL)
                     {
                         X = value;
-                        //Send value to output?
+                        X_cmd = 1;
                     }
                     else
                     {
@@ -173,7 +180,7 @@ void interpret_line(char *line)
                     if (move_type == LIN_INTERP or move_type == TRAVEL)
                     {
                         Y = value;
-                        //Send value to output?
+                        Y_cmd = 1;
                     }
                     else
                     {
@@ -186,6 +193,7 @@ void interpret_line(char *line)
                     if (move_type == LIN_INTERP or move_type == TRAVEL)
                     {
                         S = int_value*100 + mantissa;     //Power interpreted as pct (0 to 100)
+                        S_cmd = 1;
                         //Send value to output?
                     }
                     else
@@ -200,6 +208,7 @@ void interpret_line(char *line)
                     if (move_type == LIN_INTERP or move_type == TRAVEL)
                     {
                         F = value;
+                        F_cmd = 1;
                         //Send value to output?
                     }
                     else
@@ -215,7 +224,8 @@ void interpret_line(char *line)
             }//switch (letter)
         }//else (Not a comment or space)
     }
-
+    
+    
     return;
 }
 
@@ -223,31 +233,3 @@ void interpret_line(char *line)
 
 
 
-/** @brief      Task which reads gcode, translates it, and sends the data to where it needs to go.
- *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
- *              and splits it up into the separate commands. 
- *              It then sends out the appropriate data to finish translation.
- *  @param      line A line of gcode to be interpreted. 
- */
-void task_translate(void* p_params)
-{
-    (void)p_params;                   // Does nothing but shut up a compiler warning
-    // Set the timeout for reading from the serial port to the maximum
-    // possible value, essentially forever for a real-time control program
-    Serial.setTimeout (0xFFFFFFFF);
-
-    Kinematics_coreXY translator;
-
-    char line[LINE_BUFFER_SIZE];
-
-    for(;;)
-    {   
-        //If there is a read line of gcode/commands in the queue...
-        if (read_chars.any())
-        {
-            read_chars.get(line);
-            interpret_line(line);
-        }
-
-    }
-}

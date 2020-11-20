@@ -46,6 +46,7 @@
 #include "kinematics.h"
 #include "stopwatch.h"
 #include "safetySupervisor.h"
+#include "commands.h"
 
 
 
