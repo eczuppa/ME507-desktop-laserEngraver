@@ -85,7 +85,7 @@ void Kinematics_coreXY::transform_F_B(void)
     // Transform X and Y components of the dir_vector scaled by F to velocity setpoints for motor A and B.
     _B_feed = dir_Vector(1,1) - dir_Vector(1,2);
     
-    return _B_feed;
+    // return _B_feed;
 }
 
 void Kinematics_coreXY::reset_XYF(void)
