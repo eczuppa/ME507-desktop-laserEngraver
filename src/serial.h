@@ -37,6 +37,7 @@ void task_print_serial(void* p_params);
 //Function to add items to the serial print queue to be executed by the printing task function
 void print_serial(String string_to_print);
 void print_serial(float printed_float);
+void print_serial(char string_to_print[LINE_BUFFER_SIZE]);
 
 
 #endif // SERIAL_H

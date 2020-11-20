@@ -209,7 +209,5 @@ void interpret_gcode_line(char *line)
         }//else (Not a comment or space)
     }
 
-    
-    
     return;
 }

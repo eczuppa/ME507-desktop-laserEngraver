@@ -36,8 +36,6 @@ void task_read_serial(void* p_params)
     //Set all valuew in line to null character
     memset(line,'\0',sizeof(line));
 
-
-
     for(;;)
     {
         //Set LED to off
@@ -68,14 +66,13 @@ void task_read_serial(void* p_params)
             line[strlen(line)] = '\n';
 
             //Temporarily echo
-            // print_serial(line);
-            Serial << line;
+            print_serial(line);
+            // Serial << line;
 
             // Reset line and incomingByte for next time
             memset(line,'\0',sizeof(line));
             incomingByte = -1;
         }
-
         vTaskDelay(2);
     }
 }
@@ -114,17 +111,20 @@ void task_print_serial(void* p_params)
 
 }
 
+
+
+
 /** @brief      Task which loads the print queue with something to print
  *  @details    This function adds things to the printing queue which will be printed by
  *              the @c task_print_serial task function. The function is overloaded to 
- *              allow for a variety of inputs.
+ *              allow for a variety of input types.
  *  @param      p_params A pointer to function parameters which we don't use.
  */
 void print_serial(String printed_string)
 {
     //create char array to print
         char char_print[LINE_BUFFER_SIZE];
-    //set print char array to string of input char array 
+    //set print char array to string of input string
         printed_string.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
         chars_to_print.put(char_print);
@@ -136,7 +136,7 @@ void print_serial(float printed_float)
         String str_print = (String)printed_float;
     //create char array to print
         char char_print[LINE_BUFFER_SIZE];
-    //set print char array to string of input char array 
+    //set print char array to char of input string
         str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
         chars_to_print.put(char_print);
@@ -148,7 +148,7 @@ void print_serial(char printed_char[LINE_BUFFER_SIZE])
         String str_print = (String)printed_char;
     //create char array to print
         char char_print[LINE_BUFFER_SIZE];
-    //set print char array to string of input char array (redundant? yes. But it doesn't seem to work otherwise.)
+    //set print char array to char of string of input char array (redundant? yes. But it doesn't seem to work otherwise.)
         str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
         chars_to_print.put(char_print);
