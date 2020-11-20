@@ -14,8 +14,8 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
-Queue<String> strings_to_print(16,"String Printer");
-Queue<String> read_strings(32,"read_val");
+Queue<char[LINE_BUFFER_SIZE]> chars_to_print(32,"char array printer");
+Queue<char[LINE_BUFFER_SIZE]> read_chars(32,"read_val");
 
 
 void setup() 
@@ -41,13 +41,12 @@ void setup()
     //Niko test section
     #ifdef NIKO_TESTING
 
-    #define LINE_BUFFER_SIZE 80
-
+    pinMode(LED_BUILTIN,OUTPUT);
 
     // Create a task to read inputs from the serial port
     xTaskCreate (task_read_serial,              //Task Function name
                  "Reading Serial",              // Name for printouts
-                 4096,                          // Stack size
+                 1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
                  8,                             // Priority
                  NULL);                         // Task handle
@@ -56,7 +55,7 @@ void setup()
     // Create a task to read inputs from the serial port
     xTaskCreate (task_print_serial,             //Task Function name
                  "Printing Serial",             // Name for printouts
-                 4096,                          // Stack size
+                 1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
                  3,                             // Priority
                  NULL);                         // Task handle

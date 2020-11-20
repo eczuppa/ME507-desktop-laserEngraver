@@ -16,7 +16,7 @@
 
 #include "libraries&constants.h"
 
-#define LINE_BUFFER_SIZE = 80
+#define LINE_BUFFER_SIZE 80
 
 
 //Function to parse ints sent in the serial port

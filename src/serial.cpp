@@ -11,8 +11,8 @@
 
 //---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
 
-extern Queue<String> strings_to_print;
-extern Queue<String> read_strings;
+extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print;
+extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
 
 /** @brief      Task which reads the serial port and echos back what it sees.
@@ -27,32 +27,56 @@ void task_read_serial(void* p_params)
     // possible value, essentially forever for a real-time control program
     Serial.setTimeout (0xFFFFFFFF);
 
-    char incomingByte[64]; // for incoming serial data
+    // char incomingByte[64]; // for incoming serial data
+    // String incomingByte;
+    int16_t incomingByte = -1;
+    // String line = "\0";
+    char line[LINE_BUFFER_SIZE];
 
-    // strcpy(incomingByte,"G1 X46.12 Y39.20 S1.00 F600");
+    //Set all valuew in line to null character
+    memset(line,'\0',sizeof(line));
 
-    // Serial << strlen(incomingByte);
+
 
     for(;;)
     {
+        //Set LED to off
+        digitalWrite(LED_BUILTIN,LOW);
+
         if (Serial.available() > 0) 
-        {
-            //Clear incomingByte char array before entering new data
-            memset(incomingByte, '\0', sizeof(incomingByte)*sizeof(char)); 
-            
+        { 
+            //Turn on light
+            digitalWrite(LED_BUILTIN,HIGH);
+
             // read the incoming byte:
-            Serial.readBytes(incomingByte,64);
+            incomingByte = Serial.read();
 
-            incomingByte[strlen(incomingByte)] = '\n';
+            //Add character to line
+            line[strlen(line)] = (char)incomingByte;
+            
+            //Turn off light
+            digitalWrite(LED_BUILTIN,HIGH);
+        }
+        //If we get the end of a line...
+        // else if (line.length() != 0)
+        if (incomingByte == int16_t('\0'))
+        {
+            //Put line data into the read_string
+            read_chars.put(line);
 
-            //Put incomingByte data into the read_string
-            read_strings.put(incomingByte);
+            //Add a newline (\n) char to the end to signify to the python script that the line has ended
+            line[strlen(line)] = '\n';
 
             //Temporarily echo
-            strings_to_print.put(incomingByte);
-            
+            // print_serial(line);
+            Serial << line;
+
+            // Reset line and incomingByte for next time
+            memset(line,'\0',sizeof(line));
+            incomingByte = -1;
         }
-        vTaskDelay(10);
+
+        vTaskDelay(2);
     }
 }
 
@@ -72,22 +96,21 @@ void task_print_serial(void* p_params)
     Serial.setTimeout (0xFFFFFFFF);
 
     //Initialize string to print
-    String print_string;
+    char print_string[LINE_BUFFER_SIZE];
 
     for(;;)
     {
         //When you get a string in the string_to_print queue...
-        if (strings_to_print.any())
+        if (chars_to_print.any())
         {
             //Get it from the queue...
-            strings_to_print.get(print_string);
+            chars_to_print.get(print_string);
             
             //Then print it!
             Serial << print_string;
         }
         vTaskDelay(10);
     }
-    
 
 }
 
@@ -99,13 +122,43 @@ void task_print_serial(void* p_params)
  */
 void print_serial(String printed_string)
 {
-    strings_to_print.put(printed_string);
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //set print char array to string of input char array 
+        printed_string.toCharArray(char_print,LINE_BUFFER_SIZE);
+    //Put into queue
+        chars_to_print.put(char_print);
 }
 
 void print_serial(float printed_float)
 {
-    strings_to_print.put((String)printed_float);
+    //Get string of input character array
+        String str_print = (String)printed_float;
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //set print char array to string of input char array 
+        str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
+    //Put into queue
+        chars_to_print.put(char_print);
 }
+
+void print_serial(char printed_char[LINE_BUFFER_SIZE])
+{
+    //Get string of input character array
+        String str_print = (String)printed_char;
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //set print char array to string of input char array (redundant? yes. But it doesn't seem to work otherwise.)
+        str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
+    //Put into queue
+        chars_to_print.put(char_print);
+}
+
+
+
+
+
+
 
 
 
