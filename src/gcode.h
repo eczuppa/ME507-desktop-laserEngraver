@@ -15,7 +15,7 @@
 
 #define GCODE_COMMENT ';'
 
-#define TRAVEL_SPEED 600
+#define TRAVEL_SPEED 600    // mm/min
 
 //Define travel types
 #define TRAVEL 0
@@ -26,8 +26,12 @@
 #define MILLIMETERS 0
 #define INCHES 1
 
+
 //Function to interpret gcode
-void interpret_gcode_line(char *line);
+void interpret_line(char *line);
+
+//Task function to translate and send out necessary control data
+void task_translate(void* p_params);
 
 
 #endif //GCODE_H

@@ -8,11 +8,17 @@
  * 
 */
 #include "libraries&constants.h"
-//using namespace BLA;
-//Queue<Matrix<1,8>> Gcode_queue (20,"Gcode Input");
 
-//This function will interpret a single line of Gcode to enter into the main command array. 
-void interpret_gcode_line(char *line) 
+//Shares and queues should go here
+extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
+
+
+/** @brief      Function which reads a single line of gcode and begins to decode it. 
+ *  @details    This function reads a line of gcode and splits it up into the separate commands. 
+ *              It then sends out the appropriate data to finish translation.
+ *  @param      line A line of gcode to be interpreted. 
+ */
+void interpret_line(char *line) 
 {
     //Define variables for use in function: Decoding Gcode
     uint8_t char_counter = 0;  
@@ -211,4 +217,37 @@ void interpret_gcode_line(char *line)
     }
 
     return;
+}
+
+
+
+
+
+/** @brief      Task which reads gcode, translates it, and sends the data to where it needs to go.
+ *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
+ *              and splits it up into the separate commands. 
+ *              It then sends out the appropriate data to finish translation.
+ *  @param      line A line of gcode to be interpreted. 
+ */
+void task_translate(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
+    // Set the timeout for reading from the serial port to the maximum
+    // possible value, essentially forever for a real-time control program
+    Serial.setTimeout (0xFFFFFFFF);
+
+    Kinematics_coreXY translator;
+
+    char line[LINE_BUFFER_SIZE];
+
+    for(;;)
+    {   
+        //If there is a read line of gcode/commands in the queue...
+        if (read_chars.any())
+        {
+            read_chars.get(line);
+            interpret_line(line);
+        }
+
+    }
 }

@@ -1,5 +1,5 @@
-/** @file   kinematics.h the interface for the kinematics class that wil translate GCODE inputs into a usable type 
- *          for the control loop
+/** @file       kinematics.h the interface for the kinematics class that wil translate GCODE inputs into a usable 
+ *              type for the control loop
  *  @details    Uses the appropriate kinematic equations to relate Gcode X,Y positions and F feedrate to values of 
  *              the same type as the motor encoders output. This transfomration significantly increases the ease of 
  *              controlling the motors and only requires the proper transformation of the desired target positions, 

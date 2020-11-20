@@ -62,6 +62,14 @@ void setup()
                  3,                             // Priority
                  NULL);                         // Task handle
 
+    // Create a task to translate command codes to the contorller
+    xTaskCreate(task_translate,                 //Task Function name
+                 "Translating",                 // Name for printouts
+                 1000,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 9,                             // Priority
+                 NULL);                         // Task handle
+
 
     // static char line[LINE_BUFFER_SIZE]; // Line to be executed. Zero-terminated.
 

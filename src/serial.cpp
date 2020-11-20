@@ -73,7 +73,7 @@ void task_read_serial(void* p_params)
             memset(line,'\0',sizeof(line));
             incomingByte = -1;
         }
-        vTaskDelay(2);
+        vTaskDelay(20);
     }
 }
 
@@ -106,7 +106,7 @@ void task_print_serial(void* p_params)
             //Then print it!
             Serial << print_string;
         }
-        vTaskDelay(10);
+        vTaskDelay(100);
     }
 
 }
