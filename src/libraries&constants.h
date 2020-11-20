@@ -45,6 +45,7 @@
 #include "limit_switch.h"
 #include "kinematics.h"
 #include "stopwatch.h"
+#include "safetySupervisor.h"
 
 
 

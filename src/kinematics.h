@@ -69,6 +69,7 @@ class Kinematics_coreXY
     
     void set_current_XYF(float g_X_c, float g_Y_c, float g_F_c);
     void update_XYF(void);
+    void reset_XYF(void);
 
     float transform_A(void);  // Takes X and Y position commands and returns Motor A setpoint
     float transfrom_B(void);  // Takes X and Y position commands and creates Motor B setpoint
