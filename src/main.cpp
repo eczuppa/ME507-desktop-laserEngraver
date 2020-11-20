@@ -74,6 +74,7 @@ void setup()
                  3,                             // Priority
                  NULL);                         // Task handle
 
+
     // static char line[LINE_BUFFER_SIZE]; // Line to be executed. Zero-terminated.
 
     // // Values in line are set one by one when data is recieved from the serial port. 
