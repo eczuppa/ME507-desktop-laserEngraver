@@ -111,14 +111,8 @@ void setup()
     //MATTHEW test section
     #ifdef MATTHEW_TESTING
 
-    // General notes: Now 17, 2020
-    // Shares seem to be working pretty nicely!
-    // The values are not entering into the control loop code... namely the Class specific 
-    // parameters are not getting redefined by the inputs to the Controller_PID constructor
-
 
     // ˇˇˇˇˇ Paste this code above Setup()  ˇˇˇˇˇ
-
 
 // Now it's time to set up the share's so I can set up an instance of the class
 // Initial set up of shares
@@ -205,33 +199,29 @@ void share_testing_receive (void* p_params)
         GCode_share_vel.get (velocity_desired);          // get data out of the share
         encoder_share_vel.get (velocity_actual);         // get data out of the share   
         encoder_share_time.get (delta_time);             // get data out of the share
-        // Set up an instance of class "controller_PID" to see if the shares worked! (and to see if everything else works)
-        // Start by setting up a class for just motor A
-
-
 
         // Create instance called motor_A with some fun inputs
         // Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual);
-        Controller_PID motor_A (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual, delta_time);
+        Controller_PID motor_A_control (kP, kI, kD, position_desired, position_actual, velocity_desired, velocity_actual, delta_time);
 
         // // Create instance called motor_A with some number inputs
         // Controller_PID motor_A (1, 0.1, 0.01, 40, 40.2, 100, 100.2);
 
         // Gotta actually run/call the control loop method
-        motor_A.control_loop_PID();
+        motor_A_control.control_loop_PID();
 
 
         // use set functions to continually update from the share's
-        motor_A.set_pos_desired(position_desired);
-        motor_A.set_pos_actual(position_actual);
-        motor_A.set_vel_desired(velocity_desired);
-        motor_A.set_vel_actual(velocity_actual);
+        motor_A_control.set_pos_desired(position_desired);
+        motor_A_control.set_pos_actual(position_actual);
+        motor_A_control.set_vel_desired(velocity_desired);
+        motor_A_control.set_vel_actual(velocity_actual);
        
 
 
-        float testing_output = motor_A.get_output();
-        float testing_position_desired = motor_A.get_pos_desired();       // Position desired from control loop
-        float testing_pos_error = motor_A.get_pos_error();                    // Get position error
+        float testing_output = motor_A_control.get_output();
+        float testing_position_desired = motor_A_control.get_pos_desired();       // Position desired from control loop
+        float testing_pos_error = motor_A_control.get_pos_error();                    // Get position error
 
         // Get a bunch of values to test things
         Serial << "Printing from main.cpp file" << endl;
@@ -264,13 +254,7 @@ void share_testing_receive (void* p_params)
 
 
 
-
-    // workflow: now we must go over to the control.cpp file and declare an "extern" in order 
-    // to be able to use the my_share.get functionality
-    // ... Now I don't know if I need to do this actually...
-    // Ask about this
-
-
+    // Create and run tasks for sending and receiving
 
     xTaskCreate (share_testing_send,
                 "test sharing",

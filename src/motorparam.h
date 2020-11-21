@@ -10,14 +10,29 @@
 
 #include "libraries&constants.h"
 
-void motor_task (void* p_params);
+// Motor A Driver Task
+void motor_A_driver_task (void* p_params);
 
-const TickType_t motor_period = 1000;
+const TickType_t motor_period_A = 1000;           // This is 100ms (yeah?)
+// Please check to make sure this is the correct time period
+
+
+// Motor A Driver Task
+void motor_B_driver_task (void* p_params);
+
+const TickType_t motor_period_B = 1000;           // This is 100ms (yeah?)
+// Please check to make sure this is the correct time period
+
+
+
 
 
 
 void encoder_task (void* p_params);
 
 const TickType_t encoder_period = 2;
+
+
+
 
 #endif // MOTORPARAM_H
