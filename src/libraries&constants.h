@@ -48,6 +48,7 @@
 #include "safetySupervisor.h"
 #include "motionplanning.h"
 #include "commands.h"
+#include "temperature_task.h"
 
 
 
