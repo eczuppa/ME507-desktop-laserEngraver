@@ -41,7 +41,7 @@ void motor_A_driver_task (void* p_params)
     uint8_t mot_dir_2 = PA14;           //PA14 = 20
     uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
     uint8_t tim_chan_num_motor = 1;     // Channel 1, for timer
-    TIM_TypeDef * a_p_timer = TIM3;     // I HAVE NO IDEA WHAT THIS IS DOING... (Matthew)
+    // TIM_TypeDef * a_p_timer = TIM3;     // a pointer to the hardware timer object that is user defined, in this case TIM3
 
     
     //Note: TB6612FNG(stby_pin, mot_pin_1, mot_pin_2, a_pwm_pin, a_tim_chan_num, TIM_TypeDef * _p_timer);
@@ -90,12 +90,13 @@ void motor_B_driver_task (void* p_params)
 {
     (void)p_params;                     // Does nothing but shut up a compiler warning
 
-    uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
-    uint8_t mot_dir_1 = PA11;           //PA11 = 37
-    uint8_t mot_dir_2 = PA12;           //PA12 = 36
-    uint8_t pwm_pin_motor = PA7;        //PA7, predefined arduino pin = A6
-    uint8_t tim_chan_num_motor = 2;     // Channel 2, for timer    !! CHECK THIS!!!
-    TIM_TypeDef * a_p_timer = TIM3;     // I HAVE NO IDEA WHAT THIS IS DOING... (Matthew)
+                                        // Pin names PC10, etc are defines that live in variant.h
+    uint8_t stby_motor = PC10;          // PC10 = 16     
+    uint8_t mot_dir_1 = PA11;           // PA11 = 37
+    uint8_t mot_dir_2 = PA12;           // PA12 = 36
+    uint8_t pwm_pin_motor = PA7;        // PA7, predefined arduino pin = A6
+    uint8_t tim_chan_num_motor = 2;     // Channel 2, for timer    
+    //TIM_TypeDef * a_p_timer = TIM3;    
 
     
     //Note: TB6612FNG(stby_pin, mot_pin_1, mot_pin_2, a_pwm_pin, a_tim_chan_num, TIM_TypeDef * _p_timer);
@@ -131,19 +132,6 @@ void motor_B_driver_task (void* p_params)
 }
 
 
-
-
-
-
-
-void encoder_callback (void* p_params)
-{
-    (void) p_params;
-    for(;;)
-    {
-
-    }
-}
 
 void encoder_task (void* p_params)
 {
