@@ -13,15 +13,14 @@
 // Motor A Driver Task
 void motor_A_driver_task (void* p_params);
 
-const TickType_t motor_period_A = 1000;           // This is 100ms (yeah?)
-// Please check to make sure this is the correct time period
+const TickType_t motor_period_A = 10;           // This is 1ms (yeah?)
+
 
 
 // Motor A Driver Task
 void motor_B_driver_task (void* p_params);
 
-const TickType_t motor_period_B = 1000;           // This is 100ms (yeah?)
-// Please check to make sure this is the correct time period
+const TickType_t motor_period_B = 10;           // This is 1ms (yeah?)
 
 
 
