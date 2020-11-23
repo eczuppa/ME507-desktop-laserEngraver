@@ -8,12 +8,9 @@
 #include "libraries&constants.h"
 
 
-//Share<int32_t> duty_cycle_fan ("Power");
-
-
 // some extern share from the controller to tell the safety supervisor to turn on the fan
 extern Share<bool> fan_state;
-
+Share<uint8_t> warning_code ("Safety Event Flag");
 
 
 /** @brief   Safet Supervising Task. 
