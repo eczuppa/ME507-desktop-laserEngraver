@@ -20,7 +20,7 @@
 
 MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, float feed_setpoint, uint32_t ramp_dt_period)
 {
-    // Save inputs into class member data and scale everything by 100 so we can do integer division with remainders 
+    // Save inputs into class member data and setup dynamic array pointer 
     _setpoint_current = setpoint_current;
     _setpoint_last = setpoint_last;
     _feed_setpoint = feed_setpoint;
