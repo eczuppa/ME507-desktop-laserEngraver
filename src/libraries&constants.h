@@ -50,7 +50,7 @@
 #include "motionplanning.h"
 #include "commands.h"
 #include "temperature_task.h"
-
+#include "control_task.h"
 
 
 #endif //LIBRARIES_H
