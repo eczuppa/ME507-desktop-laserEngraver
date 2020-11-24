@@ -9,6 +9,18 @@
  *                           Also I need to figure out how to pass the instantiation of the hardware timer class to
  *                           through this class (e.g. TIM1, TIM2, TIM3, etc) so that the timer can be changed as needed
  *                           instead of being set in the header file as it is currently. 
+ *  @date 10 Nov 2020        Got help from Dr. Ridgely for how to correctly pass timer objects into this class and was able
+ *                           to get it to the level of portability I desired. Motors work, though they are not particularly quiet
+ *                           due to being contained in what amounts to 3D printed echo chambers, but the slight increase in
+ *                           complexity for more capability than @c analogWrite() was worth the effort. Especially given the added
+ *                           garuntee that pins are correctly being put in their alternate function modes.
+ *  @date 15 Nov 2020        Added brake method to try to do power and brake vs power and coast driving style for the motors. This was 
+ *                           taken from sparkfun's arduino Library for the TB6612FNG from: 
+ *                           https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/blob/master/src/SparkFun_TB6612.cpp 
+ *                           However, I am not sure how to implement this method into our PID controller... perhaps something
+ *                           that is watching for the erorr to drop to a certain threshold and then instead of settting the 
+ *                           PWM singal to 0 and allowing the motor to coast, the short brake method is called. Also, given its
+ *                           name - short brake - in the truth table I am skeptical of how effective it would be in the first place.
  * 
  * 
  * 
@@ -16,7 +28,6 @@
 
 #include "TB6612FNG_Driver.h"
 #include <Arduino.h>
-#include <string.h>
 
 /** @brief   TB6612FNG Constructor
  *  @details Saves instances of class memeber data for all required input pins to run one H-bridge on the

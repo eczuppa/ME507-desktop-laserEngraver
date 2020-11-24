@@ -35,12 +35,14 @@
 
 //ME507 Laser Library
 #include "control.h"
+#include "check_home.h"
 #include "debouncer.h"
+#include "encoder_task.h"
 #include "gcode.h"
 #include "Quad_Encoder.h"
 #include "TB6612FNG_Driver.h"
 #include "nuts_bolts.h"
-#include "motorparam.h"
+#include "motor_task.h"
 #include "serial.h"
 #include "limit_switch.h"
 #include "kinematics.h"
@@ -48,7 +50,8 @@
 #include "safetySupervisor.h"
 #include "motionplanning.h"
 #include "commands.h"
-
+#include "temperature_task.h"
+#include "control_task.h"
 
 
 #endif //LIBRARIES_H
