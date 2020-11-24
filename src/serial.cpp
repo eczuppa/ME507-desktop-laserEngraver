@@ -27,52 +27,100 @@ void task_read_serial(void* p_params)
     // possible value, essentially forever for a real-time control program
     Serial.setTimeout (0xFFFFFFFF);
 
-    // char incomingByte[64]; // for incoming serial data
-    // String incomingByte;
+    //incoming byte data variable (comes as bytes, need to translate to char)
     int16_t incomingByte = -1;
+
     // String line = "\0";
     char line[LINE_BUFFER_SIZE];
-
-    //Set all valuew in line to null character
+    //Set all values in line to null character
     memset(line,'\0',sizeof(line));
 
+    //For testing
+    #define TESTING
+
+    //State variable to continue to read or not (if read queue gets close to full)
+    bool read_ready = READY;
+    //Sign that we need to update python that we're ready
+    bool update_input = true;
+
+    //Task for loop
     for(;;)
     {
-        //Set LED to off
-        digitalWrite(LED_BUILTIN,LOW);
-
-        if (Serial.available() > 0) 
-        { 
-            //Turn on light
-            digitalWrite(LED_BUILTIN,HIGH);
-
-            // read the incoming byte:
-            incomingByte = Serial.read();
-
-            //Add character to line
-            line[strlen(line)] = (char)incomingByte;
-            
-            //Turn off light
-            digitalWrite(LED_BUILTIN,HIGH);
-        }
-        //If we get the end of a line...
-        // else if (line.length() != 0)
-        if (incomingByte == int16_t('\0'))
+        //Read ready state 1: read the serial port and send to the queue
+        if (read_ready == READY) 
         {
-            //Put line data into the read_string
-            read_chars.put(line);
+            //Tell python that we're ready for data, if it think's we're not
+            if (update_input)
+            {
+                print_serial("Send_Data\n");
+                update_input = false;
+            }
 
-            //Add a newline (\n) char to the end to signify to the python script that the line has ended
-            // line[strlen(line)] = '\n';
+            //If there's something coming from python...
+            if (Serial.available() > 0) 
+            { 
+                // read the incoming byte:
+                incomingByte = Serial.read();
 
-            //Temporarily echo
-            // print_serial(line);
-            // Serial << line;
+                //Add character to line
+                line[strlen(line)] = (char)incomingByte;
 
-            // Reset line and incomingByte for next time
-            memset(line,'\0',sizeof(line));
-            incomingByte = -1;
+            }
+
+            //If we get the end of a line...
+            if (incomingByte == int16_t('\0'))
+            {
+                //Put line data into the read_string
+                read_chars.put(line);
+
+                
+
+                //Add a newline (\n) char to the end to signify to the python script that the line has ended
+                // line[strlen(line)] = '\n';
+
+                //Temporarily echo
+                // print_serial(line);
+
+                // Reset line and incomingByte for next time
+                memset(line,'\0',sizeof(line));
+                incomingByte = -1;
+
+                //Signal to python that a line has been recieved
+                print_serial("Got_Msg\n");
+            }
         }
+        
+        //State Checker: Check if the queue is close to full, and tell python to stop sending code until there's space:
+        if (read_chars.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)
+        {
+            //Set the state to WAIT and tell python to wait
+            read_ready = WAIT;
+            print_serial("Wait\n");
+        }
+        //If we're still waiting but we have some room in the queue, then start reading again!
+        else if (read_ready == WAIT)
+        {
+            read_ready = READY;     //Switch to ready state
+            update_input = true;    //Say that we need to update python of our status
+        }
+
+
+
+        //testing mode: Not taking inputs from python
+        #ifndef TESTING
+        #define TESTING
+        String test_line = "G1 X46.12 Y39.20 S1.00 F600";
+        ///Set each character in static char @c line to match our test string, just like it 
+        ///would in the parser (once that's finished)
+        for (uint8_t char_counter = 0; char_counter<=test_line.length();  char_counter++)
+        {
+            line[char_counter] = test_line[char_counter];
+        }
+        // Put line data into the read_string
+        read_chars.put(line);
+        #endif //TESTING
+
+
         vTaskDelay(20);
     }
 }
@@ -120,6 +168,7 @@ void task_print_serial(void* p_params)
  *              allow for a variety of input types.
  *  @param      p_params A pointer to function parameters which we don't use.
  */
+//For strings
 void print_serial(String printed_string)
 {
     //create char array to print
@@ -130,6 +179,7 @@ void print_serial(String printed_string)
         chars_to_print.put(char_print);
 }
 
+//For floats
 void print_serial(float printed_float)
 {
     //Get string of input character array
@@ -142,7 +192,21 @@ void print_serial(float printed_float)
         chars_to_print.put(char_print);
 }
 
-void print_serial(char printed_char[LINE_BUFFER_SIZE])
+//For uint8_t
+void print_serial(uint8_t printed_int)
+{
+    //Get string of input character array
+        String str_print = (String)printed_int;
+    //create char array to print
+        char char_print[LINE_BUFFER_SIZE];
+    //set print char array to char of input string
+        str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
+    //Put into queue
+        chars_to_print.put(char_print);
+}
+
+//For character arrays
+void print_serial(char *printed_char)
 {
     //Get string of input character array
         String str_print = (String)printed_char;
@@ -154,6 +218,7 @@ void print_serial(char printed_char[LINE_BUFFER_SIZE])
         chars_to_print.put(char_print);
 }
 
+//For single chars
 void print_serial(char printed_char)
 {
     //create char array to print
@@ -164,6 +229,7 @@ void print_serial(char printed_char)
         chars_to_print.put(char_print);
 }
 
+//For constant chars
 void print_serial(const char* printed_char)
 {
     //create char array to print

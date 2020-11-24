@@ -16,7 +16,15 @@
 
 #include "libraries&constants.h"
 
+//Line buffers
 #define LINE_BUFFER_SIZE 80
+#define READ_Q_SIZE 32
+#define WRITE_Q_SIZE 32
+#define PAUSE_Q_LIMIT 4
+
+//States of the reader
+#define READY 0
+#define WAIT 1
 
 
 //Function to read incomming messages from the serial port
@@ -28,7 +36,8 @@ void task_print_serial(void* p_params);
 //Function to add items to the serial print queue to be executed by the printing task function
 void print_serial(String string_to_print);
 void print_serial(float printed_float);
-void print_serial(char string_to_print[LINE_BUFFER_SIZE]);
+void print_serial(uint8_t printed_int);
+void print_serial(char *printed_char);
 void print_serial(char printed_char);
 void print_serial(const char* printed_char);
 

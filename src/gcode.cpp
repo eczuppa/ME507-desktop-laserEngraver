@@ -10,15 +10,25 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
-using namespace BLA;
+
+
+/** @brief   Create a decoding class object to decode gcode.
+ *  @details This constructor function doesn't need to do anything else except construct the class!
+ */
+decode::decode(void)
+{
+    //Constructor with nothing to construct!
+}
+
 
 /** @brief      Function which reads a single line of gcode and begins to decode it. 
  *  @details    This function reads a line of gcode and splits it up into the separate commands. 
  *              It then sends out the appropriate data to finish translation.
  *  @param      line A line of gcode to be interpreted. 
  */
-void interpret_gcode_line(char *line) 
+void decode::interpret_gcode_line(char *line) 
 {
+
     //Define variables for use in function: Decoding Gcode
     uint8_t char_counter = 0;  
     char letter;
@@ -27,22 +37,9 @@ void interpret_gcode_line(char *line)
     int16_t mantissa = 0;
     String str_line = line;     //Convert line into a string for use of string functions
 
-    //Define variables for use in function: Using decoded Gcode
-    float X = 0;
-    float Y = 0;
-    uint8_t S = 0;
-    float F = 0;
-
-    //Define variables that state which outputs have changed
-    // Matrix<4,1,Array<4,1,bool> > cmds;
-    bool X_cmd = 0;
-    bool Y_cmd = 0;
-    bool S_cmd = 0;
-    bool F_cmd = 0;
 
     //Define state variables
     uint8_t move_type = NONE;
-    bool units = MILLIMETERS;
 
     //Start looping through the line, character by character. Check each character to match 
     //it with certain commands. 
@@ -74,9 +71,9 @@ void interpret_gcode_line(char *line)
             //If not a letter...
             if((letter < 'A') || (letter > 'Z')) 
             { 
-                //REPLACE WITH RTOS PRINTER FUNCTION
                 print_serial("Error in Gcode: Not starting with letter");
-                return;
+                _error_signal = SYNTAX_ERROR_LETTER;
+                return; 
             }
             //Otherwise, it is a letter, all good! Not a comment or an invalid command. 
             //Move on to next character to read the number now. 
@@ -86,8 +83,8 @@ void interpret_gcode_line(char *line)
             //the first value after the number from Gcode. Returns false if error. 
             if ((!read_float(line, &char_counter, &value) ))
             {
-                //REPLACE WITH RTOS PRINTER FUNCTION
                 print_serial("Error in Gcode: Letter not followed by number");
+                _error_signal = SYNTAX_ERROR_NUMBER;
                 return;
             }
             //At this point, we have a letter and a floating point number. Now, lets get
@@ -119,6 +116,8 @@ void interpret_gcode_line(char *line)
                         case 0:
                             //Rapid movement (travel)
                             move_type = TRAVEL;
+                            //set feedrate for traveling
+                            _XYSFval.F = TRAVEL_SPEED;
                             break;
                         case 1: 
                             //Linear Interpolation
@@ -132,6 +131,7 @@ void interpret_gcode_line(char *line)
                             break;
                         case 28:
                             //Home machine
+                            _go_home = 1;
                             break;
                         case 90:
                             //Set absolute positioning: NOT sent to matrix
@@ -141,6 +141,7 @@ void interpret_gcode_line(char *line)
                         default:
                             //Error: Unsupported Gcode
                             print_serial("ERROR: Unsupported G Command in line __");
+                            _error_signal = G_COMMAND_ERROR;
                     }
                     break;
                 case 'M':
@@ -149,87 +150,101 @@ void interpret_gcode_line(char *line)
                     {
                         case 2:
                             //End program
+                            _gcode_running = 0;
                             break;
                         case 3:
                             //Enable Laser
+                            _laser_enable = 1;
                             break;
                         case 5:
                             //Disable laser
+                            _laser_enable = 0;
                             break;
                         default:
                             //ERROR: Unsupported Mcode
                             print_serial("ERROR: Unsupported M Command in line __");
+                            _error_signal = M_COMMAND_ERROR;
                     }
                     break;
 
                 case 'X':
                     // Change/set X position if indicated correctly
-                    if (move_type == LIN_INTERP or move_type == TRAVEL)
-                    {
-                        X = value;
-                        X_cmd = 1;
-                    }
-                    else
-                    {
-                        print_serial("Error in line __: No G0 or G1 indicator");
-                    }
-                    break;
+                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // {
+                        _XYSFval.X = value;
+                    // }
+                    // else
+                    // {
+                    //     print_serial("Error in line __: No G0 or G1 indicator");
+                    //     _error_signal = MOVE_ERROR;
+                    // }
+                    // break;
 
                 case 'Y':
                     // Change/set Y position
-                    if (move_type == LIN_INTERP or move_type == TRAVEL)
-                    {
-                        Y = value;
-                        Y_cmd = 1;
-                    }
-                    else
-                    {
-                        print_serial("Error in line __: No G0 or G1 indicator");
-                    }
-                    break;
+                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // {
+                        _XYSFval.Y = value;
+                    // }
+                    // else
+                    // {
+                    //     print_serial("Error in line __: No G0 or G1 indicator");
+                    //     _error_signal = MOVE_ERROR;
+                    // }
+                    // break;
 
                 case 'S':
-                    // Change/set laser PWM power
-                    if (move_type == LIN_INTERP or move_type == TRAVEL)
-                    {
-                        S = int_value*100 + mantissa;     //Power interpreted as pct (0 to 100)
-                        S_cmd = 1;
-                        //Send value to output?
-                    }
-                    else
-                    {
-                        print_serial("Error in line __: No G0 or G1 indicator");
-                    }
+                    // // Change/set laser PWM power
+                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // {
+                        _XYSFval.S = int_value*100 + mantissa;     //Power interpreted as pct (0 to 100)
+                    // }
+                    // else
+                    // {
+                    //     print_serial("Error in line __: No G0 or G1 indicator");
+                    //     _error_signal = MOVE_ERROR;
+                    // }
  
-                    break;
+                    // break;
 
                 case 'F':
-                    //Change speed settings
-                    if (move_type == LIN_INTERP or move_type == TRAVEL)
-                    {
-                        F = value;
-                        F_cmd = 1;
-                        //Send value to output?
-                    }
-                    else
-                    {
-                        print_serial("Error in line __: No G0 or G1 indicator");
-                    }
-                    break;
+                    // //Change speed settings
+                    // if (move_type == LIN_INTERP)
+                    // {
+                        _XYSFval.F = value;
+                    // }
+                    // else
+                    // {
+                    //     print_serial("Error in line __: No G1 indicator");
+                    //     _error_signal = MOVE_ERROR;
+                    // }
+                    // break;
 
                 default:
                     //ERROR: Unsupported command
                      print_serial("ERROR: Unsupported Letter Command in line __");
+                     _error_signal = LETTER_CMD_ERROR;
                     
             }//switch (letter)
         }//else (Not a comment or space)
     }
     
-    
+    // ------------------------- And the meek shall inherit the earth... ----------------------------
+
     return;
 }
 
 
 
+void decode::gcode_initialize(void)
+{
+    _gcode_running = 1;
+}
 
 
+//Get-er functions:
+
+XYSFvalues decode::get_XYSF(void)
+{
+    return _XYSFval;
+}

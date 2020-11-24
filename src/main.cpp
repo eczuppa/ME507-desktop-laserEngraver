@@ -14,8 +14,8 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
-Queue<char[LINE_BUFFER_SIZE]> chars_to_print(32,"char array printer");
-Queue<char[LINE_BUFFER_SIZE]> read_chars(32,"read_val");
+Queue<char[LINE_BUFFER_SIZE]> chars_to_print(WRITE_Q_SIZE,"char array printer");
+Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
 
 /**
  * In order to achieve sub-millisecond task timing, the default value of configTick_RATE_HZ was changed to (SysClock)/10000 instead of (SysClock)/1000. 
