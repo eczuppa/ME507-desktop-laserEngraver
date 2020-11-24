@@ -14,7 +14,7 @@
 // check home task
 void check_home_task (void* p_params);
 
-uint32_t check_home_latency = 100;          // latency should be 10ms
+const TickType_t check_home_latency = 100;          // latency should be 10ms
 
 
 #endif // CHECKHOMETASK_H
