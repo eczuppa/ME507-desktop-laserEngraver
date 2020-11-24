@@ -35,6 +35,7 @@
 
 //ME507 Laser Library
 #include "control.h"
+#include "check_home.h"
 #include "debouncer.h"
 #include "encoder_task.h"
 #include "gcode.h"

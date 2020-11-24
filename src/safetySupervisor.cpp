@@ -53,7 +53,7 @@ void safety_task (void* p_params)
     float time_threshold = wait_time / float(safety_period);          // = 300000 (0.1ms) / 100 (ms/count)
     // float time_threshold = wait_time / (safety_period);          // = 300000 (0.1ms) / 100 (ms/count)
 
-    Serial << "time threshold = " << time_threshold << endl;
+    // Serial << "time threshold = " << time_threshold << endl;
     uint32_t counter = 0;        
 
 
