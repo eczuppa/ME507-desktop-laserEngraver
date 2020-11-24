@@ -75,8 +75,10 @@ void MotionPlanning::init_ramp(void)
 
 void MotionPlanning::ramp_generator(void)
 {
+    // the _output_ramp array is only populated if the previous memory allocation was successful in the init_ramp method
+    
     // calculates the time required to move from last to current point in microseconds
-    if (_tot_travel_period <= _ramp_dt_period)
+    if ((_tot_travel_period <= _ramp_dt_period) && _output_ramp)
     {
         int32_t index = 0;
         int8_t aug_index = 1;
@@ -118,11 +120,16 @@ void MotionPlanning::ramp_generator(void)
     // For very short or fast movements over sufficiently small distances - like the linear interpolation of arcs below a certain size
     // do not make a ramp. Instead put the current position setpoint and the feed setpoint into the array and make the class member data pointer
     // output ramp point to it.
-    else if (_tot_travel_period < _ramp_dt_period)
+    else if ((_tot_travel_period < _ramp_dt_period) && _output_ramp)
     {
         _output_ramp[0] = _setpoint_current;
         _output_ramp[1] = _feed_setpoint;
     }
+    else
+    {
+        _output_ramp = NULL;
+    }
+    
 
 }
 
