@@ -18,7 +18,7 @@ extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 /** @brief      Task which reads the serial port and echos back what it sees.
  *  @details    This task reads an input into the serial port (from the python UI
  *              script presumably) and echos it back so the source knows what was sent. 
- *  @param   p_params A pointer to function parameters which we don't use.
+ *  @param      p_params A pointer to function parameters which we don't use.
  */
 void task_read_serial(void* p_params)
 {
@@ -43,6 +43,9 @@ void task_read_serial(void* p_params)
     //Sign that we need to update python that we're ready
     bool update_input = true;
 
+    //Turn off LED to start
+    digitalWrite(LED_BUILTIN,LOW);
+
     //Task for loop
     for(;;)
     {
@@ -52,8 +55,9 @@ void task_read_serial(void* p_params)
             //Tell python that we're ready for data, if it think's we're not
             if (update_input)
             {
-                print_serial("Send_Data\n");
-                update_input = false;
+                digitalWrite(LED_BUILTIN,HIGH);     //Turn on LED: We're ready!
+                print_serial("Ready\n");        //Send signal to python
+                update_input = false;               //No need to update again for now!
             }
 
             //If there's something coming from python...
@@ -64,7 +68,6 @@ void task_read_serial(void* p_params)
 
                 //Add character to line
                 line[strlen(line)] = (char)incomingByte;
-
             }
 
             //If we get the end of a line...
@@ -73,37 +76,34 @@ void task_read_serial(void* p_params)
                 //Put line data into the read_string
                 read_chars.put(line);
 
-                
-
-                //Add a newline (\n) char to the end to signify to the python script that the line has ended
-                // line[strlen(line)] = '\n';
-
-                //Temporarily echo
-                // print_serial(line);
+                // line[strlen(line)] = '\n';       //Add a newline (\n) char to the end to signify to the python script that the line has ended
+                // print_serial(line);              //Temporarily echo
 
                 // Reset line and incomingByte for next time
                 memset(line,'\0',sizeof(line));
                 incomingByte = -1;
 
-                //Signal to python that a line has been recieved
-                print_serial("Got_Msg\n");
+                //Signal to python that we're ready for more, and that we're not if we aren't
+                if (read_chars.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)      //NOT ready: queue is close to full
+                {
+                    digitalWrite(LED_BUILTIN,LOW);
+                    read_ready = WAIT;      //Set the state to WAIT
+                    print_serial("Wait\n");
+                }
+                else
+                {
+                    print_serial("Ready\n");
+                }
             }
         }
         
         //State Checker: Check if the queue is close to full, and tell python to stop sending code until there's space:
-        if (read_chars.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)
-        {
-            //Set the state to WAIT and tell python to wait
-            read_ready = WAIT;
-            print_serial("Wait\n");
-        }
         //If we're still waiting but we have some room in the queue, then start reading again!
-        else if (read_ready == WAIT)
+        if ( (read_chars.available() < READ_Q_SIZE - PAUSE_Q_LIMIT) & (read_ready == WAIT) )
         {
             read_ready = READY;     //Switch to ready state
             update_input = true;    //Say that we need to update python of our status
         }
-
 
 
         //testing mode: Not taking inputs from python
@@ -239,6 +239,12 @@ void print_serial(const char* printed_char)
     //Put into queue
         chars_to_print.put(char_print);
 }
+
+
+
+
+
+
 
 
 

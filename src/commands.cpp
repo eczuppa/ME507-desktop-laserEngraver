@@ -48,14 +48,14 @@ void task_translate(void* p_params)
             float B = translator.get_B_setpoint();
             float FA = translator.get_F_A();
             float FB = translator.get_F_B();
-            print_serial(A);
-            print_serial(" ");
-            print_serial(B);
-            print_serial(" ");
-            print_serial(FA);
-            print_serial(" ");
-            print_serial(FB);
-            print_serial("\n");
+            // print_serial(A);
+            // print_serial(" ");
+            // print_serial(B);
+            // print_serial(" ");
+            // print_serial(FA);
+            // print_serial(" ");
+            // print_serial(FB);
+            // print_serial("\n");
         }
         vTaskDelay(100);
     }
