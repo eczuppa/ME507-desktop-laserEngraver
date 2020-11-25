@@ -36,6 +36,8 @@ class Quad_Encoder
     // Encoder Signal Channel Pins
     uint8_t _enc_sigpin_A;
     uint8_t _enc_sigpin_B;
+    uint8_t _enc_chan_A;
+    uint8_t _enc_chan_B;
 
     // Over/Underflow checking threshold 
     int32_t _bound;
@@ -69,7 +71,7 @@ class Quad_Encoder
     // Constructor and method declarations here
 
     // Constructor for quadrature encoder class
-    Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, int32_t bound = 1000, bool invert = false);
+    Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t enc_chan_A, uint8_t enc_chan_B, TIM_TypeDef *p_eTIM, int32_t bound = 1000, bool invert = false);
 
     int32_t enc_read(void);        // encoder read method to get current position in encoder ticks with direction and under/over flow checking
     float enc_read_pos(void);      // relies on encoder read method but the oput is the linear displacement of the belt due to the motor's rotation

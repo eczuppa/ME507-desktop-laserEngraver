@@ -30,14 +30,18 @@ class StopWatch
     
     // Class member data
     uint16_t _now;            // the current time in microseconds - since the clock was restarted       
+    uint16_t _last;           // the last time a measurement was taken
+    uint16_t _lap;            // the difference between now and last - used when measuring a parameter of interest
     uint16_t _elpsd;          // the time elapsed between the last and current measurements with now_time();
 
     public:
     StopWatch(TIM_TypeDef* p_Stpwtch,uint8_t tmrpin);
     
-    uint32_t now_time(void); // all thigs now measured from current time and returns that value
-    uint32_t elapsed_time(void); // returns time elapsed in microseconds
+    uint16_t now_time(void); // all thigs now measured from current time and returns that value
+    uint16_t elapsed_time(void); // returns time elapsed in microseconds
+    uint32_t lap(void);          // returns the time elapsed between measurments of a parameter of interest
     void restart(void); // sets the count back to 0;
+    void temp_stop(void); // pauses the timer until we want it to start counting again
 
 };
 #endif //STPWATCH_H

@@ -21,7 +21,7 @@
  */
 
 #include "Quad_Encoder.h"
-#include "stopwatch.h"
+
 // ================================================
 // ||                                            ||
 // ||            Class  CONSTANTS                ||
@@ -66,11 +66,13 @@ const float TICK_TO_RAD = 0.022520; // radians per encoder tick
  * 
  */
 
-Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeDef *p_eTIM, int32_t bound, bool invert)
+Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t enc_chan_A, uint8_t enc_chan_B, TIM_TypeDef *p_eTIM, int32_t bound, bool invert)
 {
     // Save instance specific inputs into class member data
     _enc_sigpin_A = enc_sigpin_A;
     _enc_sigpin_B = enc_sigpin_B;
+    _enc_chan_A = enc_chan_A;
+    _enc_chan_B = enc_chan_B;
     _p_eTIM = p_eTIM;
     _bound = bound;
     _abspos = 0;
@@ -92,8 +94,8 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, TIM_TypeD
 
     // Place both of the encoder signal pins connected to the timer in a compatible mode to 
     // the timer being in encoder mode. This may or may not work for boards besides the STM32L476RG Nucleo 
-    EncTmr -> setMode(1, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
-    EncTmr -> setMode(2, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
+    EncTmr -> setMode(_enc_chan_A, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
+    EncTmr -> setMode(_enc_chan_B, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
     
     // Reset the value of the timer count register to 0 so the coutner doesn't start with something weird in it
     EncTmr -> setCount(0);

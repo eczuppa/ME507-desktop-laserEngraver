@@ -9,6 +9,27 @@
 */
 #include "libraries&constants.h"
 
+
+// // MOTOR A ENCODER DATA
+// extern Queue<float> encoder_A_pos; 
+// extern Queue<float> encoder_A_velocity;
+// extern Queue<uint16_t> encoder_A_dt;
+
+// // MOTOR B ENCODER DATA
+// extern Queue<float> encoder_B_pos;
+// extern Queue<float> encoder_B_velocity;
+// extern Queue<uint16_t> encoder_B_dt;
+
+extern Share<float> encoder_A_pos;
+extern Share<float> encoder_A_velocity;
+extern Share<uint32_t> encoder_A_dt;
+
+// Shares for Encoder B
+extern Share<float> encoder_B_pos;
+extern Share<float> encoder_B_velocity;
+extern Share<uint32_t> encoder_B_dt;
+
+
 //---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
 
 extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print;
@@ -254,7 +275,7 @@ void print_serial(const char* printed_char)
 //-----------------------MICROCONTROLLER UI FILES: FOR TESTING-------------------------------
 
 
-extern Queue<float> encoder_queue;
+
 Share<int32_t> s_duty_cycle ("Power");
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
@@ -311,9 +332,13 @@ void task_ui (void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
     // int32_t user_power;               // UI task's variable that is put into the share, duty_cycle
-    float enc_pos_out;
-    float enc_vel_out;
-    float enc_dt_out;
+    float enc_pos_out_A;
+    float enc_vel_out_A;
+    uint32_t enc_dt_out_A;
+
+    float enc_pos_out_B;
+    float enc_vel_out_B;
+    uint32_t enc_dt_out_B;
 
     // Set the timeout for reading from the serial port to the maximum
     // possible value, essentially forever for a real-time control program
@@ -331,16 +356,38 @@ void task_ui (void* p_params)
         // s_duty_cycle.put(user_power);
 
         // Print Current Encoder Position
+        encoder_A_pos.get(enc_pos_out_A);
+        encoder_A_velocity.get(enc_vel_out_A);
+        encoder_A_dt.get(enc_dt_out_A);
+
+        encoder_B_pos.get(enc_pos_out_B);
+        encoder_B_velocity.get(enc_vel_out_B);
+        encoder_B_dt.get(enc_dt_out_B);
+       
+        // if (!encoder_A_pos.is_empty())
+        // {
+        //     encoder_A_pos.get(enc_pos_out_A);
+        //     encoder_A_velocity.get(enc_vel_out_A);
+        //     encoder_A_dt.get(enc_dt_out_A);
+        // }
+
+        // if (!encoder_B_pos.is_empty())
+        // {
+        //     encoder_B_pos.get(enc_pos_out_B);
+        //     encoder_B_velocity.get(enc_vel_out_B);
+        //     encoder_B_dt.get(enc_dt_out_B);
+        // }
         
-        if (!encoder_queue.is_empty())
-        {
-            encoder_queue.get(enc_pos_out);
-            encoder_queue.get(enc_vel_out);
-            encoder_queue.get(enc_dt_out);
-        }
+        // encoder_B_pos.get(enc_pos_out_B);
+        // encoder_B_velocity.get(enc_vel_out_B);
+        // encoder_B_dt.get(enc_dt_out_B);
+
         // Serial << enc_vel_out << endl;
-        Serial << "pos,vel,delta_time is: " << enc_pos_out <<"          "<< enc_vel_out << "            " << enc_dt_out <<endl;
-        // Serial << "pos,vel,delta_time is: " <<"          "<< enc_vel_out << "            " << enc_dt_out <<endl;
+        // Serial << "encA and B pos: " <<"      "<< enc_pos_out_A <<"      "<< enc_pos_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
+        Serial << "encA and B vel: " <<"      "<< enc_vel_out_A <<"      "<< enc_vel_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
+        // Serial << "encA pos,vel,dt: " << enc_pos_out_A <<"         "<<enc_vel_out_A<< "              "<< enc_dt_out_A << endl;
+        //Serial << "encB pos,vel,dt: " << enc_pos_out_B <<"         "<<enc_vel_out_B<< "              "<< enc_dt_out_B << endl;
+        
 
 
         vTaskDelay(UI_period);
