@@ -42,11 +42,10 @@ class TB6612FNG
     // Constructor and class methods here
 
     // Constructor
-    TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, HardwareTimer * Set_up_timer);
+    TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin);
 
     // Class Methods
     void setDutyCycle(int8_t duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input  
-    void setDutyCycle(int8_t duty_cycle1,int8_t duty_cycle2);    // Sets motor speed and direction based on sign of duty cycle input           
     void brake(void);                        // Makes motor hold in place?? (should be accomplished by PID position control) 
     void disable(void);                      // Software Emergency stop
     void enable(void);                       // Software reset of motor driver chip

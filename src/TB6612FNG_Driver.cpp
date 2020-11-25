@@ -41,21 +41,13 @@
  *  @param   _pwm_tim_chan_num the channel number (1,2,3, or 4) of the timer specified that is attached to the pwm input pin 
  */
 
-TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, HardwareTimer * Set_up_timer)
+TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin)
 {
     // Save inputs to class member data
     _standby_pin = stby_pin;
     _motor_dir_pin_1 = mot_pin_1;
     _motor_dir_pin_2 = mot_pin_2;
     _pwm_input_pin = a_pwm_pin;
-    _pwm_tim_chan_num = a_tim_chan_num;
-
-    
-
-    // // Setup PWM timer
-    // // MotorTmr = new HardwareTimer(_p_timer);
-    MotorTmr = Set_up_timer;
-
     
 
     // Initalize Standby and Motor Direction digital pins
@@ -68,14 +60,8 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
     digitalWrite(_motor_dir_pin_1, LOW);   // Disable Motor Direction Pin 1
     digitalWrite(_motor_dir_pin_2, LOW);   // Disable Motor Direction Pin 2
 
-    
+    analogWrite(_pwm_input_pin, 0);
 
-    // Put Motor Tmr into PWM mode for just one channel
-    MotorTmr -> pauseChannel(_pwm_tim_chan_num);
-    MotorTmr -> setMode(_pwm_tim_chan_num, TIMER_OUTPUT_COMPARE_PWM1, _pwm_input_pin);
-    MotorTmr -> setOverflow(20000,HERTZ_FORMAT);
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, 0 ,PERCENT_COMPARE_FORMAT);
-    MotorTmr -> resumeChannel(_pwm_tim_chan_num);
 
     Serial << "Motor B setup starting" << endl;
 }
@@ -132,9 +118,8 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     // Updates duty cycle to input or saturated input without 
     // reinitializing the PWM mode of MotorTmr
     
-    MotorTmr -> pauseChannel(_pwm_tim_chan_num);
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, u_duty_cycle, PERCENT_COMPARE_FORMAT);
-    MotorTmr -> resumeChannel(_pwm_tim_chan_num);
+    u_duty_cycle = (float)u_duty_cycle*255/100;
+    analogWrite((int16_t)u_duty_cycle,_pwm_input_pin);
 }
 
 /** @brief software E-Stop for dual H-bridge chip
