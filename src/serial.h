@@ -24,7 +24,8 @@
 
 //States of the reader
 #define READY 0
-#define WAIT 1
+#define READING 1
+#define NOT_READY 2
 
 
 //Function to read incomming messages from the serial port

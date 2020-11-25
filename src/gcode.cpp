@@ -53,8 +53,8 @@ void decode::interpret_gcode_line(char *line)
         {
             //Find a comment, print it!
             // print_serial("Comment Found: ");
-            print_serial(str_line.substring(char_counter+1));
-            print_serial('\n'); //end transmission
+            // print_serial(str_line.substring(char_counter+1));
+            // print_serial('\n'); //end transmission
 
             //Once comment has been found, skip to the end of the line to end the line loop. 
             char_counter = str_line.length();
@@ -138,6 +138,7 @@ void decode::interpret_gcode_line(char *line)
                             break;
                         case 91:
                             //Set incremental positioning: NOT sent to matrix
+                            break;
                         default:
                             //Error: Unsupported Gcode
                             print_serial("ERROR: Unsupported G Command in line __");
