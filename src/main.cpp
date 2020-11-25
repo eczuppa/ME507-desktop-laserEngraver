@@ -17,6 +17,32 @@
 Queue<char[LINE_BUFFER_SIZE]> chars_to_print(WRITE_Q_SIZE,"char array printer");
 Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
 
+// // Queues for Encoder A
+// Queue<float> encoder_A_pos (100,"Encoder A Position");
+// Queue<float> encoder_A_velocity (1,"Encoder A Velocity");
+// Queue<uint16_t> encoder_A_dt (1,"Encoder A delta t");
+
+// // Queues for Encoder B
+// Queue<float> encoder_B_pos (100,"Encoder B Position");
+// Queue<float> encoder_B_velocity (1,"Encoder B Velocity");
+// Queue<uint16_t> encoder_B_dt (1,"Encoder B delta t");
+
+// Shares for Encoder A
+Share<float> encoder_A_pos ("Encoder A Position");
+Share<float> encoder_A_velocity ("Encoder A Velocity");
+Share<uint32_t> encoder_A_dt ("Encoder A delta t");
+
+// Shares for Encoder B
+Share<float> encoder_B_pos ("Encoder B Position");
+Share<float> encoder_B_velocity ("Encoder B Velocity");
+Share<uint32_t> encoder_B_dt ("Encoder B delta t");
+
+
+
+
+
+
+
 /**
  * In order to achieve sub-millisecond task timing, the default value of configTick_RATE_HZ was changed to (SysClock)/10000 instead of (SysClock)/1000. 
  * This means every RTOS tick is 1/10th of a millisecond instead of 1 millisecond. This comes at the cost of reducing the time slice each task can be 
@@ -357,19 +383,26 @@ void setup()
     //             4, 
     //             NULL);
     // Serial << "motor task init done" << endl;
-    xTaskCreate(encoder_task,
-                "test encoder",
+    xTaskCreate(encoder_A_task,
+                "test encoder A",
                 4096,
                 NULL,
                 4,
                 NULL);
-    // Serial << "encoder task init done" << endl;
+
+    xTaskCreate(encoder_B_task,
+                "test encoder B",
+                4096,
+                NULL,
+                4,
+                NULL);
+    Serial << "encoder task init done" << endl;
 
     xTaskCreate(task_ui,
                 "user", 
-                4096, 
+                4096,
                 NULL,
-                7,
+                8,
                 NULL);
     Serial << "ui task init done" << endl;
 

@@ -18,6 +18,7 @@ extern Share<float> encoder_B_velocity;
 extern Share<uint32_t> encoder_B_dt;
 
 // HOMING CYCLE DATA
+extern Share<bool> check_home;
 extern Share<bool> X_home;
 extern Share<bool> Y_home;
 
