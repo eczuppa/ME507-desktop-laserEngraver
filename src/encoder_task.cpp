@@ -59,9 +59,9 @@ void encoder_A_task (void* p_params)
     uint8_t enc_chan_AA = 1;
     uint8_t enc_chan_BA = 2;
     // TIM_TypeDef *a_p_eTIM = TIM8;        // for Encoder on Motor A
-    // int32_t bound_A = 1000;                 // default not changed 
-    // bool invert_A = true;                   // encoder pins are flipped on board, so inversion of read values is needed
-    Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_BA, enc_chan_AA, enc_chan_BA, TIM8);        
+    int32_t bound_A = 1000;                 // default not changed 
+    bool invert_A = true;                   // encoder pins are flipped on board, so inversion of read values is needed
+    Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_BA, enc_chan_AA, enc_chan_BA, TIM8, bound_A, invert_A);        
     
     // Initialize motor encoder and timer
     encoder_A.enc_zero();

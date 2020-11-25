@@ -480,8 +480,8 @@ void task_ui (void* p_params)
         // encoder_B_dt.get(enc_dt_out_B);
 
         // Serial << enc_vel_out << endl;
-        // Serial << "encA and B pos: " <<"      "<< enc_pos_out_A <<"      "<< enc_pos_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
-        Serial << "encA and B vel: " <<"      "<< enc_vel_out_A <<"      "<< enc_vel_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
+        Serial << "encA and B pos: " <<"      "<< enc_pos_out_A <<"      "<< enc_pos_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
+        // Serial << "encA and B vel: " <<"      "<< enc_vel_out_A <<"      "<< enc_vel_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
         // Serial << "encA pos,vel,dt: " << enc_pos_out_A <<"         "<<enc_vel_out_A<< "              "<< enc_dt_out_A << endl;
         //Serial << "encB pos,vel,dt: " << enc_pos_out_B <<"         "<<enc_vel_out_B<< "              "<< enc_dt_out_B << endl;
         

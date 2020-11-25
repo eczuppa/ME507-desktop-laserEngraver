@@ -52,7 +52,7 @@ void motor_A_driver_task (void* p_params)
     motor_A_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    float duty_cycle_motor_A;
+    int8_t duty_cycle_motor_A = 50;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -61,9 +61,10 @@ void motor_A_driver_task (void* p_params)
 
     for (;;)
     {
-
+        
         // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
-        queue_PWM_motor_A.get(duty_cycle_motor_A);
+        // CHECK: need "if item in queue, then do get it below"
+        // queue_PWM_motor_A.get(duty_cycle_motor_A);
 
         // send this duty cycle to the motor
         motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
@@ -107,7 +108,7 @@ void motor_B_driver_task (void* p_params)
     motor_B_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    float duty_cycle_motor_B;
+    int8_t duty_cycle_motor_B = -50;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -118,7 +119,7 @@ void motor_B_driver_task (void* p_params)
     {
 
         // get duty cycle for Motor B from the controller output and put it into the variable "duty_cycle_motor_B"
-        queue_PWM_motor_B.get(duty_cycle_motor_B);
+        // queue_PWM_motor_B.get(duty_cycle_motor_B);
 
         // send this duty cycle to the motor
         motor_B_driver.setDutyCycle(duty_cycle_motor_B); 

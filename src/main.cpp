@@ -376,13 +376,19 @@ void setup()
     //Ethan test section
     #ifdef ETHAN_TESTING
 
-    // xTaskCreate(motor_task, 
-    //             "test motor", 
-    //             1024, 
-    //             NULL, 
-    //             4, 
-    //             NULL);
-    // Serial << "motor task init done" << endl;
+    xTaskCreate(motor_A_driver_task, 
+                "test motor A", 
+                1024, 
+                NULL, 
+                4, 
+                NULL);
+    xTaskCreate(motor_B_driver_task, 
+                "test motor B", 
+                1024, 
+                NULL, 
+                4, 
+                NULL);
+    Serial << "motor task init done" << endl;
     xTaskCreate(encoder_A_task,
                 "test encoder A",
                 4096,
