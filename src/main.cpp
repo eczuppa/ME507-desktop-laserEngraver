@@ -68,8 +68,9 @@ void setup()
     delay (2000);
     Serial << endl << "Laser Program Initializing" << endl;
     
-
-
+    TIM_TypeDef * _p_timer = TIM3;
+    static HardwareTimer *MotorTmr;    
+    MotorTmr = new HardwareTimer(_p_timer);
 
     //======================================================================================
 
@@ -376,12 +377,12 @@ void setup()
     //Ethan test section
     #ifdef ETHAN_TESTING
 
-    xTaskCreate(motor_A_driver_task, 
-                "test motor A", 
-                1024, 
-                NULL, 
-                4, 
-                NULL);
+    // xTaskCreate(motor_A_driver_task, 
+    //             "test motor A", 
+    //             1024, 
+    //             NULL, 
+    //             4, 
+    //             NULL);
     xTaskCreate(motor_B_driver_task, 
                 "test motor B", 
                 1024, 

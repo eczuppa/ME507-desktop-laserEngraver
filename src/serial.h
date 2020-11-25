@@ -43,6 +43,8 @@ void print_serial(char printed_char);
 void print_serial(const char* printed_char);
 
 
+TIM_TypeDef * _p_timer;
+HardwareTimer *MotorTmr;
 
 //Function to parse ints sent in the serial port
 int32_t parseIntWithEcho (Stream& stream);
