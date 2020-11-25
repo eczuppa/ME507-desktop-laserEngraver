@@ -32,50 +32,52 @@ extern Queue<float> queue_PWM_motor_B;                 // This is just the "outp
  *  @param   p_params A pointer to function parameters which we don't use.
  */
 
-// void motor_A_driver_task (void* p_params)
-// {
-//     (void)p_params;                     // Does nothing but shut up a compiler warning
+void motor_A_driver_task (void* p_params)
+{
+    // // (void)p_params;                     // Does nothing but shut up a compiler warning
 
-//     uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
-//     uint8_t mot_dir_1 = PA15;           //PA15 = 21
-//     uint8_t mot_dir_2 = PA14;           //PA14 = 20
-//     uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
-//     uint8_t tim_chan_num_motor = 1;     // Channel 1, for timer
-//     // TIM_TypeDef * a_p_timer = TIM3;     // a pointer to the hardware timer object that is user defined, in this case TIM3
+    HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
+
+    uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
+    uint8_t mot_dir_1 = PA15;           //PA15 = 21
+    uint8_t mot_dir_2 = PA14;           //PA14 = 20
+    uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
+    uint8_t tim_chan_num_motor = 1;     // Channel 1, for timer
+    // TIM_TypeDef * a_p_timer = TIM3;     // a pointer to the hardware timer object that is user defined, in this case TIM3
 
     
-//     //Note: TB6612FNG(stby_pin, mot_pin_1, mot_pin_2, a_pwm_pin, a_tim_chan_num, TIM_TypeDef * _p_timer);
-//     // Create instance of motor driver called motor_A_driver
-//     TB6612FNG motor_A_driver (stby_motor, mot_dir_1, mot_dir_2, pwm_pin_motor, tim_chan_num_motor, TIM3);
+    // //Note: TB6612FNG(stby_pin, mot_pin_1, mot_pin_2, a_pwm_pin, a_tim_chan_num, TIM_TypeDef * _p_timer);
+    // // Create instance of motor driver called motor_A_driver
+    TB6612FNG motor_A_driver (stby_motor, mot_dir_1, mot_dir_2, pwm_pin_motor, tim_chan_num_motor, MotorTmr);
     
-//     // Use enable method for the motor driver
-//     motor_A_driver.enable();
+    // // Use enable method for the motor driver
+    motor_A_driver.enable();
     
-//     // The is where the duty cycle will be put from when it is read from the queue
-//     int8_t duty_cycle_motor_A = 100;
+    // The is where the duty cycle will be put from when it is read from the queue
+    int8_t duty_cycle_motor_A = 50;
 
-//     // This is for precise timing
-//     TickType_t xLastWakeTime = xTaskGetTickCount();
+    // This is for precise timing
+    TickType_t xLastWakeTime = xTaskGetTickCount();
 
-//     //Serial << "Motor A is setup" << endl;
+    //Serial << "Motor A is setup" << endl;
 
-//     for (;;)
-//     {
+    for (;;)
+    {
         
-//         // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
-//         // CHECK: need "if item in queue, then do get it below"
-//         // queue_PWM_motor_A.get(duty_cycle_motor_A);
+        // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
+        // CHECK: need "if item in queue, then do get it below"
+        // queue_PWM_motor_A.get(duty_cycle_motor_A);
 
-//         // send this duty cycle to the motor
-//         motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
+        // send this duty cycle to the motor
+        motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
         
 
 
-//         // This helps this task run at the correct speed
-//         vTaskDelayUntil(&xLastWakeTime, motor_period_A);
-//     }
+        // This helps this task run at the correct speed
+        vTaskDelayUntil(&xLastWakeTime, motor_period_A);
+    }
 
-// }
+}
 
 
 // Motor B Driver Task
@@ -89,7 +91,12 @@ extern Queue<float> queue_PWM_motor_B;                 // This is just the "outp
 
 void motor_B_driver_task (void* p_params)
 {
-    (void)p_params;                     // Does nothing but shut up a compiler warning
+    // (void)p_params;                     // Does nothing but shut up a compiler warning
+
+    
+
+    HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
+
 
                                         // Pin names PC10, etc are defines that live in variant.h
     uint8_t stby_motor = PC10;          // PC10 = 16     
@@ -102,18 +109,20 @@ void motor_B_driver_task (void* p_params)
     
     //Note: TB6612FNG(stby_pin, mot_pin_1, mot_pin_2, a_pwm_pin, a_tim_chan_num, TIM_TypeDef * _p_timer);
     // Create instance of motor driver called motor_A_driver
-    TB6612FNG motor_B_driver (stby_motor, mot_dir_1, mot_dir_2, pwm_pin_motor, tim_chan_num_motor, TIM3);
+    TB6612FNG motor_B_driver (stby_motor, mot_dir_1, mot_dir_2, pwm_pin_motor, tim_chan_num_motor, MotorTmr);
     
+    
+
     // Use enable method for the motor driver
     motor_B_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    int8_t duty_cycle_motor_B = -100;
+    int8_t duty_cycle_motor_B = -50;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
-    //Serial << "Motor B is setup" << endl;
+    Serial << "Motor B is setup" << endl;
 
     for (;;)
     {

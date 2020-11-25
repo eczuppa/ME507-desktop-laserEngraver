@@ -35,14 +35,14 @@ class TB6612FNG
 
     // Setup PWM timer
     // Timer Number and Timer Channel Number 
-    TIM_TypeDef * _p_timer;
+    // TIM_TypeDef * _p_timer;
     HardwareTimer *MotorTmr;
 
     public:
     // Constructor and class methods here
 
     // Constructor
-    TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, TIM_TypeDef * _p_timer);
+    TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, HardwareTimer * Set_up_timer);
 
     // Class Methods
     void setDutyCycle(int8_t duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input           

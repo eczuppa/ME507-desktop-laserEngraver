@@ -68,6 +68,7 @@ void setup()
     delay (2000);
     Serial << endl << "Laser Program Initializing" << endl;
     
+    //Create instance of timer 3 for motors
     TIM_TypeDef * _p_timer = TIM3;
     static HardwareTimer *MotorTmr;    
     MotorTmr = new HardwareTimer(_p_timer);
@@ -75,9 +76,9 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    #define NIKO_TESTING 0
+    // #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
-    // #define ETHAN_TESTING 2
+    #define ETHAN_TESTING 2
 
     //======================================================================================
     
@@ -380,37 +381,37 @@ void setup()
     // xTaskCreate(motor_A_driver_task, 
     //             "test motor A", 
     //             1024, 
-    //             NULL, 
+    //             (void*)(&MotorTmr), 
     //             4, 
     //             NULL);
     xTaskCreate(motor_B_driver_task, 
                 "test motor B", 
                 1024, 
-                NULL, 
-                4, 
+                (void*)(&MotorTmr), 
+                6, 
                 NULL);
     Serial << "motor task init done" << endl;
-    xTaskCreate(encoder_A_task,
-                "test encoder A",
-                4096,
-                NULL,
-                4,
-                NULL);
+    // xTaskCreate(encoder_A_task,
+    //             "test encoder A",
+    //             4096,
+    //             NULL,
+    //             4,
+    //             NULL);
 
-    xTaskCreate(encoder_B_task,
-                "test encoder B",
-                4096,
-                NULL,
-                4,
-                NULL);
+    // xTaskCreate(encoder_B_task,
+    //             "test encoder B",
+    //             4096,
+    //             NULL,
+    //             4,
+    //             NULL);
     Serial << "encoder task init done" << endl;
 
-    xTaskCreate(task_ui,
-                "user", 
-                4096,
-                NULL,
-                8,
-                NULL);
+    // xTaskCreate(task_ui,
+    //             "user", 
+    //             4096,
+    //             NULL,
+    //             8,
+    //             NULL);
     Serial << "ui task init done" << endl;
 
 
