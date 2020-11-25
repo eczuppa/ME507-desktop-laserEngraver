@@ -23,6 +23,7 @@ extern Queue<float> queue_PWM_motor_B;                 // This is just the "outp
 
 
 
+
 // Motor A Driver Task
 
 /** @brief   Task to run the left motor, motor A (Motor 1) 
@@ -39,8 +40,8 @@ void motor_A_driver_task (void* p_params)
     HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
 
     uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
-    uint8_t mot_dir_1 = PA15;           //PA15 = 21
-    uint8_t mot_dir_2 = PA14;           //PA14 = 20
+    uint8_t mot_dir_1 = PA14;           //PA15 = 21
+    uint8_t mot_dir_2 = PA15;           //PA14 = 20
     uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
     uint8_t tim_chan_num_motor = 1;     // Channel 1, for timer
     // TIM_TypeDef * a_p_timer = TIM3;     // a pointer to the hardware timer object that is user defined, in this case TIM3

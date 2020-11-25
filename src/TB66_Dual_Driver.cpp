@@ -26,11 +26,11 @@
  * 
  */
 
-#include "TB6612FNG_Driver.h"
+#include "TB66_Dual_Driver.h"
 #include <Arduino.h>
 
-/** @brief   TB6612FNG Constructor
- *  @details Saves instances of class memeber data for all required input pins to run one H-bridge on the
+/** @brief   TB6612FNGDual Constructor
+ *  @details Saves instances of class memeber data for all required input pins to run both H-bridges on the
  *           motor driver chip and brings the h-bridge into the enabled, LOW state were all outputs are 
  *           zeroed out to ensure nothing starts moving unexpectedly. Also sets up the hardware timer 
  *           to send out PWM pulses at 20kHz (so motors are quiet) and sets the intial duty_cylce to zero.
@@ -41,43 +41,42 @@
  *  @param   _pwm_tim_chan_num the channel number (1,2,3, or 4) of the timer specified that is attached to the pwm input pin 
  */
 
-TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin, uint8_t a_tim_chan_num, HardwareTimer * Set_up_timer)
+TB6612FNGDual::TB6612FNGDual(uint8_t stby_pin, uint8_t mot1_pin_1, uint8_t mot1_pin_2, uint8_t a_pwm_pin1, uint8_t a_tim_chan_num1,
+                  uint8_t mot2_pin_1, uint8_t mot2_pin_2, uint8_t a_pwm_pin2, uint8_t a_tim_chan_num2, TIM_TypeDef * _p_timer)
 {
     // Save inputs to class member data
     _standby_pin = stby_pin;
-    _motor_dir_pin_1 = mot_pin_1;
-    _motor_dir_pin_2 = mot_pin_2;
-    _pwm_input_pin = a_pwm_pin;
-    _pwm_tim_chan_num = a_tim_chan_num;
+    _motor1_dir_pin_1 = mot1_pin_1;
+    _motor1_dir_pin_2 = mot1_pin_2;
+    _pwm_input_pin1 = a_pwm_pin1;
+    _pwm_tim_chan_num1 = a_tim_chan_num1;
 
-    
+    _motor2_dir_pin_1 = mot2_pin_1;
+    _motor2_dir_pin_2 = mot2_pin_2;
+    _pwm_input_pin2 = a_pwm_pin2;
+    _pwm_tim_chan_num2 = a_tim_chan_num2;
 
-    // // Setup PWM timer
-    // // MotorTmr = new HardwareTimer(_p_timer);
-    MotorTmr = Set_up_timer;
-
-    
+    // Setup PWM timer
+    MotorTmr = new HardwareTimer(_p_timer);
 
     // Initalize Standby and Motor Direction digital pins
     pinMode(_standby_pin, OUTPUT);
-    pinMode(_motor_dir_pin_1, OUTPUT);
-    pinMode(_motor_dir_pin_2, OUTPUT);
+    pinMode(_motor1_dir_pin_1, OUTPUT);
+    pinMode(_motor1_dir_pin_2, OUTPUT);
+    pinMode(_motor2_dir_pin_1, OUTPUT);
+    pinMode(_motor2_dir_pin_2, OUTPUT);
 
     // Intialize One of the H-bridge drivers on the chip
     digitalWrite(_standby_pin, HIGH);      // Enable H-bridge
-    digitalWrite(_motor_dir_pin_1, LOW);   // Disable Motor Direction Pin 1
-    digitalWrite(_motor_dir_pin_2, LOW);   // Disable Motor Direction Pin 2
+    digitalWrite(_motor1_dir_pin_1, LOW);   // Disable Motor Direction Pin 1
+    digitalWrite(_motor1_dir_pin_2, LOW);   // Disable Motor Direction Pin 2
+    digitalWrite(_motor2_dir_pin_1, LOW);   // Disable Motor Direction Pin 1
+    digitalWrite(_motor2_dir_pin_2, LOW);   // Disable Motor Direction Pin 2
 
-    
 
-    // Put Motor Tmr into PWM mode for just one channel
-    MotorTmr -> pauseChannel(_pwm_tim_chan_num);
-    MotorTmr -> setMode(_pwm_tim_chan_num, TIMER_OUTPUT_COMPARE_PWM1, _pwm_input_pin);
-    MotorTmr -> setOverflow(20000,HERTZ_FORMAT);
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, 0 ,PERCENT_COMPARE_FORMAT);
-    MotorTmr -> resumeChannel(_pwm_tim_chan_num);
-
-    Serial << "Motor B setup starting" << endl;
+    // Put Motor Tmr into PWM mode
+    // MotorTmr -> setPWM(_pwm_tim_chan_num1, _pwm_input_pin1, 20000, 0);
+    // MotorTmr -> setPWM(_pwm_tim_chan_num2, _pwm_input_pin2, 20000, 0);
 }
 
 /** @brief Class method for setting the duty cycle of the attached motor via the H-bridge output
@@ -87,61 +86,61 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
  *                    that is the precentage representation of the desired duty cycle: -100% to 100%
  */
 
-void TB6612FNG::setDutyCycle(int8_t duty_cycle)
+void TB6612FNGDual::setDutyCycle(int8_t duty_cycle1, int8_t duty_cycle2)
 { 
     uint8_t u_duty_cycle;
     // +/- Saturation Protection for SetPWM method of HardwareTimer class
-    if (duty_cycle > 100)
+    if (duty_cycle1 > 100)
     {
-        duty_cycle = 100;
+        duty_cycle1 = 100;
     }
 
-    if (duty_cycle < -100)
+    if (duty_cycle1 < -100)
     {
-        duty_cycle = -100;
+        duty_cycle1 = -100;
     }
 
     // sets motor direction based on input dutycyle and u_dutycycle for HardwareTimer API (expects 0 to 100%)
     
     // Spin Clockwise
-    if (duty_cycle < 0)
+    if (duty_cycle1 < 0)
     {
-        digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW);
-        digitalWrite(_motor_dir_pin_1, HIGH);
-        u_duty_cycle = duty_cycle* -1;   
+        digitalWrite(_motor1_dir_pin_1, LOW);   
+        digitalWrite(_motor1_dir_pin_2, LOW);
+        digitalWrite(_motor1_dir_pin_1, HIGH);
+        u_duty_cycle = duty_cycle1* -1;   
     }
     
     // Spin Counter Clockwise
-    else if (duty_cycle > 0)
+    else if (duty_cycle1 > 0)
     {
-        digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW);
-        digitalWrite(_motor_dir_pin_2, HIGH);
-        u_duty_cycle = duty_cycle; 
+        digitalWrite(_motor1_dir_pin_1, LOW);   
+        digitalWrite(_motor1_dir_pin_2, LOW);
+        digitalWrite(_motor1_dir_pin_2, HIGH);
+        u_duty_cycle = duty_cycle1; 
     }
     
     // Something went horribly wrong, just stop what you are doing
     else
     {
-        digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW);
+        digitalWrite(_motor1_dir_pin_1, LOW);   
+        digitalWrite(_motor1_dir_pin_2, LOW);
         u_duty_cycle = 0; 
     }
     
     // Updates duty cycle to input or saturated input without 
     // reinitializing the PWM mode of MotorTmr
     
-    MotorTmr -> pauseChannel(_pwm_tim_chan_num);
-    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num, u_duty_cycle, PERCENT_COMPARE_FORMAT);
-    MotorTmr -> resumeChannel(_pwm_tim_chan_num);
+    MotorTmr -> pauseChannel(_pwm_tim_chan_num1);
+    MotorTmr -> setCaptureCompare(_pwm_tim_chan_num1, u_duty_cycle, PERCENT_COMPARE_FORMAT);
+    MotorTmr -> resumeChannel(_pwm_tim_chan_num1);
 }
 
 /** @brief software E-Stop for dual H-bridge chip
  *  @details drives the ouput of the standby pin LOW, which disables the dual H-bridge IC entirely
  */ 
 
-void TB6612FNG::disable(void)
+void TB6612FNGDual::disable(void)
 {
     digitalWrite(_standby_pin, LOW);
 }
@@ -150,7 +149,7 @@ void TB6612FNG::disable(void)
  *  @details drives the output of the standby pin HIGH, which enables the dual H-bridge IC
  */
 
-void TB6612FNG::enable(void)
+void TB6612FNGDual::enable(void)
 {
     digitalWrite(_standby_pin, HIGH);
 }
@@ -158,10 +157,10 @@ void TB6612FNG::enable(void)
 /** @brief method to brake motors
  *  @details based on the truth table for the TB6612FNG driver chip and sparkfun's arduino library for this IC
  */
-void TB6612FNG::brake(void)
+void TB6612FNGDual::brake(void)
 {
     // Places chip in short brake mode instead of coasting to a stop
-    digitalWrite(_motor_dir_pin_1, HIGH);
-    digitalWrite(_motor_dir_pin_2, HIGH);
+    digitalWrite(_motor1_dir_pin_1, HIGH);
+    digitalWrite(_motor1_dir_pin_2, HIGH);
     setDutyCycle(0);
 }
