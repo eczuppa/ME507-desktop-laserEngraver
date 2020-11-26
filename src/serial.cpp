@@ -61,6 +61,7 @@ void task_read_serial(void* p_params)
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
+    bool state_state = true;
     //Sign that we need to update python that we're ready
     // bool update_input = true;
 
@@ -75,6 +76,12 @@ void task_read_serial(void* p_params)
             // State WAITING means that the mc is waiting for python to tell it that it has something to send. 
             // Python will ask "Ready?" when it has something to send. 
             case READY:
+
+                // if (state_state)
+                // {
+                //     print_serial("READY STATE");
+                //     state_state = false;
+                // }
                 
                 if (Serial.available() > 0)     //If there's something coming from python...
                 { 
@@ -480,7 +487,7 @@ void task_ui (void* p_params)
         // encoder_B_dt.get(enc_dt_out_B);
 
         // Serial << enc_vel_out << endl;
-        // Serial << "encA and B pos: " <<"      "<< enc_pos_out_A <<"      "<< enc_pos_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
+        Serial << "encA and B pos: " <<"      "<< enc_pos_out_A <<"      "<< enc_pos_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
         // Serial << "encA and B vel: " <<"      "<< enc_vel_out_A <<"      "<< enc_vel_out_B <<"              "<<enc_dt_out_A<<"              "<< enc_dt_out_B <<endl;
         // Serial << "encA pos,vel,dt: " << enc_pos_out_A <<"         "<<enc_vel_out_A<< "              "<< enc_dt_out_A << endl;
         //Serial << "encB pos,vel,dt: " << enc_pos_out_B <<"         "<<enc_vel_out_B<< "              "<< enc_dt_out_B << endl;

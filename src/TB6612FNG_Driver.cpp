@@ -62,8 +62,6 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
 
     analogWrite(_pwm_input_pin, 0);
 
-
-    Serial << "Motor B setup starting" << endl;
 }
 
 /** @brief Class method for setting the duty cycle of the attached motor via the H-bridge output
@@ -75,7 +73,7 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
 
 void TB6612FNG::setDutyCycle(int8_t duty_cycle)
 { 
-    uint8_t u_duty_cycle;
+    float u_duty_cycle;
     // +/- Saturation Protection for SetPWM method of HardwareTimer class
     if (duty_cycle > 100)
     {
@@ -119,7 +117,8 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     // reinitializing the PWM mode of MotorTmr
     
     u_duty_cycle = (float)u_duty_cycle*255/100;
-    analogWrite((int16_t)u_duty_cycle,_pwm_input_pin);
+
+    analogWrite(_pwm_input_pin,(uint8_t)u_duty_cycle);
 }
 
 /** @brief software E-Stop for dual H-bridge chip
