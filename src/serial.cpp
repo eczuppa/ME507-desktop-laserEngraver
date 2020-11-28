@@ -61,7 +61,7 @@ void task_read_serial(void* p_params)
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
-    bool state_state = true;
+    // bool state_state = true;
     //Sign that we need to update python that we're ready
     // bool update_input = true;
 
