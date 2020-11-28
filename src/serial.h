@@ -2,8 +2,8 @@
  *    This file contains the header for the file containing functions that allow for 
  *    communication through the serial port. 
  * 
- *    The full Doxygen header for the function is in the .cpp file, so there is
- *    just a brief description of the function here. 
+ *    The full Doxygen header for each of the functions is in the .cpp file, so there is
+ *    just a brief description of the functions here. 
  *
  *  @author Niko Banks
  *  @author Ethan Czuppa

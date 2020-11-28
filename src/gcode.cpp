@@ -236,7 +236,10 @@ void decode::interpret_gcode_line(char *line)
 }
 
 
-
+/** @brief      Function which initializes the running of gcode
+ *  @details    This function sets the class member variable @c _gcode_running to true, signaling
+ *              the system that we are running gcode.
+ */
 void decode::gcode_initialize(void)
 {
     _gcode_running = 1;
@@ -245,6 +248,11 @@ void decode::gcode_initialize(void)
 
 //Get-er functions:
 
+/** @brief      Function which gets the @c X @c Y @c S and @c F values from the gcode decoder class
+ *  @details    This function gets the struct @c _XYSFval from the class member data in order to use
+ *              it in the translator. @c _XYSFval contains 4 variables; @c X (desired X position), 
+ *              @c Y (desired Y position) , @c S (desired laser PWM value) and @c F (desired feedrate).
+ */
 XYSFvalues decode::get_XYSF(void)
 {
     return _XYSFval;

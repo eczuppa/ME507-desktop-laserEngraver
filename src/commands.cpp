@@ -1,24 +1,24 @@
-/** @file gcode.cpp
- *      This file defines functions for to interpret lines of gcode into commands 
- *      that control the laser cutter. Many of the methods used in this file were inspired
- *      by GRBL code.
+/** @file commands.cpp
+ *      This file defines functions that are used to translate a line of incoming data into specific motor 
+ *      commands that are sent to the control task. 
  *
  *  @author  Niko Banks
  *  @date    Nov 10 2020 
  * 
 */
 #include "libraries&constants.h"
-#include <tuple>
 
 //Shares and queues should go here
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
 
-/** @brief      Task which reads gcode, translates it, and sends the data to where it needs to go.
+/** @brief      Task which reads data from the serial port, translates it, and sends it where it needs to go.
  *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
- *              and splits it up into the separate commands. 
- *              It then sends out the appropriate data to finish translation.
- *  @param      line A line of gcode to be interpreted. 
+ *              and splits it up into the separate commands. Commands are then sent to the control task via queues
+ *              and shares. Gcode is translated from @c X @c Y and @c F values into desired positions and feedrates 
+ *              for both motors; @c _A_setpoint, @c _A_feed, @c _B_setpoint and @c _B_feed, which are class member 
+ *              data of the class @c Kinematics_coreXY. Regular machine commands such as homing are also translated 
+ *              to motor commands, which are then sent to the control task so it may run them. 
  */
 void task_translate(void* p_params)
 {
@@ -27,9 +27,11 @@ void task_translate(void* p_params)
     // possible value, essentially forever for a real-time control program
     Serial.setTimeout (0xFFFFFFFF);
 
+    //Initialize translator and decoder class members 
     Kinematics_coreXY translator;
     decode decoder;
 
+    ///Create line char array to hold incoming data from the @c read_chars queue
     char line[LINE_BUFFER_SIZE];
 
     for(;;)

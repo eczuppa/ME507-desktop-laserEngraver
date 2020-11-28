@@ -59,39 +59,39 @@
 class decode
 {
 protected:
-    //struct with values for X, Y, S, and F:
+    ///struct with values for X, Y, S, and F 
     XYSFvalues _XYSFval;
 
-    //Laser state
+    ///Laser state
     bool _laser_enable = 0;
 
-    //Set units (default in millimeters)
+    ///Set units (default in millimeters)
     bool _units = MILLIMETERS;
 
-    //Error code signal
+    ///Error code signal
     uint8_t _error_signal = NO_ERROR;
 
-    //Homing Signal
+    ///Homing Signal
     bool _go_home = 0;
 
-    //Signal when end of Gcode reached
+    ///Signal when end of Gcode reached
     bool _gcode_running = 0;
 
 public:
-    //Constructor
+    ///Constructor
     decode(void);
 
-    //Function to interpret gcode
+    ///Function to interpret gcode
     void interpret_gcode_line(char *line);
 
-    //Initialize gcode reading
+    ///Initialize gcode reading
     void gcode_initialize(void);
 
-    //Get-er functions:
+    ///Get-er functions:
     XYSFvalues get_XYSF(void);
 
 
-    //Friend class Kinematics:
+    ///Friend class Kinematics, so Kinematics can access the class member data:
     friend class Kinematics_coreXY;
 };
 

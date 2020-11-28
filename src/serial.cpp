@@ -1,6 +1,7 @@
 /** @file serial.cpp
  *      This file defines functions that will print to and read the serial port in order to 
- *      communicate with the python script that sends the Gcode to the laser. 
+ *      communicate with the python script that sends the Gcode and general commands to the 
+ *      laser. 
  *
  *  @author  Niko Banks
  *  @author  Ethan Czuppa
@@ -20,6 +21,8 @@
 // extern Queue<float> encoder_B_velocity;
 // extern Queue<uint16_t> encoder_B_dt;
 
+// REMOVE THESE SHARES ONCE ENCODER TESTING IS NOT REQUIRED
+// Shares for Encoder A
 extern Share<float> encoder_A_pos;
 extern Share<float> encoder_A_velocity;
 extern Share<uint32_t> encoder_A_dt;
@@ -36,9 +39,13 @@ extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print;
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
 
-/** @brief      Task which reads the serial port and echos back what it sees.
+/** @brief      Task which reads the serial port and puts it in a queue.
  *  @details    This task reads an input into the serial port (from the python UI
- *              script presumably) and echos it back so the source knows what was sent. 
+ *              script presumably) and reads it. The task has 3 main states, which are READY,
+ *              READING, and NOT_READY. The task will remain in READY initially until it is 
+ *              asked "Ready?" through the serial port, in which case it will transition to
+ *              READING to read the data and put it into the read_chars queue. If the read_chars
+ *              queue is full, the task will go to the NOT_READY state until space has been cleared.
  *  @param      p_params A pointer to function parameters which we don't use.
  */
 void task_read_serial(void* p_params)
@@ -170,68 +177,6 @@ void task_read_serial(void* p_params)
         } //Switch case for read_state
         
 
-
-
-
-
-
-        // //Read ready state 1: read the serial port and send to the queue
-        // if (read_ready == READY) 
-        // {
-        //     //Tell python that we're ready for data, if it think's we're not
-        //     if (update_input)
-        //     {
-        //         digitalWrite(LED_BUILTIN,HIGH);     //Turn on LED: We're ready!
-        //         print_serial("Ready\n");        //Send signal to python
-        //         update_input = false;               //No need to update again for now!
-        //     }
-
-        //     //If there's something coming from python...
-        //     if (Serial.available() > 0) 
-        //     { 
-        //         // read the incoming byte:
-        //         incomingByte = Serial.read();
-
-        //         //Add character to line
-        //         line[strlen(line)] = (char)incomingByte;
-        //     }
-
-        //     //If we get the end of a line...
-        //     if (incomingByte == int16_t('\0'))
-        //     {
-        //         //Put line data into the read_string
-        //         read_chars.put(line);
-
-        //         // line[strlen(line)] = '\n';       //Add a newline (\n) char to the end to signify to the python script that the line has ended
-        //         // print_serial(line);              //Temporarily echo
-
-        //         // Reset line and incomingByte for next time
-        //         memset(line,'\0',sizeof(line));
-        //         incomingByte = -1;
-
-        //         //Signal to python that we're ready for more, and that we're not if we aren't
-        //         if (read_chars.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)      //NOT ready: queue is close to full
-        //         {
-        //             digitalWrite(LED_BUILTIN,LOW);
-        //             read_ready = WAIT;      //Set the state to WAIT
-        //             print_serial("Wait\n");
-        //         }
-        //         else
-        //         {
-        //             print_serial("Ready\n");
-        //         }
-        //     }
-        // }
-        
-        // //State Checker: Check if the queue is close to full, and tell python to stop sending code until there's space:
-        // //If we're still waiting but we have some room in the queue, then start reading again!
-        // if ( (read_chars.available() < READ_Q_SIZE - PAUSE_Q_LIMIT) & (read_ready == WAIT) )
-        // {
-        //     read_ready = READY;     //Switch to ready state
-        //     update_input = true;    //Say that we need to update python of our status
-        // }
-
-
         //testing mode: Not taking inputs from python
         #ifndef TESTING
         #define TESTING
@@ -253,9 +198,8 @@ void task_read_serial(void* p_params)
 
 
 
-
-/** @brief      Task which prints any string that is sent to the strings_to_print queue. 
- *  @details    This task reads checks if there is anything in the strings_to_print queue, 
+/** @brief      Task which prints any string that is sent to the chars_to_print queue. 
+ *  @details    This task reads checks if there is anything in the chars_to_print queue, 
  *              and if there is something, it prints it to the serial port. 
  *  @param      p_params A pointer to function parameters which we don't use.
  */
