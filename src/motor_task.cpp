@@ -67,7 +67,7 @@ void motor_A_driver_task (void* p_params)
         
         // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
         // CHECK: need "if item in queue, then do get it below"
-        if (queue_PWM_motor_A.any() == 1)
+        if (queue_PWM_motor_A.any())
         {
             //read queue
 
@@ -79,11 +79,6 @@ void motor_A_driver_task (void* p_params)
             // send this duty cycle to the motor
             motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
 
-        }
-
-        else            // Does there need to be an else? If so what shall it be?
-        {
-            // queue is empty... will continue running until it can read a value
         }
         
 
@@ -148,7 +143,7 @@ void motor_B_driver_task (void* p_params)
 
         // get duty cycle for Motor B from the controller output and put it into the variable "duty_cycle_motor_B"
         // CHECK: need "if item in queue, then do get it below"
-        if (queue_PWM_motor_B.any() == 1)
+        if (queue_PWM_motor_B.any())
         {
             // Get item from queue
             queue_PWM_motor_B.get(duty_cycle_motor_B);
@@ -157,11 +152,6 @@ void motor_B_driver_task (void* p_params)
             // send this duty cycle to the motor
             motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
 
-        }
-
-        else            // Does there need to be an else? If so what shall it be?
-        {
-            // queue is empty... will continue running until it can read a value
         }
 
 
