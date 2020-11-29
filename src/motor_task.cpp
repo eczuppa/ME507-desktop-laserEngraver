@@ -17,9 +17,9 @@
 // Set up shares and queues
 
 // queue_PWM_motor_A is set up in the controller task
-extern Queue<float> queue_PWM_motor_A;                 // This is just the "output" from the controller
+extern Queue<int8_t> queue_PWM_motor_A;                 // This is just the "output" from the controller
 // queue_PWM_motor_B is set up in the controller task
-extern Queue<float> queue_PWM_motor_B;                 // This is just the "output" from the controller
+extern Queue<int8_t> queue_PWM_motor_B;                 // This is just the "output" from the controller
 
 
 
@@ -67,10 +67,24 @@ void motor_A_driver_task (void* p_params)
         
         // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
         // CHECK: need "if item in queue, then do get it below"
-        // queue_PWM_motor_A.get(duty_cycle_motor_A);
+        if (queue_PWM_motor_A.any() == 1)
+        {
+            //read queue
 
-        // send this duty cycle to the motor
-        motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
+
+            // Get item from queue
+            queue_PWM_motor_A.get(duty_cycle_motor_A);
+        
+            
+            // send this duty cycle to the motor
+            motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
+
+        }
+
+        else            // Does there need to be an else? If so what shall it be?
+        {
+            // queue is empty... will continue running until it can read a value
+        }
         
 
 
@@ -79,6 +93,9 @@ void motor_A_driver_task (void* p_params)
     }
 
 }
+
+
+
 
 
 // Motor B Driver Task
@@ -127,12 +144,26 @@ void motor_B_driver_task (void* p_params)
     for (;;)
     {
 
-        // get duty cycle for Motor B from the controller output and put it into the variable "duty_cycle_motor_B"
-        // queue_PWM_motor_B.get(duty_cycle_motor_B);
 
-        // send this duty cycle to the motor
-        motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
+
+        // get duty cycle for Motor B from the controller output and put it into the variable "duty_cycle_motor_B"
+        // CHECK: need "if item in queue, then do get it below"
+        if (queue_PWM_motor_B.any() == 1)
+        {
+            // Get item from queue
+            queue_PWM_motor_B.get(duty_cycle_motor_B);
         
+            
+            // send this duty cycle to the motor
+            motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
+
+        }
+
+        else            // Does there need to be an else? If so what shall it be?
+        {
+            // queue is empty... will continue running until it can read a value
+        }
+
 
         // This helps this task run at the correct speed
         vTaskDelayUntil(&xLastWakeTime, motor_period_B);
