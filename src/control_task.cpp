@@ -74,10 +74,10 @@ void control_task(void* p_params)
       
       // STATE 3 HOMING STATE - uses limit switch.cpp? and a lite wrapper?
       
-      // STATE 4 SERIAL WRITING HANDLING  - uses Niko's serial functions to tell the python script sending the GCODE commands that the command was recieved succesfully
+      // STATE 4 SERIAL WRITING HANDLING  - uses Niko's serial functions to tell the python script sending the GCODE commands that the command was recieved succesfully (likely will not be used)
       
       // STATE 5 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
-      //                                    and then when it gets home and is okayed by the user (?) 
+      //                                    and then when it gets home and is okayed by the user (?) future work
         
         vTaskDelayUntil(&xLastWakeTime, control_task_period);
     }

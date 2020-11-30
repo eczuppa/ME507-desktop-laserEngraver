@@ -8,15 +8,23 @@
  *           differential, the number of ramp sections is calculated and array of length # of ramp sections + 2 is generated.
  *           The extra two spots hold the 
  * 
+ *  @author Ethan A Czuppa
+ *  @date   19 Nov 2020 Original file
+ *  
  * 
  */
 
-// create the ramp inputs from the kinematics module to send to the contorller
-// needs to caluclate the time it takes go to the posiiton and will use the current task timing to
-// divide the total move into smaller linear movements and speeds so deviations from set point will be
-// small which is better suited for the classical controls style controller we are using.
-
 #include "libraries&constants.h"
+
+/**  @brief   Motionplanning Class constructor which takes in decoded GCODE inputs and a user set discrete ramp section period
+ *   @details Save all inputted arguments to class member data from the current and last lines of queued GCODE. Make the 
+ *            pointer to the dynamically allocated array @c _output_ramp point to NULL in preparation for memory allocation. 
+ *   @param   _setpoint_current
+ *   @param   _setpoint_last
+ *   @param   _feed_setpoint
+ *   @param   _ramp_dt_period
+ *   @param   _output_ramp
+ */
 
 MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, float feed_setpoint, uint32_t ramp_dt_period)
 {
@@ -29,6 +37,14 @@ MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, floa
 
 }
 
+/**  @brief  allocates the memory for the ramp input and initalizes output_pointer
+ *   @details calculates the required size of the dynamic array @c _output_ramp by 
+ *            from the time required to traverse the position change specified by the
+ *            current and last lines of GCODE and then creates the appropriate sized array
+ *            to hold the ramp input to the control loop. 
+ * 
+ * 
+ */
 
 void MotionPlanning::init_ramp(void)
 {
@@ -60,7 +76,7 @@ void MotionPlanning::init_ramp(void)
             _ramp_sections +=2;
         }
 
-        _output_ramp = new float[_ramp_sections];   // the pointer to the dynamically allocated array can no be used like a normal array
+        _output_ramp = new float[_ramp_sections];   // the pointer to the dynamically allocated array can now be used like a normal array
     }
     
     else if (_tot_travel_period < _ramp_dt_period)
@@ -72,6 +88,11 @@ void MotionPlanning::init_ramp(void)
 
 }
 
+/**  @brief  generates the ramp input to the control loop as a dyanmic array
+ *   @details
+ * 
+ * 
+ */
 
 void MotionPlanning::ramp_generator(void)
 {
@@ -133,14 +154,39 @@ void MotionPlanning::ramp_generator(void)
 
 }
 
+/**  @brief returns the pointer to the first element of the ramp input to the controller
+ *   @details
+ * 
+ * 
+ */
+
 float * MotionPlanning::get_ramp(void)
 {
     return _output_ramp;   // returns the persistent reference to the dynamically allocated array _output_ramp
 }
+
+/**  @brief   deletes the dynamically allocated ramp input array and sets up for the next ramp
+ *   @details   
+ * 
+ * 
+ */
 
 void MotionPlanning::deinit_ramp(void)
 {
     delete [] _output_ramp;   // deallocate memory pointed to by *_output_ramp
     _output_ramp = NULL;      // make _ouput_ramp point back to NULL
     _ramp_sections = 0;       // zero out ramp sections so it is ready for the next ramp input
+}
+
+/**  @brief   allows the user to update the current position and feed rate setpoints
+ *   @details
+ * 
+ * 
+ */
+
+void MotionPlanning::update_setpoints(float current_setpoint, float current_feedrate)
+{
+    _setpoint_last = _setpoint_current;     // save what was the current setpoint to the last one
+    _setpoint_current = current_setpoint;   // save the new current setpoint to class member data
+    _feed_setpoint = current_feedrate;      // save the new current feed rate to class member data
 }
