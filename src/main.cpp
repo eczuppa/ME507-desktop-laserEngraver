@@ -17,6 +17,8 @@
 Queue<char[LINE_BUFFER_SIZE]> chars_to_print(WRITE_Q_SIZE,"char array printer");
 Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
 
+
+
 // // Queues for Encoder A
 // Queue<float> encoder_A_pos (100,"Encoder A Position");
 // Queue<float> encoder_A_velocity (1,"Encoder A Velocity");
@@ -76,9 +78,9 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    #define NIKO_TESTING 0
+    // #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
-    // #define ETHAN_TESTING 2
+    #define ETHAN_TESTING 2
 
     //======================================================================================
     
@@ -360,39 +362,47 @@ void setup()
     //Ethan test section
     #ifdef ETHAN_TESTING
 
-    xTaskCreate(motor_A_driver_task, 
-                "test motor A", 
-                1024, 
-                (void*)(&MotorTmr), 
-                4, 
-                NULL);
-    xTaskCreate(motor_B_driver_task, 
-                "test motor B", 
-                1024, 
-                (void*)(&MotorTmr), 
-                6, 
-                NULL);
-    Serial << "motor task init done" << endl;
-    xTaskCreate(encoder_A_task,
-                "test encoder A",
-                4096,
-                NULL,
-                4,
-                NULL);
+    //Task to drive motor A
+    xTaskCreate(motor_A_driver_task,            //Task Function name
+                "test motor A",                 // Name for printouts
+                1024,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                12,                             // Priority
+                NULL);                          // Task handle
 
-    xTaskCreate(encoder_B_task,
-                "test encoder B",
-                4096,
-                NULL,
-                4,
-                NULL);
+    //Task to drive motor B 
+    xTaskCreate(motor_B_driver_task,            //Task Function name
+                "test motor B",                 // Name for printouts
+                1024,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                12,                             // Priority
+                NULL);                          // Task handle
+
+    Serial << "motor task init done" << endl;
+
+    //Task to run encoder A
+    xTaskCreate(encoder_A_task,                 //Task Function name
+                "test encoder A",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
+    //Task to run encoder B
+    xTaskCreate(encoder_B_task,                 //Task Function name
+                "test encoder B",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
     Serial << "encoder task init done" << endl;
 
     xTaskCreate(task_ui,
                 "user", 
                 4096,
                 NULL,
-                8,
+                9,
                 NULL);
     Serial << "ui task init done" << endl;
 
@@ -407,6 +417,12 @@ void setup()
 
 }
 
+/** @brief   Arduino's low-priority loop function, which we don't use.
+ *  @details A non-RTOS Arduino program runs all of its continuously running
+ *           code in this function after @c setup() has finished. When using
+ *           FreeRTOS, @c loop() implements a low priority task on most
+ *           microcontrollers, and crashes on some others, so we'll not use it.
+ */
 void loop()
 {
 }

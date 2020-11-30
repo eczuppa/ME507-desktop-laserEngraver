@@ -21,6 +21,8 @@
 #define READ_Q_SIZE 32
 #define WRITE_Q_SIZE 32
 #define PAUSE_Q_LIMIT 4
+#define POS_Q_SIZE 32
+#define FEED_Q_SIZE 32
 
 //States of the reader
 #define READY 0

@@ -39,7 +39,7 @@ void motor_A_driver_task (void* p_params)
 
     // HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
 
-    uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
+    uint8_t stby_motor = PC15;          //PC10 = 16     !! Where did this come from?!?!?
     uint8_t mot_dir_1 = PA14;           //PA15 = 21
     uint8_t mot_dir_2 = PA15;           //PA14 = 20
     uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
@@ -55,7 +55,7 @@ void motor_A_driver_task (void* p_params)
     motor_A_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    int8_t duty_cycle_motor_A = 100;
+    int8_t duty_cycle_motor_A = 50;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -67,20 +67,21 @@ void motor_A_driver_task (void* p_params)
         
         // get duty cycle for Motor A from the controller output and put it into the variable "duty_cycle_motor_A"
         // CHECK: need "if item in queue, then do get it below"
-        if (queue_PWM_motor_A.any())
-        {
-            //read queue
+        // if (queue_PWM_motor_A.any())
+        // {
+        //     //read queue
 
 
-            // Get item from queue
-            queue_PWM_motor_A.get(duty_cycle_motor_A);
+        //     // Get item from queue
+        //     queue_PWM_motor_A.get(duty_cycle_motor_A);
         
             
-            // send this duty cycle to the motor
-            motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
+        //     // send this duty cycle to the motor
+        //     motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
 
-        }
+        // }
         
+        motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
 
 
         // This helps this task run at the correct speed
@@ -112,7 +113,7 @@ void motor_B_driver_task (void* p_params)
 
 
                                         // Pin names PC10, etc are defines that live in variant.h
-    uint8_t stby_motor = PC10;          // PC10 = 16     
+    uint8_t stby_motor = PC15;          // PC10 = 16     
     uint8_t mot_dir_1 = PA11;           // PA11 = 37
     uint8_t mot_dir_2 = PA12;           // PA12 = 36
     uint8_t pwm_pin_motor = PA7;        // PA7, predefined arduino pin = A6
@@ -124,17 +125,15 @@ void motor_B_driver_task (void* p_params)
     // Create instance of motor driver called motor_A_driver
     TB6612FNG motor_B_driver (stby_motor, mot_dir_1, mot_dir_2, pwm_pin_motor);
     
-    
 
     // Use enable method for the motor driver
     motor_B_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    int8_t duty_cycle_motor_B = 100;
+    int8_t duty_cycle_motor_B = -50;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
-
 
     for (;;)
     {
@@ -143,16 +142,19 @@ void motor_B_driver_task (void* p_params)
 
         // get duty cycle for Motor B from the controller output and put it into the variable "duty_cycle_motor_B"
         // CHECK: need "if item in queue, then do get it below"
-        if (queue_PWM_motor_B.any())
-        {
-            // Get item from queue
-            queue_PWM_motor_B.get(duty_cycle_motor_B);
+        // if (queue_PWM_motor_B.any())
+        // {
+        //     // Get item from queue
+        //     queue_PWM_motor_B.get(duty_cycle_motor_B);
         
             
-            // send this duty cycle to the motor
-            motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
+        //     // send this duty cycle to the motor
+        //     motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
 
-        }
+        // }
+
+        motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
+
 
 
         // This helps this task run at the correct speed

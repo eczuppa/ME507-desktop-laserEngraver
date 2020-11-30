@@ -14,6 +14,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);
 

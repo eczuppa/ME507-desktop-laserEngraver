@@ -11,6 +11,11 @@
 //Shares and queues should go here
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
+Queue<float> A_pos_desired(POS_Q_SIZE,"A Position Desired");
+Queue<float> B_pos_desired(POS_Q_SIZE,"B Position Desired");
+// Queue<float> A_feed_desired();
+// Queue<float> B_feed_desired();
+
 
 /** @brief      Task which reads data from the serial port, translates it, and sends it where it needs to go.
  *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
@@ -46,10 +51,14 @@ void task_translate(void* p_params)
             //update kinematic translator with new values
             translator.calculate_kinematics(decoder);
 
-            float A = translator.get_A_setpoint();
-            float B = translator.get_B_setpoint();
-            float FA = translator.get_F_A();
-            float FB = translator.get_F_B();
+            //Put translated items into queues
+            A_pos_desired.put(translator.get_A_setpoint());
+            B_pos_desired.put(translator.get_B_setpoint());
+
+            // float A = translator.get_A_setpoint();
+            // float B = translator.get_B_setpoint();
+            // float FA = translator.get_F_A();
+            // float FB = translator.get_F_B();
             // print_serial(A);
             // print_serial(" ");
             // print_serial(B);

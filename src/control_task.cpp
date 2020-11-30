@@ -4,8 +4,11 @@
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE
-extern Queue<float> A_desired;
-extern Queue<float> B_desired;
+extern Queue<float> A_pos_desired;
+extern Queue<float> B_pos_desired;
+extern Queue<float> A_feed_desired;
+extern Queue<float> B_feed_desired;
+
 
 // MOTOR A ENCODER DATA
 extern Share<float> encoder_A_pos; 
