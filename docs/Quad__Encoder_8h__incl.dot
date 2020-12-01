@@ -70,7 +70,7 @@ digraph "Quad_Encoder.h"
   Node2 -> Node28 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node28 [label="commands.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$commands_8h.html",tooltip=" "];
   Node2 -> Node29 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node29 [label="temperature_task.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$temperature__task_8h_source.html",tooltip=" "];
+  Node29 [label="temperature_task.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$temperature__task_8h.html",tooltip=" "];
   Node29 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 -> Node30 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node30 [label="control_task.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$control__task_8h.html",tooltip=" "];

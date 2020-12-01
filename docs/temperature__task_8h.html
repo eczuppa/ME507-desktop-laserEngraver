@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Desktop Laser Engraver: temperature_task.cpp File Reference</title>
+<title>Desktop Laser Engraver: temperature_task.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,25 +64,42 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">temperature_task.cpp File Reference</div>  </div>
+<div class="title">temperature_task.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="temperature__task_8h_source.html">temperature_task.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for temperature_task.cpp:</div>
+Include dependency graph for temperature_task.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="temperature__task_8cpp__incl.png" border="0" usemap="#temperature__task_8cpp" alt=""/></div>
+<div class="center"><img src="temperature__task_8h__incl.png" border="0" usemap="#temperature__task_8h" alt=""/></div>
 </div>
-</div><table class="memberdecls">
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="temperature__task_8h__dep__incl.png" border="0" usemap="#temperature__task_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="temperature__task_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">temperature_task</a> (void *p_params)</td></tr>
-<tr class="memdesc:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">implements a task function to use digital temperature sensor like an industrial heat detector  <a href="temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">More...</a><br /></td></tr>
+<tr class="memitem:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature__task_8h.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">temperature_task</a> (void *p_params)</td></tr>
+<tr class="memdesc:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">implements a task function to use digital temperature sensor like an industrial heat detector  <a href="temperature__task_8h.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">More...</a><br /></td></tr>
 <tr class="separator:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae5d0001d4cc96f5e0c8b388de52cbe94"><td class="memItemLeft" align="right" valign="top"><a id="ae5d0001d4cc96f5e0c8b388de52cbe94"></a>
+const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>temperature_task_period</b> = 100000</td></tr>
+<tr class="separator:ae5d0001d4cc96f5e0c8b388de52cbe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>the header file for the temperature reading task function that attempts to detect flame-out conditions on the laser cutter using a DS18B20 Onewire (c) digital temeprature sensor. </p><dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>22 Nov 2020 Original file </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac9ce0c5163f1f8ce710270b5e0ba2b11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9ce0c5163f1f8ce710270b5e0ba2b11">&#9670;&nbsp;</a></span>temperature_task()</h2>
 
