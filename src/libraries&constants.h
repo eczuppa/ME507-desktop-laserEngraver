@@ -1,10 +1,8 @@
-/** @file gcode.h
+/** @file libraries&constants.h
  *      This file contains the header which contains the definition of multiple constants
  *      and libraries that will be used in this laser code. 
  * 
- *      The full Doxygen header for the function is in the .cpp file, so there is
- *      just a brief description of the function here. 
- *
+ *      
  *  @author Niko Banks
  *  @date Nov 10 2020
  */
@@ -31,6 +29,8 @@
 
 //From Github
 #include "BasicLinearAlgebra.h"
+#include "DallasTemperature.h"
+#include "OneWire.h"
 
 
 //ME507 Laser Library

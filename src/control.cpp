@@ -25,7 +25,8 @@
 
 // ------ General Questions about the code ------
 
-// Use Shares and Queues!!
+// ADD OVERALL SATURATION LIMIT!!!! To output
+
 
 // I've set everything as floats, but maybe some should be double's or int's?
 
@@ -186,6 +187,7 @@ void Controller_PID::control_loop_PID ()
     // Combine individual outputs to get the final output
     // Multiply "output_sum2" by the constant "output_PWM" in order to output a PWM signal
     
+    // LIMIT THIS TO MAKE SURE IT DOESNT BLOW UP!
     output = output_sum2 * output_PWM;
 
     //  Serial << "output:  " << output << endl;

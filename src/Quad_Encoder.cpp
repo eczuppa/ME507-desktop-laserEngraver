@@ -1,12 +1,5 @@
-/** @file Quad_Encoder.cpp class implementation that uses hardware timers to count pulses from a quadrature rotary encoder WITHOUT INTERRUPTS
- *  @details This is a class which uses the Hardware Timer API and some low level register setting to read a quadrature encoder on a motor
- *           and then do various useful tasks with that read value. This class has debugging methods which are documented below. The primary
- *           methods of this class are @c enc_zero() , @c enc_read , and its variants @c enc_read_pos() and @c end_read_vel() . 
- *           @c enc_zero sets the accumulated position class member variable to zero
- *           @c enc_read reads the raw encoder ticks from the timer counter register and handles overflows in a pythonic manner becuase
- *                       I am most familiar with the pythonic approach
- *           @c enc_read_pos returns the corresponding linear displacement of the belt due to the motor's rotational displacement from @c enc_read() in millimeters 
- *           @c enc_read_vel returns the corresponding velocity of the belt due to the motor's rotational displacement / time measured when reading encoder from @c enc_read() in mm/sec
+/** @file Quad_Encoder.cpp 
+ *           class implementation that uses hardware timers to count pulses from a quadrature rotary encoder WITHOUT INTERRUPTS
  *  
  *  @author Ethan A Czuppa
  *  @author JR Ridgely - wrote the C++ class that I used the constructor from in order to get my timer to work with the encoder
@@ -56,13 +49,12 @@ const float TICK_TO_RAD = 0.022520; // radians per encoder tick
  *           and other useful, state-determining values into class member data
  *  @param   enc_sigpin_A is the 8-bit unsigned integer representaion of the timer channel (pin) the first encoder output signal is tied to (e.g PC6 or PC7 for TIM8)
  *  @param   enc_sigpin_B is the 8-bit unsigned integer representaion of the timer channel (pin) the second encoder output signal is tied to (e.g PC6 or PC7 for TIM8)
+ *  @param   enc_chan_A  
+ *  @param   enc_chan_B
  *  @param   p_eTIM the pointer of type @c TIM_TypeDef which matches the type of the predefined TIMx objects (e.g. TIM1, ..., TIM16) 
  *  @param   bound the value which determines the area where the enc_read method begins checking for an under/overflow condition
  *  @param   invert a boolean to compensate for hardware issues - if you switch the encoder signal outputs on the timer channel pins then setting
  *                 invert to true allows you to read the correct encoder values without swithching the motor leads, which can sometimes be problematic
- *  @param   _abspos is the class member variable that holds the absolute position measured by the encoder 
- *                   it is an int32_t so it should be quite difficult to overflow unless your motor is spinning SUPER fast
- *  @param   _last_abspos a snap shot of _abspos before being incremented by the appropriate delta - used for instanteous velocity calculations
  * 
  */
 
@@ -140,6 +132,9 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
  *  @param   delta the difference between the last timer register count value and the current one - checked for overflows.
  *  @param   count the method specific variable that holds the current timer register count value.   
  *  @param   TMR_COUNT_MAX the overflow value for the timer, in this case for a 16 bit timer so, 65535.
+ *  @param   _abspos is the class member variable that holds the absolute position measured by the encoder 
+ *                   it is an int32_t so it should be quite difficult to overflow unless your motor is spinning SUPER fast
+ *  @param   _last_abspos a snap shot of _abspos before being incremented by the appropriate delta - used for instanteous velocity calculations
  * 
  */
 int32_t Quad_Encoder::enc_read(void)
@@ -207,48 +202,6 @@ float Quad_Encoder::enc_d_pos(void)
 {
     return (MOMENT_ARM*(_abspos - _last_abspos)*TICK_TO_RAD);
 }
-
-// /** @brief   calculates the instantenous tangential velocity of the drive elements connected to the motor and returns that value in [mm/sec] 
-//  *  @details determines the change in encoder state (current and last position - ticks - and time - milliseconds) and calculates the resulting
-//  *           instantenous tangential velocity of the drive elements connected to the motor (in this case a timing belt drive by a timing pulley)
-//  *           based on physical system constants @param MOMENT_ARM and @param TICK_TO_RAD to output the velocity in mm/sec. 
-//  *  @param   _delta_time the class member variable that keeps track of the time difference 
-//  * 
-//  */
-// float Quad_Encoder::enc_read_vel(void)
-// {
-    
-//     // method specific varaibles, do not need to be saved
-//     int32_t now_pos_ticks;    // the current value from the encoder read method
-//     int32_t delta_pos_ticks;  // the difference between the current encoder read value and the last one
-//     float vel_ticks;          // the instanteous velocity from the encoder in ticks/sec
-
-//     // Get current time using arduino millis() function, do not try to use this in an interrupt
-//     _currtime = velTmr.elapsed();
-    
-//     // compute the change in time
-//     _delta_time = _currtime - _lasttime;
-    
-//     // Read the encoder now so the time we just computed will be relevant to the values we read
-//     now_pos_ticks = enc_read();
-    
-//     // Calculate the change in position from our current encoder read call
-//     delta_pos_ticks = now_pos_ticks - _last_abspos;
-    
-//     // Calculate the instantenous velocity 
-//     vel_ticks = (delta_pos_ticks*1000000) / (_delta_time); // in units of  [ticks/sec]
-    
-//     // reintialize the _lasttime, first set by the constructor and now just by this method
-//     _lasttime = _currtime;
-    
-//     return(vel_ticks*MOMENT_ARM*TICK_TO_RAD);   // belt velocity in units of [mm/sec]
-
-// }
-
-// int32_t Quad_Encoder::get_enc_dt(void)
-// {
-//     return(_delta_time);
-// }
 
 
 /** @brief   resets _abspos, the accumulated encoder ticks variable, to 0

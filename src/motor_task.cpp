@@ -39,7 +39,7 @@ void motor_A_driver_task (void* p_params)
 
     // HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
 
-    uint8_t stby_motor = PC15;          //PC10 = 16     !! Where did this come from?!?!?
+    uint8_t stby_motor = PC10;          //PC10 = 16     !! Where did this come from?!?!?
     uint8_t mot_dir_1 = PA14;           //PA15 = 21
     uint8_t mot_dir_2 = PA15;           //PA14 = 20
     uint8_t pwm_pin_motor = PA6;        //PA6, predefined arduino pin = A7
@@ -55,7 +55,7 @@ void motor_A_driver_task (void* p_params)
     motor_A_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    int8_t duty_cycle_motor_A = 50;
+    int8_t duty_cycle_motor_A = 75;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -113,7 +113,7 @@ void motor_B_driver_task (void* p_params)
 
 
                                         // Pin names PC10, etc are defines that live in variant.h
-    uint8_t stby_motor = PC15;          // PC10 = 16     
+    uint8_t stby_motor = PC10;          // PC10 = 16     
     uint8_t mot_dir_1 = PA11;           // PA11 = 37
     uint8_t mot_dir_2 = PA12;           // PA12 = 36
     uint8_t pwm_pin_motor = PA7;        // PA7, predefined arduino pin = A6
@@ -130,7 +130,7 @@ void motor_B_driver_task (void* p_params)
     motor_B_driver.enable();
     
     // The is where the duty cycle will be put from when it is read from the queue
-    int8_t duty_cycle_motor_B = -50;
+    int8_t duty_cycle_motor_B = -75;
 
     // This is for precise timing
     TickType_t xLastWakeTime = xTaskGetTickCount();
