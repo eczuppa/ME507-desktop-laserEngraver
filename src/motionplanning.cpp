@@ -49,15 +49,13 @@ MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, floa
  *            the greatest common factor between the @c tot_travel_time and @c _ramp_dt_period . Since 
  *            the distance and the travel time are both floating point numbers the floating point version
  *            of the modulo (%) operator is used - @c fmodf(float_x,float_y) in the equation that calculates
- *            the number of ramp sections @c _ramp_sections . 
- *   @ 
+ *            the number of ramp sections @c _ramp_sections.  
  *   
  *   @param   dist the distance between the current and last setpoint in [mm], used to calculate the
  *                 the time it takes for the laser to traverse the move between the current and last 
  *                 X,Y setpoints from the current and last lines of GCODE. 
  *   @param   _even a boolean that adjusts how index of the dynamically allocated array, @c _output_ramp
  *                  is augmented to include the current setpoint and feed rate. 
- * 
  * 
  */
 
@@ -111,12 +109,14 @@ void MotionPlanning::init_ramp(void)
  *             for loop is run and the ramp input for the controller is generated. 
  *             (this is called output_ramp instead of input ramp because the motion planning
  *             class is outputs this, even though it is then taken and inputted into the 
- *             control loop).
+ *             control loop).  @c ramp_generator() must be run after @c init_ramp() as the
+ *             dynamic memory allocation is handled separately from the @c _ouptut_ramp array
+ *             population. 
+ * 
  *   @param    index a variable to store the length of the dynamic array _output_array.
  *   @param    aug_index a variable that adjusts the index based on a specified quantity 
  *                       as a function of the @c _even boolean - true if the @c _ramp_dt_period
  *                       divided evenly into the @c _tot_travel_period and false if not.
- *   @param    @c ramp_generator() must be run after @c init_ramp()
  * 
  * 
  */
@@ -181,9 +181,14 @@ void MotionPlanning::ramp_generator(void)
 
 }
 
-/**  @brief returns the pointer to the first element of the ramp input to the controller
- *   @details
- * 
+/**  @brief   get-er method to extract @c _output_ramp made by @c ramp_generator().
+ *   @details gets the pointer @c _output_ramp which points to the first element of the
+ *            dynamically allocated array that contains what will be the ramp input to the 
+ *            control loop. Since this pointer is saved as class member data and set/reset
+ *            by the constructor and de_init methods in this class the array is persistent 
+ *            and does not need to be declared static.
+ *   
+ *   @returns @c _output_ramp the pointer to the first element in the ramp input dynamic array
  * 
  */
 
@@ -193,8 +198,12 @@ float * MotionPlanning::get_ramp(void)
 }
 
 /**  @brief   deletes the dynamically allocated ramp input array and sets up for the next ramp
- *   @details   
- * 
+ *   @details In order to prevent memory leaks, since dyanmic memory allocation is made use of 
+ *            in this class, once all of the elements of @c _output_ramp[] have been passed into 
+ *            the receiving control loop, this method must be called. The recommended workflow 
+ *            is then to call this method once the previously generated ramp input had been successfully
+ *            passed, in its entirety, to the control loop of interest and then call the @c update_setpoints()
+ *            method to prepare the current instance of the MotionPlanning class for making the next ramp.    
  * 
  */
 
@@ -205,9 +214,11 @@ void MotionPlanning::deinit_ramp(void)
     _ramp_sections = 0;       // zero out ramp sections so it is ready for the next ramp input
 }
 
-/**  @brief   allows the user to update the current position and feed rate setpoints
- *   @details
- * 
+/**  @brief    a set-er function to update feed and position setpoints
+ *   @details  Expects the current postion setpoint and current feedrate for the motor of interest
+ *             from the new, current line of GCODE and sets the class member data for position and
+ *             feed rate setpoints accordingly. This method should be called after the @c deinit_ramp()
+ *             method is called within a loop.
  * 
  */
 

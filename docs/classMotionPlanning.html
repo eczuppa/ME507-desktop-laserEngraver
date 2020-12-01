@@ -109,16 +109,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a547647e630d7c33b11ba73b08013f894"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894">ramp_generator</a> (void)</td></tr>
 <tr class="memdesc:a547647e630d7c33b11ba73b08013f894"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates the ramp input to the control loop as a dyanmic array  <a href="classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894">More...</a><br /></td></tr>
 <tr class="separator:a547647e630d7c33b11ba73b08013f894"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdffcdab5159c9f57fbb72b17645b0ac"><td class="memItemLeft" align="right" valign="top"><a id="afdffcdab5159c9f57fbb72b17645b0ac"></a>
-float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#afdffcdab5159c9f57fbb72b17645b0ac">get_ramp</a> (void)</td></tr>
-<tr class="memdesc:afdffcdab5159c9f57fbb72b17645b0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the pointer to the first element of the ramp input to the controller <br /></td></tr>
+<tr class="memitem:afdffcdab5159c9f57fbb72b17645b0ac"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#afdffcdab5159c9f57fbb72b17645b0ac">get_ramp</a> (void)</td></tr>
+<tr class="memdesc:afdffcdab5159c9f57fbb72b17645b0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">get-er method to extract <code>_output_ramp</code> made by <code><a class="el" href="classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894" title="generates the ramp input to the control loop as a dyanmic array">ramp_generator()</a></code>.  <a href="classMotionPlanning.html#afdffcdab5159c9f57fbb72b17645b0ac">More...</a><br /></td></tr>
 <tr class="separator:afdffcdab5159c9f57fbb72b17645b0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacc8e431397a8d9b745d7182b86ed415"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#aacc8e431397a8d9b745d7182b86ed415">deinit_ramp</a> (void)</td></tr>
 <tr class="memdesc:aacc8e431397a8d9b745d7182b86ed415"><td class="mdescLeft">&#160;</td><td class="mdescRight">deletes the dynamically allocated ramp input array and sets up for the next ramp  <a href="classMotionPlanning.html#aacc8e431397a8d9b745d7182b86ed415">More...</a><br /></td></tr>
 <tr class="separator:aacc8e431397a8d9b745d7182b86ed415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f34b061518d2d9f7b3bd2f57f29e2ce"><td class="memItemLeft" align="right" valign="top"><a id="a0f34b061518d2d9f7b3bd2f57f29e2ce"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#a0f34b061518d2d9f7b3bd2f57f29e2ce">update_setpoints</a> (float current_setpoint, float current_feedrate)</td></tr>
-<tr class="memdesc:a0f34b061518d2d9f7b3bd2f57f29e2ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows the user to update the current position and feed rate setpoints <br /></td></tr>
+<tr class="memitem:a0f34b061518d2d9f7b3bd2f57f29e2ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionPlanning.html#a0f34b061518d2d9f7b3bd2f57f29e2ce">update_setpoints</a> (float current_setpoint, float current_feedrate)</td></tr>
+<tr class="memdesc:a0f34b061518d2d9f7b3bd2f57f29e2ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">a set-er function to update feed and position setpoints  <a href="classMotionPlanning.html#a0f34b061518d2d9f7b3bd2f57f29e2ce">More...</a><br /></td></tr>
 <tr class="separator:a0f34b061518d2d9f7b3bd2f57f29e2ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -162,7 +160,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>a class that implements a linearly interpolated ramp input generator for a classical control loop <br  />
  </p>
-<p>Generates a lineraly interpolated ramp input for use in P, PI, and PID control loop between two lines of parsed GCODE. This was implemented in the form of a class in order to avoid having to make a large number of static variables and to do cleaner dynamic memory allocation for the array which holds the generated ramp input. By providing our classical control loops with a ramp input instead of a step input we are able to control both position and velocity with a PID postion control loop. Additionally, the classical control loop behaves in a linear manner since it is subjected to several smaller disturbances instead of one large step disturbance. Maintaining linear control loop behavior eases parameterization of the closed loop system as well as reduces the likelyhood for eratic controller behavior due to non-linearities. </p>
+<p>Generates a lineraly interpolated ramp input for use in P, PI, and PID control loop between two lines of parsed GCODE. This was implemented in the form of a class in order to avoid having to make a large number of static variables and to do cleaner dynamic memory allocation for the array which holds the generated ramp input. By providing our classical control loops with a ramp input instead of a step input we are able to control both position and velocity with a PID postion control loop. Additionally, the classical control loop behaves in a linear manner since it is subjected to several smaller disturbances instead of one large step disturbance. Maintaining linear control loop behavior eases parameterization of the closed loop system as well as reduces the likelyhood for eratic controller behavior due to non-linearities.</p>
+<h1><a class="anchor" id="MotionPlanning_usage"></a>
+Usage</h1>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab77d73240b06317f3094028c8adc4b15"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab77d73240b06317f3094028c8adc4b15">&#9670;&nbsp;</a></span>MotionPlanning()</h2>
@@ -237,8 +237,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>deletes the dynamically allocated ramp input array and sets up for the next ramp </p>
-<p><br  />
+<p>In order to prevent memory leaks, since dyanmic memory allocation is made use of in this class, once all of the elements of <code>_output_ramp</code>[] have been passed into the receiving control loop, this method must be called. The recommended workflow is then to call this method once the previously generated ramp input had been successfully passed, in its entirety, to the control loop of interest and then call the <code><a class="el" href="classMotionPlanning.html#a0f34b061518d2d9f7b3bd2f57f29e2ce" title="a set-er function to update feed and position setpoints">update_setpoints()</a></code> method to prepare the current instance of the <a class="el" href="classMotionPlanning.html" title="a class that implements a linearly interpolated ramp input generator for a classical control loop">MotionPlanning</a> class for making the next ramp. <br  />
  </p>
+
+</div>
+</div>
+<a id="afdffcdab5159c9f57fbb72b17645b0ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdffcdab5159c9f57fbb72b17645b0ac">&#9670;&nbsp;</a></span>get_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float * MotionPlanning::get_ramp </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get-er method to extract <code>_output_ramp</code> made by <code><a class="el" href="classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894" title="generates the ramp input to the control loop as a dyanmic array">ramp_generator()</a></code>. </p>
+<p>gets the pointer <code>_output_ramp</code> which points to the first element of the dynamically allocated array that contains what will be the ramp input to the control loop. Since this pointer is saved as class member data and set/reset by the constructor and de_init methods in this class the array is persistent and does not need to be declared static.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>_output_ramp</code> the pointer to the first element in the ramp input dynamic array </dd></dl>
 
 </div>
 </div>
@@ -259,7 +281,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>allocates the memory for the ramp input and initalizes output_pointer </p>
-<p>calculates the required size of the dynamic array <code>_output_ramp</code> by from the time required to traverse the position change specified by the current and last lines of GCODE and then creates the appropriate sized array to hold the ramp input to the control loop. To get an array with a positve integer for the index a abreviated approximate version of Euclid's algorithm is used to calculate the greatest common factor between the <code>tot_travel_time</code> and <code>_ramp_dt_period</code> . Since the distance and the travel time are both floating point numbers the floating point version of the modulo (%) operator is used - <code>fmodf(float_x,float_y)</code> in the equation that calculates the number of ramp sections <code>_ramp_sections</code> . @</p>
+<p>calculates the required size of the dynamic array <code>_output_ramp</code> by from the time required to traverse the position change specified by the current and last lines of GCODE and then creates the appropriate sized array to hold the ramp input to the control loop. To get an array with a positve integer for the index a abreviated approximate version of Euclid's algorithm is used to calculate the greatest common factor between the <code>tot_travel_time</code> and <code>_ramp_dt_period</code> . Since the distance and the travel time are both floating point numbers the floating point version of the modulo (%) operator is used - <code>fmodf(float_x,float_y)</code> in the equation that calculates the number of ramp sections <code>_ramp_sections</code>. <br  />
+</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dist</td><td>the distance between the current and last setpoint in [mm], used to calculate the the time it takes for the laser to traverse the move between the current and last X,Y setpoints from the current and last lines of GCODE. </td></tr>
@@ -287,14 +310,45 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>generates the ramp input to the control loop as a dyanmic array </p>
-<p>checks that the ramp should be generated by ensuring the total travel peirod <code>_tot_travel_period</code> is greater than or equal to the discrete ramp period and the dynamic memory allocation was succesful such that the pointer <code>_ouput_ramp</code> is no longer a NULL pointer then, the ramp generator for loop is run and the ramp input for the controller is generated. (this is called output_ramp instead of input ramp because the motion planning class is outputs this, even though it is then taken and inputted into the control loop). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>checks that the ramp should be generated by ensuring the total travel peirod <code>_tot_travel_period</code> is greater than or equal to the discrete ramp period and the dynamic memory allocation was succesful such that the pointer <code>_ouput_ramp</code> is no longer a NULL pointer then, the ramp generator for loop is run and the ramp input for the controller is generated. (this is called output_ramp instead of input ramp because the motion planning class is outputs this, even though it is then taken and inputted into the control loop). <code><a class="el" href="classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894" title="generates the ramp input to the control loop as a dyanmic array">ramp_generator()</a></code> must be run after <code><a class="el" href="classMotionPlanning.html#a60f1b040d485df34cb53077441568f7b" title="allocates the memory for the ramp input and initalizes output_pointer">init_ramp()</a></code> as the dynamic memory allocation is handled separately from the <code>_ouptut_ramp</code> array population.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>a variable to store the length of the dynamic array _output_array. </td></tr>
     <tr><td class="paramname">aug_index</td><td>a variable that adjusts the index based on a specified quantity as a function of the <code>_even</code> boolean - true if the <code>_ramp_dt_period</code> divided evenly into the <code>_tot_travel_period</code> and false if not. </td></tr>
-    <tr><td class="paramname"></td><td></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0f34b061518d2d9f7b3bd2f57f29e2ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f34b061518d2d9f7b3bd2f57f29e2ce">&#9670;&nbsp;</a></span>update_setpoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MotionPlanning::update_setpoints </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>current_setpoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>current_feedrate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>a set-er function to update feed and position setpoints </p>
+<p>Expects the current postion setpoint and current feedrate for the motor of interest from the new, current line of GCODE and sets the class member data for position and feed rate setpoints accordingly. This method should be called after the <code><a class="el" href="classMotionPlanning.html#aacc8e431397a8d9b745d7182b86ed415" title="deletes the dynamically allocated ramp input array and sets up for the next ramp">deinit_ramp()</a></code> method is called within a loop. </p>
 
 </div>
 </div>

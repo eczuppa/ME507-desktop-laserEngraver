@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('commands_8h.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">commands.h File Reference</div>  </div>
@@ -100,14 +101,26 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdesired__pos__vel.html">desired_pos_vel</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdesired__pos__vel__S.html">desired_pos_vel_S</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a144bbbaa0ad6493bd4e7f3ff69aef7db"><td class="memItemLeft" align="right" valign="top"><a id="a144bbbaa0ad6493bd4e7f3ff69aef7db"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MACHINE_CMD_NULL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a144bbbaa0ad6493bd4e7f3ff69aef7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bdc5e4995d7b01ec1543914d238484c"><td class="memItemLeft" align="right" valign="top"><a id="a1bdc5e4995d7b01ec1543914d238484c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MACHINE_CMD_HOME</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a1bdc5e4995d7b01ec1543914d238484c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aada2111513abbeb6b7fc02b90ef6c5ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8h.html#aada2111513abbeb6b7fc02b90ef6c5ad">task_translate</a> (void *p_params)</td></tr>
 <tr class="memdesc:aada2111513abbeb6b7fc02b90ef6c5ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which reads data from the serial port, translates it, and sends it where it needs to go.  <a href="commands_8h.html#aada2111513abbeb6b7fc02b90ef6c5ad">More...</a><br /></td></tr>
 <tr class="separator:aada2111513abbeb6b7fc02b90ef6c5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa32972362e3446dc60a8899af6b561e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8h.html#aaa32972362e3446dc60a8899af6b561e">interpret_machinecmd_line</a> (char *line)</td></tr>
+<tr class="memdesc:aaa32972362e3446dc60a8899af6b561e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function which interprets a line containing a machine command.  <a href="commands_8h.html#aaa32972362e3446dc60a8899af6b561e">More...</a><br /></td></tr>
+<tr class="separator:aaa32972362e3446dc60a8899af6b561e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file contains the header for a file containing the functions necessary to run the full translation of commands coming from the serial port before sending them to the controller.</p>
@@ -115,6 +128,34 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Niko Banks </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Nov 20 2020 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aaa32972362e3446dc60a8899af6b561e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa32972362e3446dc60a8899af6b561e">&#9670;&nbsp;</a></span>interpret_machinecmd_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t interpret_machinecmd_line </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>line</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function which interprets a line containing a machine command. </p>
+<p>This function takes in a line containing a command for the laser that begins with a <code>$</code>, signalling that it is a machine command and not a line of gcode. It then interprets the command in the line and returns on the information. <b>Disclaimer: This function currently only supports homing commands. More will be added in the future.</b></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line</td><td>A line containing a command to be interpreted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an indicator for the command that was entered </dd></dl>
+
+</div>
+</div>
 <a id="aada2111513abbeb6b7fc02b90ef6c5ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aada2111513abbeb6b7fc02b90ef6c5ad">&#9670;&nbsp;</a></span>task_translate()</h2>
 
@@ -132,8 +173,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Task which reads data from the serial port, translates it, and sends it where it needs to go. </p>
-<p>This task function reads a line from the read_chars queue of gcode or other commands and splits it up into the separate commands. Commands are then sent to the control task via queues and shares. Gcode is translated from <code>X</code> <code>Y</code> and <code>F</code> values into desired positions and feedrates for both motors; <code>_A_setpoint</code>, <code>_A_feed</code>, <code>_B_setpoint</code> and <code>_B_feed</code>, which are class member data of the class <code><a class="el" href="classKinematics__coreXY.html" title="Class which contains functions to convert from desited global coordinates to motor commands.">Kinematics_coreXY</a></code>. Regular machine commands such as homing are also translated to motor commands, which are then sent to the control task so it may run them. </p>
-<p>Create line char array to hold incoming data from the <code>read_chars</code> queue</p>
+<p>This task function reads a line from the read_chars queue of gcode or other commands and splits it up into the separate commands. Commands are then sent to the control task via queues and shares. Gcode is translated from <code>X</code> <code>Y</code> and <code>F</code> values into desired positions and feedrates for both motors; <code>_A_setpoint</code>, <code>_A_feed</code>, <code>_B_setpoint</code> and <code>_B_feed</code>, which are class member data of the class <code><a class="el" href="classKinematics__coreXY.html" title="Class which contains functions to convert from desited global coordinates to motor commands.">Kinematics_coreXY</a></code>. Regular machine commands such as homing are also translated to motor commands, which are then sent to the control task so it may run them.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

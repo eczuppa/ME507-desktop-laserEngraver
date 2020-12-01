@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('control__task_8h.html',''); initResiza
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -104,10 +105,22 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="control__task_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a420588210d13854e4c616dd5462a99d3"><td class="memItemLeft" align="right" valign="top"><a id="a420588210d13854e4c616dd5462a99d3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NORMAL_OPERATION</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a420588210d13854e4c616dd5462a99d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c37baaa0123f31ba8226566fcc450cd"><td class="memItemLeft" align="right" valign="top"><a id="a0c37baaa0123f31ba8226566fcc450cd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SAFETY_STOP</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a0c37baaa0123f31ba8226566fcc450cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96bd994ca35c2c510d1740e75a09f223"><td class="memItemLeft" align="right" valign="top"><a id="a96bd994ca35c2c510d1740e75a09f223"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>HOMING</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a96bd994ca35c2c510d1740e75a09f223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ade29986ed4ef416962f22b46b1ffbb47"><td class="memItemLeft" align="right" valign="top"><a id="ade29986ed4ef416962f22b46b1ffbb47"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>control_task</b> (void *p_params)</td></tr>
+<tr class="memitem:ade29986ed4ef416962f22b46b1ffbb47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a> (void *p_params)</td></tr>
+<tr class="memdesc:ade29986ed4ef416962f22b46b1ffbb47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which recieves incoming commands, runs them through a control loop, and then sends them back out.  <a href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">More...</a><br /></td></tr>
 <tr class="separator:ade29986ed4ef416962f22b46b1ffbb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -116,6 +129,38 @@ Variables</h2></td></tr>
 const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>control_task_period</b> = 30</td></tr>
 <tr class="separator:af5f1225fc325e75395ddd57691b77364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This file contains the header for a file containing the control_task function.</p>
+<p>The full Doxygen header for the function is in the .cpp file, so there is just a brief description of the function here. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ade29986ed4ef416962f22b46b1ffbb47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade29986ed4ef416962f22b46b1ffbb47">&#9670;&nbsp;</a></span>control_task()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void control_task </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>p_params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Task which recieves incoming commands, runs them through a control loop, and then sends them back out. </p>
+<p>This task receives input commands with desired values for the two motors, sent from <code>task_translate</code>, and input positions from each of the motor encoders from <code>encoder_A_task</code> and <code>encoder_B_task</code>. First, the desired positions and velocities are turned into ramp inputs for each motor by creating more points in between two consecutive points through linear interpolation. This allows the laser head to be have tighter control over velocity of the laser head. Each of the inputs of desired and measured positions and velocities are then sent through a PID control loop inside this task, which then outputs PWM signals that are sent via queues to <code>motor_A_driver_task</code> and <code>motor_B_driver_task</code> to control the motors.</p>
+<p>The task has two main states, NORMAL_OPERATION and SAFETY_STOP. Under NORMAL_OPERATION, any incomming desired positions will be converted to ramps, controlled, and sent to the motors. SAFETY_STOP, if enabled, will immediately shut down the laser and keep it that way until the Safety_Supervisor task gives the go-ahead.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

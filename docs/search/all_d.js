@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['quad_5fencoder_103',['Quad_Encoder',['../classQuad__Encoder.html',1,'Quad_Encoder'],['../classQuad__Encoder.html#ab6dc44da124e15d90d4a827438c417e6',1,'Quad_Encoder::Quad_Encoder()']]],
-  ['quad_5fencoder_2ecpp_104',['Quad_Encoder.cpp',['../Quad__Encoder_8cpp.html',1,'']]],
-  ['quad_5fencoder_2eh_105',['Quad_Encoder.h',['../Quad__Encoder_8h.html',1,'']]]
+  ['ramp_5fgenerator_108',['ramp_generator',['../classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894',1,'MotionPlanning']]],
+  ['read_5ffloat_109',['read_float',['../gcode_8cpp.html#a4cae07d0430f67509a27d5c375e10d43',1,'read_float(char *line, uint8_t *char_counter, float *float_ptr):&#160;gcode.cpp'],['../gcode_8h.html#a4cae07d0430f67509a27d5c375e10d43',1,'read_float(char *line, uint8_t *char_counter, float *float_ptr):&#160;gcode.cpp']]]
 ];

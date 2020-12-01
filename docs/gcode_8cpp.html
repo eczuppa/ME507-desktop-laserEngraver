@@ -83,21 +83,62 @@ $(document).ready(function(){initNavTree('gcode_8cpp.html',''); initResizable();
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">gcode.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for gcode.cpp:</div>
-<div class="dyncontent">
-<div class="center"><img src="gcode_8cpp__incl.png" border="0" usemap="#gcode_8cpp" alt=""/></div>
-</div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4cae07d0430f67509a27d5c375e10d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gcode_8cpp.html#a4cae07d0430f67509a27d5c375e10d43">read_float</a> (char *line, uint8_t *char_counter, float *float_ptr)</td></tr>
+<tr class="memdesc:a4cae07d0430f67509a27d5c375e10d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b>  <a href="gcode_8cpp.html#a4cae07d0430f67509a27d5c375e10d43">More...</a><br /></td></tr>
+<tr class="separator:a4cae07d0430f67509a27d5c375e10d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file defines functions for to interpret lines of gcode into commands that control the laser cutter. Many of the methods used in this file were inspired by GRBL code.</p>
 <dl class="section author"><dt>Author</dt><dd>Niko Banks </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Nov 10 2020 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a4cae07d0430f67509a27d5c375e10d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cae07d0430f67509a27d5c375e10d43">&#9670;&nbsp;</a></span>read_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t read_float </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>char_counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>float_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b> </p>
+<p>The following code is based loosely on the avr-libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely available conversion method examples, but has been highly optimized for Grbl. For known CNC applications, the typical decimal value is expected to be in the range of E0 to E-4. Scientific notation is officially not supported by g-code, and the 'E' character may be a g-code word on some CNC systems. So, 'E' notation will not be recognized. NOTE: Thanks to Radu-Eosif Mihailescu for identifying the issues with using strtod(). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

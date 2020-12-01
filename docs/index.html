@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DigitalCarpenter - Lite: Main Page</title>
+<title>DigitalCarpenter - Lite: DigitalCarpenter - Lite Documentation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,11 +82,70 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">DigitalCarpenter - Lite Documentation</div>  </div>
+<div class="title">DigitalCarpenter - Lite Documentation </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><h1><a class="anchor" id="dcl_intro"></a>
+Introduction</h1>
+<p>Welcome to the documentation page for the DigitalCarpenter - Lite C++ Library! Our hobby level desktop laser engraver is still in the development phase, but feel free to parse all of the currently documented code. This desktop laser engraver software is a less portable, simplified STM32FreeRTOS version of GRBL, but with significantly less emphasis on portability, and was developed as a project for the ME 507 class at Cal Poly SLO. The intent was that this would be a reasonably capable desktop laser engraver laser cutter for the cost of materials and components to make it with a unique hardware setup - CoreXY positioning done by brushed DC motors with quadrature encoders. Finally, this is an open source project that makes use of open source software and is intended to be kept as such under the conditions of the GNU GPL v3 License. <br  />
+</p>
+<h1><a class="anchor" id="dcl_libdeps"></a>
+Library Dependencies</h1>
+<p>Our library is built off of several other hardware driver and communication protocol libraries. Due to the current state of development of this opens source project some of the libraries listed below have not been used, but are intended for future work are marked with a double asterisk (**).</p>
+<ul>
+<li>Spluttflob's ME 507 Support Library: <a href="https://github.com/spluttflob/ME507-Support.git">https://github.com/spluttflob/ME507-Support.git</a></li>
+<li>Spluttflob's fork of the Arduino PrintStream Library: <a href="https://github.com/spluttflob/Arduino-PrintStream.git">https://github.com/spluttflob/Arduino-PrintStream.git</a></li>
+<li>My personal fork of the STM32FreeRTOS library that has a faster tickrate: <a href="https://github.com/eczuppa/STM32FreeRTOS.git">https://github.com/eczuppa/STM32FreeRTOS.git</a></li>
+<li>J. Rowberg's I2C Library: <a href="https://github.com/jrowberg/i2cdevlib.git">https://github.com/jrowberg/i2cdevlib.git</a> **</li>
+<li>ElectronicCat's MPU6050 accelerometer driver library: <a href="https://github.com/ElectronicCats/mpu6050.git">https://github.com/ElectronicCats/mpu6050.git</a> **</li>
+<li>Paul Stoffregen's OneWire communication library: <a href="https://github.com/PaulStoffregen/OneWire.git">https://github.com/PaulStoffregen/OneWire.git</a></li>
+<li>Miles Burton's fork of the Dallas Temperature Library: <a href="https://github.com/milesburton/Arduino-Temperature-Control-Library.git">https://github.com/milesburton/Arduino-Temperature-Control-Library.git</a></li>
+<li>An updated version of the Arduino Core for STM32FreeRTOS: <a href="https://github.com/stm32duino/Arduino_Core_STM32.git">https://github.com/stm32duino/Arduino_Core_STM32.git</a></li>
+<li>nikob997's fork of tomstewart89's Basic Linear Algebra library: <a href="https://github.com/nikob997/BasicLinearAlgebra.git">https://github.com/nikob997/BasicLinearAlgebra.git</a></li>
+</ul>
+<p>All of these libraries and our own modules, see the Class list and File Members sections, are stored in a master header file called <code>libraries&amp;constants.h</code>. If you make additions to this library be sure to include the header files of the modules you add to the master header file so your modified files will be imported where they are needed.</p>
+<p>To avoid include errors please make use of the following technique in all of the header files of the modules you add to this library:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#ifndef _YOURHEADERFILENAME_H</span></div>
+<div class="line"><span class="preprocessor">#define _YOURHEADERFILENAME_H</span></div>
+<div class="line">...</div>
+<div class="line">#include libraries&amp;constants.h</div>
+<div class="line">...</div>
+<div class="line">{your code}</div>
+<div class="line"><span class="preprocessor">#end if // _YOURHEADERFILENAME_H</span></div>
+</div><!-- fragment --><h1><a class="anchor" id="dcl_hl_wf"></a>
+High Level Work Flow</h1>
+<div class="image">
+<img src="ProgramFlow.png" alt=""/>
+</div>
+<h1><a class="anchor" id="dcl_fn"></a>
+Current &amp; Intended Functionality</h1>
+<p>The custom shield we designed to interface with the STM32 Nucleo L476RG for the DigitalCarpenter - Lite was subject to a few design oversights that currently prevent it from functioning properly. This shield is currently undergoing a redesign process followed by a more thorough design and functionality check. So, at the moment, the DigitalCarpenter - Lite does not run at all.</p>
+<p>Despite current setbacks, here is a preview of the functionality this project is intended to have as well as what has been developed.</p>
+<ul>
+<li>0.1 mm positioning accuracy</li>
+<li>A 2.5W Optical power output laser module</li>
+<li>A 330 x 419 mm cutting/engraving area</li>
+<li>Basic fume extraction and Flame out detection</li>
+<li>A laser-safe enclosure with open-cover detection</li>
+<li>GRBL-based GCODE parsing</li>
+<li>A simple Python UI with Hardware/Software Emergency Stop</li>
+<li>Full PID position and velocity control</li>
+<li>Vector cutting</li>
+</ul>
+<p>Future Work:</p>
+<ul>
+<li>GRBL compatibility</li>
+<li>Simple crash detection - with limit switches on all for corners of frame</li>
+<li>Acceleration feedback and control</li>
+<li>Air Assist</li>
+<li>Rastering/Engraving</li>
+</ul>
+<h1><a class="anchor" id="dcl_portability"></a>
+Software Portability Notice</h1>
+<p>The DigitalCarpenter - Lite C++ library was developed in VScode using the PlatfromIO extension on the Arduino framework. This library is intended for use with the STM32 Nucleo L476RG and has not been tested on other platforms. If you wish to use this library on a different MCU be advised that there is no current existing support for this from our documentation, so, YMMV. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['parseintwithecho_101',['parseIntWithEcho',['../serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp'],['../serial_8h.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp']]],
-  ['print_5fserial_102',['print_serial',['../serial_8cpp.html#a9eeb4b02d41956bc5ef7d1decae57731',1,'print_serial(String printed_string):&#160;serial.cpp'],['../serial_8h.html#a6c4a3b44bf36aa9af8782bc12ef085bb',1,'print_serial(String string_to_print):&#160;serial.cpp']]]
+  ['quad_5fencoder_105',['Quad_Encoder',['../classQuad__Encoder.html',1,'Quad_Encoder'],['../classQuad__Encoder.html#ab6dc44da124e15d90d4a827438c417e6',1,'Quad_Encoder::Quad_Encoder()']]],
+  ['quad_5fencoder_2ecpp_106',['Quad_Encoder.cpp',['../Quad__Encoder_8cpp.html',1,'']]],
+  ['quad_5fencoder_2eh_107',['Quad_Encoder.h',['../Quad__Encoder_8h.html',1,'']]]
 ];

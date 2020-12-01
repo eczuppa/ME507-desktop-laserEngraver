@@ -24,13 +24,16 @@
 
  /** @brief  a class that implements a linearly interpolated ramp input generator for a classical control loop  
  *   @details Generates a lineraly interpolated ramp input for use in P, PI, and PID control loop between two lines of parsed GCODE.
- *           This was implemented in the form of a class in order to avoid having to make a large number of static variables and to
- *           do cleaner dynamic memory allocation for the array which holds the generated ramp input. By providing our classical 
- *           control loops with a ramp input instead of a step input we are able to control both position and velocity with a PID 
- *           postion control loop. Additionally, the classical control loop behaves in a linear manner since it is subjected to several smaller
- *           disturbances instead of one large step disturbance. Maintaining linear control loop behavior eases parameterization of 
- *           the closed loop system as well as reduces the likelyhood for eratic controller behavior due to non-linearities. 
-
+ *            This was implemented in the form of a class in order to avoid having to make a large number of static variables and to
+ *            do cleaner dynamic memory allocation for the array which holds the generated ramp input. By providing our classical 
+ *            control loops with a ramp input instead of a step input we are able to control both position and velocity with a PID 
+ *            postion control loop. Additionally, the classical control loop behaves in a linear manner since it is subjected to several smaller
+ *            disturbances instead of one large step disturbance. Maintaining linear control loop behavior eases parameterization of 
+ *            the closed loop system as well as reduces the likelyhood for eratic controller behavior due to non-linearities. 
+ *   
+ *           @section MotionPlanning_usage Usage
+ *              
+ *      
  */
 
 class MotionPlanning
@@ -66,6 +69,8 @@ class MotionPlanning
     void deinit_ramp(void);
     // a method to change the current setpoint and feedrate after deiniting the ramp in preparation for generating a new ramp
     void update_setpoints(float current_setpoint, float current_feedrate);
+    // void time_to_wait(void) tells the queuing task which sends the control loops their next input at a fixed time rate to
+    // take the discritized _output_ramp array elements and make them into an actual ramp input to the control loops in control.
 
 
 };
