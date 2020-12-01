@@ -10,6 +10,8 @@
 */
 #include "libraries&constants.h"
 
+///@cond
+//Shares and queues should go here
 
 // // MOTOR A ENCODER DATA
 // extern Queue<float> encoder_A_pos; 
@@ -37,7 +39,7 @@ extern Share<uint32_t> encoder_B_dt;
 
 extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print;
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
-
+///@endcond
 
 /** @brief      Task which reads the serial port and puts it in a queue.
  *  @details    This task reads an input into the serial port (from the python UI
@@ -323,8 +325,9 @@ void print_serial(const char* printed_char)
 //-----------------------MICROCONTROLLER UI FILES: FOR TESTING-------------------------------
 
 
-
+///@cond
 Share<int32_t> s_duty_cycle ("Power");
+///@endcond
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.
  *  @details This function reads an integer which is typed by a user into a

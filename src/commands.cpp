@@ -25,6 +25,8 @@ Queue<desired_pos_vel> desired_queue(DES_Q_SIZE,"Desired A+B Position and Feeds"
  *              for both motors; @c _A_setpoint, @c _A_feed, @c _B_setpoint and @c _B_feed, which are class member 
  *              data of the class @c Kinematics_coreXY. Regular machine commands such as homing are also translated 
  *              to motor commands, which are then sent to the control task so it may run them. 
+ * 
+ *  @param      p_params A pointer to function parameters which we don't use.
  */
 void task_translate(void* p_params)
 {

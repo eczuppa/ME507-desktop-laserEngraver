@@ -1,20 +1,20 @@
 /** @file control_task.cpp
- * 
- * 
- * 
- */
-
+ *      This file contains the definition of the control_task function, which is the main function
+ *      that runs the motors and laser in the DigitalCarpenter system. 
+ *
+ *  @author Niko Banks
+ *  @author Ethan Czuppa
+ *  @author Matthew Carlson
+ *  @date Nov 20 2020
+*/
 
 #include "libraries&constants.h"
 
+///@cond
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE
-extern Queue<float> A_pos_desired;
-extern Queue<float> B_pos_desired;
-extern Queue<float> A_feed_desired;
-extern Queue<float> B_feed_desired;
-
+extern Queue<desired_pos_vel> desired_queue;
 
 // MOTOR A ENCODER DATA
 extern Share<float> encoder_A_pos; 
@@ -44,8 +44,20 @@ Queue<float> queue_PWM_motor_B (8,"Motor B DutyCycle");
 // CHECK HOME FLAG
 Share<bool> check_home ("Homing Flag");
 
+///@endcond
 
 
+/** @brief      Task which recieves incoming commands, runs them through a control loop, and then sends them back out.
+ *  @details    This task receives input commands with desired values for the two motors, sent from @c task_translate, and
+ *              input positions from each of the motor encoders from @c encoder_A_task and @c encoder_B_task. First, the
+ *              desired positions and velocities are turned into ramp inputs for each motor by creating more points in between
+ *              two consecutive points through linear interpolation. This allows the laser head to be have tighter control over
+ *              velocity of the laser head. Each of the inputs of desired and measured positions and velocities are then sent 
+ *              through a PID control loop inside this task, which then outputs PWM signals that are sent via queues to
+ *              @c motor_A_driver_task and @c motor_B_driver_task to control the motors. 
+ * 
+ *  @param      p_params A pointer to function parameters which we don't use.
+ */
 void control_task(void* p_params)
 {
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -55,6 +67,15 @@ void control_task(void* p_params)
     // intialize state machine for Homing cycle
     // initialize state machine for laser...or is it a class?
     // initialize state machine for serial write - MCU's acknowledgement of I got commands
+
+    //Variable for controller state
+    uint8_t control_state = NORMAL_OPERATION;
+
+    //Struct containing desired values from task_translate
+    desired_pos_vel desired;
+
+    //Class containing motion-planning data
+    MotionPlanning ramper(0,0,0,0);
 
     for(;;)
     {
@@ -84,6 +105,11 @@ void control_task(void* p_params)
       
       // STATE 5 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
       //                                    and then when it gets home and is okayed by the user (?) future work
+
+
+      //SIMPLIFIED VERSION:
+
+      //Get motor command, 
         
         vTaskDelayUntil(&xLastWakeTime, control_task_period);
     }
