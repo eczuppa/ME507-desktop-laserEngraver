@@ -15,6 +15,16 @@
 #define COMMANDS_H
 
 
+//Struct to contain all desired values to be sent from the translator to the control task via a queue
+struct desired_pos_vel 
+{
+    float A_pos = 0;
+    float B_pos = 0;
+    float A_feed = 0;
+    float B_feed = 0;
+};
+
+
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);
 

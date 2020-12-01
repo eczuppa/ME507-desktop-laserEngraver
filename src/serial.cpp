@@ -64,7 +64,7 @@ void task_read_serial(void* p_params)
     memset(line,'\0',sizeof(line));
 
     //For testing
-    #define TESTING
+    // #define TESTING
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
@@ -80,8 +80,8 @@ void task_read_serial(void* p_params)
     {
         switch (read_state)
         {
-            // State WAITING means that the mc is waiting for python to tell it that it has something to send. 
-            // Python will ask "Ready?" when it has something to send. 
+            // State READY means that the mc is ready and waiting for python to tell it that it has something 
+            // to send. Python will ask "Ready?" when it has something to send. 
             case READY:
 
                 // if (state_state)
