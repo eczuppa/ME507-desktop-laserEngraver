@@ -17,7 +17,7 @@ var files_dup =
     ] ],
     [ "encoder_task.cpp", "encoder__task_8cpp.html", "encoder__task_8cpp" ],
     [ "encoder_task.h", "encoder__task_8h.html", "encoder__task_8h" ],
-    [ "gcode.cpp", "gcode_8cpp.html", null ],
+    [ "gcode.cpp", "gcode_8cpp.html", "gcode_8cpp" ],
     [ "gcode.h", "gcode_8h.html", "gcode_8h" ],
     [ "kinematics.h", "kinematics_8h.html", [
       [ "Kinematics_coreXY", "classKinematics__coreXY.html", "classKinematics__coreXY" ]
@@ -26,14 +26,13 @@ var files_dup =
     [ "limit_switch.cpp", "limit__switch_8cpp.html", "limit__switch_8cpp" ],
     [ "limit_switch.h", "limit__switch_8h.html", "limit__switch_8h" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
+    [ "mainpage.h", "mainpage_8h_source.html", null ],
     [ "motionplanning.cpp", "motionplanning_8cpp.html", null ],
     [ "motionplanning.h", "motionplanning_8h.html", [
       [ "MotionPlanning", "classMotionPlanning.html", "classMotionPlanning" ]
     ] ],
     [ "motor_task.cpp", "motor__task_8cpp.html", "motor__task_8cpp" ],
     [ "motor_task.h", "motor__task_8h.html", "motor__task_8h" ],
-    [ "nuts_bolts.cpp", "nuts__bolts_8cpp.html", "nuts__bolts_8cpp" ],
-    [ "nuts_bolts.h", "nuts__bolts_8h.html", "nuts__bolts_8h" ],
     [ "Quad_Encoder.cpp", "Quad__Encoder_8cpp.html", "Quad__Encoder_8cpp" ],
     [ "Quad_Encoder.h", "Quad__Encoder_8h.html", [
       [ "Quad_Encoder", "classQuad__Encoder.html", "classQuad__Encoder" ]

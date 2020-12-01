@@ -1,6 +1,6 @@
 var main_8cpp =
 [
-    [ "ETHAN_TESTING", "main_8cpp.html#a827c344b26e59719a33fcdfa5b20f3ae", null ],
+    [ "NIKO_TESTING", "main_8cpp.html#aa66421f3a1aa74a467c1e18ee07c489d", null ],
     [ "chars_to_print", "main_8cpp.html#a2ead72fb97fabc3862b59e0874387225", null ],
     [ "encoder_A_dt", "main_8cpp.html#a94764df99ee19cd5e372fa85782a10ef", null ],
     [ "encoder_A_pos", "main_8cpp.html#a4a8421a49b6b32fab3a5a70119737cb3", null ],

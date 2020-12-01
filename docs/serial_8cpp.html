@@ -85,19 +85,12 @@ $(document).ready(function(){initNavTree('serial_8cpp.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">serial.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for serial.cpp:</div>
-<div class="dyncontent">
-<div class="center"><img src="serial_8cpp__incl.png" border="0" usemap="#serial_8cpp" alt=""/></div>
-</div>
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8e69e07806940f62fe031d0ed54dc7af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#a8e69e07806940f62fe031d0ed54dc7af">task_read_serial</a> (void *p_params)</td></tr>
@@ -124,42 +117,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>print_serial</b> (cha
 <tr class="memitem:a4e8c4da1a26dcdbdb84bfe33ab2c3ac3"><td class="memItemLeft" align="right" valign="top"><a id="a4e8c4da1a26dcdbdb84bfe33ab2c3ac3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_serial</b> (const char *printed_char)</td></tr>
 <tr class="separator:a4e8c4da1a26dcdbdb84bfe33ab2c3ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef1af5b5946cd791c87674d8851c75d5"><td class="memItemLeft" align="right" valign="top"><a id="aef1af5b5946cd791c87674d8851c75d5"></a>
-Share&lt; int32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>s_duty_cycle</b> (&quot;Power&quot;)</td></tr>
-<tr class="separator:aef1af5b5946cd791c87674d8851c75d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83e2559905ce06de071389dfb6ea3b97"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97">parseIntWithEcho</a> (Stream &amp;stream)</td></tr>
 <tr class="memdesc:a83e2559905ce06de071389dfb6ea3b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an integer from a serial device, echoing input and blocking.  <a href="serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97">More...</a><br /></td></tr>
 <tr class="separator:a83e2559905ce06de071389dfb6ea3b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeca539d059d1b76b873ccdadf74ca23d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#aeca539d059d1b76b873ccdadf74ca23d">task_ui</a> (void *p_params)</td></tr>
 <tr class="memdesc:aeca539d059d1b76b873ccdadf74ca23d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which interacts with a user.  <a href="serial_8cpp.html#aeca539d059d1b76b873ccdadf74ca23d">More...</a><br /></td></tr>
 <tr class="separator:aeca539d059d1b76b873ccdadf74ca23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a26f87807fb6e96e15979d35a26532b96"><td class="memItemLeft" align="right" valign="top"><a id="a26f87807fb6e96e15979d35a26532b96"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_pos</b></td></tr>
-<tr class="separator:a26f87807fb6e96e15979d35a26532b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memItemLeft" align="right" valign="top"><a id="abcdef3d3e9a4e663e8ca42c3a2514bbe"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_velocity</b></td></tr>
-<tr class="separator:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memItemLeft" align="right" valign="top"><a id="a5ccfa5c65af065d5341fae8e72e236a3"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_dt</b></td></tr>
-<tr class="separator:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memItemLeft" align="right" valign="top"><a id="ade0de87fd09ab2e65d8734a74b5bf0ca"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_pos</b></td></tr>
-<tr class="separator:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd32e9179c912410315e232a7a9dfe15"><td class="memItemLeft" align="right" valign="top"><a id="acd32e9179c912410315e232a7a9dfe15"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_velocity</b></td></tr>
-<tr class="separator:acd32e9179c912410315e232a7a9dfe15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a954bb737796397f7e1da476fa359bf"><td class="memItemLeft" align="right" valign="top"><a id="a8a954bb737796397f7e1da476fa359bf"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_dt</b></td></tr>
-<tr class="separator:a8a954bb737796397f7e1da476fa359bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93f1f741e8afbf84db40a7a43a2545f6"><td class="memItemLeft" align="right" valign="top"><a id="a93f1f741e8afbf84db40a7a43a2545f6"></a>
-Queue&lt; char[LINE_BUFFER_SIZE]&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>chars_to_print</b></td></tr>
-<tr class="separator:a93f1f741e8afbf84db40a7a43a2545f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf091ef7cfdcd91da5dfbe16787bfb31"><td class="memItemLeft" align="right" valign="top"><a id="adf091ef7cfdcd91da5dfbe16787bfb31"></a>
-Queue&lt; char[LINE_BUFFER_SIZE]&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>read_chars</b></td></tr>
-<tr class="separator:adf091ef7cfdcd91da5dfbe16787bfb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file defines functions that will print to and read the serial port in order to communicate with the python script that sends the Gcode and general commands to the laser.</p>

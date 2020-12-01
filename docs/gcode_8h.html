@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('gcode_8h.html',''); initResizable(); }
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">gcode.h File Reference</div>  </div>
 </div><!--header-->
@@ -101,7 +102,6 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structXYSFvalues.html">XYSFvalues</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create struct types for output data from <code>interpret_gcode_line()</code>  <a href="structXYSFvalues.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecode.html">decode</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class which implements decoding object which contains functions for decoding gcode.  <a href="classdecode.html#details">More...</a><br /></td></tr>
@@ -115,15 +115,15 @@ Macros</h2></td></tr>
 <tr class="memitem:a0a8d690e026f623328957f81ff9d212e"><td class="memItemLeft" align="right" valign="top"><a id="a0a8d690e026f623328957f81ff9d212e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>TRAVEL_SPEED</b>&#160;&#160;&#160;600</td></tr>
 <tr class="separator:a0a8d690e026f623328957f81ff9d212e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6a8e7c4a8c18de412146ad11c944ddc"><td class="memItemLeft" align="right" valign="top"><a id="ab6a8e7c4a8c18de412146ad11c944ddc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TRAVEL</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:ab6a8e7c4a8c18de412146ad11c944ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86529273574a7228ac933214069a4553"><td class="memItemLeft" align="right" valign="top"><a id="a86529273574a7228ac933214069a4553"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LIN_INTERP</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a86529273574a7228ac933214069a4553"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a655c84af1b0034986ff56e12e84f983d"><td class="memItemLeft" align="right" valign="top"><a id="a655c84af1b0034986ff56e12e84f983d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NONE</b>&#160;&#160;&#160;2</td></tr>
-<tr class="separator:a655c84af1b0034986ff56e12e84f983d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d47c5155aff671793633536b874dae"><td class="memItemLeft" align="right" valign="top"><a id="a05d47c5155aff671793633536b874dae"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOVE_TRAVEL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a05d47c5155aff671793633536b874dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66afa865fca6580d7b57dc7b792b98bb"><td class="memItemLeft" align="right" valign="top"><a id="a66afa865fca6580d7b57dc7b792b98bb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOVE_LIN_INTERP</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a66afa865fca6580d7b57dc7b792b98bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56184e4f8d0b5471da178122a836aa02"><td class="memItemLeft" align="right" valign="top"><a id="a56184e4f8d0b5471da178122a836aa02"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOVE_NONE</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a56184e4f8d0b5471da178122a836aa02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0d4e9f11e1500e55da1ef08b983ca3b"><td class="memItemLeft" align="right" valign="top"><a id="ae0d4e9f11e1500e55da1ef08b983ca3b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MILLIMETERS</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:ae0d4e9f11e1500e55da1ef08b983ca3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,13 +151,60 @@ Macros</h2></td></tr>
 <tr class="memitem:aa1356260c95926d13e3ec01a51dad137"><td class="memItemLeft" align="right" valign="top"><a id="aa1356260c95926d13e3ec01a51dad137"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LETTER_CMD_ERROR</b>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:aa1356260c95926d13e3ec01a51dad137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fccfa8bf71f34ab931eb60051a66ea4"><td class="memItemLeft" align="right" valign="top"><a id="a1fccfa8bf71f34ab931eb60051a66ea4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_INT_DIGITS</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a1fccfa8bf71f34ab931eb60051a66ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4cae07d0430f67509a27d5c375e10d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gcode_8h.html#a4cae07d0430f67509a27d5c375e10d43">read_float</a> (char *line, uint8_t *char_counter, float *float_ptr)</td></tr>
+<tr class="memdesc:a4cae07d0430f67509a27d5c375e10d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b>  <a href="gcode_8h.html#a4cae07d0430f67509a27d5c375e10d43">More...</a><br /></td></tr>
+<tr class="separator:a4cae07d0430f67509a27d5c375e10d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file contains the header for a file comtaining gcode interpreting functions.</p>
 <p>The full Doxygen header for the function is in the .cpp file, so there is just a brief description of the function here.</p>
 <dl class="section author"><dt>Author</dt><dd>Niko Banks </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Nov 10 2020 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a4cae07d0430f67509a27d5c375e10d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cae07d0430f67509a27d5c375e10d43">&#9670;&nbsp;</a></span>read_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t read_float </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>char_counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>float_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b> </p>
+<p>The following code is based loosely on the avr-libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely available conversion method examples, but has been highly optimized for Grbl. For known CNC applications, the typical decimal value is expected to be in the range of E0 to E-4. Scientific notation is officially not supported by g-code, and the 'E' character may be a g-code word on some CNC systems. So, 'E' notation will not be recognized. NOTE: Thanks to Radu-Eosif Mihailescu for identifying the issues with using strtod(). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

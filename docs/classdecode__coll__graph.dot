@@ -5,5 +5,5 @@ digraph "decode"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="decode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Class which implements decoding object which contains functions for decoding gcode."];
   Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" _XYSFval" ,fontname="Helvetica"];
-  Node2 [label="XYSFvalues",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structXYSFvalues.html",tooltip="Create struct types for output data from interpret_gcode_line()"];
+  Node2 [label="XYSFvalues",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structXYSFvalues.html",tooltip=" "];
 }

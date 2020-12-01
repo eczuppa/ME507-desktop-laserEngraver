@@ -9,7 +9,8 @@ var searchData=
   ['control_2ecpp_43',['control.cpp',['../control_8cpp.html',1,'']]],
   ['control_2eh_44',['control.h',['../control_8h.html',1,'']]],
   ['control_5floop_5fpid_45',['control_loop_PID',['../classController__PID.html#a6986d6b1e9d920c017209888fac70e5e',1,'Controller_PID']]],
-  ['control_5ftask_2ecpp_46',['control_task.cpp',['../control__task_8cpp.html',1,'']]],
-  ['control_5ftask_2eh_47',['control_task.h',['../control__task_8h.html',1,'']]],
-  ['controller_5fpid_48',['Controller_PID',['../classController__PID.html',1,'Controller_PID'],['../classController__PID.html#ae25b9ea52cb8af69e47d5ddbb811a679',1,'Controller_PID::Controller_PID()']]]
+  ['control_5ftask_46',['control_task',['../control__task_8cpp.html#ade29986ed4ef416962f22b46b1ffbb47',1,'control_task(void *p_params):&#160;control_task.cpp'],['../control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47',1,'control_task(void *p_params):&#160;control_task.cpp']]],
+  ['control_5ftask_2ecpp_47',['control_task.cpp',['../control__task_8cpp.html',1,'']]],
+  ['control_5ftask_2eh_48',['control_task.h',['../control__task_8h.html',1,'']]],
+  ['controller_5fpid_49',['Controller_PID',['../classController__PID.html',1,'Controller_PID'],['../classController__PID.html#ae25b9ea52cb8af69e47d5ddbb811a679',1,'Controller_PID::Controller_PID()']]]
 ];

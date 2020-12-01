@@ -117,6 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e4c47dc139e6495c448ca9ff19c2554"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structXYSFvalues.html">XYSFvalues</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecode.html#a9e4c47dc139e6495c448ca9ff19c2554">get_XYSF</a> (void)</td></tr>
 <tr class="memdesc:a9e4c47dc139e6495c448ca9ff19c2554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get-er functions:  <a href="classdecode.html#a9e4c47dc139e6495c448ca9ff19c2554">More...</a><br /></td></tr>
 <tr class="separator:a9e4c47dc139e6495c448ca9ff19c2554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a620ca7d07d0a6ffb8b03622bc11a580d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecode.html#a620ca7d07d0a6ffb8b03622bc11a580d">get_S</a> (void)</td></tr>
+<tr class="memdesc:a620ca7d07d0a6ffb8b03622bc11a580d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function which gets just the <code>S</code> value from the gcode decoder class.  <a href="classdecode.html#a620ca7d07d0a6ffb8b03622bc11a580d">More...</a><br /></td></tr>
+<tr class="separator:a620ca7d07d0a6ffb8b03622bc11a580d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -198,6 +201,27 @@ class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <p>Initialize gcode reading. </p>
 <p>Function which initializes the running of gcode.</p>
 <p>This function sets the class member variable <code>_gcode_running</code> to true, signaling the system that we are running gcode. </p>
+
+</div>
+</div>
+<a id="a620ca7d07d0a6ffb8b03622bc11a580d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620ca7d07d0a6ffb8b03622bc11a580d">&#9670;&nbsp;</a></span>get_S()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t decode::get_S </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function which gets just the <code>S</code> value from the gcode decoder class. </p>
+<p>This function gets <code>S</code> (desired laser PWM value) out of the decoder class in order to pass the command to the laser. S bypasses all control loops, as it is a direct input. </p>
 
 </div>
 </div>

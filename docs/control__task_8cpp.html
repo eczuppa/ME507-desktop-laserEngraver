@@ -84,79 +84,55 @@ $(document).ready(function(){initNavTree('control__task_8cpp.html',''); initResi
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">control_task.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for control_task.cpp:</div>
-<div class="dyncontent">
-<div class="center"><img src="control__task_8cpp__incl.png" border="0" usemap="#control__task_8cpp" alt=""/></div>
-</div>
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1a3b7e798fa7e17cde0f3375b3af6519"><td class="memItemLeft" align="right" valign="top"><a id="a1a3b7e798fa7e17cde0f3375b3af6519"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>queue_PWM_motor_A</b> (8,&quot;Motor A DutyCycle&quot;)</td></tr>
-<tr class="separator:a1a3b7e798fa7e17cde0f3375b3af6519"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50d39d2cca39694a754ad62eede7be81"><td class="memItemLeft" align="right" valign="top"><a id="a50d39d2cca39694a754ad62eede7be81"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>queue_PWM_motor_B</b> (8,&quot;Motor B DutyCycle&quot;)</td></tr>
-<tr class="separator:a50d39d2cca39694a754ad62eede7be81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa97eac7e72aa97e049a7b1d2a52a10b8"><td class="memItemLeft" align="right" valign="top"><a id="aa97eac7e72aa97e049a7b1d2a52a10b8"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>check_home</b> (&quot;Homing Flag&quot;)</td></tr>
-<tr class="separator:aa97eac7e72aa97e049a7b1d2a52a10b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade29986ed4ef416962f22b46b1ffbb47"><td class="memItemLeft" align="right" valign="top"><a id="ade29986ed4ef416962f22b46b1ffbb47"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>control_task</b> (void *p_params)</td></tr>
+<tr class="memitem:ade29986ed4ef416962f22b46b1ffbb47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="control__task_8cpp.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a> (void *p_params)</td></tr>
+<tr class="memdesc:ade29986ed4ef416962f22b46b1ffbb47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which recieves incoming commands, runs them through a control loop, and then sends them back out.  <a href="control__task_8cpp.html#ade29986ed4ef416962f22b46b1ffbb47">More...</a><br /></td></tr>
 <tr class="separator:ade29986ed4ef416962f22b46b1ffbb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a6263252419f84f0ab86920700e7c1bba"><td class="memItemLeft" align="right" valign="top"><a id="a6263252419f84f0ab86920700e7c1bba"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>A_pos_desired</b></td></tr>
-<tr class="separator:a6263252419f84f0ab86920700e7c1bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeded4410fef6df913051f8294aaf3a3"><td class="memItemLeft" align="right" valign="top"><a id="adeded4410fef6df913051f8294aaf3a3"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>B_pos_desired</b></td></tr>
-<tr class="separator:adeded4410fef6df913051f8294aaf3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a293094d1dd532560a45fecb4b3929ced"><td class="memItemLeft" align="right" valign="top"><a id="a293094d1dd532560a45fecb4b3929ced"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>A_feed_desired</b></td></tr>
-<tr class="separator:a293094d1dd532560a45fecb4b3929ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea822e309c416d2b594e47d87bc033c6"><td class="memItemLeft" align="right" valign="top"><a id="aea822e309c416d2b594e47d87bc033c6"></a>
-Queue&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>B_feed_desired</b></td></tr>
-<tr class="separator:aea822e309c416d2b594e47d87bc033c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26f87807fb6e96e15979d35a26532b96"><td class="memItemLeft" align="right" valign="top"><a id="a26f87807fb6e96e15979d35a26532b96"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_pos</b></td></tr>
-<tr class="separator:a26f87807fb6e96e15979d35a26532b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memItemLeft" align="right" valign="top"><a id="abcdef3d3e9a4e663e8ca42c3a2514bbe"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_velocity</b></td></tr>
-<tr class="separator:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memItemLeft" align="right" valign="top"><a id="a5ccfa5c65af065d5341fae8e72e236a3"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_dt</b></td></tr>
-<tr class="separator:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memItemLeft" align="right" valign="top"><a id="ade0de87fd09ab2e65d8734a74b5bf0ca"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_pos</b></td></tr>
-<tr class="separator:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd32e9179c912410315e232a7a9dfe15"><td class="memItemLeft" align="right" valign="top"><a id="acd32e9179c912410315e232a7a9dfe15"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_velocity</b></td></tr>
-<tr class="separator:acd32e9179c912410315e232a7a9dfe15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a954bb737796397f7e1da476fa359bf"><td class="memItemLeft" align="right" valign="top"><a id="a8a954bb737796397f7e1da476fa359bf"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_dt</b></td></tr>
-<tr class="separator:a8a954bb737796397f7e1da476fa359bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3cd7eb7589393773acf30f3e4f5d61"><td class="memItemLeft" align="right" valign="top"><a id="acf3cd7eb7589393773acf30f3e4f5d61"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>check_home</b></td></tr>
-<tr class="separator:acf3cd7eb7589393773acf30f3e4f5d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ccc1b4b61465f0c1dfef77c25bea554"><td class="memItemLeft" align="right" valign="top"><a id="a9ccc1b4b61465f0c1dfef77c25bea554"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>X_home</b></td></tr>
-<tr class="separator:a9ccc1b4b61465f0c1dfef77c25bea554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac165e51db42337fd36835751497cb4be"><td class="memItemLeft" align="right" valign="top"><a id="ac165e51db42337fd36835751497cb4be"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Y_home</b></td></tr>
-<tr class="separator:ac165e51db42337fd36835751497cb4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa6950ebeb6137015c1d5d91c6cadef0"><td class="memItemLeft" align="right" valign="top"><a id="afa6950ebeb6137015c1d5d91c6cadef0"></a>
-Share&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>warning_code</b></td></tr>
-<tr class="separator:afa6950ebeb6137015c1d5d91c6cadef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This file contains the definition of the control_task function, which is the main function that runs the motors and laser in the DigitalCarpenter system.</p>
+<dl class="section author"><dt>Author</dt><dd>Niko Banks </dd>
+<dd>
+Ethan Czuppa </dd>
+<dd>
+Matthew Carlson </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Nov 20 2020 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ade29986ed4ef416962f22b46b1ffbb47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade29986ed4ef416962f22b46b1ffbb47">&#9670;&nbsp;</a></span>control_task()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void control_task </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>p_params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Task which recieves incoming commands, runs them through a control loop, and then sends them back out. </p>
+<p>This task receives input commands with desired values for the two motors, sent from <code>task_translate</code>, and input positions from each of the motor encoders from <code>encoder_A_task</code> and <code>encoder_B_task</code>. First, the desired positions and velocities are turned into ramp inputs for each motor by creating more points in between two consecutive points through linear interpolation. This allows the laser head to be have tighter control over velocity of the laser head. Each of the inputs of desired and measured positions and velocities are then sent through a PID control loop inside this task, which then outputs PWM signals that are sent via queues to <code>motor_A_driver_task</code> and <code>motor_B_driver_task</code> to control the motors.</p>
+<p>The task has two main states, NORMAL_OPERATION and SAFETY_STOP. Under NORMAL_OPERATION, any incomming desired positions will be converted to ramps, controlled, and sent to the motors. SAFETY_STOP, if enabled, will immediately shut down the laser and keep it that way until the Safety_Supervisor task gives the go-ahead.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

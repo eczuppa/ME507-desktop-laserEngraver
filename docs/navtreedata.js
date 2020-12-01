@@ -23,6 +23,13 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "DigitalCarpenter - Lite", "index.html", [
+    [ "DigitalCarpenter - Lite Documentation", "index.html", [
+      [ "Introduction", "index.html#dcl_intro", null ],
+      [ "Library Dependencies", "index.html#dcl_libdeps", null ],
+      [ "High Level Work Flow", "index.html#dcl_hl_wf", null ],
+      [ "Current & Intended Functionality", "index.html#dcl_fn", null ],
+      [ "Software Portability Notice", "index.html#dcl_portability", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -46,7 +53,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Quad__Encoder_8cpp.html",
-"gcode_8h.html#a9062f4b81232a2782441763490da2f11"
+"globals_func.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
