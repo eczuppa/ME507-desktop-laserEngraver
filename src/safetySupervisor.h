@@ -1,3 +1,8 @@
+/** @file safetySupervisor.h
+ * 
+ * 
+ */
+
 
 #ifndef _SAFETYSUPERVISOR_H
 #define _SAFETYSUPERVISOR_H

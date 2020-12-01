@@ -1,3 +1,5 @@
+/// @cond
+
 //*****************************************************************************
 /** @file    taskshare.h
  *  @brief   Data which can be shared between tasks in a thread-safe manner.
@@ -292,3 +294,5 @@ void Share<DataType>::print_in_list (Print& printer)
 
 
 #endif  // _TASKSHARE_H_
+
+/// @endcond

@@ -1,4 +1,4 @@
-/** @file gcode.h
+/** @file commands.h
  *      This file contains the header for a file containing the functions necessary
  *      to run the full translation of commands coming from the serial port before sending
  *      them to the controller. 

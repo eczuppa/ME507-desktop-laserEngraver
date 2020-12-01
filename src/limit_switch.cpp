@@ -1,4 +1,4 @@
-/** @file main.cpp
+/** @file limit_switch.cpp
  *    This file contains a program to use debouncing to activate limit switches
  *
  *  @author  Matthew Carlson

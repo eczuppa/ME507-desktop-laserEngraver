@@ -6,6 +6,8 @@
  *  @date 22 Nov 2020 Created files for the encoder tasks
  *
  */
+
+
 #ifndef ENCODERTASK_H
 #define ENCODERTASK_H
 

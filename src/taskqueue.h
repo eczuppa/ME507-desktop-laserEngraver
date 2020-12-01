@@ -1,3 +1,5 @@
+/// @cond
+
 //*****************************************************************************
 /** @file taskqueue.h
  *    This file contains a very simple wrapper class for the FreeRTOS queue. 
@@ -509,3 +511,5 @@ void Queue<dataType>::print_in_list (Print& print_dev)
 
 
 #endif  // _TASKQUEUE_H_
+
+/// @endcond

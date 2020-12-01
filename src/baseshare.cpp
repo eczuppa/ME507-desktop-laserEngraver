@@ -1,3 +1,5 @@
+/// @cond
+
 //*****************************************************************************
 /** @file    baseshare.cpp
  *  @brief   Source code of a base class for type-safe, thread-safe task data 
@@ -78,3 +80,6 @@ void print_all_shares (Print& printer)
 
     BaseShare::p_newest->print_in_list (printer);
 }
+
+
+/// @endcond

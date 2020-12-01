@@ -1,3 +1,8 @@
+/**  @file limit_switch.h
+ * 
+ * 
+ */
+
 #ifndef LIMIT_SWITCH_H
 #define LIMIT_SWITCH_H
 

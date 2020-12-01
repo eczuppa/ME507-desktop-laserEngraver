@@ -1,5 +1,18 @@
+/** @file stopwatch.cpp
+ *  @brief   a class that implements the HardwareTimer Library API to make a hardware timer behave like a stopwatch
+ *  
+ *  @author Ethan A Czuppa
+ *  @date   19 Nov 2020 Original file
+ */ 
+
 
 #include "stopwatch.h"
+
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
 
 // StopWatch Constructor
 StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
@@ -19,6 +32,12 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
 
 }
 
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
+
 // StopWatch class method to overwrite the last timer value with current measured one 
 uint16_t StopWatch::now_time(void)
 {
@@ -29,6 +48,12 @@ uint16_t StopWatch::now_time(void)
 
 }
 
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
+
 // method to get the elapsed time since the last time point was measured
 uint16_t StopWatch::elapsed_time(void)
 {
@@ -37,6 +62,12 @@ uint16_t StopWatch::elapsed_time(void)
     return _elpsd;
 
 }
+
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
 
 uint32_t StopWatch::lap(void)
 {
@@ -48,6 +79,12 @@ uint32_t StopWatch::lap(void)
 
 }
 
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
+
 void StopWatch::restart(void)
 {
     a_Tmr -> pause();
@@ -55,6 +92,13 @@ void StopWatch::restart(void)
     _last = 0;
     a_Tmr -> resume();
 }
+
+
+/** @brief
+ *  @details 
+ * 
+ * 
+ */ 
 
 void StopWatch::temp_stop(void)
 {

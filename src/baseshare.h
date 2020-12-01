@@ -1,3 +1,5 @@
+/// @cond
+
 //*****************************************************************************
 /** @file    baseshare.h
  *  @brief   Headers for a base class for type-safe, thread-safe task data 
@@ -92,3 +94,6 @@ class BaseShare
 void print_all_shares (Print& printer);
 
 #endif // _BASESHARE_H_
+
+
+///@endcond
