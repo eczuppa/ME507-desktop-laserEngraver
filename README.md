@@ -3,7 +3,7 @@
 ## Overview
 
 This repository consists of the collected efforts of Niko Banks, Matthew Carlson, and Ethan Czuppa to develop an open source, desktop, CoreXY laser engraver for the ME 507 class at Cal Poly SLO. As an open source design, this design builds on the work of others and is intended as an academic exercise to yield useful results. We would like to thank the following individuals and organizations for their previous work on desktop laser engravers/cutters:
-  * The developers of Laser DRW (an Inkscape plugin to output Gcode) from Scorch Works https://www.scorchworks.com/LaserDRW_extension/laserdrw_extension.html
+  * The developers of LaserWeb, an application made to export G-code and run laser cutters https://github.com/LaserWeb/LaserWeb4
   * Thomas and his design of a CoreXY laser Engraver on PrusaPrinters Beta https://www.prusaprinters.org/prints/18771-corexy-laser-engraver
   * Instructables user nccwarp9 for his CoreXY laser Engraver design https://www.instructables.com/CoreXY-Laser-Engraver/
   * Many thanks to the other open source developers that built the drivers, wrappers, classes, and packages to allow our code to run on the STM32 Nucleo L476RG 
