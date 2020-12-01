@@ -14,6 +14,9 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+//Define Machine Commands
+#define MACHINE_CMD_NULL 0
+#define MACHINE_CMD_HOME 1
 
 //Struct to contain all desired values to be sent from the translator to the control task via a queue
 struct desired_pos_vel_S
@@ -29,5 +32,7 @@ struct desired_pos_vel_S
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);
 
+//function which interprets a machine command
+uint8_t interpret_machinecmd_line(char *line);
 
 #endif //COMMANDS_H

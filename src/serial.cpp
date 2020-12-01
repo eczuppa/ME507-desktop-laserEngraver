@@ -67,6 +67,7 @@ void task_read_serial(void* p_params)
 
     //For testing
     #define TESTING_WITHOUT_PYTHON
+    bool line_one = 1;
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
@@ -182,17 +183,21 @@ void task_read_serial(void* p_params)
 
 
         //testing mode: Not taking inputs from python (enable above)
-        #ifndef TESTING_WITHOUT_PYTHON
-        #define TESTING_WITHOUT_PYTHON
-        String test_line = "G1 X46.12 Y39.20 S1.00 F600";
-        ///Set each character in static char @c line to match our test string, just like it 
-        ///would in the parser (once that's finished)
-        for (uint8_t char_counter = 0; char_counter<=test_line.length();  char_counter++)
-        {
-            line[char_counter] = test_line[char_counter];
-        }
-        // Put line data into the read_string
-        read_chars.put(line);
+        #ifdef TESTING_WITHOUT_PYTHON
+            if (line_one)
+            {
+                String test_line = "G1 X46.12 Y39.20 S1.00 F600";
+                test_line = "$H";
+                ///Set each character in static char @c line to match our test string, just like it 
+                ///would in the parser (once that's finished)
+                for (uint8_t char_counter = 0; char_counter<=test_line.length();  char_counter++)
+                {
+                    line[char_counter] = test_line[char_counter];
+                }
+                // Put line data into the read_string
+                read_chars.put(line);
+                line_one = false;
+            }
         #endif //TESTING_WITHOUT_PYTHON
 
         //Task delay

@@ -45,6 +45,9 @@ void task_translate(void* p_params)
     //Create line char array to hold incoming data from the @c read_chars queue
     char line[LINE_BUFFER_SIZE];
 
+    //Create empty machine_cmd state variable
+    uint8_t machine_cmd = 0;
+
     for(;;)
     {   
         //If we have space in the queues for A and B positions and feedrates...
@@ -59,8 +62,23 @@ void task_translate(void* p_params)
             //if the line is actually a machine command:
             if (line[0] == '$')
             {
-                interpret_machinecmd_line(line);
+                machine_cmd = interpret_machinecmd_line(line);
+                switch (machine_cmd)
+                {
+                    //Error in command: Command not supported
+                    case MACHINE_CMD_NULL:
+                        //Print an error?
+                        break;
+                    //Go into homing cycle
+                    case MACHINE_CMD_HOME:
+                        //Send home signals: Desired motor commands, checking for home limit switches
+                        break;
+                    default:
+                        //Shouldn't get here, hopefully
+                        break;
+                };
             }
+            //If we didn't get into a machine command, 
             else
             {
                 //Interpret the line as gcode (data is stored in decoder class)
@@ -89,12 +107,28 @@ void task_translate(void* p_params)
 /** @brief      Function which interprets a line containing a machine command.
  *  @details    This function takes in a line containing a command for the laser that begins with
  *              a @c $, signalling that it is a machine command and not a line of gcode. It then interprets
- *              the command in the line and passes on the information. 
- *              <b>Disclaimer: This function is currently unfinished.</b>
+ *              the command in the line and returns on the information. 
+ *              <b>Disclaimer: This function currently only supports homing commands. More will be added in the 
+ *              future.</b>
  * 
  *  @param      line A line containing a command to be interpreted. 
+ *  @returns    an indicator for the command that was entered
  */
-void interpret_machinecmd_line(char *line)
+uint8_t interpret_machinecmd_line(char *line)
 {
-    print_serial("FOUND MACHINE CMD\n");
+    uint8_t cmd_indicator = MACHINE_CMD_NULL;
+    //Homing Command
+    if (strcmp(line,"$H") == 0)
+    {
+        // print_serial("\nFOUND HOME CMD\n");
+        cmd_indicator = MACHINE_CMD_HOME;
+    }
+    //Unsupported command
+    else
+    {
+        cmd_indicator = MACHINE_CMD_NULL;
+    }
+    
+    
+    return cmd_indicator;
 }

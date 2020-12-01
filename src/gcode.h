@@ -18,9 +18,9 @@
 #define TRAVEL_SPEED 600    // mm/min
 
 //Define travel types
-#define TRAVEL 0
-#define LIN_INTERP 1
-#define NONE 2
+#define MOVE_TRAVEL 0
+#define MOVE_LIN_INTERP 1
+#define MOVE_NONE 2
 
 //Define unit systems
 #define MILLIMETERS 0

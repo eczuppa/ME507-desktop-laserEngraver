@@ -39,7 +39,7 @@ void decode::interpret_gcode_line(char *line)
 
 
     //Define state variables
-    uint8_t move_type = NONE;
+    uint8_t move_type = MOVE_NONE;
     if(move_type){//Do nothing: Shut up compiler warning
     }
 
@@ -117,13 +117,13 @@ void decode::interpret_gcode_line(char *line)
                     {
                         case 0:
                             //Rapid movement (travel)
-                            move_type = TRAVEL;
+                            move_type = MOVE_TRAVEL;
                             //set feedrate for traveling
                             _XYSFval.F = TRAVEL_SPEED;
                             break;
                         case 1: 
                             //Linear Interpolation
-                            move_type = LIN_INTERP;
+                            move_type = MOVE_LIN_INTERP;
                             break;
                         case 20:
                             //Unit conversion to in
@@ -172,7 +172,7 @@ void decode::interpret_gcode_line(char *line)
 
                 case 'X':
                     // Change/set X position if indicated correctly
-                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // if (move_type == MOVE_LIN_INTERP or move_type == MOVE_TRAVEL)
                     // {
                         _XYSFval.X = value;
                     // }
@@ -185,7 +185,7 @@ void decode::interpret_gcode_line(char *line)
 
                 case 'Y':
                     // Change/set Y position
-                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // if (move_type == MOVE_LIN_INTERP or move_type == MOVE_TRAVEL)
                     // {
                         _XYSFval.Y = value;
                     // }
@@ -198,7 +198,7 @@ void decode::interpret_gcode_line(char *line)
 
                 case 'S':
                     // // Change/set laser PWM power
-                    // if (move_type == LIN_INTERP or move_type == TRAVEL)
+                    // if (move_type == MOVE_LIN_INTERP or move_type == MOVE_TRAVEL)
                     // {
                         _XYSFval.S = int_value*100 + mantissa;     //Power interpreted as pct (0 to 100)
                     // }
@@ -212,7 +212,7 @@ void decode::interpret_gcode_line(char *line)
 
                 case 'F':
                     // //Change speed settings
-                    // if (move_type == LIN_INTERP)
+                    // if (move_type == MOVE_LIN_INTERP)
                     // {
                         _XYSFval.F = value;
                     // }
