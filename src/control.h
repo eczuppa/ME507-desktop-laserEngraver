@@ -74,6 +74,7 @@ protected:
     float output_PWM;
 
     // PWM signal that the controller outputs to the motor
+    float output_max;
     float output;
 
 public:

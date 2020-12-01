@@ -81,7 +81,7 @@ void motor_A_driver_task (void* p_params)
 
         // }
         
-        motor_A_driver.setDutyCycle(duty_cycle_motor_A); 
+        motor_A_driver.setDutyCycle(duty_cycle_motor_A);            // For testing
 
 
         // This helps this task run at the correct speed
@@ -153,7 +153,7 @@ void motor_B_driver_task (void* p_params)
 
         // }
 
-        motor_B_driver.setDutyCycle(duty_cycle_motor_B); 
+        motor_B_driver.setDutyCycle(duty_cycle_motor_B);                // For testing
 
 
 

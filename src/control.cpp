@@ -3,60 +3,27 @@
  *    code to drive the motors.
  * 
  *  @author Matthew Carlson
+ * 
  *  @date  2020-Nov-10 Original file
  *  @date 2020-Nov-11 Added control loop drafts
  *  @date 2020-Nov-13 Added set and get methods for gains
  *  @date 2020-Nov-14 Added comments after talking with Ethan
  *  @date 2020-Nov-15 Working on adding in the Velocity and Position inputs
  *  @date 2020-Nov-17 Testing using a single line of GCode, fixed and cleaned up variables
- *  @date 2020-Nov-20 Cleaned up old comments and organized the code, it shoudl now be ready for integration and testing
+ *  @date 2020-Nov-20 Cleaned up old comments and organized the code, it should now be ready for integration and testing
+ *  @date 2020-Dec-20 Added output saturation clamp and cleaned up comments
+ * 
  */
 
 
-/** @brief   Class which implements a P, PI, or PID controller for a motor control
- *  @details Sets up the P, PI, and PID controller classes and sets up the methods 
- *           for each of these controller classes. 
+/** @brief   Class which implements a PID controller for a motor control
+ *  @details Sets up the PID controller classes and sets up the methods 
+ *           to use this controller class. 
  *  
  */
 
 
 #include "libraries&constants.h"
-
-
-// ------ General Questions about the code ------
-
-// ADD OVERALL SATURATION LIMIT!!!! To output
-
-
-// I've set everything as floats, but maybe some should be double's or int's?
-
-// How's our timer going to work?
-// timing, potentially use Micros or Millis
-// Potentially use VTaskDelayUntil
-
-// Should we include the "output_filter" and "output_PWM" variables as inputs so we can tune them easier?
-
-// Do I need to have the shares and queues in this file or will then just be in the "main" and be inputs?
-
-// What should we be calling the output of the control loop? "output"? "setpoint_new"?
-
-// How to give the output from the control loop to back to the motor? Shares/queues?
-// The output is 0-100% 
-
-// Will the "setpoint" variable need to be a 1X2 array? setpoint_P: [x, y]?
-// Or will we just have 5 instances of Controller_PID, motor1_x, motor1_y, motor2_x, motor2_y, laser_power
-// Do I need to call it "setpoint_P"? ... I don't think I need to cause it's protected within this class, right?
-
-// The control loops will need to control both motors, x and y for each. In order to achieve an [X, Y]
-// position, both motors will need to be moving at the same time
-
-
-// ------ General Notes about the code ------
-
-// Look at the final "output" to make sure it is indeed giving a PWM signal to the motor
-
-
-
 
 
 
@@ -104,16 +71,11 @@ Controller_PID::Controller_PID (float kP, float kI, float kD, float pos_desired_
 
     // Parameters that are used in this class specifically
 
-   //  pos_actual_current = 0;
-   //  vel_actual_current = 0;
 
     pos_last = 0;
     vel_last = 0;
-    
-   //  current_time = 10;
-   //  last_time = 0;
 
-    pos_error = 2;
+    pos_error = 0;
     pos_error_last = 0;
 
     vel_error = 0;
@@ -121,11 +83,12 @@ Controller_PID::Controller_PID (float kP, float kI, float kD, float pos_desired_
 
 
     integral_cumulation = 0;
-    integral_cumulation_max = 1000;           // Set this number when we have a better understanding of the device parameters
+    integral_cumulation_max = 1000;          // Set this number when we have a better understanding of the device parameters
 
-    output_filter = 1;                      // Set this number when we have a better understanding of the device parameters
+    output_filter = 1;                       // Set this number when we have a better understanding of the device parameters
     output_PWM = 1;                          // Set this number so that the units work out for outputing a PWM signal
     
+    output_max = 100;                        // This is a PWM signal, so it's between +100 and -100
     output = 0;                              // This is the value of the final output of the control loop
     
 }
@@ -180,15 +143,23 @@ void Controller_PID::control_loop_PID ()
     // This "output_sum2" should be in units of the individual component outputs
     float output_sum2 = output_sum1 + (integral_cumulation * gain_kI);
 
-    // *  *  *  *  *  *  *  *  * 
-    // Last thing to do is to make sure the units work out so this final "output" is in PWM to go to the motors
-    // *  *  *  *  *  *  *  *  * 
+
     
     // Combine individual outputs to get the final output
     // Multiply "output_sum2" by the constant "output_PWM" in order to output a PWM signal
     
-    // LIMIT THIS TO MAKE SURE IT DOESNT BLOW UP!
     output = output_sum2 * output_PWM;
+
+    // make sure that this "output" does not exceed a max or min value 
+    if (output > output_max)
+    {
+        output = output_max;                    // set to max value 
+    }
+    if (output < -output_max)
+    {
+        output = -output_max;                   // set to neg max value 
+    }
+
 
     //  Serial << "output:  " << output << endl;
 
@@ -200,16 +171,6 @@ void Controller_PID::control_loop_PID ()
     pos_last = pos_actual;        
 
 
-
-    // I think we'll probably put this in the GCode module or the kinematics module, but the example PID code used this one
-   
-    // This code could be nice so the code doesn't accidently crash the laser head!
-    // //Trim the output to the bounds if needed.
-    // if(outputBounded)
-    // {
-    //   if(output > outputUpperBound) output = outputUpperBound;
-    //   if(output < outputLowerBound) output = outputLowerBound;
-    // }
 
 }
 
@@ -384,7 +345,6 @@ float Controller_PID::get_vel_actual ()
  }
 
 
-
 /** @brief   Get the output of the control loop
  *  @param   output The value for the controller's desired velocity. 
  */
@@ -404,22 +364,6 @@ float Controller_PID::get_pos_error ()
     // Return the "pos_error" value, will be used to (hopefully) correct the motors and make this control loop worthwhile
     return pos_error;
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
