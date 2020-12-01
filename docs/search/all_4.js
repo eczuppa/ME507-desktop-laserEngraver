@@ -5,5 +5,6 @@ var searchData=
   ['debouncer_2eh_51',['debouncer.h',['../debouncer_8h.html',1,'']]],
   ['decode_52',['decode',['../classdecode.html',1,'decode'],['../classdecode.html#af848c3b64fd5340ff9f21835282c27ce',1,'decode::decode()']]],
   ['deinit_5framp_53',['deinit_ramp',['../classMotionPlanning.html#aacc8e431397a8d9b745d7182b86ed415',1,'MotionPlanning']]],
-  ['disable_54',['disable',['../classTB6612FNG.html#abcd1e675d1503ef08c892383f73f2e60',1,'TB6612FNG::disable()'],['../classTB6612FNGDual.html#a2943cbf246d180c83ffa6ac844093b36',1,'TB6612FNGDual::disable()']]]
+  ['desired_5fpos_5fvel_54',['desired_pos_vel',['../structdesired__pos__vel.html',1,'']]],
+  ['disable_55',['disable',['../classTB6612FNG.html#abcd1e675d1503ef08c892383f73f2e60',1,'TB6612FNG::disable()'],['../classTB6612FNGDual.html#a2943cbf246d180c83ffa6ac844093b36',1,'TB6612FNGDual::disable()']]]
 ];
