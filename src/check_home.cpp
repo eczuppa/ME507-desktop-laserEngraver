@@ -29,7 +29,7 @@ Share<bool> Y_home ("Check the home of Y position");
 
 // Check Home Task
 
-/** @brief   Task run at the beginning of a job to establish home and zero the encoders.
+/** @brief   Task which, when called, activates home switches to establish home and zero the encoders.
  *  @details This task check to see when the X and Y limit switches are triggered (and 
  *           debounced). It will then send a flag to the encoders telling them to zero.
  * 

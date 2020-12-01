@@ -11,12 +11,17 @@
 ///@cond
 //Shares and queues should go here
 
+// Queue to hold desired positions and feedrates of motors A and B
+Queue<desired_pos_vel_S> desired_queue(DES_Q_SIZE,"Desired A+B Position and Feeds");
+
+// Share to signal for homing sequence or not
+Share<bool> check_home ("Homing Flag");
+
 //Queue that holds read character arrays
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
-// Queue to hold desired positions and feedrates of motors A and B
-Queue<desired_pos_vel_S> desired_queue(DES_Q_SIZE,"Desired A+B Position and Feeds");
 ///@endcond
+
 
 /** @brief      Task which reads data from the serial port, translates it, and sends it where it needs to go.
  *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
@@ -46,7 +51,10 @@ void task_translate(void* p_params)
     char line[LINE_BUFFER_SIZE];
 
     //Create empty machine_cmd state variable
-    uint8_t machine_cmd = 0;
+    uint8_t machine_cmd = MACHINE_CMD_NULL;
+
+    //Reset homing_flag to false
+    check_home.put(false);
 
     for(;;)
     {   
@@ -71,14 +79,14 @@ void task_translate(void* p_params)
                         break;
                     //Go into homing cycle
                     case MACHINE_CMD_HOME:
-                        //Send home signals: Desired motor commands, checking for home limit switches
+                        check_home.put(true);
                         break;
                     default:
                         //Shouldn't get here, hopefully
                         break;
                 };
             }
-            //If we didn't get into a machine command, 
+            //If we didn't get into a machine command, it must be a gcode command!
             else
             {
                 //Interpret the line as gcode (data is stored in decoder class)

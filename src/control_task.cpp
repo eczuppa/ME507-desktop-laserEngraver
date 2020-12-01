@@ -16,6 +16,8 @@
 // TRANSLATED GCODE QUEUE
 extern Queue<desired_pos_vel_S> desired_queue;
 
+// CHECK HOME FLAG
+extern Share<bool> check_home;
 
 //Uncomment as used to ensure we don't make anything we don't use:
 // // MOTOR A ENCODER DATA
@@ -43,8 +45,7 @@ extern Queue<desired_pos_vel_S> desired_queue;
 Queue<float> queue_PWM_motor_A (8,"Motor A DutyCycle");
 Queue<float> queue_PWM_motor_B (8,"Motor B DutyCycle");
 
-// CHECK HOME FLAG
-Share<bool> check_home ("Homing Flag");
+
 
 ///@endcond
 
@@ -66,11 +67,10 @@ Share<bool> check_home ("Homing Flag");
  */
 void control_task(void* p_params)
 {
-    //Start timing the task
-    TickType_t xLastWakeTime = xTaskGetTickCount();
+    TickType_t xLastWakeTime = xTaskGetTickCount(); //Start timing the task
 
-    //Variable for controller state
-    uint8_t control_state = NORMAL_OPERATION;
+    uint8_t control_state = NORMAL_OPERATION;       //Variable for controller state
+    bool home_flag = false;                         //Homing flag
 
     //Struct containing desired values from task_translate
     desired_pos_vel_S desired;
@@ -86,6 +86,14 @@ void control_task(void* p_params)
     //Infinite task loop
     for(;;)
     {
+        //State checker: Change the state if necessary
+        check_home.get(home_flag);
+        if (home_flag)
+        {
+            control_state = HOMING;
+        }
+
+
         switch(control_state)
         {
             //When running in this state, control_task looks for any incomming information into desired_queue. When it 
@@ -111,6 +119,9 @@ void control_task(void* p_params)
                 //Set Motor PWM signals to 0
                 //Set laser PWM to 0 
                 break;
+            
+            case HOMING:
+                //Bypass controller and set Motor PWM signals to aim at home; run homing procedure
                 
             default:
                 break;
