@@ -8,9 +8,10 @@
  *  @date    Nov 10 2020 
  * 
 */
+//Don't document this part
+///@cond
 #include "libraries&constants.h"
 
-///@cond
 //Shares and queues should go here
 
 // // MOTOR A ENCODER DATA

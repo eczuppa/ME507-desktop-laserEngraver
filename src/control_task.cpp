@@ -8,9 +8,9 @@
  *  @date Nov 20 2020
 */
 
+///@cond
 #include "libraries&constants.h"
 
-///@cond
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE
@@ -44,8 +44,6 @@ extern Share<bool> check_home;
 // MOTOR A&B PWM COMMANDS
 Queue<float> queue_PWM_motor_A (8,"Motor A DutyCycle");
 Queue<float> queue_PWM_motor_B (8,"Motor B DutyCycle");
-
-
 
 ///@endcond
 
@@ -107,7 +105,9 @@ void control_task(void* p_params)
                     //Get the desired values
                     desired_queue.get(desired);
 
-                    //Expand them into ramp inputs:
+                    //Expand them into ramp inputs... maybe shift this back to translator??
+
+                    //Put desired values through control loop:
                     
                 }
 

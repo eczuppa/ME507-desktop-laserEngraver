@@ -39,7 +39,7 @@
 #define MAX_INT_DIGITS 8 // Maximum number of digits in int32 (and float)
 
 
-///Create struct types for output data from @c interpret_gcode_line() 
+//Create struct types for output data from interpret_gcode_line() 
     //Define struct of variables for use in function: Using decoded Gcode
     struct XYSFvalues
     {

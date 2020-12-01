@@ -7,10 +7,13 @@
  *  @date    Nov 10 2020 
  * 
 */
+
+///@cond
 #include "libraries&constants.h"
 
 //Shares and queues should go here
 
+///@endcond
 
 /** @brief   Create a decoding class object to decode gcode.
  *  @details This constructor function doesn't need to do anything else except construct the class!
