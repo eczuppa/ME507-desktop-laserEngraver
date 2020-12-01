@@ -8,9 +8,10 @@
  * 
 */
 
-///@cond
+
 #include "libraries&constants.h"
 
+///@cond
 //Shares and queues should go here
 
 ///@endcond

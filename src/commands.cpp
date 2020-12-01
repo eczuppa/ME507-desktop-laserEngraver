@@ -7,10 +7,10 @@
  * 
 */
 
-//Don't document this part
-///@cond
 #include "libraries&constants.h"
 
+//Don't document this part
+///@cond
 //Shares and queues should go here
 
 // Queue to hold desired positions and feedrates of motors A and B

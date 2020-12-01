@@ -8,9 +8,9 @@
  *  @date Nov 20 2020
 */
 
-///@cond
-#include "libraries&constants.h"
 
+#include "libraries&constants.h"
+///@cond
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE

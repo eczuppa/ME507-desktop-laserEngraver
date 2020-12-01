@@ -8,10 +8,11 @@
  *  @date    Nov 10 2020 
  * 
 */
-//Don't document this part
-///@cond
+
 #include "libraries&constants.h"
 
+//Don't document this part
+///@cond
 //Shares and queues should go here
 
 // // MOTOR A ENCODER DATA
@@ -66,9 +67,11 @@ void task_read_serial(void* p_params)
     //Set all values in line to null character
     memset(line,'\0',sizeof(line));
 
+    ///@cond
     //For testing
     #define TESTING_WITHOUT_PYTHON
     bool line_one = 1;
+    ///@endcond
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
@@ -246,6 +249,12 @@ void task_print_serial(void* p_params)
  *              the @c task_print_serial task function. The function is overloaded to 
  *              allow for a variety of input types.
  *  @param      p_params A pointer to function parameters which we don't use.
+ * 
+ *  @overload  void print_serial(float printed_float)
+ *  @overload  void print_serial(uint8_t printed_int)
+ *  @overload  void print_serial(char *printed_char)
+ *  @overload  void print_serial(char printed_char)
+ *  @overload  void print_serial(const char* printed_char)
  */
 //For strings
 void print_serial(String printed_string)
@@ -352,6 +361,9 @@ Share<int32_t> s_duty_cycle ("Power");
  *           Serial.setTimeout (0xFFFFFFFF);
  *           @endcode
  *           Assuming that the serial port named @c Serial is being used.
+ * 
+ *           @b NOTE: This function is only used for testing. 
+ *           
  *  @param   stream The serial device such as @c Serial used to communicate
  */
 
@@ -385,6 +397,8 @@ int32_t parseIntWithEcho (Stream& stream)
 /** @brief   Task which interacts with a user. 
  *  @details This task demonstrates how to use a FreeRTOS task for interacting
  *           with some user while other more important things are going on.
+ *           @b NOTE: This function is only used for testing. 
+ * 
  *  @param   p_params A pointer to function parameters which we don't use.
  */
 void task_ui (void* p_params)

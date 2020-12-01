@@ -44,14 +44,14 @@ void print_serial(char printed_char);
 void print_serial(const char* printed_char);
 
 
-
-
 //Function to parse ints sent in the serial port
 int32_t parseIntWithEcho (Stream& stream);
 
 //Function to ask for inputs for encoder
 void task_ui (void* p_params);
-const TickType_t UI_period = 100; // UI task's latency
+
+//task_ui's task's latency
+const TickType_t UI_period = 100;
 
 
 #endif // SERIAL_H
