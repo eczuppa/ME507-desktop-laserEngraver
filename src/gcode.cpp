@@ -260,6 +260,15 @@ XYSFvalues decode::get_XYSF(void)
     return _XYSFval;
 }
 
+/** @brief      Function which gets just the @c S value from the gcode decoder class
+ *  @details    This function gets @c S (desired laser PWM value) out of the decoder class
+ *              in order to pass the command to the laser. S bypasses all control loops, as it
+ *              is a direct input.
+ */
+uint8_t decode::get_S(void)
+{
+    return _XYSFval.S;
+}
 
 
 //Nuts-Bolts type functions:

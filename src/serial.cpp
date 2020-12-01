@@ -66,7 +66,7 @@ void task_read_serial(void* p_params)
     memset(line,'\0',sizeof(line));
 
     //For testing
-    #define TESTING
+    #define TESTING_WITHOUT_PYTHON
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
@@ -179,9 +179,11 @@ void task_read_serial(void* p_params)
         } //Switch case for read_state
         
 
-        //testing mode: Not taking inputs from python
-        #ifndef TESTING
-        #define TESTING
+
+
+        //testing mode: Not taking inputs from python (enable above)
+        #ifndef TESTING_WITHOUT_PYTHON
+        #define TESTING_WITHOUT_PYTHON
         String test_line = "G1 X46.12 Y39.20 S1.00 F600";
         ///Set each character in static char @c line to match our test string, just like it 
         ///would in the parser (once that's finished)
@@ -191,9 +193,9 @@ void task_read_serial(void* p_params)
         }
         // Put line data into the read_string
         read_chars.put(line);
-        #endif //TESTING
+        #endif //TESTING_WITHOUT_PYTHON
 
-
+        //Task delay
         vTaskDelay(20);
     }
 }

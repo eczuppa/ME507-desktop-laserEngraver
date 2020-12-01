@@ -90,7 +90,7 @@ public:
 
     ///Get-er functions:
     XYSFvalues get_XYSF(void);
-
+    uint8_t get_S(void);
 
     ///Friend class Kinematics, so Kinematics can access the class member data:
     friend class Kinematics_coreXY;

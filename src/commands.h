@@ -16,12 +16,13 @@
 
 
 //Struct to contain all desired values to be sent from the translator to the control task via a queue
-struct desired_pos_vel 
+struct desired_pos_vel_S
 {
     float A_pos = 0;
     float B_pos = 0;
     float A_feed = 0;
     float B_feed = 0;
+    float S = 0;
 };
 
 

@@ -14,25 +14,27 @@
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE
-extern Queue<desired_pos_vel> desired_queue;
+extern Queue<desired_pos_vel_S> desired_queue;
 
-// MOTOR A ENCODER DATA
-extern Share<float> encoder_A_pos; 
-extern Share<float> encoder_A_velocity;
-extern Share<uint32_t> encoder_A_dt;
 
-// MOTOR B ENCODER DATA
-extern Share<float> encoder_B_pos;
-extern Share<float> encoder_B_velocity;
-extern Share<uint32_t> encoder_B_dt;
+//Uncomment as used to ensure we don't make anything we don't use:
+// // MOTOR A ENCODER DATA
+// extern Share<float> encoder_A_pos; 
+// extern Share<float> encoder_A_velocity;
+// extern Share<uint32_t> encoder_A_dt;
 
-// HOMING CYCLE DATA
-extern Share<bool> check_home;
-extern Share<bool> X_home;
-extern Share<bool> Y_home;
+// // MOTOR B ENCODER DATA
+// extern Share<float> encoder_B_pos;
+// extern Share<float> encoder_B_velocity;
+// extern Share<uint32_t> encoder_B_dt;
 
-// WARNINGS FROM SAFETY SUPERVISOR
-extern Share<uint8_t> warning_code; 
+// // HOMING CYCLE DATA
+// extern Share<bool> check_home;
+// extern Share<bool> X_home;
+// extern Share<bool> Y_home;
+
+// // WARNINGS FROM SAFETY SUPERVISOR
+// extern Share<uint8_t> warning_code; 
 
 
 //Setup Outgoing Shares and Queues Here
@@ -56,6 +58,10 @@ Share<bool> check_home ("Homing Flag");
  *              through a PID control loop inside this task, which then outputs PWM signals that are sent via queues to
  *              @c motor_A_driver_task and @c motor_B_driver_task to control the motors. 
  * 
+ *              The task has two main states, NORMAL_OPERATION and SAFETY_STOP. Under NORMAL_OPERATION, any incomming desired
+ *              positions will be converted to ramps, controlled, and sent to the motors. SAFETY_STOP, if enabled, will immediately
+ *              shut down the laser and keep it that way until the Safety_Supervisor task gives the go-ahead.
+ * 
  *  @param      p_params A pointer to function parameters which we don't use.
  */
 void control_task(void* p_params)
@@ -67,7 +73,7 @@ void control_task(void* p_params)
     uint8_t control_state = NORMAL_OPERATION;
 
     //Struct containing desired values from task_translate
-    desired_pos_vel desired;
+    desired_pos_vel_S desired;
 
     //Class containing motion-planning data
     MotionPlanning Ramper_A(0,0,0,0);
@@ -77,7 +83,7 @@ void control_task(void* p_params)
     Controller_PID ControlLoopPID_A(0,0,0,0,0,0,0,0);
     Controller_PID ControlLoopPID_B(0,0,0,0,0,0,0,0);
 
-
+    //Infinite task loop
     for(;;)
     {
         switch(control_state)
@@ -86,12 +92,32 @@ void control_task(void* p_params)
             //gets somthing there, it checks 
             case NORMAL_OPERATION:
 
+                //If we have new desired values, 
+                // * and we have space to put values into the motor A and B queues (later):
+                if (desired_queue.any())
+                {
+                    //Get the desired values
+                    desired_queue.get(desired);
+
+                    //Expand them into ramp inputs:
+                    
+                }
+
                 break;
+            
+            //This state will be reached when the Safety task detects something wrong with the system. At this point, 
+            //the laser will be shut down immediately.
+            case SAFETY_STOP:
+                //Set Motor PWM signals to 0
+                //Set laser PWM to 0 
+                break;
+                
             default:
                 break;
                 //Shouldn't get here right?
         };
-      // use switch case for state machines here so they are neater and more readable
+
+// OLD IDEA: DISCONTINUED IN FAVOR OF SIMPLER METHOD
 
       // STATE 0 HUB - checks for conditions to transition to appropriate state, otherwise waits in the hub
       //        if A_ and B_desired (queues) have been revcieved from the decoding task, and the machine has been homed, 
@@ -118,6 +144,7 @@ void control_task(void* p_params)
       // STATE 5 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
       //                                    and then when it gets home and is okayed by the user (?) future work
 
+// END OF OLD IDEA
         
         vTaskDelayUntil(&xLastWakeTime, control_task_period);
     }

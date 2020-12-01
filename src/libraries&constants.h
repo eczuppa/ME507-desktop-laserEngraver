@@ -41,7 +41,6 @@
 #include "gcode.h"
 #include "Quad_Encoder.h"
 #include "TB6612FNG_Driver.h"
-#include "nuts_bolts.h"
 #include "motor_task.h"
 #include "serial.h"
 #include "limit_switch.h"

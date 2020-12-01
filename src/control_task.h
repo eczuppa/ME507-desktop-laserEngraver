@@ -13,6 +13,7 @@
 
 //control_task main states
 #define NORMAL_OPERATION 0
+#define SAFETY_STOP 1
 
 
 //Control task function to operate PID controller
