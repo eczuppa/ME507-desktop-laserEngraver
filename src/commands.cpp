@@ -8,16 +8,15 @@
 */
 #include "libraries&constants.h"
 
+///@cond
 //Shares and queues should go here
+
+//Queue that holds read character arrays
 extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
 
+// Queue to hold desired positions and feedrates of motors A and B
 Queue<desired_pos_vel> desired_queue(DES_Q_SIZE,"Desired A+B Position and Feeds");
-
-// Queue<float> A_pos_desired(POS_Q_SIZE,"A Position Desired");
-// Queue<float> B_pos_desired(POS_Q_SIZE,"B Position Desired");
-// Queue<float> A_feed_desired(FEED_Q_SIZE,"A Feed Desired");
-// Queue<float> B_feed_desired(FEED_Q_SIZE,"B Feed Desired");
-
+///@endcond
 
 /** @brief      Task which reads data from the serial port, translates it, and sends it where it needs to go.
  *  @details    This task function reads a line from the read_chars queue of gcode or other commands 
@@ -41,7 +40,7 @@ void task_translate(void* p_params)
     //Create instance of desired struct for passing into the queue
     desired_pos_vel desired;
 
-    ///Create line char array to hold incoming data from the @c read_chars queue
+    //Create line char array to hold incoming data from the @c read_chars queue
     char line[LINE_BUFFER_SIZE];
 
     for(;;)
@@ -95,7 +94,14 @@ void task_translate(void* p_params)
 }
 
 
-
+/** @brief      Function which interprets a line containing a machine command.
+ *  @details    This function takes in a line containing a command for the laser that begins with
+ *              a @c $, signalling that it is a machine command and not a line of gcode. It then interprets
+ *              the command in the line and passes on the information. 
+ *              <b>Disclaimer: This function is currently unfinished.</b>
+ * 
+ *  @param      line A line containing a command to be interpreted. 
+ */
 void interpret_machinecmd_line(char *line)
 {
 
