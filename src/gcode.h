@@ -35,7 +35,8 @@
 #define MOVE_ERROR 5
 #define LETTER_CMD_ERROR 6
 
-
+//For converting chars to floats:
+#define MAX_INT_DIGITS 8 // Maximum number of digits in int32 (and float)
 
 
 ///Create struct types for output data from @c interpret_gcode_line() 
@@ -94,5 +95,9 @@ public:
     ///Friend class Kinematics, so Kinematics can access the class member data:
     friend class Kinematics_coreXY;
 };
+
+
+//Function to convert strings of numbers into floats (for gcode interpreting)
+uint8_t read_float(char *line, uint8_t *char_counter, float *float_ptr);  
 
 #endif //GCODE_H

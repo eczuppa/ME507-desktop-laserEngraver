@@ -60,13 +60,8 @@ Share<bool> check_home ("Homing Flag");
  */
 void control_task(void* p_params)
 {
+    //Start timing the task
     TickType_t xLastWakeTime = xTaskGetTickCount();
-
-    // instantiate motion planning classes (one for A and one for motor B)
-    // instantiate control loops - PID_A and PID_B
-    // intialize state machine for Homing cycle
-    // initialize state machine for laser...or is it a class?
-    // initialize state machine for serial write - MCU's acknowledgement of I got commands
 
     //Variable for controller state
     uint8_t control_state = NORMAL_OPERATION;
@@ -75,10 +70,27 @@ void control_task(void* p_params)
     desired_pos_vel desired;
 
     //Class containing motion-planning data
-    MotionPlanning ramper(0,0,0,0);
+    MotionPlanning Ramper_A(0,0,0,0);
+    MotionPlanning Ramper_B(0,0,0,0);
+
+    //Crete PID loop classes
+    Controller_PID ControlLoopPID_A(0,0,0,0,0,0,0,0);
+    Controller_PID ControlLoopPID_B(0,0,0,0,0,0,0,0);
+
 
     for(;;)
     {
+        switch(control_state)
+        {
+            //When running in this state, control_task looks for any incomming information into desired_queue. When it 
+            //gets somthing there, it checks 
+            case NORMAL_OPERATION:
+
+                break;
+            default:
+                break;
+                //Shouldn't get here right?
+        };
       // use switch case for state machines here so they are neater and more readable
 
       // STATE 0 HUB - checks for conditions to transition to appropriate state, otherwise waits in the hub
@@ -106,10 +118,6 @@ void control_task(void* p_params)
       // STATE 5 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
       //                                    and then when it gets home and is okayed by the user (?) future work
 
-
-      //SIMPLIFIED VERSION:
-
-      //Get motor command, 
         
         vTaskDelayUntil(&xLastWakeTime, control_task_period);
     }

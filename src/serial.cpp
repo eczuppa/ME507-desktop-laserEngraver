@@ -66,7 +66,7 @@ void task_read_serial(void* p_params)
     memset(line,'\0',sizeof(line));
 
     //For testing
-    // #define TESTING
+    #define TESTING
 
     //State variable to continue to read or not (if read queue gets close to full)
     uint8_t read_state = READY;
@@ -349,9 +349,9 @@ Share<int32_t> s_duty_cycle ("Power");
 
 int32_t parseIntWithEcho (Stream& stream)
 {
-    const uint8_t MAX_INT_DIGITS = 24;        // More than a 64-bit integer has
+    const uint8_t MAX_INT_DIGITS_PIWE = 24;        // More than a 64-bit integer has
     char ch_in = 0;                           // One character from the buffer
-    char in_buf[MAX_INT_DIGITS];              // Character buffer for input
+    char in_buf[MAX_INT_DIGITS_PIWE];              // Character buffer for input
     uint8_t count = 0;                        // Counts characters received
 
     // Read until return is received or too many characters have been read.
@@ -365,7 +365,7 @@ int32_t parseIntWithEcho (Stream& stream)
         {                                     // character and try again
             count -= 2;
         }
-        if (ch_in == '\n' || count >= (MAX_INT_DIGITS - 1))
+        if (ch_in == '\n' || count >= (MAX_INT_DIGITS_PIWE - 1))
         {
             in_buf[count] = '\0';             // String must have a \0 at end
             return atoi (in_buf);

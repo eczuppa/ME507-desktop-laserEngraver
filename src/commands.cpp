@@ -66,14 +66,14 @@ void task_translate(void* p_params)
             desired.A_feed = translator.get_F_A();
             desired.B_feed = translator.get_F_B();
 
-            print_serial(desired.A_pos);
-            print_serial(" ");
-            print_serial(desired.B_pos);
-            print_serial(" ");
-            print_serial(desired.A_feed);
-            print_serial(" ");
-            print_serial(desired.B_feed);
-            print_serial("\n");
+            // print_serial(desired.A_pos);
+            // print_serial(" ");
+            // print_serial(desired.B_pos);
+            // print_serial(" ");
+            // print_serial(desired.A_feed);
+            // print_serial(" ");
+            // print_serial(desired.B_feed);
+            // print_serial("\n");
 
             //Enter struct into the queue for desired positions and feedrates
             desired_queue.put(desired);

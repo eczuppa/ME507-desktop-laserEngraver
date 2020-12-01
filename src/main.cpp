@@ -78,9 +78,9 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    // #define NIKO_TESTING 0
+    #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
-    #define ETHAN_TESTING 2
+    // #define ETHAN_TESTING 2
 
     //======================================================================================
     
