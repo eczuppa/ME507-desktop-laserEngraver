@@ -44,7 +44,6 @@
 #include "TB6612FNG_Driver.h"
 #include "motor_task.h"
 #include "serial.h"
-#include "limit_switch.h"
 #include "kinematics.h"
 #include "stopwatch.h"
 #include "safetySupervisor.h"
