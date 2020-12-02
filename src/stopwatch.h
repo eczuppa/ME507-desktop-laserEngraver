@@ -1,13 +1,12 @@
 
-/** @file stopwatch.h 
- *          makes the specified onboard timer count in the up direction and adds other functionality so the
- *          user selected timer behaves as a typical stop watch would. The HardwareTimer Library API was used
- *          to do this, See the Hardware Timer library API and Wiki for more information on changing the clock parameters
- *          Here: https://github.com/stm32duino/wiki/wiki/HardwareTimer-library#API 
+/** @file       stopwatch.h 
+ *  @brief      This header file makes the specified onboard timer count in the up direction and adds other functionality so the
+ *              user selected timer behaves as a typical stop watch would. The HardwareTimer Library API was used
+ *              to do this, See the Hardware Timer library API and Wiki for more information on changing the clock parameters
+ *              Here: https://github.com/stm32duino/wiki/wiki/HardwareTimer-library#API 
  * 
  *  @author Ethan A Czuppa
- *  
- *  @date 19 Nov 2020 Original File.  
+ *  @date 2020-Nov-19 Original File 
  * 
  */
 

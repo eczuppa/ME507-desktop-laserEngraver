@@ -1,28 +1,43 @@
-/** @file TB6612FNG_Driver.h
+/** @file       TB6612FNG_Driver.h
+ *  @brief      This file contains the header for the class that contains necessary functions
+ *              needed to use the Toshiba dual H-bridge motor driver chip.
+ *              
  *  
- *  @author   Ethan A. Czuppa
- *  
- *  @date 6 Nov 2020  Created Project and this file in parallel with doxygen comments for future documentation
- *  @date 7 Nov 2020  finished first version of motor driver, needs to be updated to accept more references 
- *                    since many inputs are predefined objects (pin names, other classes, etc. ) 
- *                    Also I need to figure out how to pass the instantiation of the hardware timer class to
- *                    through this class (e.g. TIM1, TIM2, TIM3, etc) so that the timer can be changed as needed
- *                    instead of being set in the header file as it is currently. 
- *  @date 10 Nov 2020 Got help from Dr. Ridgely for how to correctly pass timer objects into this class and was able
- *                    to get it to the level of portability I desired. Motors work, though they are not particularly quiet
- *                    due to being contained in what amounts to 3D printed echo chambers, but the slight increase in
- *                    complexity for more capability than @c analogWrite() was worth the effort. Especially given the added
- *                    guarantee that pins are correctly being put in their alternate function modes.
- *  @date 15 Nov 2020 Added brake method to try to do power and brake vs power and coast driving style for the motors. This was 
- *                    taken from sparkfun's arduino Library for the TB6612FNG from: 
- *                    https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/blob/master/src/SparkFun_TB6612.cpp 
- *                    However, I am not sure how to implement this method into our PID controller... perhaps something
- *                    that is watching for the error to drop to a certain threshold and then instead of settting the 
- *                    PWM singal to 0 and allowing the motor to coast, the short brake method is called. Also, given its
- *                    name - short brake - in the truth table I am skeptical of how effective it would be in the first place
- * 
- * 
+ *  @author Ethan A. Czuppa
+ *  @date 2020-Nov-6 Original File
  */
+
+
+//  *  @date 6 Nov 2020  Created Project and this file in parallel with doxygen comments for future documentation
+//  *  @date 7 Nov 2020  finished first version of motor driver, needs to be updated to accept more references 
+//  *                    since many inputs are predefined objects (pin names, other classes, etc. ) 
+//  *                    Also I need to figure out how to pass the instantiation of the hardware timer class to
+//  *                    through this class (e.g. TIM1, TIM2, TIM3, etc) so that the timer can be changed as needed
+//  *                    instead of being set in the header file as it is currently. 
+//  *  @date 10 Nov 2020 Got help from Dr. Ridgely for how to correctly pass timer objects into this class and was able
+//  *                    to get it to the level of portability I desired. Motors work, though they are not particularly quiet
+//  *                    due to being contained in what amounts to 3D printed echo chambers, but the slight increase in
+//  *                    complexity for more capability than @c analogWrite() was worth the effort. Especially given the added
+//  *                    guarantee that pins are correctly being put in their alternate function modes.
+//  *  @date 15 Nov 2020 Added brake method to try to do power and brake vs power and coast driving style for the motors. This was 
+//  *                    taken from sparkfun's arduino Library for the TB6612FNG from: 
+//  *                    https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/blob/master/src/SparkFun_TB6612.cpp 
+//  *                    However, I am not sure how to implement this method into our PID controller... perhaps something
+//  *                    that is watching for the error to drop to a certain threshold and then instead of settting the 
+//  *                    PWM singal to 0 and allowing the motor to coast, the short brake method is called. Also, given its
+//  *                    name - short brake - in the truth table I am skeptical of how effective it would be in the first place
+//  * 
+
+
+/** @file       debouncer.h
+ *  @brief      File containing the header for a class that implements a debouncer program.
+ * 
+ *  @author Matthew Carlson
+ *  @date  2020-Oct-24 Original file
+ */
+
+
+
 
 
 #ifndef TB6612FNGDRIVER_H

@@ -1,11 +1,13 @@
-/** @file motor_task.h is motor driver task function file header
+/** @file       motor_task.h 
+ *  @brief      The header for the motor driver task function file
  * 
  *  @author Ethan A Czuppa
  *  @author Matthew Carlson
  * 
- *  @date 11 Nov 2020 Created files to test motor driver and encoder code
+ *  @date    Nov 11 2020 Original file
  *
  */
+
 #ifndef MOTORTASK_H
 #define MOTORTASK_H
 

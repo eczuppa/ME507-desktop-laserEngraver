@@ -1,9 +1,10 @@
-/** @file TB6612FNG_Driver.cpp
- *          This file implements the TB6612FNG class for the Toshiba dual H-bridge motor driver chip
+/** @file       TB6612FNG_Driver.cpp
+ *  @brief      This file implements the TB6612FNG class for the Toshiba dual H-bridge motor driver chip
  *  
  *  @author Ethan A Czuppa
- *  @date 6 Nov 2020  Created file for class implementation of TB6612FNG motor driver IC with doxygen comments
+ *  @date 6 Nov 2020  Original file
  */
+
 
 #include "TB6612FNG_Driver.h"
 #include <Arduino.h>

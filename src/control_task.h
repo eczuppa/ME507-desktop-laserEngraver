@@ -1,6 +1,10 @@
 /**  @file      control_task.h
  *   @brief     File containing the header for a file containing the @c control_task function.
  * 
+ *  @author Niko Banks
+ *  @author Ethan Czuppa
+ *  @author Matthew Carlson
+ *  @date Nov 20 2020
  */
 
 #ifndef _CONTROL_TASK_H_

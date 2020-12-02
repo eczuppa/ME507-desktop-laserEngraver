@@ -1,20 +1,23 @@
-/** @file stopwatch.cpp
- *  @brief   a class that implements the HardwareTimer Library API to make a hardware timer behave like a stopwatch
+/** @file       stopwatch.cpp
+ *  @brief      This file uses a class that implements the HardwareTimer Library API to 
+ *              make a hardware timer behave like a stopwatch
  *  
  *  @author Ethan A Czuppa
- *  @date   19 Nov 2020 Original file
- */ 
+ *  @date Nov 19 2020 Original File 
+ * 
+ */
 
 
 #include "stopwatch.h"
 
-/** @brief
- *  @details 
+/** @brief      Creates a StopWatch constructor
+ *  @details    Uses the HardwareTimer methods and user passed hardware timer (TIM1, TIM2, etc)
+ *              in order to initialize and set up a constructor that will mimic a stopwatch
  * 
- * 
+ *  @param      p_Stpwtch the pointer of type @c TIM_TypeDef which points to user-passed hardware timer (TIM1,TIM2, etc)
+ *  @param      tmrpin the channel pin specifically assigned to the chosen timer
  */ 
 
-// StopWatch Constructor
 StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
 {
     // save inputs to class member data 
@@ -32,13 +35,9 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
 
 }
 
-/** @brief
- *  @details 
- * 
- * 
+/** @brief      StopWatch class method to overwrite the last timer value with current measured one
+ * @returns     _now The current timer value
  */ 
-
-// StopWatch class method to overwrite the last timer value with current measured one 
 uint16_t StopWatch::now_time(void)
 {
     
@@ -48,13 +47,10 @@ uint16_t StopWatch::now_time(void)
 
 }
 
-/** @brief
- *  @details 
- * 
+/** @brief      Method to get the elapsed time since the last time point was measured
+ *  @returns    _elpsd The elapsed time since the last measurement was taken
  * 
  */ 
-
-// method to get the elapsed time since the last time point was measured
 uint16_t StopWatch::elapsed_time(void)
 {
     a_Tmr -> resume();
@@ -63,9 +59,8 @@ uint16_t StopWatch::elapsed_time(void)
 
 }
 
-/** @brief
- *  @details 
- * 
+/** @brief      Method to get the time between when this method was called last and now
+ *  @returns    _lap measure of time between times that this lap method was called
  * 
  */ 
 
@@ -79,10 +74,9 @@ uint32_t StopWatch::lap(void)
 
 }
 
-/** @brief
- *  @details 
- * 
- * 
+/** @brief      Restart the timer
+ *  @details    This method will methods from the HardwareTimer class
+ *              to clear the timer and set it back to zero
  */ 
 
 void StopWatch::restart(void)
@@ -94,9 +88,8 @@ void StopWatch::restart(void)
 }
 
 
-/** @brief
- *  @details 
- * 
+/** @brief      Temporarily stop the timer
+ *  @details    This method will use the HardwareTimer method "pause" to pause the timer
  * 
  */ 
 

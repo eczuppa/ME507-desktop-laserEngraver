@@ -1,11 +1,15 @@
-/**  @file temperature_task.h
- *              the header file for the temperature reading task function that attempts to 
+/** @file       temperature_task.h
+ *  @brief      File containing header file for the temperature reading task function that attempts to 
  *              detect flame-out conditions on the laser cutter using a DS18B20 Onewire (c)
- *              digital temeprature sensor.
- *   @author Ethan A Czuppa
- *  
- *   @date 22 Nov 2020 Original file
+ *              digital temprature sensor.
+ * 
+ *  @author Ethan A Czuppa
+ *  @date Nov 10 2020 Original file
  */
+
+
+
+
 
 #ifndef TEMPERATURE_TASK_H
 #define TEMPERATURE_TASK_H

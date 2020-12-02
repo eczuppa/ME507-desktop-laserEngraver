@@ -1,19 +1,23 @@
-/** @file motor_task.cpp is the motor driver task function file implementation.
- *        It gets a PWM signal from the controller via a queue and then feeds this
- *        into a motor driver instance (which this code also creates).
+/** @file       motor_task.cpp 
+ *  @brief      This file is the motor driver task function file implementation. 
+ *              It gets a PWM signal from the controller via a queue and then 
+ *              feeds this into a motor driver instance (which this code also creates).
  * 
  *  @author Ethan A Czuppa
  *  @author Matthew Carlson
  * 
- *  @date 11 Nov 2020 Created files to test motor driver and encoder code
- *  @date 20 Nov 2020 Wrote first drafts of motor A and motor B driver tasks
- *        NOTE - Ethan your testing code is at the very bottom of the code
- *  @date 21 Nov 2020 Updated the timing and timers (TIM3) and reviewed the code
+ *  @date Nov 11 2020 Original file
  */
+
+//  *  @date Nov 11 2020 Created files to test motor driver and encoder code
+//  *  @date Nov 20 2020 Wrote first drafts of motor A and motor B driver tasks
+//  *  @date Nov 21 2020 Updated the timing and timers (TIM3) and reviewed the code
+
 
 
 #include "libraries&constants.h"
 
+/// @cond
 // Set up shares and queues
 
 // queue_PWM_motor_A is set up in the controller task
@@ -22,7 +26,7 @@ extern Queue<int8_t> queue_PWM_motor_A;                 // This is just the "out
 extern Queue<int8_t> queue_PWM_motor_B;                 // This is just the "output" from the controller
 
 
-
+/// @endcond
 
 // Motor A Driver Task
 

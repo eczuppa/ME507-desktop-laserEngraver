@@ -2,8 +2,8 @@
  *  @brief      File containing a class that implements a P, PI, or PID motor control code to drive the motors.
  * 
  *  @author Matthew Carlson
- * 
- *  @date  2020-Nov-10 Original file
+
+ *  @date  Nov 10 2020 Original file
  */
 
 
@@ -175,9 +175,10 @@ void Controller_PID::control_loop_PID ()
 }
 
 
-/** @brief   Set the controller's gain coefficient kP and kI in one method
- *  @param   gain_kP_new A new value for the controller's gain coefficient, kP
- *  @param   gain_kI_new A new value for the controller's gain coefficient, kI
+/** @brief   Set the controller's gain coefficient kP, kI, and kD in one method
+ *  @param   kP The value for the controller's gain coefficient, kP
+ *  @param   kI The value for the controller's gain coefficient, kI
+ *  @param   kD The value for the controller's gain coefficient, kD
  */
  void Controller_PID::set_gain_PID (float kP, float kI, float kD)
  {
@@ -202,7 +203,7 @@ void Controller_PID::control_loop_PID ()
  }
 
 /** @brief   Get the controller's gain coefficient kP
- *  @param   gain_kP The value for the controller's gain coefficient, kP
+ *  @returns gain_kP The value for the controller's gain coefficient, kP
  */
  float Controller_PID::get_gain_kP ()
  {
@@ -221,7 +222,7 @@ void Controller_PID::control_loop_PID ()
  }
 
 /** @brief   Get the controller's gain coefficient kI
- *  @param   gain_kI The value for the controller's gain coefficient, kI
+ *  @returns gain_kI The value for the controller's gain coefficient, kI
  */
  float Controller_PID::get_gain_kI ()
  {
@@ -240,7 +241,7 @@ void Controller_PID::control_loop_PID ()
  }
 
 /** @brief   Get the controller's gain coefficient kD
- *  @param   gain_kD The value for the controller's gain coefficient, kD
+ *  @returns gain_kD The value for the controller's gain coefficient, kD
  */
  float Controller_PID::get_gain_kD ()
  {
@@ -263,7 +264,7 @@ void Controller_PID::set_pos_desired (float pos_desired_initial)
  }
 
 /** @brief   Get the controller's desired position command that comes from the GCode
- *  @param   pos_desired The value for the controller's desired position. 
+ *  @returns pos_desired The value for the controller's desired position. 
  */
 float Controller_PID::get_pos_desired ()
  {
@@ -286,7 +287,7 @@ void Controller_PID::set_pos_actual (float pos_actual_initial)
 
 
 /** @brief   Get the controller's actual position command that comes from the encoder
- *  @param   pos_actual The value for the controller's actual position. 
+ *  @returns pos_actual The value for the controller's actual position. 
  */
 float Controller_PID::get_pos_actual ()
  {
@@ -311,7 +312,7 @@ void Controller_PID::set_vel_desired (float vel_desired_initial)
  }
 
 /** @brief   Get the controller's desired velocity command that comes from the GCode
- *  @param   vel_desired The value for the controller's desired velocity. 
+ *  @returns vel_desired The value for the controller's desired velocity. 
  */
 float Controller_PID::get_vel_desired ()
  {
@@ -334,7 +335,7 @@ void Controller_PID::set_vel_actual (float vel_actual_initial)
 
 
 /** @brief   Get the controller's actual position command that comes from the encoder
- *  @param   pos_actual The value for the controller's actual position. 
+ *  @returns pos_actual The value for the controller's actual position. 
  */
 float Controller_PID::get_vel_actual ()
  {
@@ -344,7 +345,7 @@ float Controller_PID::get_vel_actual ()
 
 
 /** @brief   Get the output of the control loop
- *  @param   output The value for the controller's desired velocity. 
+ *  @returns output The value for the controller's desired velocity. 
  */
 float Controller_PID::get_output ()
  {
@@ -355,7 +356,7 @@ float Controller_PID::get_output ()
 // FOR TESTING
 
 /** @brief   Get the position error of the control loop
- *  @param   pos_error The value for the controller's position error. 
+ *  @returns pos_error The value for the controller's position error. 
  */
 float Controller_PID::get_pos_error ()
  {

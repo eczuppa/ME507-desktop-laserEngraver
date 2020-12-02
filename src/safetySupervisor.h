@@ -1,6 +1,9 @@
-/** @file safetySupervisor.h
+/** @file       safetySupervisor.h
+ *  @brief      Contains the safety supervisor header file that sets up the safety task.   
  * 
  * 
+ *  @author  Niko Banks, Matthew Carlson, Ethan Czuppa
+ *  @date    Nov 5 2020 Original file
  */
 
 

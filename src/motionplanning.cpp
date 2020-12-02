@@ -1,17 +1,16 @@
-/** @file    motionplanning.cpp 
- *  @brief 
- *           linearly interpolates between two points to create a ramp input to the controller
- *  @details This class generates ramp inputs for a classical postion PID control loop and is intended to
- *           maintain that control loop's linearity by limiting the size of the disturbances it is subjected to.
- *           First the time in microseconds it takes (at the current feed rate) for the laser to travel between
- *           the current and last setpoint are calculated. If the total travel period is less than the constant
- *           delta t for each ramp section no ramp is generated - the pointer to an array containing the current setpoint
- *           and current feed rate are returned. If it is the case the total travel period exceeds the ramp section time 
- *           differential, the number of ramp sections is calculated and array of length # of ramp sections + 2 is generated.
- *           The extra two spots hold the 
+/** @file       motionplanning.cpp 
+ *  @brief      This file linearly interpolates between two points to create a ramp input to the controller
+ *              This class generates ramp inputs for a classical postion PID control loop and is intended to
+ *              maintain that control loop's linearity by limiting the size of the disturbances it is subjected to.
+ *              First the time in microseconds it takes (at the current feed rate) for the laser to travel between
+ *              the current and last setpoint are calculated. If the total travel period is less than the constant
+ *              delta t for each ramp section no ramp is generated - the pointer to an array containing the current setpoint
+ *              and current feed rate are returned. If it is the case the total travel period exceeds the ramp section time 
+ *              differential, the number of ramp sections is calculated and array of length # of ramp sections + 2 is generated.
+ *              The extra two spots hold the 
  * 
  *  @author Ethan A Czuppa
- *  @date   19 Nov 2020 Original file
+ *  @date Nov 19 2020 Original file
  *  
  * 
  */
