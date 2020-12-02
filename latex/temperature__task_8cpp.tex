@@ -1,5 +1,10 @@
 \hypertarget{temperature__task_8cpp}{}\doxysection{temperature\+\_\+task.\+cpp File Reference}
 \label{temperature__task_8cpp}\index{temperature\_task.cpp@{temperature\_task.cpp}}
+
+
+File that contains the temperature task function file implementation.  
+
+
 {\ttfamily \#include \char`\"{}temperature\+\_\+task.\+h\char`\"{}}\newline
 Include dependency graph for temperature\+\_\+task.\+cpp\+:
 % FIG 0
@@ -7,7 +12,18 @@ Include dependency graph for temperature\+\_\+task.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{temperature__task_8cpp_ac9ce0c5163f1f8ce710270b5e0ba2b11}{temperature\+\_\+task}} (void $\ast$p\+\_\+params)
-\begin{DoxyCompactList}\small\item\em implements a task function to use digital temperature sensor like an industrial heat detector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Task to detect flame-\/out conditions on the laser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File that contains the temperature task function file implementation. 
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 10 2020 Original file 
+\end{DoxyDate}
 
 
 \doxysubsection{Function Documentation}
@@ -19,6 +35,14 @@ void \mbox{\hyperlink{temperature__task_8cpp_ac9ce0c5163f1f8ce710270b5e0ba2b11}{
 
 
 
-implements a task function to use digital temperature sensor like an industrial heat detector 
+Task to detect flame-\/out conditions on the laser. 
 
-uses the One\+Wire library and Dallas\+Temperature library to interface with the a D\+S18\+B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function. 
+implements a task function to use digital temperature sensor like an industrial heat detector
+
+This task will interface with a D\+S18\+B20 Onewire (c) digital temperature sensor to detect sudden rises in temperature.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

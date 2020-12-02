@@ -17,7 +17,7 @@ Class which implements a P\+ID controller that can be used to drive the motors.
 void \mbox{\hyperlink{classController__PID_a6986d6b1e9d920c017209888fac70e5e}{control\+\_\+loop\+\_\+\+P\+ID}} ()
 \begin{DoxyCompactList}\small\item\em Set up the P\+ID control loop. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classController__PID_aa53cee679e53f64f3cf9efd9b1ceae10}{set\+\_\+gain\+\_\+\+P\+ID}} (float kP, float kI, float kD)
-\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kP and kI in one method. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kP, kI, and kD in one method. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classController__PID_ab961635023aaf8c659b47c504556aea6}{set\+\_\+gain\+\_\+kP}} (float gain\+\_\+k\+P\+\_\+new)
 \begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kP. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}{get\+\_\+gain\+\_\+kP}} ()
@@ -180,11 +180,9 @@ Takes the encoder\textquotesingle{}s position and compares this with the current
 
 Get the controller\textquotesingle{}s gain coefficient kD. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em gain\+\_\+kD} & The value for the controller\textquotesingle{}s gain coefficient, kD \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+gain\+\_\+kD The value for the controller\textquotesingle{}s gain coefficient, kD 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_a0e74c53a2a910ae1044830dcdb85e819}\label{classController__PID_a0e74c53a2a910ae1044830dcdb85e819}} 
 \index{Controller\_PID@{Controller\_PID}!get\_gain\_kI@{get\_gain\_kI}}
 \index{get\_gain\_kI@{get\_gain\_kI}!Controller\_PID@{Controller\_PID}}
@@ -195,11 +193,9 @@ Get the controller\textquotesingle{}s gain coefficient kD.
 
 Get the controller\textquotesingle{}s gain coefficient kI. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em gain\+\_\+kI} & The value for the controller\textquotesingle{}s gain coefficient, kI \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+gain\+\_\+kI The value for the controller\textquotesingle{}s gain coefficient, kI 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}\label{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}} 
 \index{Controller\_PID@{Controller\_PID}!get\_gain\_kP@{get\_gain\_kP}}
 \index{get\_gain\_kP@{get\_gain\_kP}!Controller\_PID@{Controller\_PID}}
@@ -210,11 +206,9 @@ Get the controller\textquotesingle{}s gain coefficient kI.
 
 Get the controller\textquotesingle{}s gain coefficient kP. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em gain\+\_\+kP} & The value for the controller\textquotesingle{}s gain coefficient, kP \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+gain\+\_\+kP The value for the controller\textquotesingle{}s gain coefficient, kP 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_ad11d85f3eeac3c62821822bd473500b9}\label{classController__PID_ad11d85f3eeac3c62821822bd473500b9}} 
 \index{Controller\_PID@{Controller\_PID}!get\_output@{get\_output}}
 \index{get\_output@{get\_output}!Controller\_PID@{Controller\_PID}}
@@ -225,11 +219,9 @@ Get the controller\textquotesingle{}s gain coefficient kP.
 
 Get the output of the control loop. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em output} & The value for the controller\textquotesingle{}s desired velocity. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output The value for the controller\textquotesingle{}s desired velocity. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_ac522c9c65f042ca184ccf86289db3958}\label{classController__PID_ac522c9c65f042ca184ccf86289db3958}} 
 \index{Controller\_PID@{Controller\_PID}!get\_pos\_actual@{get\_pos\_actual}}
 \index{get\_pos\_actual@{get\_pos\_actual}!Controller\_PID@{Controller\_PID}}
@@ -240,11 +232,9 @@ Get the output of the control loop.
 
 Get the controller\textquotesingle{}s actual position command that comes from the encoder. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em pos\+\_\+actual} & The value for the controller\textquotesingle{}s actual position. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+\_\+actual The value for the controller\textquotesingle{}s actual position. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_a00679fd4fe2f0729e1a8a4bcbeb7d87e}\label{classController__PID_a00679fd4fe2f0729e1a8a4bcbeb7d87e}} 
 \index{Controller\_PID@{Controller\_PID}!get\_pos\_desired@{get\_pos\_desired}}
 \index{get\_pos\_desired@{get\_pos\_desired}!Controller\_PID@{Controller\_PID}}
@@ -255,11 +245,9 @@ Get the controller\textquotesingle{}s actual position command that comes from th
 
 Get the controller\textquotesingle{}s desired position command that comes from the G\+Code. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em pos\+\_\+desired} & The value for the controller\textquotesingle{}s desired position. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+\_\+desired The value for the controller\textquotesingle{}s desired position. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_a458bcefbb26d19f45d8a5b93480f4024}\label{classController__PID_a458bcefbb26d19f45d8a5b93480f4024}} 
 \index{Controller\_PID@{Controller\_PID}!get\_pos\_error@{get\_pos\_error}}
 \index{get\_pos\_error@{get\_pos\_error}!Controller\_PID@{Controller\_PID}}
@@ -270,11 +258,9 @@ Get the controller\textquotesingle{}s desired position command that comes from t
 
 Get the position error of the control loop. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em pos\+\_\+error} & The value for the controller\textquotesingle{}s position error. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+\_\+error The value for the controller\textquotesingle{}s position error. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_a45466aa90aeb5319e4eccafc9d88ed4a}\label{classController__PID_a45466aa90aeb5319e4eccafc9d88ed4a}} 
 \index{Controller\_PID@{Controller\_PID}!get\_vel\_actual@{get\_vel\_actual}}
 \index{get\_vel\_actual@{get\_vel\_actual}!Controller\_PID@{Controller\_PID}}
@@ -285,11 +271,9 @@ Get the position error of the control loop.
 
 Get the controller\textquotesingle{}s actual position command that comes from the encoder. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em pos\+\_\+actual} & The value for the controller\textquotesingle{}s actual position. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+\_\+actual The value for the controller\textquotesingle{}s actual position. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_ad1b05d780d1c4e832bc1a75ecdc81a30}\label{classController__PID_ad1b05d780d1c4e832bc1a75ecdc81a30}} 
 \index{Controller\_PID@{Controller\_PID}!get\_vel\_desired@{get\_vel\_desired}}
 \index{get\_vel\_desired@{get\_vel\_desired}!Controller\_PID@{Controller\_PID}}
@@ -300,11 +284,9 @@ Get the controller\textquotesingle{}s actual position command that comes from th
 
 Get the controller\textquotesingle{}s desired velocity command that comes from the G\+Code. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em vel\+\_\+desired} & The value for the controller\textquotesingle{}s desired velocity. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vel\+\_\+desired The value for the controller\textquotesingle{}s desired velocity. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classController__PID_aecee8666fb0711125b01b901ebf31a19}\label{classController__PID_aecee8666fb0711125b01b901ebf31a19}} 
 \index{Controller\_PID@{Controller\_PID}!set\_gain\_kD@{set\_gain\_kD}}
 \index{set\_gain\_kD@{set\_gain\_kD}!Controller\_PID@{Controller\_PID}}
@@ -358,13 +340,15 @@ Set the controller\textquotesingle{}s gain coefficient kP.
 
 
 
-Set the controller\textquotesingle{}s gain coefficient kP and kI in one method. 
+Set the controller\textquotesingle{}s gain coefficient kP, kI, and kD in one method. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em gain\+\_\+k\+P\+\_\+new} & A new value for the controller\textquotesingle{}s gain coefficient, kP \\
+{\em kP} & The value for the controller\textquotesingle{}s gain coefficient, kP \\
 \hline
-{\em gain\+\_\+k\+I\+\_\+new} & A new value for the controller\textquotesingle{}s gain coefficient, kI \\
+{\em kI} & The value for the controller\textquotesingle{}s gain coefficient, kI \\
+\hline
+{\em kD} & The value for the controller\textquotesingle{}s gain coefficient, kD \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classController__PID_a3175af6cbfd228daa9fad970596ea11e}\label{classController__PID_a3175af6cbfd228daa9fad970596ea11e}} 

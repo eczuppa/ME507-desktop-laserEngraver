@@ -12,24 +12,18 @@ header for a timer class based on the Hardware\+Timer library that behaves like 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}\label{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}} 
-{\bfseries Stop\+Watch} (T\+I\+M\+\_\+\+Type\+Def $\ast$p\+\_\+\+Stpwtch, uint8\+\_\+t tmrpin)
-\item 
-\mbox{\Hypertarget{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}\label{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}} 
-uint16\+\_\+t {\bfseries now\+\_\+time} (void)
-\item 
-\mbox{\Hypertarget{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}\label{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}} 
-uint16\+\_\+t {\bfseries elapsed\+\_\+time} (void)
-\item 
-\mbox{\Hypertarget{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}\label{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}} 
-uint32\+\_\+t {\bfseries lap} (void)
-\item 
-\mbox{\Hypertarget{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}\label{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}} 
-void {\bfseries restart} (void)
-\item 
-\mbox{\Hypertarget{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}\label{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}} 
-void {\bfseries temp\+\_\+stop} (void)
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}{Stop\+Watch}} (T\+I\+M\+\_\+\+Type\+Def $\ast$p\+\_\+\+Stpwtch, uint8\+\_\+t tmrpin)
+\begin{DoxyCompactList}\small\item\em Creates a \mbox{\hyperlink{classStopWatch}{Stop\+Watch}} constructor. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}{now\+\_\+time}} (void)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classStopWatch}{Stop\+Watch}} class method to overwrite the last timer value with current measured one. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}{elapsed\+\_\+time}} (void)
+\begin{DoxyCompactList}\small\item\em Method to get the elapsed time since the last time point was measured. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}{lap}} (void)
+\begin{DoxyCompactList}\small\item\em Method to get the time between when this method was called last and now. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}{restart}} (void)
+\begin{DoxyCompactList}\small\item\em Restart the timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}{temp\+\_\+stop}} (void)
+\begin{DoxyCompactList}\small\item\em Temporarily stop the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -54,13 +48,97 @@ uint16\+\_\+t \mbox{\hyperlink{classStopWatch_a62dc833701e5d8c04113049cc10f732e}
 \begin{DoxyCompactList}\small\item\em the difference between now and last -\/ used when measuring a parameter of interest \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}\label{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}} 
 uint16\+\_\+t \mbox{\hyperlink{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}{\+\_\+elpsd}}
-\begin{DoxyCompactList}\small\item\em the time elapsed between the last and current measurements with now\+\_\+time(); \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em the time elapsed between the last and current measurements with \mbox{\hyperlink{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}{now\+\_\+time()}}; \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 header for a timer class based on the Hardware\+Timer library that behaves like an actual stopwatch 
 
 Uses the hardware timer library A\+PI to create a timer that just counts but does not trigger any output events. the counts and overflow are set to be in {\ttfamily M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+D\+\_\+\+F\+O\+R\+M\+AT} to ensure that the sufficient resolution of timing is achieved for whatever the user is trying to time. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}\label{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}} 
+\index{StopWatch@{StopWatch}!StopWatch@{StopWatch}}
+\index{StopWatch@{StopWatch}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{StopWatch()}{StopWatch()}}
+{\footnotesize\ttfamily Stop\+Watch\+::\+Stop\+Watch (\begin{DoxyParamCaption}\item[{T\+I\+M\+\_\+\+Type\+Def $\ast$}]{p\+\_\+\+Stpwtch,  }\item[{uint8\+\_\+t}]{tmrpin }\end{DoxyParamCaption})}
+
+
+
+Creates a \mbox{\hyperlink{classStopWatch}{Stop\+Watch}} constructor. 
+
+Uses the Hardware\+Timer methods and user passed hardware timer (T\+I\+M1, T\+I\+M2, etc) in order to initialize and set up a constructor that will mimic a stopwatch
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+\+Stpwtch} & the pointer of type {\ttfamily T\+I\+M\+\_\+\+Type\+Def} which points to user-\/passed hardware timer (T\+I\+M1,T\+I\+M2, etc) \\
+\hline
+{\em tmrpin} & the channel pin specifically assigned to the chosen timer \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}\label{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}} 
+\index{StopWatch@{StopWatch}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}}
+{\footnotesize\ttfamily uint16\+\_\+t Stop\+Watch\+::elapsed\+\_\+time (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Method to get the elapsed time since the last time point was measured. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+elpsd The elapsed time since the last measurement was taken 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}\label{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}} 
+\index{StopWatch@{StopWatch}!lap@{lap}}
+\index{lap@{lap}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{lap()}{lap()}}
+{\footnotesize\ttfamily uint32\+\_\+t Stop\+Watch\+::lap (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Method to get the time between when this method was called last and now. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+lap measure of time between times that this lap method was called 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}\label{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}} 
+\index{StopWatch@{StopWatch}!now\_time@{now\_time}}
+\index{now\_time@{now\_time}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{now\_time()}{now\_time()}}
+{\footnotesize\ttfamily uint16\+\_\+t Stop\+Watch\+::now\+\_\+time (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classStopWatch}{Stop\+Watch}} class method to overwrite the last timer value with current measured one. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+now The current timer value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}\label{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}} 
+\index{StopWatch@{StopWatch}!restart@{restart}}
+\index{restart@{restart}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{restart()}{restart()}}
+{\footnotesize\ttfamily void Stop\+Watch\+::restart (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Restart the timer. 
+
+This method will methods from the Hardware\+Timer class to clear the timer and set it back to zero \mbox{\Hypertarget{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}\label{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}} 
+\index{StopWatch@{StopWatch}!temp\_stop@{temp\_stop}}
+\index{temp\_stop@{temp\_stop}!StopWatch@{StopWatch}}
+\doxysubsubsection{\texorpdfstring{temp\_stop()}{temp\_stop()}}
+{\footnotesize\ttfamily void Stop\+Watch\+::temp\+\_\+stop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Temporarily stop the timer. 
+
+This method will use the Hardware\+Timer method \char`\"{}pause\char`\"{} to pause the timer 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

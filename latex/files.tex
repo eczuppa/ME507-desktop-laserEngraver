@@ -19,23 +19,23 @@ Here is a list of all documented files with brief descriptions\+:\begin{DoxyComp
 \item\contentsline{section}{\mbox{\hyperlink{libraries_6constants_8h}{libraries\&constants.\+h}} \\*File containing the header which contains the definition of multiple constants and libraries that will be used with Digital\+Carpenter-\/lite }{\pageref{libraries_6constants_8h}}{}
 \item\contentsline{section}{\mbox{\hyperlink{main_8cpp}{main.\+cpp}} }{\pageref{main_8cpp}}{}
 \item\contentsline{section}{{\bfseries mainpage.\+h} }{\pageref{mainpage_8h}}{}
-\item\contentsline{section}{\mbox{\hyperlink{motionplanning_8cpp}{motionplanning.\+cpp}} \\*Linearly interpolates between two points to create a ramp input to the controller }{\pageref{motionplanning_8cpp}}{}
+\item\contentsline{section}{\mbox{\hyperlink{motionplanning_8cpp}{motionplanning.\+cpp}} \\*This file linearly interpolates between two points to create a ramp input to the controller This class generates ramp inputs for a classical postion P\+ID control loop and is intended to maintain that control loop\textquotesingle{}s linearity by limiting the size of the disturbances it is subjected to. First the time in microseconds it takes (at the current feed rate) for the laser to travel between the current and last setpoint are calculated. If the total travel period is less than the constant delta t for each ramp section no ramp is generated -\/ the pointer to an array containing the current setpoint and current feed rate are returned. If it is the case the total travel period exceeds the ramp section time differential, the number of ramp sections is calculated and array of length \# of ramp sections + 2 is generated. The extra two spots hold the }{\pageref{motionplanning_8cpp}}{}
 \item\contentsline{section}{\mbox{\hyperlink{motionplanning_8h}{motionplanning.\+h}} }{\pageref{motionplanning_8h}}{}
-\item\contentsline{section}{\mbox{\hyperlink{motor__task_8cpp}{motor\+\_\+task.\+cpp}} }{\pageref{motor__task_8cpp}}{}
-\item\contentsline{section}{\mbox{\hyperlink{motor__task_8h}{motor\+\_\+task.\+h}} }{\pageref{motor__task_8h}}{}
+\item\contentsline{section}{\mbox{\hyperlink{motor__task_8cpp}{motor\+\_\+task.\+cpp}} \\*This file is the motor driver task function file implementation. It gets a P\+WM signal from the controller via a queue and then feeds this into a motor driver instance (which this code also creates) }{\pageref{motor__task_8cpp}}{}
+\item\contentsline{section}{\mbox{\hyperlink{motor__task_8h}{motor\+\_\+task.\+h}} \\*The header for the motor driver task function file }{\pageref{motor__task_8h}}{}
 \item\contentsline{section}{\mbox{\hyperlink{Quad__Encoder_8cpp}{Quad\+\_\+\+Encoder.\+cpp}} }{\pageref{Quad__Encoder_8cpp}}{}
 \item\contentsline{section}{\mbox{\hyperlink{Quad__Encoder_8h}{Quad\+\_\+\+Encoder.\+h}} }{\pageref{Quad__Encoder_8h}}{}
 \item\contentsline{section}{\mbox{\hyperlink{safetySupervisor_8cpp}{safety\+Supervisor.\+cpp}} }{\pageref{safetySupervisor_8cpp}}{}
-\item\contentsline{section}{\mbox{\hyperlink{safetySupervisor_8h}{safety\+Supervisor.\+h}} }{\pageref{safetySupervisor_8h}}{}
+\item\contentsline{section}{\mbox{\hyperlink{safetySupervisor_8h}{safety\+Supervisor.\+h}} \\*Contains the safety supervisor header file that sets up the safety task. ~\newline
+ }{\pageref{safetySupervisor_8h}}{}
 \item\contentsline{section}{\mbox{\hyperlink{serial_8cpp}{serial.\+cpp}} }{\pageref{serial_8cpp}}{}
 \item\contentsline{section}{\mbox{\hyperlink{serial_8h}{serial.\+h}} }{\pageref{serial_8h}}{}
-\item\contentsline{section}{{\bfseries share\+\_\+testing.\+h} }{\pageref{share__testing_8h}}{}
-\item\contentsline{section}{\mbox{\hyperlink{stopwatch_8cpp}{stopwatch.\+cpp}} \\*Class that implements the Hardware\+Timer Library A\+PI to make a hardware timer behave like a stopwatch }{\pageref{stopwatch_8cpp}}{}
-\item\contentsline{section}{\mbox{\hyperlink{stopwatch_8h}{stopwatch.\+h}} }{\pageref{stopwatch_8h}}{}
+\item\contentsline{section}{\mbox{\hyperlink{stopwatch_8cpp}{stopwatch.\+cpp}} \\*This file uses a class that implements the Hardware\+Timer Library A\+PI to make a hardware timer behave like a stopwatch }{\pageref{stopwatch_8cpp}}{}
+\item\contentsline{section}{\mbox{\hyperlink{stopwatch_8h}{stopwatch.\+h}} \\*This header file makes the specified onboard timer count in the up direction and adds other functionality so the user selected timer behaves as a typical stop watch would. The Hardware\+Timer Library A\+PI was used to do this, See the Hardware Timer library A\+PI and Wiki for more information on changing the clock parameters Here\+: \href{https://github.com/stm32duino/wiki/wiki/HardwareTimer-library\#API}{\texttt{ https\+://github.\+com/stm32duino/wiki/wiki/\+Hardware\+Timer-\/library\#\+A\+PI}} }{\pageref{stopwatch_8h}}{}
 \item\contentsline{section}{{\bfseries taskqueue.\+h} }{\pageref{taskqueue_8h}}{}
 \item\contentsline{section}{{\bfseries taskshare.\+h} }{\pageref{taskshare_8h}}{}
-\item\contentsline{section}{\mbox{\hyperlink{TB6612FNG__Driver_8cpp}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+cpp}} }{\pageref{TB6612FNG__Driver_8cpp}}{}
-\item\contentsline{section}{\mbox{\hyperlink{TB6612FNG__Driver_8h}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h}} }{\pageref{TB6612FNG__Driver_8h}}{}
-\item\contentsline{section}{\mbox{\hyperlink{temperature__task_8cpp}{temperature\+\_\+task.\+cpp}} }{\pageref{temperature__task_8cpp}}{}
-\item\contentsline{section}{\mbox{\hyperlink{temperature__task_8h}{temperature\+\_\+task.\+h}} }{\pageref{temperature__task_8h}}{}
+\item\contentsline{section}{\mbox{\hyperlink{TB6612FNG__Driver_8cpp}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+cpp}} \\*This file implements the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} class for the Toshiba dual H-\/bridge motor driver chip }{\pageref{TB6612FNG__Driver_8cpp}}{}
+\item\contentsline{section}{\mbox{\hyperlink{TB6612FNG__Driver_8h}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h}} \\*This file contains the header for the class that contains necessary functions needed to use the Toshiba dual H-\/bridge motor driver chip }{\pageref{TB6612FNG__Driver_8h}}{}
+\item\contentsline{section}{\mbox{\hyperlink{temperature__task_8cpp}{temperature\+\_\+task.\+cpp}} \\*File that contains the temperature task function file implementation }{\pageref{temperature__task_8cpp}}{}
+\item\contentsline{section}{\mbox{\hyperlink{temperature__task_8h}{temperature\+\_\+task.\+h}} \\*File containing header file for the temperature reading task function that attempts to detect flame-\/out conditions on the laser cutter using a D\+S18\+B20 Onewire (c) digital temprature sensor }{\pageref{temperature__task_8h}}{}
 \end{DoxyCompactList}

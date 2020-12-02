@@ -90,6 +90,9 @@ $(document).ready(function(){initNavTree('temperature__task_8h.html',''); initRe
 <div class="title">temperature_task.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>File containing header file for the temperature reading task function that attempts to detect flame-out conditions on the laser cutter using a DS18B20 Onewire (c) digital temprature sensor.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for temperature_task.h:</div>
@@ -119,8 +122,9 @@ const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>temperatu
 <tr class="separator:ae5d0001d4cc96f5e0c8b388de52cbe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>the header file for the temperature reading task function that attempts to detect flame-out conditions on the laser cutter using a DS18B20 Onewire (c) digital temeprature sensor. </p><dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa</dd></dl>
-<dl class="section date"><dt>Date</dt><dd>22 Nov 2020 Original file </dd></dl>
+<div class="textblock"><p>File containing header file for the temperature reading task function that attempts to detect flame-out conditions on the laser cutter using a DS18B20 Onewire (c) digital temprature sensor. </p>
+<dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Nov 10 2020 Original file </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac9ce0c5163f1f8ce710270b5e0ba2b11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9ce0c5163f1f8ce710270b5e0ba2b11">&#9670;&nbsp;</a></span>temperature_task()</h2>
@@ -139,7 +143,15 @@ const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>temperatu
 </div><div class="memdoc">
 
 <p>implements a task function to use digital temperature sensor like an industrial heat detector </p>
-<p>uses the OneWire library and DallasTemperature library to interface with the a DS18B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function. </p>
+<p>uses the OneWire library and DallasTemperature library to interface with the a DS18B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function.</p>
+<p>implements a task function to use digital temperature sensor like an industrial heat detector</p>
+<p>This task will interface with a DS18B20 Onewire (c) digital temperature sensor to detect sudden rises in temperature.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

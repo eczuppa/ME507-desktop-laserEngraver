@@ -1,5 +1,11 @@
 \hypertarget{safetySupervisor_8h}{}\doxysection{safety\+Supervisor.\+h File Reference}
 \label{safetySupervisor_8h}\index{safetySupervisor.h@{safetySupervisor.h}}
+
+
+Contains the safety supervisor header file that sets up the safety task. ~\newline
+  
+
+
 {\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
 Include dependency graph for safety\+Supervisor.\+h\+:
 % FIG 0
@@ -7,13 +13,25 @@ Include dependency graph for safety\+Supervisor.\+h\+:
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{safetySupervisor_8h_af56ade9b28a22f52f078c922df5bdd80}{safety\+\_\+task}} (void $\ast$p\+\_\+params)
-\begin{DoxyCompactList}\small\item\em Safet Supervising Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Safety Supervising Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{safetySupervisor_8h_a47324746d849fc00f1cfdc35247022f4}\label{safetySupervisor_8h_a47324746d849fc00f1cfdc35247022f4}} 
 const Tick\+Type\+\_\+t {\bfseries safety\+\_\+period} = 100
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the safety supervisor header file that sets up the safety task. ~\newline
+ 
+
+\begin{DoxyAuthor}{Author}
+Niko Banks, Matthew Carlson, Ethan Czuppa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 5 2020 Original file 
+\end{DoxyDate}
 
 
 \doxysubsection{Function Documentation}
@@ -25,7 +43,7 @@ const Tick\+Type\+\_\+t {\bfseries safety\+\_\+period} = 100
 
 
 
-Safet Supervising Task. 
+Safety Supervising Task. 
 
 This task monitors incoming results from our temperature sensor and limit switches and if an error condition occurs this task sets different flags to make safety stuff happen e.\+g. turning off the laser, turning on the fan before cutting begins, and not letting the cutting start until the top of the laser\textquotesingle{}s enclosure is closed. Fan\+: The fan will turn on when the laser turns on (communicated through a flag). Then, when the laser is off for more than 3 seconds in a row, the fan will turn off. Limit\+: 
 \begin{DoxyParams}{Parameters}

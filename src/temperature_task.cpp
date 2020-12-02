@@ -10,7 +10,7 @@
 
 /** @brief   Task to detect flame-out conditions on the laser. 
  *  @details This task will interface with a DS18B20 Onewire (c) digital 
- *           temprature sensor to detect sudden rises in temperature.
+ *           temperature sensor to detect sudden rises in temperature.
  * 
  *  @param   p_params A pointer to function parameters which we don't use.
  */
@@ -26,11 +26,9 @@ void temperature_task (void* p_params)
     for (;;)
     {
        // State machine pseudo code
-       // state 0: get data/wait for conversion
-       // state 1: look for alarm flag (on high temp side) - if alarm set flag in share to safety task
-       // state 2: if no alarm get temperature and store in something (two vars one for current and last to do rate of rise) use task delay period as delta T(?)
-       //         
-       // state 3: 
+       // state 0: wait for conversion - if data transistion to state 1
+       // state 1: get data and calculate the rate of rise over the measured time period with a StopWatch. and queue data to safety supervisor go back to state 0.
+       
 
         vTaskDelay(temperature_task_period);
     }

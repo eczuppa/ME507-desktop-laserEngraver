@@ -1,11 +1,8 @@
-/** @file       safetySupervisor.cpp safety task function. 
- *  @brief      File that contains the safety task function file implementation.
- *              Monitors the temperature sensor and has a state machine to have the 
- *              fan turn on when the laser is on and making sure the fan stays on 
- *              for three seconds after the laser turns off
+/** @file safetySupervisor.cpp safety task function. 
  *
  *  @author  Niko Banks, Matthew Carlson, Ethan Czuppa
- *  @date    Nov 5 2020 Original file
+ * 
+ *  @date    05 Nov 2020 Original file
  */
 
 #include "libraries&constants.h"
@@ -16,12 +13,14 @@ extern Share<bool> fan_state;
 Share<uint8_t> warning_code ("Safety Event Flag");
 
 
-/** @brief   Safety supervising task set up
- *  @details This task monitors incoming results from the temperature sensor and flags from the control task
- *           that say when the laser is turned on or turned off. If the temperature sensor detects a flame
- *           this task will set a flag that can be used to turn off the later. The fan will turn on when 
- *           the laser turns on. When the laser is off for more than 3 seconds in a row, the fan will turn off.
- *           
+/** @brief   Safety Supervising Task. 
+ *  @details This task monitors incoming results from our temperature sensor and limit switches and 
+ *           if an error condition occurs this task sets different flags to make safety stuff happen 
+ *           e.g. turning off the laser, turning on the fan before cutting begins, and not letting the 
+ *           cutting start until the top of the laser's enclosure is closed. 
+ *           Fan: The fan will turn on when the laser turns on (communicated through a flag). Then,
+ *           when the laser is off for more than 3 seconds in a row, the fan will turn off.
+ *           Limit: 
  *  @param   p_params A pointer to function parameters which we don't use.
  */
 void safety_task (void* p_params)
@@ -74,7 +73,7 @@ void safety_task (void* p_params)
             if (fan_flag == 0)                  // Flag is down (0)
             {
                 fan_switch = LOW;                   // Turn fan off
-                // Serial << "Fan is off, fan switch = " << fan_switch << "            " << '\r';
+                Serial << "Fan is off, fan switch = " << fan_switch << "            " << '\r';
             }
             
             else if (fan_flag == 1)             // Flag is up (1)
@@ -92,7 +91,7 @@ void safety_task (void* p_params)
                 if (++counter >= time_threshold)     // Compare "counter" to "timethreshhold"
                 {
                     state = 0;                  // If threshhold is met, reset back to State 0
-                    // Serial << "Final count = " << counter << "            " << endl;
+                    Serial << "Final count = " << counter << "            " << endl;
 
                     counter = 0;                // Reset counter so it can be used again  
                 }
@@ -100,7 +99,7 @@ void safety_task (void* p_params)
                 else
                 {
                     state = 1;                  // Stays in state 1
-                    // Serial << "Counting... fan_switch = " << fan_switch << "            " << '\r';
+                    Serial << "Counting... fan_switch = " << fan_switch << "            " << '\r';
                 }
             }
 
@@ -109,7 +108,7 @@ void safety_task (void* p_params)
                 fan_switch = HIGH;              // Turn fan on (this will at least happen the first time we go to state 1, because fan_flag = 1)
                 state = 1;                      // Keep in state 1
                 counter = 0;                    // Reset counter so it can be used again
-                // Serial << "Fan is on, fan_switch = " << fan_switch << "            " << '\r';
+                Serial << "Fan is on, fan_switch = " << fan_switch << "            " << '\r';
             }
         }
         

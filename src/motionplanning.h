@@ -67,6 +67,8 @@ class MotionPlanning
     float * get_ramp(void);
     // a method to delete the dynamically allocated memory when all of it has been queued up
     void deinit_ramp(void);
+    // get-er method for number of ramp sections in ramp
+    uint32_t get_ramp_len(void);
     // a method to change the current setpoint and feedrate after deiniting the ramp in preparation for generating a new ramp
     void update_setpoints(float current_setpoint, float current_feedrate);
     

@@ -90,6 +90,10 @@ $(document).ready(function(){initNavTree('safetySupervisor_8h.html',''); initRes
 <div class="title">safetySupervisor.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains the safety supervisor header file that sets up the safety task. <br  />
+  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for safetySupervisor.h:</div>
@@ -103,7 +107,7 @@ Include dependency graph for safetySupervisor.h:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af56ade9b28a22f52f078c922df5bdd80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="safetySupervisor_8h.html#af56ade9b28a22f52f078c922df5bdd80">safety_task</a> (void *p_params)</td></tr>
-<tr class="memdesc:af56ade9b28a22f52f078c922df5bdd80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safet Supervising Task.  <a href="safetySupervisor_8h.html#af56ade9b28a22f52f078c922df5bdd80">More...</a><br /></td></tr>
+<tr class="memdesc:af56ade9b28a22f52f078c922df5bdd80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safety Supervising Task.  <a href="safetySupervisor_8h.html#af56ade9b28a22f52f078c922df5bdd80">More...</a><br /></td></tr>
 <tr class="separator:af56ade9b28a22f52f078c922df5bdd80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -112,7 +116,12 @@ Variables</h2></td></tr>
 const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>safety_period</b> = 100</td></tr>
 <tr class="separator:a47324746d849fc00f1cfdc35247022f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains the safety supervisor header file that sets up the safety task. <br  />
+ </p>
+<dl class="section author"><dt>Author</dt><dd>Niko Banks, Matthew Carlson, Ethan Czuppa </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Nov 5 2020 Original file </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="af56ade9b28a22f52f078c922df5bdd80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af56ade9b28a22f52f078c922df5bdd80">&#9670;&nbsp;</a></span>safety_task()</h2>
 
@@ -129,7 +138,7 @@ const TickType_t&#160;</td><td class="memItemRight" valign="bottom"><b>safety_pe
       </table>
 </div><div class="memdoc">
 
-<p>Safet Supervising Task. </p>
+<p>Safety Supervising Task. </p>
 <p>This task monitors incoming results from our temperature sensor and limit switches and if an error condition occurs this task sets different flags to make safety stuff happen e.g. turning off the laser, turning on the fan before cutting begins, and not letting the cutting start until the top of the laser's enclosure is closed. Fan: The fan will turn on when the laser turns on (communicated through a flag). Then, when the laser is off for more than 3 seconds in a row, the fan will turn off. Limit: </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>

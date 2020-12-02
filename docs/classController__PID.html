@@ -106,7 +106,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6986d6b1e9d920c017209888fac70e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the PID control loop.  <a href="classController__PID.html#a6986d6b1e9d920c017209888fac70e5e">More...</a><br /></td></tr>
 <tr class="separator:a6986d6b1e9d920c017209888fac70e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53cee679e53f64f3cf9efd9b1ceae10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController__PID.html#aa53cee679e53f64f3cf9efd9b1ceae10">set_gain_PID</a> (float kP, float kI, float kD)</td></tr>
-<tr class="memdesc:aa53cee679e53f64f3cf9efd9b1ceae10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the controller's gain coefficient kP and kI in one method.  <a href="classController__PID.html#aa53cee679e53f64f3cf9efd9b1ceae10">More...</a><br /></td></tr>
+<tr class="memdesc:aa53cee679e53f64f3cf9efd9b1ceae10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the controller's gain coefficient kP, kI, and kD in one method.  <a href="classController__PID.html#aa53cee679e53f64f3cf9efd9b1ceae10">More...</a><br /></td></tr>
 <tr class="separator:aa53cee679e53f64f3cf9efd9b1ceae10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab961635023aaf8c659b47c504556aea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController__PID.html#ab961635023aaf8c659b47c504556aea6">set_gain_kP</a> (float gain_kP_new)</td></tr>
 <tr class="memdesc:ab961635023aaf8c659b47c504556aea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the controller's gain coefficient kP.  <a href="classController__PID.html#ab961635023aaf8c659b47c504556aea6">More...</a><br /></td></tr>
@@ -345,12 +345,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's gain coefficient kD. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gain_kD</td><td>The value for the controller's gain coefficient, kD </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>gain_kD The value for the controller's gain coefficient, kD </dd></dl>
 
 </div>
 </div>
@@ -370,12 +365,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's gain coefficient kI. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gain_kI</td><td>The value for the controller's gain coefficient, kI </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>gain_kI The value for the controller's gain coefficient, kI </dd></dl>
 
 </div>
 </div>
@@ -395,12 +385,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's gain coefficient kP. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gain_kP</td><td>The value for the controller's gain coefficient, kP </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>gain_kP The value for the controller's gain coefficient, kP </dd></dl>
 
 </div>
 </div>
@@ -420,12 +405,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the output of the control loop. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The value for the controller's desired velocity. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>output The value for the controller's desired velocity. </dd></dl>
 
 </div>
 </div>
@@ -445,12 +425,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's actual position command that comes from the encoder. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos_actual</td><td>The value for the controller's actual position. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>pos_actual The value for the controller's actual position. </dd></dl>
 
 </div>
 </div>
@@ -470,12 +445,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's desired position command that comes from the GCode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos_desired</td><td>The value for the controller's desired position. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>pos_desired The value for the controller's desired position. </dd></dl>
 
 </div>
 </div>
@@ -495,12 +465,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the position error of the control loop. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos_error</td><td>The value for the controller's position error. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>pos_error The value for the controller's position error. </dd></dl>
 
 </div>
 </div>
@@ -520,12 +485,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's actual position command that comes from the encoder. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos_actual</td><td>The value for the controller's actual position. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>pos_actual The value for the controller's actual position. </dd></dl>
 
 </div>
 </div>
@@ -545,12 +505,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
 </div><div class="memdoc">
 
 <p>Get the controller's desired velocity command that comes from the GCode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vel_desired</td><td>The value for the controller's desired velocity. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>vel_desired The value for the controller's desired velocity. </dd></dl>
 
 </div>
 </div>
@@ -664,11 +619,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>output</b></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the controller's gain coefficient kP and kI in one method. </p>
+<p>Set the controller's gain coefficient kP, kI, and kD in one method. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gain_kP_new</td><td>A new value for the controller's gain coefficient, kP </td></tr>
-    <tr><td class="paramname">gain_kI_new</td><td>A new value for the controller's gain coefficient, kI </td></tr>
+    <tr><td class="paramname">kP</td><td>The value for the controller's gain coefficient, kP </td></tr>
+    <tr><td class="paramname">kI</td><td>The value for the controller's gain coefficient, kI </td></tr>
+    <tr><td class="paramname">kD</td><td>The value for the controller's gain coefficient, kD </td></tr>
   </table>
   </dd>
 </dl>

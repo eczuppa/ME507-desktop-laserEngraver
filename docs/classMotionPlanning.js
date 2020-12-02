@@ -3,6 +3,7 @@ var classMotionPlanning =
     [ "MotionPlanning", "classMotionPlanning.html#ab77d73240b06317f3094028c8adc4b15", null ],
     [ "deinit_ramp", "classMotionPlanning.html#aacc8e431397a8d9b745d7182b86ed415", null ],
     [ "get_ramp", "classMotionPlanning.html#afdffcdab5159c9f57fbb72b17645b0ac", null ],
+    [ "get_ramp_len", "classMotionPlanning.html#ae86e8b35547c897b360a081d68d336df", null ],
     [ "init_ramp", "classMotionPlanning.html#a60f1b040d485df34cb53077441568f7b", null ],
     [ "ramp_generator", "classMotionPlanning.html#a547647e630d7c33b11ba73b08013f894", null ],
     [ "time_to_wait", "classMotionPlanning.html#a2ca16e87a3e5b8c82d747d4c3b103234", null ],

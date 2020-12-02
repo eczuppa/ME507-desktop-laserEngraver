@@ -89,6 +89,9 @@ $(document).ready(function(){initNavTree('temperature__task_8cpp.html',''); init
 <div class="title">temperature_task.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>File that contains the temperature task function file implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="temperature__task_8h_source.html">temperature_task.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for temperature_task.cpp:</div>
@@ -100,10 +103,14 @@ Include dependency graph for temperature_task.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">temperature_task</a> (void *p_params)</td></tr>
-<tr class="memdesc:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">implements a task function to use digital temperature sensor like an industrial heat detector  <a href="temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">More...</a><br /></td></tr>
+<tr class="memdesc:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task to detect flame-out conditions on the laser.  <a href="temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11">More...</a><br /></td></tr>
 <tr class="separator:ac9ce0c5163f1f8ce710270b5e0ba2b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>File that contains the temperature task function file implementation. </p>
+<dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Nov 10 2020 Original file </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac9ce0c5163f1f8ce710270b5e0ba2b11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9ce0c5163f1f8ce710270b5e0ba2b11">&#9670;&nbsp;</a></span>temperature_task()</h2>
 
@@ -120,8 +127,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>implements a task function to use digital temperature sensor like an industrial heat detector </p>
-<p>uses the OneWire library and DallasTemperature library to interface with the a DS18B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function. </p>
+<p>Task to detect flame-out conditions on the laser. </p>
+<p>implements a task function to use digital temperature sensor like an industrial heat detector</p>
+<p>This task will interface with a DS18B20 Onewire (c) digital temperature sensor to detect sudden rises in temperature.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -23,6 +23,8 @@ float $\ast$ \mbox{\hyperlink{classMotionPlanning_afdffcdab5159c9f57fbb72b17645b
 \begin{DoxyCompactList}\small\item\em get-\/er method to extract {\ttfamily \+\_\+output\+\_\+ramp} made by {\ttfamily \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator()}}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classMotionPlanning_aacc8e431397a8d9b745d7182b86ed415}{deinit\+\_\+ramp}} (void)
 \begin{DoxyCompactList}\small\item\em deletes the dynamically allocated ramp input array and sets up for the next ramp \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classMotionPlanning_ae86e8b35547c897b360a081d68d336df}{get\+\_\+ramp\+\_\+len}} (void)
+\begin{DoxyCompactList}\small\item\em get-\/er method for getting the length of the ramp {\ttfamily \+\_\+ramp\+\_\+sections} \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classMotionPlanning_a0f34b061518d2d9f7b3bd2f57f29e2ce}{update\+\_\+setpoints}} (float current\+\_\+setpoint, float current\+\_\+feedrate)
 \begin{DoxyCompactList}\small\item\em a set-\/er function to update feed and position setpoints \end{DoxyCompactList}\item 
 int16\+\_\+t $\ast$ \mbox{\hyperlink{classMotionPlanning_a2ca16e87a3e5b8c82d747d4c3b103234}{time\+\_\+to\+\_\+wait}} (void)
@@ -126,6 +128,19 @@ gets the pointer {\ttfamily \+\_\+output\+\_\+ramp} which points to the first el
 
 \begin{DoxyReturn}{Returns}
 {\ttfamily \+\_\+output\+\_\+ramp} the pointer to the first element in the ramp input dynamic array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMotionPlanning_ae86e8b35547c897b360a081d68d336df}\label{classMotionPlanning_ae86e8b35547c897b360a081d68d336df}} 
+\index{MotionPlanning@{MotionPlanning}!get\_ramp\_len@{get\_ramp\_len}}
+\index{get\_ramp\_len@{get\_ramp\_len}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{get\_ramp\_len()}{get\_ramp\_len()}}
+{\footnotesize\ttfamily uint32\+\_\+t Motion\+Planning\+::get\+\_\+ramp\+\_\+len (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+get-\/er method for getting the length of the ramp {\ttfamily \+\_\+ramp\+\_\+sections} 
+
+makes the length of the \+\_\+output\+\_\+ramp available to outside functions \begin{DoxyReturn}{Returns}
+{\ttfamily \+\_\+ramp\+\_\+sections} the class member data for the length of the ramp input (output\+\_\+ramp) 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}\label{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}} 
 \index{MotionPlanning@{MotionPlanning}!init\_ramp@{init\_ramp}}

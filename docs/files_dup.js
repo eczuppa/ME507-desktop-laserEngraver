@@ -39,7 +39,6 @@ var files_dup =
     [ "safetySupervisor.h", "safetySupervisor_8h.html", "safetySupervisor_8h" ],
     [ "serial.cpp", "serial_8cpp.html", "serial_8cpp" ],
     [ "serial.h", "serial_8h.html", "serial_8h" ],
-    [ "share_testing.h", "share__testing_8h_source.html", null ],
     [ "stopwatch.cpp", "stopwatch_8cpp.html", null ],
     [ "stopwatch.h", "stopwatch_8h.html", [
       [ "StopWatch", "classStopWatch.html", "classStopWatch" ]

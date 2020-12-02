@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parseintwithecho_227',['parseIntWithEcho',['../serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp'],['../serial_8h.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp']]]
+  ['now_5ftime_236',['now_time',['../classStopWatch.html#a96a1f78d9b986416369aa541cb5e60ee',1,'StopWatch']]]
 ];

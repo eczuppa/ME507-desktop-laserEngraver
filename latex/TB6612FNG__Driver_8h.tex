@@ -1,5 +1,10 @@
 \hypertarget{TB6612FNG__Driver_8h}{}\doxysection{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h File Reference}
 \label{TB6612FNG__Driver_8h}\index{TB6612FNG\_Driver.h@{TB6612FNG\_Driver.h}}
+
+
+This file contains the header for the class that contains necessary functions needed to use the Toshiba dual H-\/bridge motor driver chip.  
+
+
 {\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
 Include dependency graph for T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h\+:
 % FIG 0
@@ -13,15 +18,11 @@ class \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}}
 
 
 \doxysubsection{Detailed Description}
+This file contains the header for the class that contains necessary functions needed to use the Toshiba dual H-\/bridge motor driver chip. 
+
 \begin{DoxyAuthor}{Author}
-Ethan A. Czuppa
+Ethan A. Czuppa 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
-6 Nov 2020 Created Project and this file in parallel with doxygen comments for future documentation 
-
-7 Nov 2020 finished first version of motor driver, needs to be updated to accept more references since many inputs are predefined objects (pin names, other classes, etc. ) Also I need to figure out how to pass the instantiation of the hardware timer class to through this class (e.\+g. T\+I\+M1, T\+I\+M2, T\+I\+M3, etc) so that the timer can be changed as needed instead of being set in the header file as it is currently. 
-
-10 Nov 2020 Got help from Dr. Ridgely for how to correctly pass timer objects into this class and was able to get it to the level of portability I desired. Motors work, though they are not particularly quiet due to being contained in what amounts to 3D printed echo chambers, but the slight increase in complexity for more capability than {\ttfamily analog\+Write()} was worth the effort. Especially given the added guarantee that pins are correctly being put in their alternate function modes. 
-
-15 Nov 2020 Added brake method to try to do power and brake vs power and coast driving style for the motors. This was taken from sparkfun\textquotesingle{}s arduino Library for the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} from\+: \href{https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/blob/master/src/SparkFun_TB6612.cpp}{\texttt{ https\+://github.\+com/sparkfun/\+Spark\+Fun\+\_\+\+T\+B6612\+F\+N\+G\+\_\+\+Arduino\+\_\+\+Library/blob/master/src/\+Spark\+Fun\+\_\+\+T\+B6612.\+cpp}} However, I am not sure how to implement this method into our P\+ID controller... perhaps something that is watching for the error to drop to a certain threshold and then instead of settting the P\+WM singal to 0 and allowing the motor to coast, the short brake method is called. Also, given its name -\/ short brake -\/ in the truth table I am skeptical of how effective it would be in the first place 
+2020-\/Nov-\/6 Original File 
 \end{DoxyDate}

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['quad_5fencoder_106',['Quad_Encoder',['../classQuad__Encoder.html',1,'Quad_Encoder'],['../classQuad__Encoder.html#ab6dc44da124e15d90d4a827438c417e6',1,'Quad_Encoder::Quad_Encoder()']]],
-  ['quad_5fencoder_2ecpp_107',['Quad_Encoder.cpp',['../Quad__Encoder_8cpp.html',1,'']]],
-  ['quad_5fencoder_2eh_108',['Quad_Encoder.h',['../Quad__Encoder_8h.html',1,'']]]
+  ['parseintwithecho_109',['parseIntWithEcho',['../serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp'],['../serial_8h.html#a83e2559905ce06de071389dfb6ea3b97',1,'parseIntWithEcho(Stream &amp;stream):&#160;serial.cpp']]]
 ];

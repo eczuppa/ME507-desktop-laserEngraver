@@ -104,7 +104,7 @@ Functions</h2></td></tr>
 Share&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>warning_code</b> (&quot;Safety Event Flag&quot;)</td></tr>
 <tr class="separator:a15425b9d9010c17f041d4871a04698e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af56ade9b28a22f52f078c922df5bdd80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="safetySupervisor_8cpp.html#af56ade9b28a22f52f078c922df5bdd80">safety_task</a> (void *p_params)</td></tr>
-<tr class="memdesc:af56ade9b28a22f52f078c922df5bdd80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safet Supervising Task.  <a href="safetySupervisor_8cpp.html#af56ade9b28a22f52f078c922df5bdd80">More...</a><br /></td></tr>
+<tr class="memdesc:af56ade9b28a22f52f078c922df5bdd80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safety Supervising Task.  <a href="safetySupervisor_8cpp.html#af56ade9b28a22f52f078c922df5bdd80">More...</a><br /></td></tr>
 <tr class="separator:af56ade9b28a22f52f078c922df5bdd80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -134,7 +134,7 @@ Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fan_st
       </table>
 </div><div class="memdoc">
 
-<p>Safet Supervising Task. </p>
+<p>Safety Supervising Task. </p>
 <p>This task monitors incoming results from our temperature sensor and limit switches and if an error condition occurs this task sets different flags to make safety stuff happen e.g. turning off the laser, turning on the fan before cutting begins, and not letting the cutting start until the top of the laser's enclosure is closed. Fan: The fan will turn on when the laser turns on (communicated through a flag). Then, when the laser is off for more than 3 seconds in a row, the fan will turn off. Limit: </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>

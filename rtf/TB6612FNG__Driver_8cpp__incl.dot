@@ -3,9 +3,9 @@ digraph "TB6612FNG_Driver.cpp"
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="TB6612FNG_Driver.cpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="TB6612FNG_Driver.cpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This file implements the TB6612FNG class for the Toshiba dual H-bridge motor driver chip."];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="TB6612FNG_Driver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TB6612FNG__Driver_8h.html",tooltip=" "];
+  Node2 [label="TB6612FNG_Driver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TB6612FNG__Driver_8h.html",tooltip="This file contains the header for the class that contains necessary functions needed to use the Toshi..."];
   Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="libraries&constants.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$libraries_6constants_8h.html",tooltip="File containing the header which contains the definition of multiple constants and libraries that wil..."];
   Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

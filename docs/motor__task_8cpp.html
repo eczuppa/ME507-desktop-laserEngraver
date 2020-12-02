@@ -84,12 +84,14 @@ $(document).ready(function(){initNavTree('motor__task_8cpp.html',''); initResiza
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">motor_task.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This file is the motor driver task function file implementation. It gets a PWM signal from the controller via a queue and then feeds this into a motor driver instance (which this code also creates).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for motor_task.cpp:</div>
@@ -106,26 +108,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a3417bcc202913e6dee899ed871496a54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__task_8cpp.html#a3417bcc202913e6dee899ed871496a54">motor_B_driver_task</a> (void *p_params)</td></tr>
 <tr class="memdesc:a3417bcc202913e6dee899ed871496a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task to run the right motor, motor B (Motor 2)  <a href="motor__task_8cpp.html#a3417bcc202913e6dee899ed871496a54">More...</a><br /></td></tr>
 <tr class="separator:a3417bcc202913e6dee899ed871496a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a6248de5e4c977016354e0ff265331187"><td class="memItemLeft" align="right" valign="top"><a id="a6248de5e4c977016354e0ff265331187"></a>
-Queue&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>queue_PWM_motor_A</b></td></tr>
-<tr class="separator:a6248de5e4c977016354e0ff265331187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4feb32cd848e45f4c8f88c521226939"><td class="memItemLeft" align="right" valign="top"><a id="aa4feb32cd848e45f4c8f88c521226939"></a>
-Queue&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>queue_PWM_motor_B</b></td></tr>
-<tr class="separator:aa4feb32cd848e45f4c8f88c521226939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>is the motor driver task function file implementation. It gets a PWM signal from the controller via a queue and then feeds this into a motor driver instance (which this code also creates).</p>
+<div class="textblock"><p>This file is the motor driver task function file implementation. It gets a PWM signal from the controller via a queue and then feeds this into a motor driver instance (which this code also creates). </p>
 <dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa </dd>
 <dd>
 Matthew Carlson</dd></dl>
-<dl class="section date"><dt>Date</dt><dd>11 Nov 2020 Created files to test motor driver and encoder code </dd>
-<dd>
-20 Nov 2020 Wrote first drafts of motor A and motor B driver tasks NOTE - Ethan your testing code is at the very bottom of the code </dd>
-<dd>
-21 Nov 2020 Updated the timing and timers (TIM3) and reviewed the code </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Nov 11 2020 Original file </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="adec2b16eb5323a365c83e6992228c7a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adec2b16eb5323a365c83e6992228c7a4">&#9670;&nbsp;</a></span>motor_A_driver_task()</h2>
