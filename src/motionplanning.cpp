@@ -246,3 +246,14 @@ int16_t * MotionPlanning::time_to_wait(void)
 {
     return _output_ramp_time;
 }
+
+/**  @brief get-er method for getting the length of the ramp @c _ramp_sections
+ *   @details makes the length of the _output_ramp available to outside functions
+ *   @returns @c _ramp_sections the class member data for the length of the ramp input (output_ramp)
+ * 
+ */
+
+uint32_t MotionPlanning::get_ramp_len(void)
+{
+    return _ramp_sections;
+}
