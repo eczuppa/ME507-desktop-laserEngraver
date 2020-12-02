@@ -9,10 +9,10 @@
 #include <Arduino.h>
 
 /** @brief   TB6612FNG Constructor
- *  @details Saves instances of class memeber data for all required input pins to run one H-bridge on the
+ *  @details Saves instances of class member data for all required input pins to run one H-bridge on the
  *           motor driver chip and brings the h-bridge into the enabled, LOW state were all outputs are 
  *           zeroed out to ensure nothing starts moving unexpectedly. Also sets up the hardware timer 
- *           to send out PWM pulses at 20kHz (so motors are quiet) and sets the intial duty_cylce to zero.
+ *           to send out PWM pulses at 20kHz (so motors are quiet) and sets the initial duty_cylce to zero.
  *  @param   _standby_pin the digital pin that send the enable/disable singal to the dual H-bridge
  *  @param   _motor_dir_pin_1 the digital pin that maps to the IN1 motor direction input on 1 of the H-bridges
  *  @param   _motor_dir_pin_2 the digital pin that maps to the IN2 motor direction input on 1 of the H-bridges
@@ -29,12 +29,12 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
     _pwm_input_pin = a_pwm_pin;
     
 
-    // Initalize Standby and Motor Direction digital pins
+    // Initialize Standby and Motor Direction digital pins
     pinMode(_standby_pin, OUTPUT);
     pinMode(_motor_dir_pin_1, OUTPUT);
     pinMode(_motor_dir_pin_2, OUTPUT);
 
-    // Intialize One of the H-bridge drivers on the chip
+    // Initialize One of the H-bridge drivers on the chip
     digitalWrite(_standby_pin, HIGH);      // Enable H-bridge
     digitalWrite(_motor_dir_pin_1, LOW);   // Disable Motor Direction Pin 1
     digitalWrite(_motor_dir_pin_2, LOW);   // Disable Motor Direction Pin 2
@@ -64,7 +64,7 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
         duty_cycle = -100;
     }
 
-    // sets motor direction based on input dutycyle and u_dutycycle for HardwareTimer API (expects 0 to 100%)
+    // sets motor direction based on input duty cycle and u_dutycycle for HardwareTimer API (expects 0 to 100%)
     
     // Spin Clockwise
     if (duty_cycle < 0)

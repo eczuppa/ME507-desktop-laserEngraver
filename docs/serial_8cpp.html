@@ -28,7 +28,7 @@
    <div id="projectname">DigitalCarpenter - Lite
    &#160;<span id="projectnumber">Version 0.01</span>
    </div>
-   <div id="projectbrief">A Nucleo L476RG based CNC desktop CoreXY Laser Engraver</div>
+   <div id="projectbrief">A Nucleo L476RG based CNC Desktop CoreXY Laser Cutter &amp; Engraver</div>
   </td>
  </tr>
  </tbody>
@@ -84,13 +84,18 @@ $(document).ready(function(){initNavTree('serial_8cpp.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">serial.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for serial.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="serial_8cpp__incl.png" border="0" usemap="#serial_8cpp" alt=""/></div>
+</div>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8e69e07806940f62fe031d0ed54dc7af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#a8e69e07806940f62fe031d0ed54dc7af">task_read_serial</a> (void *p_params)</td></tr>
@@ -99,8 +104,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a899c404f96852d81ce663ccd85a6e67f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#a899c404f96852d81ce663ccd85a6e67f">task_print_serial</a> (void *p_params)</td></tr>
 <tr class="memdesc:a899c404f96852d81ce663ccd85a6e67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which prints any string that is sent to the chars_to_print queue.  <a href="serial_8cpp.html#a899c404f96852d81ce663ccd85a6e67f">More...</a><br /></td></tr>
 <tr class="separator:a899c404f96852d81ce663ccd85a6e67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eeb4b02d41956bc5ef7d1decae57731"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8cpp.html#a9eeb4b02d41956bc5ef7d1decae57731">print_serial</a> (String printed_string)</td></tr>
-<tr class="memdesc:a9eeb4b02d41956bc5ef7d1decae57731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which loads the print queue with something to print.  <a href="serial_8cpp.html#a9eeb4b02d41956bc5ef7d1decae57731">More...</a><br /></td></tr>
+<tr class="memitem:a9eeb4b02d41956bc5ef7d1decae57731"><td class="memItemLeft" align="right" valign="top"><a id="a9eeb4b02d41956bc5ef7d1decae57731"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>print_serial</b> (String printed_string)</td></tr>
 <tr class="separator:a9eeb4b02d41956bc5ef7d1decae57731"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb1d7dd7e7cedb31a0840e8d1360f1df"><td class="memItemLeft" align="right" valign="top"><a id="adb1d7dd7e7cedb31a0840e8d1360f1df"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_serial</b> (float printed_float)</td></tr>
@@ -150,35 +155,11 @@ Ethan Czuppa </dd></dl>
 <p>Read an integer from a serial device, echoing input and blocking. </p>
 <p>This function reads an integer which is typed by a user into a serial device. It uses the Arduino function <code>readBytes()</code>, which blocks the task which calls this function until a character is read. When any character is received, it is echoed through the serial port so the user can see what was typed. Only decimal integers are supported; negative integers beginning with a single <code>-</code> sign or positive ones with a <code>+</code> will work.</p>
 <p><b>NOTE:</b> The serial device must have its timeout set to a very long time, or this function will malfunction. A recommended call: </p><div class="fragment"><div class="line">Serial.setTimeout (0xFFFFFFFF);</div>
-</div><!-- fragment --><p> Assuming that the serial port named <code>Serial</code> is being used. </p><dl class="params"><dt>Parameters</dt><dd>
+</div><!-- fragment --><p> Assuming that the serial port named <code>Serial</code> is being used.</p>
+<p><b>NOTE:</b> This function is only used for testing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>The serial device such as <code>Serial</code> used to communicate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9eeb4b02d41956bc5ef7d1decae57731"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eeb4b02d41956bc5ef7d1decae57731">&#9670;&nbsp;</a></span>print_serial()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void print_serial </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>printed_string</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Task which loads the print queue with something to print. </p>
-<p>This function adds things to the printing queue which will be printed by the <code>task_print_serial</code> task function. The function is overloaded to allow for a variety of input types. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
   </table>
   </dd>
 </dl>
@@ -234,7 +215,6 @@ Ethan Czuppa </dd></dl>
   </table>
   </dd>
 </dl>
-<p>Set each character in static char <code>line</code> to match our test string, just like it would in the parser (once that's finished)</p>
 
 </div>
 </div>
@@ -255,7 +235,8 @@ Ethan Czuppa </dd></dl>
 </div><div class="memdoc">
 
 <p>Task which interacts with a user. </p>
-<p>This task demonstrates how to use a FreeRTOS task for interacting with some user while other more important things are going on. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This task demonstrates how to use a FreeRTOS task for interacting with some user while other more important things are going on. <b>NOTE:</b> This function is only used for testing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p_params</td><td>A pointer to function parameters which we don't use. </td></tr>
   </table>

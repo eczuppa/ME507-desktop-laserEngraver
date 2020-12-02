@@ -1,6 +1,5 @@
 var serial_8cpp =
 [
-    [ "TESTING_WITHOUT_PYTHON", "serial_8cpp.html#a544068359232ee9fa75ae36a4aac3580", null ],
     [ "parseIntWithEcho", "serial_8cpp.html#a83e2559905ce06de071389dfb6ea3b97", null ],
     [ "print_serial", "serial_8cpp.html#aa0938d040bad68dea233e37e90ca0540", null ],
     [ "print_serial", "serial_8cpp.html#aad5712b45b332237de4d3ff4fe55a7ae", null ],

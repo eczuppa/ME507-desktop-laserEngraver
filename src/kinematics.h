@@ -1,7 +1,7 @@
 /** @file       kinematics.h the interface for the kinematics class that wil translate GCODE inputs into a usable 
  *              type for the control loop
  *  @details    Uses the appropriate kinematic equations to relate Gcode X,Y positions and F feedrate to values of 
- *              the same type as the motor encoders output. This transfomration significantly increases the ease of 
+ *              the same type as the motor encoders output. This transformation significantly increases the ease of 
  *              controlling the motors and only requires the proper transformation of the desired target positions, 
  *              velocities, etc. from the Gcode. CoreXY concepts used from Ilan E. Moyer - one of the earlier authors 
  *              of CoreXY implementation and theory his website is available here: https://corexy.com/theory.html
@@ -16,7 +16,7 @@
  */
 
 
-/** @brief   Class which contains functions to convert from desited global coordinates to motor commands.
+/** @brief   Class which contains functions to convert from cartesian global coordinates to motor commands.
  *  @details This class allows us to convert positions in X and Y and absolute speed (Feedrate) F
  *           into motor-specific (A and B) positions and feedrates for controling the laser head. 
  */
@@ -62,7 +62,7 @@ class Kinematics_coreXY
 
     // Methods
     
-    // Route inputted floats from array to poper class member data
+    // Route inputted floats from array to popper class member data
     void update_XYF(decode decoder);                                // takes in new _current X Y and F values and sends the old ones to _last
     void reset_XYF(void);                                           // sets the _last X,Y,F data to 0 for the home position in preparation to run another file
 
@@ -81,6 +81,9 @@ class Kinematics_coreXY
     float get_B_setpoint(void);
     float get_F_A(void);
     float get_F_B(void);
+
+    // save space and variables by making MotionPlanning a friend of Kinematic_CoreXY
+    friend class MotionPlanning;
 
 
 };

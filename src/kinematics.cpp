@@ -3,8 +3,9 @@
  *              into desired A and B positions and velocities for motors A and B in a CoreXY 
  *              model. 
  *
- *  @author  Niko Banks
  *  @author  Ethan A Czuppa
+ *  @author  Niko Banks
+ * 
  *  @date    Nov 16 2020  Original File
  *  @date    Nov 18 2020 added basic functionality
  * 
@@ -26,7 +27,7 @@ Kinematics_coreXY::Kinematics_coreXY()
 }
 // Methods
     
-// save current gcode X command to class member data
+// save current Gcode X command to class member data
 void Kinematics_coreXY::update_XYF(decode decoder)
 {
     //Send current values to be the new last values
@@ -34,26 +35,25 @@ void Kinematics_coreXY::update_XYF(decode decoder)
     _Y_last = _Y_current;
     _F_last = _F_current;
 
-    //Get new current values from the gcode decoder 
+    //Get new current values from the Gcode decoder 
     _X_current = decoder._XYSFval.X;
     _Y_current = decoder._XYSFval.Y;
     _F_current = decoder._XYSFval.F;
 }
 
 
-// Takes X and Y position commands and returns Motor A setpoint
+// Takes X and Y position commands and calculates Motor A setpoint
 void Kinematics_coreXY::transform_A(void)
 {
     _A_setpoint = _X_current - _Y_current;
-    // return (_A_setpoint);
+
 }
 
 
-// Takes X and Y position commands and creates Motor B setpoint
+// Takes X and Y position commands and calculates Motor B setpoint
 void Kinematics_coreXY::transform_B(void)
 {
     _B_setpoint = -_X_current - _Y_current;
-    // return (_B_setpoint);
 }  
 
 
@@ -74,33 +74,13 @@ void Kinematics_coreXY::transform_F(void)
     // Transform X and Y components of the dir_vector scaled by F to velocity setpoints for motor A and B.
     _A_feed =   dir_Vector(1,1) - dir_Vector(1,2);
     _B_feed = - dir_Vector(1,1) - dir_Vector(1,2);
-    // return _A_feed; 
 }  
 
-
-// void Kinematics_coreXY::transform_F_B(void)
-// {
-//     // Gets the vector components of the laser velocity between the current and last points
-//     // and returns the transformed A and B feed rates.
-//     Matrix<1,2> dir_Vector;
-//     //Matrix<1,2> feed_Vector;
-//     float magnitude;
-//     dir_Vector.Fill(0);
-//     //feed_Vector.Fill(0);
-//     magnitude = sqrt(pow((_X_current - _X_last),2) + pow((_Y_current - _Y_last),2));  // Find distance between points
-//     // Make unit vector and apply the magnitude of the feed rate to it (Cartesian coordinates)
-//     dir_Vector(1,1) = ((_X_current - _X_last)*_F_current)/magnitude;
-//     dir_Vector(1,2) = ((_Y_current - _Y_last)*_F_current)/magnitude;
-//     // Transform X and Y components of the dir_vector scaled by F to velocity setpoints for motor A and B.
-    
-    
-//     // return _B_feed;
-// }
 
 
 /** @brief      Function which runs the kinematics functions in succession
  *  @details    This function runs the kinematics functions to take a new X Y and F value from the 
- *              gcode interpreter and convert them into the motor A and B positions and feedrates. 
+ *              Gcode interpreter and convert them into the motor A and B positions and feedrates. 
  */
 void Kinematics_coreXY::calculate_kinematics(decode decoder)
 {
@@ -116,7 +96,7 @@ void Kinematics_coreXY::calculate_kinematics(decode decoder)
 void Kinematics_coreXY::reset_XYF(void)
 {
     // Create Zeroth line for what the home point would be
-    // Allows user to run multiple files and reset all last GCODE values to 0 
+    // Allows user to run multiple files and reset all last Gcode values to 0 
     // when the current file reaches the end and the laser is now ready for a new file
     _X_last = 0;
     _Y_last = 0;
@@ -125,6 +105,13 @@ void Kinematics_coreXY::reset_XYF(void)
 
 
 //Get-er functions
+
+/** @brief 
+ *  @details
+ * 
+ * 
+ */
+
 float Kinematics_coreXY::get_A_setpoint(void)
 {
     return _A_setpoint;
