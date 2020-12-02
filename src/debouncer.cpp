@@ -39,7 +39,6 @@ Debouncer::Debouncer (uint8_t pin, uint8_t threshold_constructor)
 }
 
 
-
 // Define "update" function
 bool Debouncer::update (void)
 {

@@ -1,6 +1,5 @@
-/** @file encoder_task.cpp is the encoder task function file implementation.
- *        It reads values from the encoder class and sends a position, velocity
- *        delta time to the controller via shares.
+/** @file       encoder_task.cpp 
+ *  @brief      File that contains encoder task function file implementation.
  *  
  *  @author Ethan A Czuppa
  *  @author Matthew Carlson
@@ -12,6 +11,7 @@
 
 #include "libraries&constants.h"
 
+///@cond
 // Set up shares and queues
 
 // // Queues for Encoder A
@@ -34,6 +34,8 @@ extern Share<uint32_t> encoder_A_dt;
 extern Share<float> encoder_B_pos;
 extern Share<float> encoder_B_velocity;
 extern Share<uint32_t> encoder_B_dt;
+
+///@endcond
 
 // Encoder A Task
 

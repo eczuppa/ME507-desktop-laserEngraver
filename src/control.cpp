@@ -4,15 +4,17 @@
  *  @author Matthew Carlson
  * 
  *  @date  2020-Nov-10 Original file
- *  @date 2020-Nov-11 Added control loop drafts
- *  @date 2020-Nov-13 Added set and get methods for gains
- *  @date 2020-Nov-14 Added comments after talking with Ethan
- *  @date 2020-Nov-15 Working on adding in the Velocity and Position inputs
- *  @date 2020-Nov-17 Testing using a single line of GCode, fixed and cleaned up variables
- *  @date 2020-Nov-20 Cleaned up old comments and organized the code, it should now be ready for integration and testing
- *  @date 2020-Dec-20 Added output saturation clamp and cleaned up comments
- * 
  */
+
+
+//  *  @date 2020-Nov-11 Added control loop drafts
+//  *  @date 2020-Nov-13 Added set and get methods for gains
+//  *  @date 2020-Nov-14 Added comments after talking with Ethan
+//  *  @date 2020-Nov-15 Working on adding in the Velocity and Position inputs
+//  *  @date 2020-Nov-17 Testing using a single line of GCode, fixed and cleaned up variables
+//  *  @date 2020-Nov-20 Cleaned up old comments and organized the code, it should now be ready for integration and testing
+//  *  @date 2020-Dec-20 Added output saturation clamp and cleaned up comments
+
 
 
 /** @brief   Class which implements a PID controller for a motor control
@@ -45,7 +47,6 @@
  *  @param   vel_actual_initial This is the initial value of the velocity gotten from the Encoder
  *  @param   delta_time_initial This is the initial value of the delta time gotten from the Encoder
  */
-
 Controller_PID::Controller_PID (float kP, float kI, float kD, float pos_desired_initial, float pos_actual_initial, float vel_desired_initial, float vel_actual_initial, float delta_time_initial)
 {
     // Save the parameter and initialize it as "gain_KP" 
@@ -172,8 +173,6 @@ void Controller_PID::control_loop_PID ()
 
 
 }
-
-
 
 
 /** @brief   Set the controller's gain coefficient kP and kI in one method

@@ -1,4 +1,5 @@
-/** @file encoder_task.h is the encoder task function file header
+/** @file       encoder_task.h 
+ *  @brief      File that contains the header for encoder_task.cpp.
  * 
  *  @author Matthew Carlson
  *  @author Ethan Czuppa
@@ -13,16 +14,22 @@
 
 #include "libraries&constants.h"
 
-// Encoder A Task
-void encoder_A_task (void* p_params);
-
+///@cond
+//Encoder A task period
 const TickType_t encoder_period_A = 2;          // According to the task diagram this is only 0.3 ms
 
+//Encoder B task period
+const TickType_t encoder_period_B = 2;          // According to the task diagram this is only 0.3 ms
+
+///@endcond
+
+// Encoder A Task
+void encoder_A_task (void* p_params);
 
 // Encoder B Task
 void encoder_B_task (void* p_params);
 
-const TickType_t encoder_period_B = 2;          // According to the task diagram this is only 0.3 ms
+
 
 
 
