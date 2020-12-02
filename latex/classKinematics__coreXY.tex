@@ -31,18 +31,14 @@ void {\bfseries transform\+\_\+F} (void)
 \item 
 void \mbox{\hyperlink{classKinematics__coreXY_a6b06e6491aedde8c9fe25d5390145475}{calculate\+\_\+kinematics}} (\mbox{\hyperlink{classdecode}{decode}} decoder)
 \begin{DoxyCompactList}\small\item\em Function which runs the kinematics functions in succession. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classKinematics__coreXY_a18af37548d2f11b8468642f69db339c2}\label{classKinematics__coreXY_a18af37548d2f11b8468642f69db339c2}} 
-float {\bfseries get\+\_\+\+A\+\_\+setpoint} (void)
-\item 
-\mbox{\Hypertarget{classKinematics__coreXY_a6fb06a3f54fc85a678b1025907987c46}\label{classKinematics__coreXY_a6fb06a3f54fc85a678b1025907987c46}} 
-float {\bfseries get\+\_\+\+B\+\_\+setpoint} (void)
-\item 
-\mbox{\Hypertarget{classKinematics__coreXY_ac86e14df5eb96ac0613470a578285fb4}\label{classKinematics__coreXY_ac86e14df5eb96ac0613470a578285fb4}} 
-float {\bfseries get\+\_\+\+F\+\_\+A} (void)
-\item 
-\mbox{\Hypertarget{classKinematics__coreXY_a66711cd33df043f676236f2eaed7db70}\label{classKinematics__coreXY_a66711cd33df043f676236f2eaed7db70}} 
-float {\bfseries get\+\_\+\+F\+\_\+B} (void)
-\end{DoxyCompactItemize}
+float \mbox{\hyperlink{classKinematics__coreXY_a18af37548d2f11b8468642f69db339c2}{get\+\_\+\+A\+\_\+setpoint}} (void)
+\begin{DoxyCompactList}\small\item\em Get the A setpoint from protected class data. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classKinematics__coreXY_a6fb06a3f54fc85a678b1025907987c46}{get\+\_\+\+B\+\_\+setpoint}} (void)
+\begin{DoxyCompactList}\small\item\em Get the B setpoint from protected class data. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classKinematics__coreXY_ac86e14df5eb96ac0613470a578285fb4}{get\+\_\+\+F\+\_\+A}} (void)
+\begin{DoxyCompactList}\small\item\em Get the A feed rate from protected class data. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classKinematics__coreXY_a66711cd33df043f676236f2eaed7db70}{get\+\_\+\+F\+\_\+B}} (void)
+\begin{DoxyCompactList}\small\item\em Get the B feed rate from protected class data. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -87,7 +83,7 @@ class {\bfseries Motion\+Planning}
 \doxysubsection{Detailed Description}
 Class which contains functions to convert from cartesian global coordinates to motor commands. 
 
-This class allows us to convert positions in X and Y and absolute speed (Feedrate) F into motor-\/specific (A and B) positions and feedrates for controling the laser head. 
+This class allows us to convert positions in X and Y and absolute speed (Feedrate) F into motor-\/specific (A and B) positions and feedrates for controling the laser head, assuming a Core\+XY belt system. The Core\+XY transformation significantly increases the ease of controlling the motors and only requires the proper transformation of the desired target positions, velocities, etc. from the Gcode. Core\+XY concepts used from Ilan E. Moyer -\/ one of the earlier authors of Core\+XY implementation and theory his website is available here\+: \href{https://corexy.com/theory.html}{\texttt{ https\+://corexy.\+com/theory.\+html}} 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classKinematics__coreXY_ad043c98fa09dcbae8dff32581247f6eb}\label{classKinematics__coreXY_ad043c98fa09dcbae8dff32581247f6eb}} 
@@ -113,7 +109,47 @@ This constructor function runs a reset on the \+\_\+last values in the class mem
 
 Function which runs the kinematics functions in succession. 
 
-This function runs the kinematics functions to take a new X Y and F value from the Gcode interpreter and convert them into the motor A and B positions and feedrates. 
+This function runs the kinematics functions to take a new X Y and F value from the Gcode interpreter and convert them into the motor A and B positions and feedrates. \mbox{\Hypertarget{classKinematics__coreXY_a18af37548d2f11b8468642f69db339c2}\label{classKinematics__coreXY_a18af37548d2f11b8468642f69db339c2}} 
+\index{Kinematics\_coreXY@{Kinematics\_coreXY}!get\_A\_setpoint@{get\_A\_setpoint}}
+\index{get\_A\_setpoint@{get\_A\_setpoint}!Kinematics\_coreXY@{Kinematics\_coreXY}}
+\doxysubsubsection{\texorpdfstring{get\_A\_setpoint()}{get\_A\_setpoint()}}
+{\footnotesize\ttfamily float Kinematics\+\_\+core\+X\+Y\+::get\+\_\+\+A\+\_\+setpoint (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the A setpoint from protected class data. 
+
+This function retrieves the A position value out of the class to be used elsewhere. \mbox{\Hypertarget{classKinematics__coreXY_a6fb06a3f54fc85a678b1025907987c46}\label{classKinematics__coreXY_a6fb06a3f54fc85a678b1025907987c46}} 
+\index{Kinematics\_coreXY@{Kinematics\_coreXY}!get\_B\_setpoint@{get\_B\_setpoint}}
+\index{get\_B\_setpoint@{get\_B\_setpoint}!Kinematics\_coreXY@{Kinematics\_coreXY}}
+\doxysubsubsection{\texorpdfstring{get\_B\_setpoint()}{get\_B\_setpoint()}}
+{\footnotesize\ttfamily float Kinematics\+\_\+core\+X\+Y\+::get\+\_\+\+B\+\_\+setpoint (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the B setpoint from protected class data. 
+
+This function retrieves the B position value out of the class to be used elsewhere. \mbox{\Hypertarget{classKinematics__coreXY_ac86e14df5eb96ac0613470a578285fb4}\label{classKinematics__coreXY_ac86e14df5eb96ac0613470a578285fb4}} 
+\index{Kinematics\_coreXY@{Kinematics\_coreXY}!get\_F\_A@{get\_F\_A}}
+\index{get\_F\_A@{get\_F\_A}!Kinematics\_coreXY@{Kinematics\_coreXY}}
+\doxysubsubsection{\texorpdfstring{get\_F\_A()}{get\_F\_A()}}
+{\footnotesize\ttfamily float Kinematics\+\_\+core\+X\+Y\+::get\+\_\+\+F\+\_\+A (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the A feed rate from protected class data. 
+
+This function retrieves the A feed rate (velocity) out of the class to be used elsewhere. \mbox{\Hypertarget{classKinematics__coreXY_a66711cd33df043f676236f2eaed7db70}\label{classKinematics__coreXY_a66711cd33df043f676236f2eaed7db70}} 
+\index{Kinematics\_coreXY@{Kinematics\_coreXY}!get\_F\_B@{get\_F\_B}}
+\index{get\_F\_B@{get\_F\_B}!Kinematics\_coreXY@{Kinematics\_coreXY}}
+\doxysubsubsection{\texorpdfstring{get\_F\_B()}{get\_F\_B()}}
+{\footnotesize\ttfamily float Kinematics\+\_\+core\+X\+Y\+::get\+\_\+\+F\+\_\+B (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the B feed rate from protected class data. 
+
+This function retrieves the B feed rate (velocity) out of the class to be used elsewhere. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
