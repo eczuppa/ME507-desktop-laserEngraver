@@ -1,4 +1,5 @@
-/** @file check_home.h is the check home task function file header
+/** @file       check_home.h 
+ *  @brief      File containing the header for check_home.cpp.
  * 
  *  @author Matthew Carlson
  *  @author Ethan Czuppa
@@ -11,10 +12,15 @@
 
 #include "libraries&constants.h"
 
+///@cond
+
+//Task latency
+const TickType_t check_home_latency = 100;          // latency should be 10ms
+
+///@endcond
+
 // check home task
 void check_home_task (void* p_params);
-
-const TickType_t check_home_latency = 100;          // latency should be 10ms
 
 
 #endif // CHECKHOMETASK_H

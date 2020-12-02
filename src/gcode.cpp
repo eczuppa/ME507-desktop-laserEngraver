@@ -1,7 +1,8 @@
-/** @file gcode.cpp
- *      This file defines functions for to interpret lines of gcode into commands 
- *      that control the laser cutter. Many of the methods used in this file were inspired
- *      by GRBL code.
+/** @file       gcode.cpp
+ *  @brief      File containing methods and classes to interpret G-code.
+ *  @details    This file defines functions for to interpret lines of gcode into commands 
+ *              that control the laser cutter. Many of the methods used in this file were inspired
+ *              by GRBL code.
  *
  *  @author  Niko Banks
  *  @date    Nov 10 2020 
@@ -273,6 +274,9 @@ uint8_t decode::get_S(void)
 {
     return _XYSFval.S;
 }
+
+
+
 
 
 //Nuts-Bolts type functions:

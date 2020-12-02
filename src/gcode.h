@@ -1,8 +1,5 @@
-/** @file gcode.h
- *    This file contains the header for a file comtaining gcode interpreting functions.
- * 
- *    The full Doxygen header for the function is in the .cpp file, so there is
- *    just a brief description of the function here. 
+/** @file   gcode.h
+ *  @brief  This file contains the header for a file comtaining gcode interpreting functions. 
  *
  *  @author Niko Banks
  *  @date Nov 10 2020
@@ -12,7 +9,7 @@
 #ifndef GCODE_H
 #define GCODE_H
 
-
+///@cond
 #define GCODE_COMMENT ';'
 
 #define TRAVEL_SPEED 600    // mm/min
@@ -49,7 +46,7 @@
         float F = 0;
     };
 
-
+///@endcond
 
 /** @brief   Class which implements decoding object which contains functions for decoding
  *           gcode.

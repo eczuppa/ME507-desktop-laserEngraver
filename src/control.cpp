@@ -1,6 +1,5 @@
-/** @file control.cpp
- *    This file contains the source code for a class that implements a P, PI, or PID motor control
- *    code to drive the motors.
+/** @file       control.cpp
+ *  @brief      File containing a class that implements a P, PI, or PID motor control code to drive the motors.
  * 
  *  @author Matthew Carlson
  * 

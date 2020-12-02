@@ -1,6 +1,5 @@
-/** @file debouncer.h
- *    This file contains the headers for a class that implements a debouncer program
- *    so that we can read through some noise from button pushes and limit switches
+/** @file       debouncer.h
+ *  @brief      File containing the header for a class that implements a debouncer program.
  * 
  *  @author Matthew Carlson
  *  @date  2020-Oct-24 Original file

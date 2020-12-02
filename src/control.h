@@ -1,7 +1,8 @@
-/** @file control.h
- *    This file contains the headers for a class that implements a PID motor position control
- *    code to drive the motors given inputs of position, velocity, and delta time.
- *    This file sets up "Controller_PID"
+/** @file       control.h
+ *  @brief      File containing the header for the .cpp file that creates PID controllers.
+ *  @details    This file contains the header for a class that implements a PID motor position control
+ *              code to drive the motors given inputs of position, velocity, and delta time.
+ *              This file also sets up the class @c Controller_PID.
  * 
  *  @author Matthew Carlson
  *  @date  2020-Nov-10 Original file

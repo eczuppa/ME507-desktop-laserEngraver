@@ -1,6 +1,7 @@
-/** @file control_task.cpp
- *      This file contains the definition of the control_task function, which is the main function
- *      that runs the motors and laser in the DigitalCarpenter system. 
+/** @file       control_task.cpp
+ *  @brief      File containing the main control task.
+ *  @details    This file contains the definition of the control_task function, which is the main function
+ *              that runs the motors and laser in the DigitalCarpenter-Lite system. 
  *
  *  @author Niko Banks
  *  @author Ethan Czuppa

@@ -1,11 +1,9 @@
-/** @file commands.h
- *      This file contains the header for a file containing the functions necessary
- *      to run the full translation of commands coming from the serial port before sending
- *      them to the controller. 
+/** @file       commands.h
+ *  @brief      File containing the header for commands.cpp.
+ *  @details    This file contains the header for a file containing the functions necessary
+ *              to run the full translation of commands coming from the serial port before sending
+ *              them to the controller. 
  * 
- *      The full Doxygen header for the function is in the .cpp file, so there is
- *      just a brief description of the function here. 
- *
  *  @author Niko Banks
  *  @date Nov 20 2020
  */
@@ -14,6 +12,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+///@cond
 //Define Machine Commands
 #define MACHINE_CMD_NULL 0
 #define MACHINE_CMD_HOME 1
@@ -27,7 +26,7 @@ struct desired_pos_vel_S
     float B_feed = 0;
     float S = 0;
 };
-
+///@endcond
 
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);

@@ -1,6 +1,7 @@
-/** @file check_home.cpp is the check home task function file implementation.
- *        It will interface with the limit switches and debouncer class in order
- *        to tell when the switches have been hit
+/** @file       check_home.cpp 
+ *  @brief      File containing all functions related to homing the laser.
+ *  @details    This file defines all functions that allow the laser to be homed. The laser will interface 
+ *              with the limit switches and debouncer class in order to tell when the switches have been hit.
  *  
  *  @author Matthew Carlson
  *  @author Ethan Czuppa
@@ -18,13 +19,13 @@
 // Queues for Encoder A
 // HOMING CYCLE DATA
 
+///@cond
 // check_home will hold the flag that will turn on the limit switches
 extern Share<bool> check_home;        // This holds the flag for starting the check home process
 
-
 Share<bool> X_home ("Check the home of X position"); // Is this defined as extern here?
 Share<bool> Y_home ("Check the home of Y position");
-
+///@endcond
 
 
 // Check Home Task

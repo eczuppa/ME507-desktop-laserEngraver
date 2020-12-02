@@ -1,16 +1,12 @@
-/** @file debouncer.cpp
- *    This file contains the source code for a class that contains a debouncer program
- *    so that we can read through some noise from button pushes and limit switches
+/** @file       debouncer.cpp
+ *  @brief      File containing a debouncer class and its methods.
+ *  @details    This file contains a debouncer class which can be used to read the pressing of a button
+ *              correctly without any "bouncing" effects.
  * 
  *  @author Matthew Carlson
  *  @date  2020-Oct-24 Original file
  */
 
-
-/** @brief   Class which implements a debouncer for button and switch noise
- *  @details Mostly defines the function "update" and impliments the class into the constructor 
- * 
- */
 
 #include <Arduino.h>
 #include <PrintStream.h>

@@ -1,6 +1,7 @@
-/** @file commands.cpp
- *      This file defines functions that are used to translate a line of incoming data into specific motor 
- *      commands that are sent to the control task. 
+/** @file       commands.cpp
+ *  @brief      File containing functions that interpret machine and G-code commands.
+ *  @details    This file defines the functions necessary to run the full translation of commands coming from the 
+ *              serial port before sending them to the control task.
  *
  *  @author  Niko Banks
  *  @date    Nov 10 2020 
