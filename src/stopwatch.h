@@ -6,7 +6,7 @@
  *              Here: https://github.com/stm32duino/wiki/wiki/HardwareTimer-library#API 
  * 
  *  @author Ethan A Czuppa
- *  @date 2020-Nov-19 Original File 
+ *  @date Nov 19 2020 Original File 
  * 
  */
 

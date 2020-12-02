@@ -2,7 +2,7 @@
  *  @brief      This file implements the TB6612FNG class for the Toshiba dual H-bridge motor driver chip
  *  
  *  @author Ethan A Czuppa
- *  @date 6 Nov 2020  Original file
+ *  @date   Nov 6 2020 Original file
  */
 
 

@@ -4,7 +4,7 @@
  *              correctly without any "bouncing" effects.
  * 
  *  @author Matthew Carlson
- *  @date  2020-Oct-24 Original file
+ *  @date  Oct 24 2020 Original file
  */
 
 

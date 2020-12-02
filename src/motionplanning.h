@@ -1,19 +1,23 @@
-/** @file motionplanning.h 
- *        This file contains the header file for the motion planning class 
+/** @file       motionplanning.h 
+ *  @brief      This file contains the header file for the motion planning class
+ * 
  *  @author Ethan A Czuppa
- * 
- *  @date    19 Nov 2020 Original file
- *  @date    20 Nov 2020 Mapped out header file and needed functions as pseudocode
- *  @date    22 Nov 2020 Completed first revision of class, need to fix the memory allocation so the dynamic array does not point to
- *                       nothing instead of the intended ouput ramp element. 
- *  @date    23 Nov 2020 Completed second revision of class, dynamic allocation of array memory is now done in a separate method and 
- *                       required to have succeeded for the ramp generator method to run. Uses the trick Dr. Ridgely mentioned in 
- *                       lecture of checking that the pointer to the dynamic array points to something instead of zero as an indicator
- *                       that the memory allocation was successful
- *  @date    30 Nov 2020 Updated doxygen documentation and added an important class method. The @c update_setpoints() was added and this
- *                       method that allows the current position and feed rate setpoints to be changed without reinstantiating the class. 
- * 
- */ 
+ *  @date Nov 19 2020 Original file
+ *  
+ */
+
+//  * 
+//  *  @date    20 Nov 2020 Mapped out header file and needed functions as pseudocode
+//  *  @date    22 Nov 2020 Completed first revision of class, need to fix the memory allocation so the dynamic array does not point to
+//  *                       nothing instead of the intended ouput ramp element. 
+//  *  @date    23 Nov 2020 Completed second revision of class, dynamic allocation of array memory is now done in a separate method and 
+//  *                       required to have succeeded for the ramp generator method to run. Uses the trick Dr. Ridgely mentioned in 
+//  *                       lecture of checking that the pointer to the dynamic array points to something instead of zero as an indicator
+//  *                       that the memory allocation was successful
+//  *  @date    30 Nov 2020 Updated doxygen documentation and added an important class method. The @c update_setpoints() was added and this
+//  *                       method that allows the current position and feed rate setpoints to be changed without reinstantiating the class. 
+//  * 
+
  
 
 

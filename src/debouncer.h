@@ -2,7 +2,7 @@
  *  @brief      File containing the header for a class that implements a debouncer program.
  * 
  *  @author Matthew Carlson
- *  @date  2020-Oct-24 Original file
+ *  @date  Oct 24 2020 Original file
  */
 
 

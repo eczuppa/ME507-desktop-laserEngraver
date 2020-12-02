@@ -3,8 +3,8 @@
  *              needed to use the Toshiba dual H-bridge motor driver chip.
  *              
  *  
- *  @author Ethan A. Czuppa
- *  @date 2020-Nov-6 Original File
+ *  @author Ethan A Czuppa
+ *  @date   Nov 6 2020 Original file
  */
 
 
@@ -27,17 +27,6 @@
 //  *                    PWM singal to 0 and allowing the motor to coast, the short brake method is called. Also, given its
 //  *                    name - short brake - in the truth table I am skeptical of how effective it would be in the first place
 //  * 
-
-
-/** @file       debouncer.h
- *  @brief      File containing the header for a class that implements a debouncer program.
- * 
- *  @author Matthew Carlson
- *  @date  2020-Oct-24 Original file
- */
-
-
-
 
 
 #ifndef TB6612FNGDRIVER_H

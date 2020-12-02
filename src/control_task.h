@@ -4,7 +4,7 @@
  *  @author Niko Banks
  *  @author Ethan Czuppa
  *  @author Matthew Carlson
- *  @date Nov 20 2020
+ *  @date Nov 20 2020 Original file
  */
 
 #ifndef _CONTROL_TASK_H_
