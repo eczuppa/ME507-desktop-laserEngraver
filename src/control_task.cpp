@@ -103,12 +103,14 @@ void control_task(void* p_params)
                 // * and we have space to put values into the motor A and B queues (later):
                 if (desired_queue.any())
                 {
-                    //Get the desired values
+                    //Get the desired values:
                     desired_queue.get(desired);
 
-                    //Expand them into ramp inputs... maybe shift this back to translator??
+                    //Get the current encoder positions and velocities:
 
                     //Put desired values through control loop:
+
+                    //Then send outputs to the queues for the motors.
                     
                 }
 
@@ -129,7 +131,8 @@ void control_task(void* p_params)
                 //Shouldn't get here right?
         };
 
-// OLD IDEA: DISCONTINUED IN FAVOR OF SIMPLER METHOD
+
+// Old state machine - see report for actual one planned. 
 
       // STATE 0 HUB - checks for conditions to transition to appropriate state, otherwise waits in the hub
       //        if A_ and B_desired (queues) have been revcieved from the decoding task, and the machine has been homed, 
@@ -147,16 +150,14 @@ void control_task(void* p_params)
       // state 1_1 cont'd: put output motor commands in corresponding queues
       // state 1_2: deallocate memory for ramp input arrays to avoid memory leaks
       
-      // STATE 2 WARNING CODE HANDLING - enacts software safegaurds to try and protect the system or keep it from running when it shouldn't
+      // STATE 2 SAFETY_STOP - enacts software safegaurds to try and protect the system or keep it from running when it shouldn't
       
-      // STATE 3 HOMING STATE - uses limit switch.cpp? and a lite wrapper?
-      
-      // STATE 4 SERIAL WRITING HANDLING  - uses Niko's serial functions to tell the python script sending the GCODE commands that the command was recieved succesfully (likely will not be used)
-      
-      // STATE 5 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
+      // STATE 3 HOMING - home the machine
+            
+    //Below is experimental- not used.
+      // STATE 4 RESET/E-STOP/CRASH state - something that handles those occuring in a commensesne manner -e.g. turn off the laser, tell motors to go home slowly (?)
       //                                    and then when it gets home and is okayed by the user (?) future work
 
-// END OF OLD IDEA
         
         vTaskDelayUntil(&xLastWakeTime, control_task_period);
     }

@@ -106,8 +106,15 @@ void task_translate(void* p_params)
                 //Put laser power into desired struct
                 desired.S = decoder.get_S();
 
+                //In progress: at this stage, we need to use motionplanning to turn the endpoints
+                //into a ramp; and then each increment in that ramp will be sent individually into 
+                //desired_queue to be passed to task_distributer (not yet written). task_distributer
+                //will then pass each item from desired_queue to the queue timed_desired (not yet created)
+                //exactly when it should be sent to the controller. The controller will update its setpoint
+                //when it recieves a new input, and then control the motors from there.
+
                 //Enter struct into the queue for desired positions, feedrates, and laser power
-                desired_queue.put(desired);
+                // desired_queue.put(desired);
             }
         }
         vTaskDelay(100);
