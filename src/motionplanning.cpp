@@ -1,4 +1,5 @@
-/** @file motionplanning.cpp 
+/** @file    motionplanning.cpp 
+ *  @brief 
  *           linearly interpolates between two points to create a ramp input to the controller
  *  @details This class generates ramp inputs for a classical postion PID control loop and is intended to
  *           maintain that control loop's linearity by limiting the size of the disturbances it is subjected to.
@@ -28,7 +29,6 @@
  *   @param   _output_ramp the pointer to the dynamically allocated array that holds what will be the ramp input to the control loop
  *                         that is controlling the motor of interest. Initialized as a null pointer to ensure 
  */
-
 MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, float feed_setpoint, uint32_t ramp_dt_period)
 {
     // Save inputs into class member data and setup dynamic array pointer 
@@ -60,7 +60,6 @@ MotionPlanning::MotionPlanning(float setpoint_current, float setpoint_last, floa
  *                  is augmented to include the current setpoint and feed rate. 
  * 
  */
-
 void MotionPlanning::init_ramp(void)
 {
     float dist;
@@ -125,7 +124,6 @@ void MotionPlanning::init_ramp(void)
  * 
  * 
  */
-
 void MotionPlanning::ramp_generator(void)
 {
     // the _output_ramp array is only populated if the previous memory allocation was successful in the init_ramp method
@@ -200,7 +198,6 @@ void MotionPlanning::ramp_generator(void)
  *   @returns @c _output_ramp the pointer to the first element in the ramp input dynamic array
  * 
  */
-
 float * MotionPlanning::get_ramp(void)
 {     
     return _output_ramp;        // returns the persistent reference to the dynamically allocated array _output_ramp
@@ -215,7 +212,6 @@ float * MotionPlanning::get_ramp(void)
  *            method to prepare the current instance of the MotionPlanning class for making the next ramp.    
  * 
  */
-
 void MotionPlanning::deinit_ramp(void)
 {
     delete [] _output_ramp;   // deallocate memory pointed to by *_output_ramp
@@ -230,7 +226,6 @@ void MotionPlanning::deinit_ramp(void)
  *             method is called within a loop.
  * 
  */
-
 void MotionPlanning::update_setpoints(float current_setpoint, float current_feedrate)
 {
     _setpoint_last = _setpoint_current;     // save what was the current setpoint to the last one
@@ -247,8 +242,6 @@ void MotionPlanning::update_setpoints(float current_setpoint, float current_feed
  *            @c distributer_task to the desired delay period. 
  *  @returns  @c _output_ramp_time pointer to the first element of the persistent dynamic array for ramp update times.
  */
-
-
 int16_t * MotionPlanning::time_to_wait(void)
 {
     return _output_ramp_time;

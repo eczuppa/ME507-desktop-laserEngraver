@@ -1,6 +1,6 @@
-/** @file libraries&constants.h
- *      This file contains the header which contains the definition of multiple constants
- *      and libraries that will be used in this laser code. 
+/** @file       libraries&constants.h
+ *  @brief      File containing the header which contains the definition of multiple constants
+ *              and libraries that will be used with DigitalCarpenter-lite.
  * 
  *      
  *  @author Niko Banks
@@ -11,6 +11,7 @@
 #ifndef LIBRARIES_H
 #define LIBRARIES_H
 
+///@cond
 
 //Standard and copied libraries
 #include <Arduino.h>
@@ -52,5 +53,5 @@
 #include "temperature_task.h"
 #include "control_task.h"
 
-
+///@endcond
 #endif //LIBRARIES_H

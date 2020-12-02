@@ -1,5 +1,5 @@
-/** @file limit_switch.cpp
- *    This file contains a program to use debouncing to activate limit switches
+/** @file       limit_switch.cpp
+ *  @brief      File containing functions which use debouncing to activate limit switches.
  *
  *  @author  Matthew Carlson
  * 
@@ -18,8 +18,6 @@
  *          blue button behaves very much like a button should.
  *  @param   p_params A pointer to function parameters which we don't use.
  */
-
-
 void task_debouncer (void* p_params)
 {
     (void)p_params;                     // Shuts up a compiler warning

@@ -1,4 +1,5 @@
-/** @file kinemtatics.cpp
+/** @file       kinemtatics.cpp
+ *  @brief      File containing functions to convert X Y and feed rates to motor commands.
  *  @details    This file contains functions to convert desired X and Y positions and velocities
  *              into desired A and B positions and velocities for motors A and B in a CoreXY 
  *              model. 
@@ -12,7 +13,10 @@
  * 
 */
 #include "libraries&constants.h"
+
+///@cond
 using namespace BLA;
+///@endcond
 
 /** @brief   Create a kinematics class object to convert coordinates to motor commands. 
  *  @details This constructor function runs a reset on the _last values in the class member
@@ -106,27 +110,37 @@ void Kinematics_coreXY::reset_XYF(void)
 
 //Get-er functions
 
-/** @brief 
- *  @details
- * 
- * 
+/** @brief      Get the A setpoint from protected class data.
+ *  @details    This function retrieves the A position value out of the class
+ *              to be used elsewhere.
  */
-
 float Kinematics_coreXY::get_A_setpoint(void)
 {
     return _A_setpoint;
 }
 
+/** @brief      Get the B setpoint from protected class data.
+ *  @details    This function retrieves the B position value out of the class
+ *              to be used elsewhere.
+ */
 float Kinematics_coreXY::get_B_setpoint(void)
 {
     return _B_setpoint;
 }
 
+/** @brief      Get the A feed rate from protected class data.
+ *  @details    This function retrieves the A feed rate (velocity) out of the class
+ *              to be used elsewhere.
+ */
 float Kinematics_coreXY::get_F_A(void)
 {
     return _A_feed;
 }
 
+/** @brief      Get the B feed rate from protected class data.
+ *  @details    This function retrieves the B feed rate (velocity) out of the class
+ *              to be used elsewhere.
+ */
 float Kinematics_coreXY::get_F_B(void)
 {
     return _B_feed;

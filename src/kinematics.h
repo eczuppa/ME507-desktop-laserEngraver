@@ -1,10 +1,8 @@
-/** @file       kinematics.h the interface for the kinematics class that wil translate GCODE inputs into a usable 
- *              type for the control loop
- *  @details    Uses the appropriate kinematic equations to relate Gcode X,Y positions and F feedrate to values of 
- *              the same type as the motor encoders output. This transformation significantly increases the ease of 
- *              controlling the motors and only requires the proper transformation of the desired target positions, 
- *              velocities, etc. from the Gcode. CoreXY concepts used from Ilan E. Moyer - one of the earlier authors 
- *              of CoreXY implementation and theory his website is available here: https://corexy.com/theory.html
+/** @file       kinematics.h 
+ *  @brief      File containing the interface for the kinematics class that wil translate GCODE inputs into a usable 
+ *              type for the control loop.
+ *  @details    This file contains a class which uses the appropriate kinematic equations for CoreXY to relate Gcode X,Y 
+ *              positions and F feedrate to values of the same type as the motor encoders output. 
 
  *  
  *  @author Ethan A Czuppa
@@ -16,9 +14,13 @@
  */
 
 
-/** @brief   Class which contains functions to convert from cartesian global coordinates to motor commands.
- *  @details This class allows us to convert positions in X and Y and absolute speed (Feedrate) F
- *           into motor-specific (A and B) positions and feedrates for controling the laser head. 
+/** @brief      Class which contains functions to convert from cartesian global coordinates to motor commands.
+ *  @details    This class allows us to convert positions in X and Y and absolute speed (Feedrate) F
+ *              into motor-specific (A and B) positions and feedrates for controling the laser head, assuming a 
+ *              CoreXY belt system. The CoreXY transformation significantly increases the ease of controlling the 
+ *              motors and only requires the proper transformation of the desired target positions, velocities, etc. 
+ *              from the Gcode. CoreXY concepts used from Ilan E. Moyer - one of the earlier authors of CoreXY 
+ *              implementation and theory his website is available here: https://corexy.com/theory.html
  */
 class Kinematics_coreXY
 {
