@@ -23,8 +23,6 @@ var files_dup =
       [ "Kinematics_coreXY", "classKinematics__coreXY.html", "classKinematics__coreXY" ]
     ] ],
     [ "libraries&constants.h", "libraries_6constants_8h.html", null ],
-    [ "limit_switch.cpp", "limit__switch_8cpp.html", "limit__switch_8cpp" ],
-    [ "limit_switch.h", "limit__switch_8h.html", "limit__switch_8h" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
     [ "mainpage.h", "mainpage_8h_source.html", null ],
     [ "motionplanning.cpp", "motionplanning_8cpp.html", null ],

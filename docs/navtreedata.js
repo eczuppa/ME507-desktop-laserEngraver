@@ -53,7 +53,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Quad__Encoder_8cpp.html",
-"safetySupervisor_8cpp.html#af56ade9b28a22f52f078c922df5bdd80"
+"serial_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
