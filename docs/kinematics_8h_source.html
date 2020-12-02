@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('kinematics_8h_source.html',''); initRe
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// Methods</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// Route inputted floats from array to poper class member data</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// Route inputted floats from array to popper class member data</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> update_XYF(<a class="code" href="classdecode.html">decode</a> decoder);                                <span class="comment">// takes in new _current X Y and F values and sends the old ones to _last</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> reset_XYF(<span class="keywordtype">void</span>);                                           <span class="comment">// sets the _last X,Y,F data to 0 for the home position in preparation to run another file</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
@@ -150,15 +150,19 @@ $(document).ready(function(){initNavTree('kinematics_8h_source.html',''); initRe
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">float</span> get_F_A(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">float</span> get_F_B(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">// save space and variables by making MotionPlanning a friend of Kinematic_CoreXY</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMotionPlanning.html">MotionPlanning</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassdecode_html"><div class="ttname"><a href="classdecode.html">decode</a></div><div class="ttdoc">Class which implements decoding object which contains functions for decoding gcode.</div><div class="ttdef"><b>Definition:</b> gcode.h:60</div></div>
-<div class="ttc" id="aclassKinematics__coreXY_html"><div class="ttname"><a href="classKinematics__coreXY.html">Kinematics_coreXY</a></div><div class="ttdoc">Class which contains functions to convert from desited global coordinates to motor commands.</div><div class="ttdef"><b>Definition:</b> kinematics.h:23</div></div>
-<div class="ttc" id="aclassKinematics__coreXY_html_a6b06e6491aedde8c9fe25d5390145475"><div class="ttname"><a href="classKinematics__coreXY.html#a6b06e6491aedde8c9fe25d5390145475">Kinematics_coreXY::calculate_kinematics</a></div><div class="ttdeci">void calculate_kinematics(decode decoder)</div><div class="ttdoc">Function which runs the kinematics functions in succession.</div><div class="ttdef"><b>Definition:</b> kinematics.cpp:105</div></div>
-<div class="ttc" id="aclassKinematics__coreXY_html_ad043c98fa09dcbae8dff32581247f6eb"><div class="ttname"><a href="classKinematics__coreXY.html#ad043c98fa09dcbae8dff32581247f6eb">Kinematics_coreXY::Kinematics_coreXY</a></div><div class="ttdeci">Kinematics_coreXY()</div><div class="ttdoc">Create a kinematics class object to convert coordinates to motor commands.</div><div class="ttdef"><b>Definition:</b> kinematics.cpp:20</div></div>
+<div class="ttc" id="aclassKinematics__coreXY_html"><div class="ttname"><a href="classKinematics__coreXY.html">Kinematics_coreXY</a></div><div class="ttdoc">Class which contains functions to convert from cartesian global coordinates to motor commands.</div><div class="ttdef"><b>Definition:</b> kinematics.h:23</div></div>
+<div class="ttc" id="aclassMotionPlanning_html"><div class="ttname"><a href="classMotionPlanning.html">MotionPlanning</a></div><div class="ttdoc">a class that implements a linearly interpolated ramp input generator for a classical control loop</div><div class="ttdef"><b>Definition:</b> motionplanning.h:39</div></div>
+<div class="ttc" id="aclassKinematics__coreXY_html_a6b06e6491aedde8c9fe25d5390145475"><div class="ttname"><a href="classKinematics__coreXY.html#a6b06e6491aedde8c9fe25d5390145475">Kinematics_coreXY::calculate_kinematics</a></div><div class="ttdeci">void calculate_kinematics(decode decoder)</div><div class="ttdoc">Function which runs the kinematics functions in succession.</div><div class="ttdef"><b>Definition:</b> kinematics.cpp:85</div></div>
+<div class="ttc" id="aclassKinematics__coreXY_html_ad043c98fa09dcbae8dff32581247f6eb"><div class="ttname"><a href="classKinematics__coreXY.html#ad043c98fa09dcbae8dff32581247f6eb">Kinematics_coreXY::Kinematics_coreXY</a></div><div class="ttdeci">Kinematics_coreXY()</div><div class="ttdoc">Create a kinematics class object to convert coordinates to motor commands.</div><div class="ttdef"><b>Definition:</b> kinematics.cpp:21</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

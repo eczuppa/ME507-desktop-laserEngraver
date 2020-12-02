@@ -128,11 +128,11 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>enc_d_pos</b> (void)
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a15271549de2c8401d34c2278898167c6"><td class="memItemLeft" align="right" valign="top"><a id="a15271549de2c8401d34c2278898167c6"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQuad__Encoder.html#a15271549de2c8401d34c2278898167c6">_enc_sigpin_A</a></td></tr>
-<tr class="memdesc:a15271549de2c8401d34c2278898167c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the pin that is recieving the A output signal of the encoder and is tied to the first timer channel <br /></td></tr>
+<tr class="memdesc:a15271549de2c8401d34c2278898167c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the pin that is receiving the A output signal of the encoder and is tied to the first timer channel <br /></td></tr>
 <tr class="separator:a15271549de2c8401d34c2278898167c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44753d6944c49276fd9ca4350009160b"><td class="memItemLeft" align="right" valign="top"><a id="a44753d6944c49276fd9ca4350009160b"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQuad__Encoder.html#a44753d6944c49276fd9ca4350009160b">_enc_sigpin_B</a></td></tr>
-<tr class="memdesc:a44753d6944c49276fd9ca4350009160b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the pin that is recieving the B output signal of the encoder and is tied to the second timer channel <br /></td></tr>
+<tr class="memdesc:a44753d6944c49276fd9ca4350009160b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the pin that is receiving the B output signal of the encoder and is tied to the second timer channel <br /></td></tr>
 <tr class="separator:a44753d6944c49276fd9ca4350009160b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18663a38b6d3ae791393ec0390939144"><td class="memItemLeft" align="right" valign="top"><a id="a18663a38b6d3ae791393ec0390939144"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQuad__Encoder.html#a18663a38b6d3ae791393ec0390939144">_enc_chan_A</a></td></tr>
@@ -168,7 +168,7 @@ int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="separator:a12f5ee7ad48ca23243f8361be78860ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb6f34d580542acb0f427941452688f"><td class="memItemLeft" align="right" valign="top"><a id="a3fb6f34d580542acb0f427941452688f"></a>
 int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQuad__Encoder.html#a3fb6f34d580542acb0f427941452688f">_last_abspos</a></td></tr>
-<tr class="memdesc:a3fb6f34d580542acb0f427941452688f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the previous postion in the gobal frame <br /></td></tr>
+<tr class="memdesc:a3fb6f34d580542acb0f427941452688f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the previous postion in the global frame <br /></td></tr>
 <tr class="separator:a3fb6f34d580542acb0f427941452688f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4bb56835af757fd86c0de37c41eb5b4"><td class="memItemLeft" align="right" valign="top"><a id="aa4bb56835af757fd86c0de37c41eb5b4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQuad__Encoder.html#aa4bb56835af757fd86c0de37c41eb5b4">_invert</a></td></tr>
@@ -177,7 +177,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sets up the user specified timer into encoder mode and handles read values from it. </p>
-<p>This is a class which uses the Hardware Timer API and some low level register setting to read a quadrature encoder on a motor and then do various useful tasks with that read value. This class has debugging methods which are documented in the .cpp file. The primary methods of this class are <code><a class="el" href="classQuad__Encoder.html#ade9644057a5337d071025e43a56b44a7" title="resets _abspos, the accumulated encoder ticks variable, to 0">enc_zero()</a></code> , <code><a class="el" href="classQuad__Encoder.html#adb9e7bad0bc57d0a6f8700e6cf82ea75" title="handles the changing value in the timer count register and returns the total displacement in encoder ...">enc_read()</a></code> , and its variants <code><a class="el" href="classQuad__Encoder.html#a77a194b8850b7d34231e48c9df4e23c3" title="converts the raw value in ticks from enc_read() to belt displacement in mm">enc_read_pos()</a></code> and <code>enc_d_pos()</code>. In general the class works by counting pulses from the qudarature encoder on a brushed DC motor by leveraging the STM32 Generic hardware timer API with a bound based over/underflow detection scheme for determining direction. This approach gives maximum performance and minimal CPU load as all counting is done with hardware giving nanosecond latencies - based on your main clock speed that is (80 MHz in the case of the Nucleo L476RG).Methods which zero the encoder, keep track of the absolute as well as the incremental postion with input from the read method are present as this is intended to be used with a desktop CNC machine. </p>
+<p>This is a class which uses the Hardware Timer API and some low level register setting to read a quadrature encoder on a motor and then do various useful tasks with that read value. This class has debugging methods which are documented in the .cpp file. The primary methods of this class are <code><a class="el" href="classQuad__Encoder.html#ade9644057a5337d071025e43a56b44a7" title="resets _abspos, the accumulated encoder ticks variable, to 0">enc_zero()</a></code> , <code><a class="el" href="classQuad__Encoder.html#adb9e7bad0bc57d0a6f8700e6cf82ea75" title="handles the changing value in the timer count register and returns the total displacement in encoder ...">enc_read()</a></code> , and its variants <code><a class="el" href="classQuad__Encoder.html#a77a194b8850b7d34231e48c9df4e23c3" title="converts the raw value in ticks from enc_read() to belt displacement in mm">enc_read_pos()</a></code> and <code>enc_d_pos()</code>. In general the class works by counting pulses from the quadrature encoder on a brushed DC motor by leveraging the STM32 Generic hardware timer API with a bound based over/underflow detection scheme for determining direction. This approach gives maximum performance and minimal CPU load as all counting is done with hardware giving nanosecond latencies - based on your main clock speed that is (80 MHz in the case of the Nucleo L476RG).Methods which zero the encoder, keep track of the absolute as well as the incremental postion with input from the read method are present as this is intended to be used with a desktop CNC machine. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab6dc44da124e15d90d4a827438c417e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6dc44da124e15d90d4a827438c417e6">&#9670;&nbsp;</a></span>Quad_Encoder()</h2>
@@ -236,16 +236,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>Constructor for Quad Encoder Class. </p>
-<p>takes the two pins from the encoder that will tie to specific pins for timer functionality in encoder mode as well as the desired timer to be used (TIM1, TIM2, etc.) and has defualt values for the bound and invert parameters. Puts the timer into a specific encoder mode - the count register value is incremented on the rising and falling edges of each encoder singal input. And saves input parameters and other useful, state-determining values into class member data </p><dl class="params"><dt>Parameters</dt><dd>
+<p>takes the two pins from the encoder that will tie to specific pins for timer functionality in encoder mode as well as the desired timer to be used (TIM1, TIM2, etc.) and has default values for the bound and invert parameters. Puts the timer into a specific encoder mode - the count register value is incremented on the rising and falling edges of each encoder singal input. And saves input parameters and other useful, state-determining values into class member data </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">enc_sigpin_A</td><td>is the 8-bit unsigned integer representaion of the timer channel (pin) the first encoder output signal is tied to (e.g PC6 or PC7 for TIM8) </td></tr>
-    <tr><td class="paramname">enc_sigpin_B</td><td>is the 8-bit unsigned integer representaion of the timer channel (pin) the second encoder output signal is tied to (e.g PC6 or PC7 for TIM8) </td></tr>
+    <tr><td class="paramname">enc_sigpin_A</td><td>is the 8-bit unsigned integer representation of the timer channel (pin) the first encoder output signal is tied to (e.g PC6 or PC7 for TIM8) </td></tr>
+    <tr><td class="paramname">enc_sigpin_B</td><td>is the 8-bit unsigned integer representation of the timer channel (pin) the second encoder output signal is tied to (e.g PC6 or PC7 for TIM8) </td></tr>
     <tr><td class="paramname">enc_chan_A</td><td><br  />
  </td></tr>
     <tr><td class="paramname">enc_chan_B</td><td></td></tr>
     <tr><td class="paramname">p_eTIM</td><td>the pointer of type <code>TIM_TypeDef</code> which matches the type of the predefined TIMx objects (e.g. TIM1, ..., TIM16) </td></tr>
     <tr><td class="paramname">bound</td><td>the value which determines the area where the enc_read method begins checking for an under/overflow condition </td></tr>
-    <tr><td class="paramname">invert</td><td>a boolean to compensate for hardware issues - if you switch the encoder signal outputs on the timer channel pins then setting invert to true allows you to read the correct encoder values without swithching the motor leads, which can sometimes be problematic </td></tr>
+    <tr><td class="paramname">invert</td><td>a boolean to compensate for hardware issues - if you switch the encoder signal outputs on the timer channel pins then setting invert to true allows you to read the correct encoder values without switching the motor leads, which can sometimes be problematic </td></tr>
   </table>
   </dd>
 </dl>
@@ -270,14 +270,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>handles the changing value in the timer count register and returns the total displacement in encoder ticks </p>
-<p>Keeps track of encoder position in ticks in the returned parameter by accumulating the change in timer count register values uisng the HardwareTimer Library's <code>getCount()</code> method as well as positive and negative overflow handling. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Keeps track of encoder position in ticks in the returned parameter by accumulating the change in timer count register values using the HardwareTimer Library's <code>getCount()</code> method as well as positive and negative overflow handling. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delta</td><td>the difference between the last timer register count value and the current one - checked for overflows. </td></tr>
     <tr><td class="paramname">count</td><td>the method specific variable that holds the current timer register count value. <br  />
  </td></tr>
     <tr><td class="paramname">TMR_COUNT_MAX</td><td>the overflow value for the timer, in this case for a 16 bit timer so, 65535. </td></tr>
     <tr><td class="paramname">_abspos</td><td>is the class member variable that holds the absolute position measured by the encoder it is an int32_t so it should be quite difficult to overflow unless your motor is spinning SUPER fast </td></tr>
-    <tr><td class="paramname">_last_abspos</td><td>a snap shot of _abspos before being incremented by the appropriate delta - used for instanteous velocity calculations </td></tr>
+    <tr><td class="paramname">_last_abspos</td><td>a snap shot of _abspos before being incremented by the appropriate delta - used for instantaneous velocity calculations </td></tr>
   </table>
   </dd>
 </dl>
@@ -304,7 +304,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>The radius of timing belt pulley and the conversion from ticks to radians (motor-specific) are used to convert the accrued position returned from <code>enc_read</code> to a value for the linear movement of the belt driven by the timing pulley in millimeters. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MOMENT_ARM</td><td>the radius of the drive mechanism translating rotational motion to linear motion </td></tr>
-    <tr><td class="paramname">TICK_TO_RAD</td><td>the number of radians per encoder tick, which is emprically determined by measuring the number of ticks accumulated in the timer count register when moving the OUTPUT shaft of the motor through 1 rotation. Do this several times, record the result and average it. Then compute by dividing 2*Pi by your result (ticks/revoltion). </td></tr>
+    <tr><td class="paramname">TICK_TO_RAD</td><td>the number of radians per encoder tick, which is empirically determined by measuring the number of ticks accumulated in the timer count register when moving the OUTPUT shaft of the motor through 1 rotation. Do this several times, record the result and average it. Then compute by dividing 2*Pi by your result (ticks/revoltion). </td></tr>
     <tr><td class="paramname">current_tick</td><td>method specific storage of <code><a class="el" href="classQuad__Encoder.html#adb9e7bad0bc57d0a6f8700e6cf82ea75" title="handles the changing value in the timer count register and returns the total displacement in encoder ...">enc_read()</a></code> return value </td></tr>
   </table>
   </dd>
@@ -329,7 +329,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>quick way to check if encoder is counting </p>
-<p>poll the timer with this method in a loop and print out the result </p>
+<p>poll the timer with this method in a loop and print out the result to see if the timer is counting the way you expect it to be <br  />
+ </p>
 
 </div>
 </div>

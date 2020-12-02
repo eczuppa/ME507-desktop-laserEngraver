@@ -67,6 +67,4 @@ digraph "limit_switch.h"
   Node26 [label="safetySupervisor.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$safetySupervisor_8cpp.html",tooltip=" "];
   Node2 -> Node27 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node27 [label="serial.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_8cpp.html",tooltip=" "];
-  Node2 -> Node28 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node28 [label="TB66_Dual_Driver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TB66__Dual__Driver_8h_source.html",tooltip=" "];
 }

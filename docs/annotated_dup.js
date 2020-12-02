@@ -9,6 +9,5 @@ var annotated_dup =
     [ "Quad_Encoder", "classQuad__Encoder.html", "classQuad__Encoder" ],
     [ "StopWatch", "classStopWatch.html", "classStopWatch" ],
     [ "TB6612FNG", "classTB6612FNG.html", "classTB6612FNG" ],
-    [ "TB6612FNGDual", "classTB6612FNGDual.html", "classTB6612FNGDual" ],
     [ "XYSFvalues", "structXYSFvalues.html", "structXYSFvalues" ]
 ];

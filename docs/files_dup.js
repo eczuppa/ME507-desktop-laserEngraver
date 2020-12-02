@@ -52,7 +52,6 @@ var files_dup =
     [ "TB6612FNG_Driver.h", "TB6612FNG__Driver_8h.html", [
       [ "TB6612FNG", "classTB6612FNG.html", "classTB6612FNG" ]
     ] ],
-    [ "TB66_Dual_Driver.h", "TB66__Dual__Driver_8h_source.html", null ],
     [ "temperature_task.cpp", "temperature__task_8cpp.html", "temperature__task_8cpp" ],
     [ "temperature_task.h", "temperature__task_8h.html", "temperature__task_8h" ]
 ];

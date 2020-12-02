@@ -28,6 +28,7 @@ var classController__PID =
     [ "integral_cumulation_max", "classController__PID.html#a0e3a8123be7119348003304284b7817b", null ],
     [ "output", "classController__PID.html#aee9429b91d93415d9a32168c9fd46a82", null ],
     [ "output_filter", "classController__PID.html#a259450c574b1ef63d98a3516369dde42", null ],
+    [ "output_max", "classController__PID.html#acb14ba1a9a5c97d875d1b2a0cd7199b8", null ],
     [ "output_PWM", "classController__PID.html#a90cfadefd22f2a1b3f3692a1f0ae9f39", null ],
     [ "pos_actual", "classController__PID.html#a87f6ad885cc402de310abf0105778c69", null ],
     [ "pos_desired", "classController__PID.html#a71a20381575376f22f5e1383adb5b849", null ],

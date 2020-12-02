@@ -11,6 +11,7 @@ var classKinematics__coreXY =
     [ "transform_B", "classKinematics__coreXY.html#a46d991597388a3c864f8c84770220333", null ],
     [ "transform_F", "classKinematics__coreXY.html#ad44789b242a0fd8dcc44b11691c8f212", null ],
     [ "update_XYF", "classKinematics__coreXY.html#a19f4b024600fce0dafa82f878130b7ca", null ],
+    [ "MotionPlanning", "classKinematics__coreXY.html#a9159debc686a877295fc5998cf59c35a", null ],
     [ "_A_feed", "classKinematics__coreXY.html#ae4c1c7b50d766fb45665a3fa80103af1", null ],
     [ "_A_setpoint", "classKinematics__coreXY.html#a1bbe1589f6dd194f5106f4217e8bf390", null ],
     [ "_B_feed", "classKinematics__coreXY.html#a0b89c1140926048d0c204d0ff661e5d1", null ],

@@ -6,6 +6,6 @@ var searchData=
   ['task_5ftranslate_246',['task_translate',['../commands_8cpp.html#aada2111513abbeb6b7fc02b90ef6c5ad',1,'task_translate(void *p_params):&#160;commands.cpp'],['../commands_8h.html#aada2111513abbeb6b7fc02b90ef6c5ad',1,'task_translate(void *p_params):&#160;commands.cpp']]],
   ['task_5fui_247',['task_ui',['../serial_8cpp.html#aeca539d059d1b76b873ccdadf74ca23d',1,'task_ui(void *p_params):&#160;serial.cpp'],['../serial_8h.html#aeca539d059d1b76b873ccdadf74ca23d',1,'task_ui(void *p_params):&#160;serial.cpp']]],
   ['tb6612fng_248',['TB6612FNG',['../classTB6612FNG.html#ac64e7929d50cb5a5a65560a508b7eeeb',1,'TB6612FNG']]],
-  ['tb6612fngdual_249',['TB6612FNGDual',['../classTB6612FNGDual.html#a77825158d6185d2a3ea4a6d1bbccb81d',1,'TB6612FNGDual']]],
-  ['temperature_5ftask_250',['temperature_task',['../temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11',1,'temperature_task(void *p_params):&#160;temperature_task.cpp'],['../temperature__task_8h.html#ac9ce0c5163f1f8ce710270b5e0ba2b11',1,'temperature_task(void *p_params):&#160;temperature_task.cpp']]]
+  ['temperature_5ftask_249',['temperature_task',['../temperature__task_8cpp.html#ac9ce0c5163f1f8ce710270b5e0ba2b11',1,'temperature_task(void *p_params):&#160;temperature_task.cpp'],['../temperature__task_8h.html#ac9ce0c5163f1f8ce710270b5e0ba2b11',1,'temperature_task(void *p_params):&#160;temperature_task.cpp']]],
+  ['time_5fto_5fwait_250',['time_to_wait',['../classMotionPlanning.html#a2ca16e87a3e5b8c82d747d4c3b103234',1,'MotionPlanning']]]
 ];

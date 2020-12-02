@@ -119,11 +119,11 @@ Public Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a007ab41bca62847708ca2f42d60413e8"><td class="memItemLeft" align="right" valign="top"><a id="a007ab41bca62847708ca2f42d60413e8"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTB6612FNG.html#a007ab41bca62847708ca2f42d60413e8">_motor_dir_pin_1</a></td></tr>
-<tr class="memdesc:a007ab41bca62847708ca2f42d60413e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor Direction Pin 1 (Enables for which direciton the motor will rotate in) <br /></td></tr>
+<tr class="memdesc:a007ab41bca62847708ca2f42d60413e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor Direction Pin 1 (Enables for which direction the motor will rotate in) <br /></td></tr>
 <tr class="separator:a007ab41bca62847708ca2f42d60413e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dc120bfa12ef9042d8114c38c56c6be"><td class="memItemLeft" align="right" valign="top"><a id="a9dc120bfa12ef9042d8114c38c56c6be"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTB6612FNG.html#a9dc120bfa12ef9042d8114c38c56c6be">_motor_dir_pin_2</a></td></tr>
-<tr class="memdesc:a9dc120bfa12ef9042d8114c38c56c6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor Direction Pin 2 (Enables for which direciton the motor will rotate in) <br /></td></tr>
+<tr class="memdesc:a9dc120bfa12ef9042d8114c38c56c6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor Direction Pin 2 (Enables for which direction the motor will rotate in) <br /></td></tr>
 <tr class="separator:a9dc120bfa12ef9042d8114c38c56c6be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d10a2b72f258bc9e6e81a8f29fa24dc"><td class="memItemLeft" align="right" valign="top"><a id="a5d10a2b72f258bc9e6e81a8f29fa24dc"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTB6612FNG.html#a5d10a2b72f258bc9e6e81a8f29fa24dc">_pwm_input_pin</a></td></tr>
@@ -177,7 +177,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p><a class="el" href="classTB6612FNG.html" title="a motor driver class that is specific to Toshiba&#39;s TB6612FNG motor driver IC">TB6612FNG</a> Constructor. </p>
-<p>Saves instances of class memeber data for all required input pins to run one H-bridge on the motor driver chip and brings the h-bridge into the enabled, LOW state were all outputs are zeroed out to ensure nothing starts moving unexpectedly. Also sets up the hardware timer to send out PWM pulses at 20kHz (so motors are quiet) and sets the intial duty_cylce to zero. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Saves instances of class member data for all required input pins to run one H-bridge on the motor driver chip and brings the h-bridge into the enabled, LOW state were all outputs are zeroed out to ensure nothing starts moving unexpectedly. Also sets up the hardware timer to send out PWM pulses at 20kHz (so motors are quiet) and sets the initial duty_cylce to zero. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_standby_pin</td><td>the digital pin that send the enable/disable singal to the dual H-bridge </td></tr>
     <tr><td class="paramname">_motor_dir_pin_1</td><td>the digital pin that maps to the IN1 motor direction input on 1 of the H-bridges </td></tr>

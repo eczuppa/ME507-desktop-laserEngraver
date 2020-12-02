@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['enable_198',['enable',['../classTB6612FNG.html#a72097126a93a29f924cb78a1204840d0',1,'TB6612FNG::enable()'],['../classTB6612FNGDual.html#ae9f47a3594cb3722205e6329cbfcc710',1,'TB6612FNGDual::enable()']]],
+  ['enable_198',['enable',['../classTB6612FNG.html#a72097126a93a29f924cb78a1204840d0',1,'TB6612FNG']]],
   ['enc_5fread_199',['enc_read',['../classQuad__Encoder.html#adb9e7bad0bc57d0a6f8700e6cf82ea75',1,'Quad_Encoder']]],
   ['enc_5fread_5fpos_200',['enc_read_pos',['../classQuad__Encoder.html#a77a194b8850b7d34231e48c9df4e23c3',1,'Quad_Encoder']]],
   ['enc_5ftest_201',['enc_test',['../classQuad__Encoder.html#ab82ee109c2b2d0a72d9d15c319b7a18c',1,'Quad_Encoder']]],

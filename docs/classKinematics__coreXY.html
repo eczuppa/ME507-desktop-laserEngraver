@@ -86,13 +86,14 @@ $(document).ready(function(){initNavTree('classKinematics__coreXY.html',''); ini
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classKinematics__coreXY-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Kinematics_coreXY Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class which contains functions to convert from desited global coordinates to motor commands.  
+<p>Class which contains functions to convert from cartesian global coordinates to motor commands.  
  <a href="classKinematics__coreXY.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="kinematics_8h_source.html">kinematics.h</a>&gt;</code></p>
@@ -165,9 +166,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>_A_feed</b></td></tr
 <tr class="memitem:a0b89c1140926048d0c204d0ff661e5d1"><td class="memItemLeft" align="right" valign="top"><a id="a0b89c1140926048d0c204d0ff661e5d1"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>_B_feed</b></td></tr>
 <tr class="separator:a0b89c1140926048d0c204d0ff661e5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a9159debc686a877295fc5998cf59c35a"><td class="memItemLeft" align="right" valign="top"><a id="a9159debc686a877295fc5998cf59c35a"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>MotionPlanning</b></td></tr>
+<tr class="separator:a9159debc686a877295fc5998cf59c35a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class which contains functions to convert from desited global coordinates to motor commands. </p>
+<div class="textblock"><p>Class which contains functions to convert from cartesian global coordinates to motor commands. </p>
 <p>This class allows us to convert positions in X and Y and absolute speed (Feedrate) F into motor-specific (A and B) positions and feedrates for controling the laser head. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad043c98fa09dcbae8dff32581247f6eb"></a>
@@ -208,7 +215,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>_B_feed</b></td></tr
 </div><div class="memdoc">
 
 <p>Function which runs the kinematics functions in succession. </p>
-<p>This function runs the kinematics functions to take a new X Y and F value from the gcode interpreter and convert them into the motor A and B positions and feedrates. </p>
+<p>This function runs the kinematics functions to take a new X Y and F value from the Gcode interpreter and convert them into the motor A and B positions and feedrates. </p>
 
 </div>
 </div>
