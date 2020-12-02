@@ -1,0 +1,67 @@
+\hypertarget{encoder__task_8cpp}{}\doxysection{encoder\+\_\+task.\+cpp File Reference}
+\label{encoder__task_8cpp}\index{encoder\_task.cpp@{encoder\_task.cpp}}
+
+
+File that contains encoder task function file implementation.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for encoder\+\_\+task.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{encoder__task_8cpp_a18b51480af09a5e6022a4dc7b7c692d8}{encoder\+\_\+\+A\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the left encoder, Encoder A (Motor 1 Encoder) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{encoder__task_8cpp_ae06089f8baf24fcdf93286695959e313}{encoder\+\_\+\+B\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the right encoder, Encoder B (Motor 2 Encoder) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File that contains encoder task function file implementation. 
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+
+Matthew Carlson
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22 Nov 2020 Created these files and started outlining the code structure. 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{encoder__task_8cpp_a18b51480af09a5e6022a4dc7b7c692d8}\label{encoder__task_8cpp_a18b51480af09a5e6022a4dc7b7c692d8}} 
+\index{encoder\_task.cpp@{encoder\_task.cpp}!encoder\_A\_task@{encoder\_A\_task}}
+\index{encoder\_A\_task@{encoder\_A\_task}!encoder\_task.cpp@{encoder\_task.cpp}}
+\doxysubsubsection{\texorpdfstring{encoder\_A\_task()}{encoder\_A\_task()}}
+{\footnotesize\ttfamily void encoder\+\_\+\+A\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the left encoder, Encoder A (Motor 1 Encoder) 
+
+This task will interface with the \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} class in order to read values from Encoder A. It will use methods established in the \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} class to send values, via queues, of position, velocity, and delta time to the controller.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{encoder__task_8cpp_ae06089f8baf24fcdf93286695959e313}\label{encoder__task_8cpp_ae06089f8baf24fcdf93286695959e313}} 
+\index{encoder\_task.cpp@{encoder\_task.cpp}!encoder\_B\_task@{encoder\_B\_task}}
+\index{encoder\_B\_task@{encoder\_B\_task}!encoder\_task.cpp@{encoder\_task.cpp}}
+\doxysubsubsection{\texorpdfstring{encoder\_B\_task()}{encoder\_B\_task()}}
+{\footnotesize\ttfamily void encoder\+\_\+\+B\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the right encoder, Encoder B (Motor 2 Encoder) 
+
+This task will interface with the \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} class in order to read values from Encoder B. It will use methods established in the \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} class to send values, via shares, of position, velocity, and delta time to the controller.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

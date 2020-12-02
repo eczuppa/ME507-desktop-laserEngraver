@@ -1,0 +1,435 @@
+\hypertarget{classController__PID}{}\doxysection{Controller\+\_\+\+P\+ID Class Reference}
+\label{classController__PID}\index{Controller\_PID@{Controller\_PID}}
+
+
+Class which implements a P\+ID controller that can be used to drive the motors.  
+
+
+
+
+{\ttfamily \#include $<$control.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classController__PID_ae25b9ea52cb8af69e47d5ddbb811a679}{Controller\+\_\+\+P\+ID}} (float kP, float kI, float kD, float pos\+\_\+desired\+\_\+initial, float pos\+\_\+actual\+\_\+initial, float vel\+\_\+desired\+\_\+initial, float vel\+\_\+actual\+\_\+initial, float delta\+\_\+time\+\_\+initial)
+\begin{DoxyCompactList}\small\item\em Class which implements a P\+ID controller for a motor control. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_a6986d6b1e9d920c017209888fac70e5e}{control\+\_\+loop\+\_\+\+P\+ID}} ()
+\begin{DoxyCompactList}\small\item\em Set up the P\+ID control loop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_aa53cee679e53f64f3cf9efd9b1ceae10}{set\+\_\+gain\+\_\+\+P\+ID}} (float kP, float kI, float kD)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kP and kI in one method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_ab961635023aaf8c659b47c504556aea6}{set\+\_\+gain\+\_\+kP}} (float gain\+\_\+k\+P\+\_\+new)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kP. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}{get\+\_\+gain\+\_\+kP}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s gain coefficient kP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_a37508f9e08e515a434bcfe2939410a8b}{set\+\_\+gain\+\_\+kI}} (float gain\+\_\+k\+I\+\_\+new)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kI. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a0e74c53a2a910ae1044830dcdb85e819}{get\+\_\+gain\+\_\+kI}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s gain coefficient kI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_aecee8666fb0711125b01b901ebf31a19}{set\+\_\+gain\+\_\+kD}} (float gain\+\_\+k\+D\+\_\+new)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s gain coefficient kD. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a5cd8f8d77a55e5c14c7b009975412fb1}{get\+\_\+gain\+\_\+kD}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s gain coefficient kD. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_ae39732adfb0fdae508ee39408994d0c1}{set\+\_\+pos\+\_\+desired}} (float pos\+\_\+desired\+\_\+initial)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s desired position command that comes from the G\+Code. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a00679fd4fe2f0729e1a8a4bcbeb7d87e}{get\+\_\+pos\+\_\+desired}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s desired position command that comes from the G\+Code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_a3175af6cbfd228daa9fad970596ea11e}{set\+\_\+pos\+\_\+actual}} (float pos\+\_\+actual\+\_\+initial)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s actual position command that comes from the encoder. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_ac522c9c65f042ca184ccf86289db3958}{get\+\_\+pos\+\_\+actual}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s actual position command that comes from the encoder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_add3dce7147a1cfa496c2ef0b4e8b21ca}{set\+\_\+vel\+\_\+desired}} (float vel\+\_\+desired\+\_\+initial)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s desired velocity command that comes from the G\+Code. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_ad1b05d780d1c4e832bc1a75ecdc81a30}{get\+\_\+vel\+\_\+desired}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s desired velocity command that comes from the G\+Code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classController__PID_ade086357d455b2ffe4b03556bcb067ac}{set\+\_\+vel\+\_\+actual}} (float vel\+\_\+actual\+\_\+initial)
+\begin{DoxyCompactList}\small\item\em Set the controller\textquotesingle{}s actual velocity command that comes from the encoder. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a45466aa90aeb5319e4eccafc9d88ed4a}{get\+\_\+vel\+\_\+actual}} ()
+\begin{DoxyCompactList}\small\item\em Get the controller\textquotesingle{}s actual position command that comes from the encoder. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_ad11d85f3eeac3c62821822bd473500b9}{get\+\_\+output}} ()
+\begin{DoxyCompactList}\small\item\em Get the output of the control loop. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classController__PID_a458bcefbb26d19f45d8a5b93480f4024}{get\+\_\+pos\+\_\+error}} ()
+\begin{DoxyCompactList}\small\item\em Get the position error of the control loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classController__PID_a27e887d8b68b97cf52f263b36ced5175}\label{classController__PID_a27e887d8b68b97cf52f263b36ced5175}} 
+float {\bfseries gain\+\_\+kP}
+\item 
+\mbox{\Hypertarget{classController__PID_add0fe8a63585469587d0ab6599771cd0}\label{classController__PID_add0fe8a63585469587d0ab6599771cd0}} 
+float {\bfseries gain\+\_\+kI}
+\item 
+\mbox{\Hypertarget{classController__PID_ab4b93056b57797f23621c24e580e4c2a}\label{classController__PID_ab4b93056b57797f23621c24e580e4c2a}} 
+float {\bfseries gain\+\_\+kD}
+\item 
+\mbox{\Hypertarget{classController__PID_a71a20381575376f22f5e1383adb5b849}\label{classController__PID_a71a20381575376f22f5e1383adb5b849}} 
+float {\bfseries pos\+\_\+desired}
+\item 
+\mbox{\Hypertarget{classController__PID_a87f6ad885cc402de310abf0105778c69}\label{classController__PID_a87f6ad885cc402de310abf0105778c69}} 
+float {\bfseries pos\+\_\+actual}
+\item 
+\mbox{\Hypertarget{classController__PID_abc9626b33af762553b6ea8ebceb21248}\label{classController__PID_abc9626b33af762553b6ea8ebceb21248}} 
+float {\bfseries vel\+\_\+desired}
+\item 
+\mbox{\Hypertarget{classController__PID_a0c82323907f9e2f49d5e640ed3cec1cc}\label{classController__PID_a0c82323907f9e2f49d5e640ed3cec1cc}} 
+float {\bfseries vel\+\_\+actual}
+\item 
+\mbox{\Hypertarget{classController__PID_a80695accf6b517ebc68123e1b400fa64}\label{classController__PID_a80695accf6b517ebc68123e1b400fa64}} 
+float {\bfseries delta\+\_\+time}
+\item 
+\mbox{\Hypertarget{classController__PID_a53109f5f85d70f475cb951d8df45fc9e}\label{classController__PID_a53109f5f85d70f475cb951d8df45fc9e}} 
+float {\bfseries pos\+\_\+last}
+\item 
+\mbox{\Hypertarget{classController__PID_a076fb450adffad559dde77d0d5e88ab0}\label{classController__PID_a076fb450adffad559dde77d0d5e88ab0}} 
+float {\bfseries vel\+\_\+last}
+\item 
+\mbox{\Hypertarget{classController__PID_a2322873424e81596f1cda0e744e19788}\label{classController__PID_a2322873424e81596f1cda0e744e19788}} 
+float {\bfseries pos\+\_\+error}
+\item 
+\mbox{\Hypertarget{classController__PID_a5b3d3bfed26d05ac4b1c8e45587fd13a}\label{classController__PID_a5b3d3bfed26d05ac4b1c8e45587fd13a}} 
+float {\bfseries pos\+\_\+error\+\_\+last}
+\item 
+\mbox{\Hypertarget{classController__PID_ac4865870c847c85a40650c25deac5749}\label{classController__PID_ac4865870c847c85a40650c25deac5749}} 
+float {\bfseries vel\+\_\+error}
+\item 
+\mbox{\Hypertarget{classController__PID_a95fff76a5f9e86c88c7534ff796e7933}\label{classController__PID_a95fff76a5f9e86c88c7534ff796e7933}} 
+float {\bfseries vel\+\_\+error\+\_\+last}
+\item 
+\mbox{\Hypertarget{classController__PID_ac74b1cd1403d5871ea2b6e83dc8307f8}\label{classController__PID_ac74b1cd1403d5871ea2b6e83dc8307f8}} 
+float {\bfseries integral\+\_\+cumulation}
+\item 
+\mbox{\Hypertarget{classController__PID_a0e3a8123be7119348003304284b7817b}\label{classController__PID_a0e3a8123be7119348003304284b7817b}} 
+float {\bfseries integral\+\_\+cumulation\+\_\+max}
+\item 
+\mbox{\Hypertarget{classController__PID_aa73590d55c192e74c040285dd5c0d4ad}\label{classController__PID_aa73590d55c192e74c040285dd5c0d4ad}} 
+float {\bfseries derivative\+\_\+per\+\_\+cycle}
+\item 
+\mbox{\Hypertarget{classController__PID_a259450c574b1ef63d98a3516369dde42}\label{classController__PID_a259450c574b1ef63d98a3516369dde42}} 
+float {\bfseries output\+\_\+filter}
+\item 
+\mbox{\Hypertarget{classController__PID_a90cfadefd22f2a1b3f3692a1f0ae9f39}\label{classController__PID_a90cfadefd22f2a1b3f3692a1f0ae9f39}} 
+float {\bfseries output\+\_\+\+P\+WM}
+\item 
+\mbox{\Hypertarget{classController__PID_acb14ba1a9a5c97d875d1b2a0cd7199b8}\label{classController__PID_acb14ba1a9a5c97d875d1b2a0cd7199b8}} 
+float {\bfseries output\+\_\+max}
+\item 
+\mbox{\Hypertarget{classController__PID_aee9429b91d93415d9a32168c9fd46a82}\label{classController__PID_aee9429b91d93415d9a32168c9fd46a82}} 
+float {\bfseries output}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class which implements a P\+ID controller that can be used to drive the motors. 
+
+Defines Protected variables that are used in the \mbox{\hyperlink{control_8cpp}{control.\+cpp}} file with the \char`\"{}\+Controller\+\_\+\+P\+I\+D\char`\"{} class. Also sets up contructor \char`\"{}\+Controller\+\_\+\+P\+I\+D\char`\"{} and method\textquotesingle{}s \char`\"{}control\+\_\+loop\+\_\+\+P\+I\+D\char`\"{}, \char`\"{}set\+\_\+gain\+\_\+k\+P\char`\"{}, \char`\"{}set\+\_\+gain\+\_\+k\+I\char`\"{}, \char`\"{}set\+\_\+gain\+\_\+k\+D\char`\"{} and \char`\"{}change\+\_\+setpoint\+\_\+\+P\+I\+D\char`\"{} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classController__PID_ae25b9ea52cb8af69e47d5ddbb811a679}\label{classController__PID_ae25b9ea52cb8af69e47d5ddbb811a679}} 
+\index{Controller\_PID@{Controller\_PID}!Controller\_PID@{Controller\_PID}}
+\index{Controller\_PID@{Controller\_PID}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{Controller\_PID()}{Controller\_PID()}}
+{\footnotesize\ttfamily Controller\+\_\+\+P\+I\+D\+::\+Controller\+\_\+\+P\+ID (\begin{DoxyParamCaption}\item[{float}]{kP,  }\item[{float}]{kI,  }\item[{float}]{kD,  }\item[{float}]{pos\+\_\+desired\+\_\+initial,  }\item[{float}]{pos\+\_\+actual\+\_\+initial,  }\item[{float}]{vel\+\_\+desired\+\_\+initial,  }\item[{float}]{vel\+\_\+actual\+\_\+initial,  }\item[{float}]{delta\+\_\+time\+\_\+initial }\end{DoxyParamCaption})}
+
+
+
+Class which implements a P\+ID controller for a motor control. 
+
+Sets up the P\+ID controller classes and sets up the methods to use this controller class.
+
+Creates a P\+ID controller to drive a motor
+
+This constructor sets up the P\+ID controller. It does this by taking in two gain values and a setpoint (gotten from the G\+Code). It reads the actual position from the encoder output, compares this to the theoretical position from the setpoint (initially from the G\+Code), computes an error value and updates the setpoint (motor command) to minimize the error. It also will have functions that allow the gain and setpoint protected variables to be changed by either the user or by the G\+Code. 
+\begin{DoxyParams}{Parameters}
+{\em k\+P\+\_\+gain} & This is the parameter for the input gain for the Proportional control \\
+\hline
+{\em k\+I\+\_\+gain} & This is the parameter for the input gain for the Integral control \\
+\hline
+{\em k\+D\+\_\+gain} & This is the parameter for the input gain for the Derivative control \\
+\hline
+{\em pos\+\_\+desired\+\_\+initial} & This is the initial value of the postion gotten from the G\+Code \\
+\hline
+{\em pos\+\_\+actual\+\_\+initial} & This is the initial value of the postion gotten from the Encoder \\
+\hline
+{\em vel\+\_\+desired\+\_\+initial} & This is the initial value of the velocity gotten from the G\+Code \\
+\hline
+{\em vel\+\_\+actual\+\_\+initial} & This is the initial value of the velocity gotten from the Encoder \\
+\hline
+{\em delta\+\_\+time\+\_\+initial} & This is the initial value of the delta time gotten from the Encoder \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classController__PID_a6986d6b1e9d920c017209888fac70e5e}\label{classController__PID_a6986d6b1e9d920c017209888fac70e5e}} 
+\index{Controller\_PID@{Controller\_PID}!control\_loop\_PID@{control\_loop\_PID}}
+\index{control\_loop\_PID@{control\_loop\_PID}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{control\_loop\_PID()}{control\_loop\_PID()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::control\+\_\+loop\+\_\+\+P\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Set up the P\+ID control loop. 
+
+Takes the encoder\textquotesingle{}s position and compares this with the current setpoint from the G\+Code. Does calculations to determine a new motor command. \mbox{\Hypertarget{classController__PID_a5cd8f8d77a55e5c14c7b009975412fb1}\label{classController__PID_a5cd8f8d77a55e5c14c7b009975412fb1}} 
+\index{Controller\_PID@{Controller\_PID}!get\_gain\_kD@{get\_gain\_kD}}
+\index{get\_gain\_kD@{get\_gain\_kD}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_gain\_kD()}{get\_gain\_kD()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+gain\+\_\+kD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s gain coefficient kD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain\+\_\+kD} & The value for the controller\textquotesingle{}s gain coefficient, kD \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a0e74c53a2a910ae1044830dcdb85e819}\label{classController__PID_a0e74c53a2a910ae1044830dcdb85e819}} 
+\index{Controller\_PID@{Controller\_PID}!get\_gain\_kI@{get\_gain\_kI}}
+\index{get\_gain\_kI@{get\_gain\_kI}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_gain\_kI()}{get\_gain\_kI()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+gain\+\_\+kI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s gain coefficient kI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain\+\_\+kI} & The value for the controller\textquotesingle{}s gain coefficient, kI \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}\label{classController__PID_a9759949e91212b0d877f8de4b4e8fac7}} 
+\index{Controller\_PID@{Controller\_PID}!get\_gain\_kP@{get\_gain\_kP}}
+\index{get\_gain\_kP@{get\_gain\_kP}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_gain\_kP()}{get\_gain\_kP()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+gain\+\_\+kP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s gain coefficient kP. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain\+\_\+kP} & The value for the controller\textquotesingle{}s gain coefficient, kP \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ad11d85f3eeac3c62821822bd473500b9}\label{classController__PID_ad11d85f3eeac3c62821822bd473500b9}} 
+\index{Controller\_PID@{Controller\_PID}!get\_output@{get\_output}}
+\index{get\_output@{get\_output}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_output()}{get\_output()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the output of the control loop. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The value for the controller\textquotesingle{}s desired velocity. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ac522c9c65f042ca184ccf86289db3958}\label{classController__PID_ac522c9c65f042ca184ccf86289db3958}} 
+\index{Controller\_PID@{Controller\_PID}!get\_pos\_actual@{get\_pos\_actual}}
+\index{get\_pos\_actual@{get\_pos\_actual}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_pos\_actual()}{get\_pos\_actual()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+pos\+\_\+actual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s actual position command that comes from the encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+actual} & The value for the controller\textquotesingle{}s actual position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a00679fd4fe2f0729e1a8a4bcbeb7d87e}\label{classController__PID_a00679fd4fe2f0729e1a8a4bcbeb7d87e}} 
+\index{Controller\_PID@{Controller\_PID}!get\_pos\_desired@{get\_pos\_desired}}
+\index{get\_pos\_desired@{get\_pos\_desired}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_pos\_desired()}{get\_pos\_desired()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+pos\+\_\+desired (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s desired position command that comes from the G\+Code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+desired} & The value for the controller\textquotesingle{}s desired position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a458bcefbb26d19f45d8a5b93480f4024}\label{classController__PID_a458bcefbb26d19f45d8a5b93480f4024}} 
+\index{Controller\_PID@{Controller\_PID}!get\_pos\_error@{get\_pos\_error}}
+\index{get\_pos\_error@{get\_pos\_error}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_pos\_error()}{get\_pos\_error()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+pos\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the position error of the control loop. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+error} & The value for the controller\textquotesingle{}s position error. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a45466aa90aeb5319e4eccafc9d88ed4a}\label{classController__PID_a45466aa90aeb5319e4eccafc9d88ed4a}} 
+\index{Controller\_PID@{Controller\_PID}!get\_vel\_actual@{get\_vel\_actual}}
+\index{get\_vel\_actual@{get\_vel\_actual}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_vel\_actual()}{get\_vel\_actual()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+vel\+\_\+actual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s actual position command that comes from the encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+actual} & The value for the controller\textquotesingle{}s actual position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ad1b05d780d1c4e832bc1a75ecdc81a30}\label{classController__PID_ad1b05d780d1c4e832bc1a75ecdc81a30}} 
+\index{Controller\_PID@{Controller\_PID}!get\_vel\_desired@{get\_vel\_desired}}
+\index{get\_vel\_desired@{get\_vel\_desired}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{get\_vel\_desired()}{get\_vel\_desired()}}
+{\footnotesize\ttfamily float Controller\+\_\+\+P\+I\+D\+::get\+\_\+vel\+\_\+desired (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the controller\textquotesingle{}s desired velocity command that comes from the G\+Code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vel\+\_\+desired} & The value for the controller\textquotesingle{}s desired velocity. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_aecee8666fb0711125b01b901ebf31a19}\label{classController__PID_aecee8666fb0711125b01b901ebf31a19}} 
+\index{Controller\_PID@{Controller\_PID}!set\_gain\_kD@{set\_gain\_kD}}
+\index{set\_gain\_kD@{set\_gain\_kD}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_gain\_kD()}{set\_gain\_kD()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+gain\+\_\+kD (\begin{DoxyParamCaption}\item[{float}]{kD }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s gain coefficient kD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kD} & A new value for the controller\textquotesingle{}s gain coefficient, kD \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a37508f9e08e515a434bcfe2939410a8b}\label{classController__PID_a37508f9e08e515a434bcfe2939410a8b}} 
+\index{Controller\_PID@{Controller\_PID}!set\_gain\_kI@{set\_gain\_kI}}
+\index{set\_gain\_kI@{set\_gain\_kI}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_gain\_kI()}{set\_gain\_kI()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+gain\+\_\+kI (\begin{DoxyParamCaption}\item[{float}]{kI }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s gain coefficient kI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kI} & A new value for the controller\textquotesingle{}s gain coefficient, kI \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ab961635023aaf8c659b47c504556aea6}\label{classController__PID_ab961635023aaf8c659b47c504556aea6}} 
+\index{Controller\_PID@{Controller\_PID}!set\_gain\_kP@{set\_gain\_kP}}
+\index{set\_gain\_kP@{set\_gain\_kP}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_gain\_kP()}{set\_gain\_kP()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+gain\+\_\+kP (\begin{DoxyParamCaption}\item[{float}]{kP }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s gain coefficient kP. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kP} & A new value for the controller\textquotesingle{}s gain coefficient, kP \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_aa53cee679e53f64f3cf9efd9b1ceae10}\label{classController__PID_aa53cee679e53f64f3cf9efd9b1ceae10}} 
+\index{Controller\_PID@{Controller\_PID}!set\_gain\_PID@{set\_gain\_PID}}
+\index{set\_gain\_PID@{set\_gain\_PID}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_gain\_PID()}{set\_gain\_PID()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+gain\+\_\+\+P\+ID (\begin{DoxyParamCaption}\item[{float}]{kP,  }\item[{float}]{kI,  }\item[{float}]{kD }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s gain coefficient kP and kI in one method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain\+\_\+k\+P\+\_\+new} & A new value for the controller\textquotesingle{}s gain coefficient, kP \\
+\hline
+{\em gain\+\_\+k\+I\+\_\+new} & A new value for the controller\textquotesingle{}s gain coefficient, kI \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_a3175af6cbfd228daa9fad970596ea11e}\label{classController__PID_a3175af6cbfd228daa9fad970596ea11e}} 
+\index{Controller\_PID@{Controller\_PID}!set\_pos\_actual@{set\_pos\_actual}}
+\index{set\_pos\_actual@{set\_pos\_actual}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_pos\_actual()}{set\_pos\_actual()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+pos\+\_\+actual (\begin{DoxyParamCaption}\item[{float}]{pos\+\_\+actual\+\_\+initial }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s actual position command that comes from the encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+actual\+\_\+initial} & A new value for the controller\textquotesingle{}s actual position. This value will be contantly being updated by the encoder processor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ae39732adfb0fdae508ee39408994d0c1}\label{classController__PID_ae39732adfb0fdae508ee39408994d0c1}} 
+\index{Controller\_PID@{Controller\_PID}!set\_pos\_desired@{set\_pos\_desired}}
+\index{set\_pos\_desired@{set\_pos\_desired}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_pos\_desired()}{set\_pos\_desired()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+pos\+\_\+desired (\begin{DoxyParamCaption}\item[{float}]{pos\+\_\+desired\+\_\+initial }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s desired position command that comes from the G\+Code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+desired\+\_\+initial} & A new value for the controller\textquotesingle{}s desired position. This value will be contantly being updated by the G\+Code processor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_ade086357d455b2ffe4b03556bcb067ac}\label{classController__PID_ade086357d455b2ffe4b03556bcb067ac}} 
+\index{Controller\_PID@{Controller\_PID}!set\_vel\_actual@{set\_vel\_actual}}
+\index{set\_vel\_actual@{set\_vel\_actual}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_vel\_actual()}{set\_vel\_actual()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+vel\+\_\+actual (\begin{DoxyParamCaption}\item[{float}]{vel\+\_\+actual\+\_\+initial }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s actual velocity command that comes from the encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vel\+\_\+actual\+\_\+initial} & A new value for the controller\textquotesingle{}s actual velocity. This value will be contantly being updated by the encoder processor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classController__PID_add3dce7147a1cfa496c2ef0b4e8b21ca}\label{classController__PID_add3dce7147a1cfa496c2ef0b4e8b21ca}} 
+\index{Controller\_PID@{Controller\_PID}!set\_vel\_desired@{set\_vel\_desired}}
+\index{set\_vel\_desired@{set\_vel\_desired}!Controller\_PID@{Controller\_PID}}
+\doxysubsubsection{\texorpdfstring{set\_vel\_desired()}{set\_vel\_desired()}}
+{\footnotesize\ttfamily void Controller\+\_\+\+P\+I\+D\+::set\+\_\+vel\+\_\+desired (\begin{DoxyParamCaption}\item[{float}]{vel\+\_\+desired\+\_\+initial }\end{DoxyParamCaption})}
+
+
+
+Set the controller\textquotesingle{}s desired velocity command that comes from the G\+Code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vel\+\_\+desired\+\_\+initial} & A new value for the controller\textquotesingle{}s desired velocity. This value will be contantly being updated by the G\+Code processor \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{control_8h}{control.\+h}}\item 
+\mbox{\hyperlink{control_8cpp}{control.\+cpp}}\end{DoxyCompactItemize}

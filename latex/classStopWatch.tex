@@ -1,0 +1,68 @@
+\hypertarget{classStopWatch}{}\doxysection{Stop\+Watch Class Reference}
+\label{classStopWatch}\index{StopWatch@{StopWatch}}
+
+
+header for a timer class based on the Hardware\+Timer library that behaves like an actual stopwatch  
+
+
+
+
+{\ttfamily \#include $<$stopwatch.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}\label{classStopWatch_ad65f5e21ba584e943a2bbf532008d605}} 
+{\bfseries Stop\+Watch} (T\+I\+M\+\_\+\+Type\+Def $\ast$p\+\_\+\+Stpwtch, uint8\+\_\+t tmrpin)
+\item 
+\mbox{\Hypertarget{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}\label{classStopWatch_a96a1f78d9b986416369aa541cb5e60ee}} 
+uint16\+\_\+t {\bfseries now\+\_\+time} (void)
+\item 
+\mbox{\Hypertarget{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}\label{classStopWatch_af9292549c3161a362d8ea20a8df4edf8}} 
+uint16\+\_\+t {\bfseries elapsed\+\_\+time} (void)
+\item 
+\mbox{\Hypertarget{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}\label{classStopWatch_ad15100bf793ac80bf8efc53c877d4742}} 
+uint32\+\_\+t {\bfseries lap} (void)
+\item 
+\mbox{\Hypertarget{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}\label{classStopWatch_a701ebe79d3f76e8c25447fcce80342a2}} 
+void {\bfseries restart} (void)
+\item 
+\mbox{\Hypertarget{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}\label{classStopWatch_a5aa4d92e182b68b9e7cb7f7e085212f4}} 
+void {\bfseries temp\+\_\+stop} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classStopWatch_ab2e643e24a998163d17c0cc0be0b2fbe}\label{classStopWatch_ab2e643e24a998163d17c0cc0be0b2fbe}} 
+T\+I\+M\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{classStopWatch_ab2e643e24a998163d17c0cc0be0b2fbe}{\+\_\+p\+\_\+\+Stpwtch}}
+\begin{DoxyCompactList}\small\item\em pointer to user-\/passed hardware timer (T\+I\+M1,T\+I\+M2, etc) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_aea5e012456c011226fa9b24d475dcdec}\label{classStopWatch_aea5e012456c011226fa9b24d475dcdec}} 
+Hardware\+Timer $\ast$ \mbox{\hyperlink{classStopWatch_aea5e012456c011226fa9b24d475dcdec}{a\+\_\+\+Tmr}}
+\begin{DoxyCompactList}\small\item\em pointer to Hardware\+Timer class instance \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_ab91d33d41cdea491d6561d62f95f3ad8}\label{classStopWatch_ab91d33d41cdea491d6561d62f95f3ad8}} 
+uint8\+\_\+t \mbox{\hyperlink{classStopWatch_ab91d33d41cdea491d6561d62f95f3ad8}{\+\_\+tmrpin}}
+\begin{DoxyCompactList}\small\item\em the channel pin specifically assigned to the chosen timer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_ad5f12928802d1438260271e4046df7ca}\label{classStopWatch_ad5f12928802d1438260271e4046df7ca}} 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_ad5f12928802d1438260271e4046df7ca}{\+\_\+now}}
+\begin{DoxyCompactList}\small\item\em the current time in microseconds -\/ since the clock was restarted ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_afff0b4c4349b963624fc82d5b42bb14f}\label{classStopWatch_afff0b4c4349b963624fc82d5b42bb14f}} 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_afff0b4c4349b963624fc82d5b42bb14f}{\+\_\+last}}
+\begin{DoxyCompactList}\small\item\em the last time a measurement was taken \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_a62dc833701e5d8c04113049cc10f732e}\label{classStopWatch_a62dc833701e5d8c04113049cc10f732e}} 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_a62dc833701e5d8c04113049cc10f732e}{\+\_\+lap}}
+\begin{DoxyCompactList}\small\item\em the difference between now and last -\/ used when measuring a parameter of interest \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}\label{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}} 
+uint16\+\_\+t \mbox{\hyperlink{classStopWatch_a0d144d84b5b4657bbc0da9239c2a40d4}{\+\_\+elpsd}}
+\begin{DoxyCompactList}\small\item\em the time elapsed between the last and current measurements with now\+\_\+time(); \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+header for a timer class based on the Hardware\+Timer library that behaves like an actual stopwatch 
+
+Uses the hardware timer library A\+PI to create a timer that just counts but does not trigger any output events. the counts and overflow are set to be in {\ttfamily M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+D\+\_\+\+F\+O\+R\+M\+AT} to ensure that the sufficient resolution of timing is achieved for whatever the user is trying to time. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stopwatch_8h}{stopwatch.\+h}}\item 
+\mbox{\hyperlink{stopwatch_8cpp}{stopwatch.\+cpp}}\end{DoxyCompactItemize}

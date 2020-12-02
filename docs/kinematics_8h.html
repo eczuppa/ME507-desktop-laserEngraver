@@ -89,12 +89,10 @@ $(document).ready(function(){initNavTree('kinematics_8h.html',''); initResizable
 <div class="title">kinematics.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="kinematics_8h__dep__incl.png" border="0" usemap="#kinematics_8hdep" alt=""/></div>
-</div>
-</div>
+
+<p>File containing the interface for the kinematics class that wil translate GCODE inputs into a usable type for the control loop.  
+<a href="#details">More...</a></p>
+
 <p><a href="kinematics_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -104,8 +102,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>the interface for the kinematics class that wil translate GCODE inputs into a usable type for the control loop</p>
-<p>Uses the appropriate kinematic equations to relate Gcode X,Y positions and F feedrate to values of the same type as the motor encoders output. This transformation significantly increases the ease of controlling the motors and only requires the proper transformation of the desired target positions, velocities, etc. from the Gcode. CoreXY concepts used from Ilan E. Moyer - one of the earlier authors of CoreXY implementation and theory his website is available here: <a href="https://corexy.com/theory.html">https://corexy.com/theory.html</a></p>
+<div class="textblock"><p>File containing the interface for the kinematics class that wil translate GCODE inputs into a usable type for the control loop. </p>
+<p>This file contains a class which uses the appropriate kinematic equations for CoreXY to relate Gcode X,Y positions and F feedrate to values of the same type as the motor encoders output.</p>
 <dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa </dd>
 <dd>
 Niko Banks </dd>

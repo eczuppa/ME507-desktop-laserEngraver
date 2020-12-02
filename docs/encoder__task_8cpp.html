@@ -84,17 +84,20 @@ $(document).ready(function(){initNavTree('encoder__task_8cpp.html',''); initResi
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">encoder_task.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>File that contains encoder task function file implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for encoder_task.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="encoder__task_8cpp__incl.png" border="0" usemap="#encoder__task_8cpp" alt=""/></div>
+<!-- MAP 0 -->
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -105,30 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae06089f8baf24fcdf93286695959e313"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="encoder__task_8cpp.html#ae06089f8baf24fcdf93286695959e313">encoder_B_task</a> (void *p_params)</td></tr>
 <tr class="memdesc:ae06089f8baf24fcdf93286695959e313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task to run the right encoder, Encoder B (Motor 2 Encoder)  <a href="encoder__task_8cpp.html#ae06089f8baf24fcdf93286695959e313">More...</a><br /></td></tr>
 <tr class="separator:ae06089f8baf24fcdf93286695959e313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a26f87807fb6e96e15979d35a26532b96"><td class="memItemLeft" align="right" valign="top"><a id="a26f87807fb6e96e15979d35a26532b96"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_pos</b></td></tr>
-<tr class="separator:a26f87807fb6e96e15979d35a26532b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memItemLeft" align="right" valign="top"><a id="abcdef3d3e9a4e663e8ca42c3a2514bbe"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_velocity</b></td></tr>
-<tr class="separator:abcdef3d3e9a4e663e8ca42c3a2514bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memItemLeft" align="right" valign="top"><a id="a5ccfa5c65af065d5341fae8e72e236a3"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_A_dt</b></td></tr>
-<tr class="separator:a5ccfa5c65af065d5341fae8e72e236a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memItemLeft" align="right" valign="top"><a id="ade0de87fd09ab2e65d8734a74b5bf0ca"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_pos</b></td></tr>
-<tr class="separator:ade0de87fd09ab2e65d8734a74b5bf0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd32e9179c912410315e232a7a9dfe15"><td class="memItemLeft" align="right" valign="top"><a id="acd32e9179c912410315e232a7a9dfe15"></a>
-Share&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_velocity</b></td></tr>
-<tr class="separator:acd32e9179c912410315e232a7a9dfe15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a954bb737796397f7e1da476fa359bf"><td class="memItemLeft" align="right" valign="top"><a id="a8a954bb737796397f7e1da476fa359bf"></a>
-Share&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>encoder_B_dt</b></td></tr>
-<tr class="separator:a8a954bb737796397f7e1da476fa359bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>is the encoder task function file implementation. It reads values from the encoder class and sends a position, velocity delta time to the controller via shares.</p>
+<div class="textblock"><p>File that contains encoder task function file implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Ethan A Czuppa </dd>
 <dd>
 Matthew Carlson</dd></dl>

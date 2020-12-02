@@ -1,0 +1,71 @@
+\hypertarget{motor__task_8cpp}{}\doxysection{motor\+\_\+task.\+cpp File Reference}
+\label{motor__task_8cpp}\index{motor\_task.cpp@{motor\_task.cpp}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for motor\+\_\+task.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{motor__task_8cpp_adec2b16eb5323a365c83e6992228c7a4}{motor\+\_\+\+A\+\_\+driver\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the left motor, motor A (Motor 1) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__task_8cpp_a3417bcc202913e6dee899ed871496a54}{motor\+\_\+\+B\+\_\+driver\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the right motor, motor B (Motor 2) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{motor__task_8cpp_a6248de5e4c977016354e0ff265331187}\label{motor__task_8cpp_a6248de5e4c977016354e0ff265331187}} 
+Queue$<$ int8\+\_\+t $>$ {\bfseries queue\+\_\+\+P\+W\+M\+\_\+motor\+\_\+A}
+\item 
+\mbox{\Hypertarget{motor__task_8cpp_aa4feb32cd848e45f4c8f88c521226939}\label{motor__task_8cpp_aa4feb32cd848e45f4c8f88c521226939}} 
+Queue$<$ int8\+\_\+t $>$ {\bfseries queue\+\_\+\+P\+W\+M\+\_\+motor\+\_\+B}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+is the motor driver task function file implementation. It gets a P\+WM signal from the controller via a queue and then feeds this into a motor driver instance (which this code also creates).
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+
+Matthew Carlson
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+11 Nov 2020 Created files to test motor driver and encoder code 
+
+20 Nov 2020 Wrote first drafts of motor A and motor B driver tasks N\+O\+TE -\/ Ethan your testing code is at the very bottom of the code 
+
+21 Nov 2020 Updated the timing and timers (T\+I\+M3) and reviewed the code 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{motor__task_8cpp_adec2b16eb5323a365c83e6992228c7a4}\label{motor__task_8cpp_adec2b16eb5323a365c83e6992228c7a4}} 
+\index{motor\_task.cpp@{motor\_task.cpp}!motor\_A\_driver\_task@{motor\_A\_driver\_task}}
+\index{motor\_A\_driver\_task@{motor\_A\_driver\_task}!motor\_task.cpp@{motor\_task.cpp}}
+\doxysubsubsection{\texorpdfstring{motor\_A\_driver\_task()}{motor\_A\_driver\_task()}}
+{\footnotesize\ttfamily void motor\+\_\+\+A\+\_\+driver\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the left motor, motor A (Motor 1) 
+
+This task will interface with the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver in order to send commands to the left motor (motor A). It will constantly get the output from the controller task via a queue. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{motor__task_8cpp_a3417bcc202913e6dee899ed871496a54}\label{motor__task_8cpp_a3417bcc202913e6dee899ed871496a54}} 
+\index{motor\_task.cpp@{motor\_task.cpp}!motor\_B\_driver\_task@{motor\_B\_driver\_task}}
+\index{motor\_B\_driver\_task@{motor\_B\_driver\_task}!motor\_task.cpp@{motor\_task.cpp}}
+\doxysubsubsection{\texorpdfstring{motor\_B\_driver\_task()}{motor\_B\_driver\_task()}}
+{\footnotesize\ttfamily void motor\+\_\+\+B\+\_\+driver\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the right motor, motor B (Motor 2) 
+
+This task will interface with the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver in order to send commands to the right motor (motor B). It will constantly get the output from the controller task via a queue. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

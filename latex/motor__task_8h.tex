@@ -1,0 +1,67 @@
+\hypertarget{motor__task_8h}{}\doxysection{motor\+\_\+task.\+h File Reference}
+\label{motor__task_8h}\index{motor\_task.h@{motor\_task.h}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for motor\+\_\+task.\+h\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{motor__task_8h_adec2b16eb5323a365c83e6992228c7a4}{motor\+\_\+\+A\+\_\+driver\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the left motor, motor A (Motor 1) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__task_8h_a3417bcc202913e6dee899ed871496a54}{motor\+\_\+\+B\+\_\+driver\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task to run the right motor, motor B (Motor 2) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{motor__task_8h_a0582ee1da58efa98d6653eae105a7aa8}\label{motor__task_8h_a0582ee1da58efa98d6653eae105a7aa8}} 
+const Tick\+Type\+\_\+t {\bfseries motor\+\_\+period\+\_\+A} = 10
+\item 
+\mbox{\Hypertarget{motor__task_8h_ae9088910b08cd01bbc59b7cdec4529af}\label{motor__task_8h_ae9088910b08cd01bbc59b7cdec4529af}} 
+const Tick\+Type\+\_\+t {\bfseries motor\+\_\+period\+\_\+B} = 10
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+is motor driver task function file header
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+
+Matthew Carlson
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+11 Nov 2020 Created files to test motor driver and encoder code 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{motor__task_8h_adec2b16eb5323a365c83e6992228c7a4}\label{motor__task_8h_adec2b16eb5323a365c83e6992228c7a4}} 
+\index{motor\_task.h@{motor\_task.h}!motor\_A\_driver\_task@{motor\_A\_driver\_task}}
+\index{motor\_A\_driver\_task@{motor\_A\_driver\_task}!motor\_task.h@{motor\_task.h}}
+\doxysubsubsection{\texorpdfstring{motor\_A\_driver\_task()}{motor\_A\_driver\_task()}}
+{\footnotesize\ttfamily void motor\+\_\+\+A\+\_\+driver\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the left motor, motor A (Motor 1) 
+
+This task will interface with the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver in order to send commands to the left motor (motor A). It will constantly get the output from the controller task via a queue. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{motor__task_8h_a3417bcc202913e6dee899ed871496a54}\label{motor__task_8h_a3417bcc202913e6dee899ed871496a54}} 
+\index{motor\_task.h@{motor\_task.h}!motor\_B\_driver\_task@{motor\_B\_driver\_task}}
+\index{motor\_B\_driver\_task@{motor\_B\_driver\_task}!motor\_task.h@{motor\_task.h}}
+\doxysubsubsection{\texorpdfstring{motor\_B\_driver\_task()}{motor\_B\_driver\_task()}}
+{\footnotesize\ttfamily void motor\+\_\+\+B\+\_\+driver\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task to run the right motor, motor B (Motor 2) 
+
+This task will interface with the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver in order to send commands to the right motor (motor B). It will constantly get the output from the controller task via a queue. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

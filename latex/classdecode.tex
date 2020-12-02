@@ -1,0 +1,131 @@
+\hypertarget{classdecode}{}\doxysection{decode Class Reference}
+\label{classdecode}\index{decode@{decode}}
+
+
+Class which implements decoding object which contains functions for decoding gcode.  
+
+
+
+
+{\ttfamily \#include $<$gcode.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdecode_af848c3b64fd5340ff9f21835282c27ce}{decode}} (void)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdecode_ad54495f57f3fd3abc1af93444d2da7e4}{interpret\+\_\+gcode\+\_\+line}} (char $\ast$line)
+\begin{DoxyCompactList}\small\item\em Function to interpret gcode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdecode_a548ca39f6ee5fef2d39d5cba981ea1a1}{gcode\+\_\+initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize gcode reading. \end{DoxyCompactList}\item 
+X\+Y\+S\+Fvalues \mbox{\hyperlink{classdecode_a9e4c47dc139e6495c448ca9ff19c2554}{get\+\_\+\+X\+Y\+SF}} (void)
+\begin{DoxyCompactList}\small\item\em Get-\/er functions\+: \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classdecode_a620ca7d07d0a6ffb8b03622bc11a580d}{get\+\_\+S}} (void)
+\begin{DoxyCompactList}\small\item\em Function which gets just the {\ttfamily S} value from the gcode decoder class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdecode_a915e55ac5748328531b7146d240a2ae9}\label{classdecode_a915e55ac5748328531b7146d240a2ae9}} 
+X\+Y\+S\+Fvalues \mbox{\hyperlink{classdecode_a915e55ac5748328531b7146d240a2ae9}{\+\_\+\+X\+Y\+S\+Fval}}
+\begin{DoxyCompactList}\small\item\em struct with values for X, Y, S, and F \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdecode_a4953511332e93f2931008ddc41f5bd70}\label{classdecode_a4953511332e93f2931008ddc41f5bd70}} 
+bool \mbox{\hyperlink{classdecode_a4953511332e93f2931008ddc41f5bd70}{\+\_\+laser\+\_\+enable}} = 0
+\begin{DoxyCompactList}\small\item\em Laser state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdecode_aebc93b90138a1828d28b19b6e1e8809f}\label{classdecode_aebc93b90138a1828d28b19b6e1e8809f}} 
+bool \mbox{\hyperlink{classdecode_aebc93b90138a1828d28b19b6e1e8809f}{\+\_\+units}} = M\+I\+L\+L\+I\+M\+E\+T\+E\+RS
+\begin{DoxyCompactList}\small\item\em Set units (default in millimeters) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdecode_ae7ab867850dc9244c53d0929f69133e9}\label{classdecode_ae7ab867850dc9244c53d0929f69133e9}} 
+uint8\+\_\+t \mbox{\hyperlink{classdecode_ae7ab867850dc9244c53d0929f69133e9}{\+\_\+error\+\_\+signal}} = N\+O\+\_\+\+E\+R\+R\+OR
+\begin{DoxyCompactList}\small\item\em Error code signal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdecode_a9e8ce1be4287bc62029230ba5c268638}\label{classdecode_a9e8ce1be4287bc62029230ba5c268638}} 
+bool \mbox{\hyperlink{classdecode_a9e8ce1be4287bc62029230ba5c268638}{\+\_\+go\+\_\+home}} = 0
+\begin{DoxyCompactList}\small\item\em Homing Signal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdecode_a724ed7d3f8ced7cdf5c25f5653babb9a}\label{classdecode_a724ed7d3f8ced7cdf5c25f5653babb9a}} 
+bool \mbox{\hyperlink{classdecode_a724ed7d3f8ced7cdf5c25f5653babb9a}{\+\_\+gcode\+\_\+running}} = 0
+\begin{DoxyCompactList}\small\item\em Signal when end of Gcode reached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdecode_a7fc262117c01a561a16d00e8f37062a8}\label{classdecode_a7fc262117c01a561a16d00e8f37062a8}} 
+class \mbox{\hyperlink{classdecode_a7fc262117c01a561a16d00e8f37062a8}{Kinematics\+\_\+core\+XY}}
+\begin{DoxyCompactList}\small\item\em Friend class Kinematics, so Kinematics can access the class member data\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class which implements decoding object which contains functions for decoding gcode. 
+
+This class allows us to read a line of gcode, decode it, and store the necessary information into class member data. This is a convenient way to store and pass along information as it updates with each new command. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdecode_af848c3b64fd5340ff9f21835282c27ce}\label{classdecode_af848c3b64fd5340ff9f21835282c27ce}} 
+\index{decode@{decode}!decode@{decode}}
+\index{decode@{decode}!decode@{decode}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily decode\+::decode (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Create a decoding class object to decode gcode.
+
+This constructor function doesn\textquotesingle{}t need to do anything else except construct the class! 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdecode_a548ca39f6ee5fef2d39d5cba981ea1a1}\label{classdecode_a548ca39f6ee5fef2d39d5cba981ea1a1}} 
+\index{decode@{decode}!gcode\_initialize@{gcode\_initialize}}
+\index{gcode\_initialize@{gcode\_initialize}!decode@{decode}}
+\doxysubsubsection{\texorpdfstring{gcode\_initialize()}{gcode\_initialize()}}
+{\footnotesize\ttfamily void decode\+::gcode\+\_\+initialize (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize gcode reading. 
+
+Function which initializes the running of gcode.
+
+This function sets the class member variable {\ttfamily \+\_\+gcode\+\_\+running} to true, signaling the system that we are running gcode. \mbox{\Hypertarget{classdecode_a620ca7d07d0a6ffb8b03622bc11a580d}\label{classdecode_a620ca7d07d0a6ffb8b03622bc11a580d}} 
+\index{decode@{decode}!get\_S@{get\_S}}
+\index{get\_S@{get\_S}!decode@{decode}}
+\doxysubsubsection{\texorpdfstring{get\_S()}{get\_S()}}
+{\footnotesize\ttfamily uint8\+\_\+t decode\+::get\+\_\+S (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Function which gets just the {\ttfamily S} value from the gcode decoder class. 
+
+This function gets {\ttfamily S} (desired laser P\+WM value) out of the decoder class in order to pass the command to the laser. S bypasses all control loops, as it is a direct input. \mbox{\Hypertarget{classdecode_a9e4c47dc139e6495c448ca9ff19c2554}\label{classdecode_a9e4c47dc139e6495c448ca9ff19c2554}} 
+\index{decode@{decode}!get\_XYSF@{get\_XYSF}}
+\index{get\_XYSF@{get\_XYSF}!decode@{decode}}
+\doxysubsubsection{\texorpdfstring{get\_XYSF()}{get\_XYSF()}}
+{\footnotesize\ttfamily X\+Y\+S\+Fvalues decode\+::get\+\_\+\+X\+Y\+SF (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get-\/er functions\+: 
+
+Function which gets the {\ttfamily X} {\ttfamily Y} {\ttfamily S} and {\ttfamily F} values from the gcode decoder class.
+
+This function gets the struct {\ttfamily \+\_\+\+X\+Y\+S\+Fval} from the class member data in order to use it in the translator. {\ttfamily \+\_\+\+X\+Y\+S\+Fval} contains 4 variables; {\ttfamily X} (desired X position), {\ttfamily Y} (desired Y position) , {\ttfamily S} (desired laser P\+WM value) and {\ttfamily F} (desired feedrate). \mbox{\Hypertarget{classdecode_ad54495f57f3fd3abc1af93444d2da7e4}\label{classdecode_ad54495f57f3fd3abc1af93444d2da7e4}} 
+\index{decode@{decode}!interpret\_gcode\_line@{interpret\_gcode\_line}}
+\index{interpret\_gcode\_line@{interpret\_gcode\_line}!decode@{decode}}
+\doxysubsubsection{\texorpdfstring{interpret\_gcode\_line()}{interpret\_gcode\_line()}}
+{\footnotesize\ttfamily void decode\+::interpret\+\_\+gcode\+\_\+line (\begin{DoxyParamCaption}\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+
+
+Function to interpret gcode. 
+
+Function which reads a single line of gcode and begins to decode it.
+
+This function reads a line of gcode and splits it up into the separate commands. It then sends out the appropriate data to finish translation. 
+\begin{DoxyParams}{Parameters}
+{\em line} & A line of gcode to be interpreted. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gcode_8h}{gcode.\+h}}\item 
+\mbox{\hyperlink{gcode_8cpp}{gcode.\+cpp}}\end{DoxyCompactItemize}

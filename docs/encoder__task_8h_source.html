@@ -88,31 +88,35 @@ $(document).ready(function(){initNavTree('encoder__task_8h_source.html',''); ini
 </div><!--header-->
 <div class="contents">
 <a href="encoder__task_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef ENCODERTASK_H</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define ENCODERTASK_H</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="libraries_6constants_8h.html">libraries&amp;constants.h</a>&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// Encoder A Task</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> <a class="code" href="encoder__task_8h.html#a18b51480af09a5e6022a4dc7b7c692d8">encoder_A_task</a> (<span class="keywordtype">void</span>* p_params);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef ENCODERTASK_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define ENCODERTASK_H</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="libraries_6constants_8h.html">libraries&amp;constants.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//Encoder A task period</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">const</span> TickType_t encoder_period_A = 2;          <span class="comment">// According to the task diagram this is only 0.3 ms</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// Encoder B Task</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="encoder__task_8h.html#ae06089f8baf24fcdf93286695959e313">encoder_B_task</a> (<span class="keywordtype">void</span>* p_params);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">const</span> TickType_t encoder_period_B = 2;          <span class="comment">// According to the task diagram this is only 0.3 ms</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//Encoder B task period</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">const</span> TickType_t encoder_period_B = 2;          <span class="comment">// According to the task diagram this is only 0.3 ms</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// Encoder A Task</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> <a class="code" href="encoder__task_8h.html#a18b51480af09a5e6022a4dc7b7c692d8">encoder_A_task</a> (<span class="keywordtype">void</span>* p_params);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif // ENCODERTASK_H</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// Encoder B Task</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> <a class="code" href="encoder__task_8h.html#ae06089f8baf24fcdf93286695959e313">encoder_B_task</a> (<span class="keywordtype">void</span>* p_params);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif // ENCODERTASK_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="alibraries_6constants_8h_html"><div class="ttname"><a href="libraries_6constants_8h.html">libraries&amp;constants.h</a></div></div>
-<div class="ttc" id="aencoder__task_8h_html_a18b51480af09a5e6022a4dc7b7c692d8"><div class="ttname"><a href="encoder__task_8h.html#a18b51480af09a5e6022a4dc7b7c692d8">encoder_A_task</a></div><div class="ttdeci">void encoder_A_task(void *p_params)</div><div class="ttdoc">Task to run the left encoder, Encoder A (Motor 1 Encoder)</div><div class="ttdef"><b>Definition:</b> encoder_task.cpp:48</div></div>
-<div class="ttc" id="aencoder__task_8h_html_ae06089f8baf24fcdf93286695959e313"><div class="ttname"><a href="encoder__task_8h.html#ae06089f8baf24fcdf93286695959e313">encoder_B_task</a></div><div class="ttdeci">void encoder_B_task(void *p_params)</div><div class="ttdoc">Task to run the right encoder, Encoder B (Motor 2 Encoder)</div><div class="ttdef"><b>Definition:</b> encoder_task.cpp:116</div></div>
+<div class="ttc" id="alibraries_6constants_8h_html"><div class="ttname"><a href="libraries_6constants_8h.html">libraries&amp;constants.h</a></div><div class="ttdoc">File containing the header which contains the definition of multiple constants and libraries that wil...</div></div>
+<div class="ttc" id="aencoder__task_8h_html_a18b51480af09a5e6022a4dc7b7c692d8"><div class="ttname"><a href="encoder__task_8h.html#a18b51480af09a5e6022a4dc7b7c692d8">encoder_A_task</a></div><div class="ttdeci">void encoder_A_task(void *p_params)</div><div class="ttdoc">Task to run the left encoder, Encoder A (Motor 1 Encoder)</div><div class="ttdef"><b>Definition:</b> encoder_task.cpp:50</div></div>
+<div class="ttc" id="aencoder__task_8h_html_ae06089f8baf24fcdf93286695959e313"><div class="ttname"><a href="encoder__task_8h.html#ae06089f8baf24fcdf93286695959e313">encoder_B_task</a></div><div class="ttdeci">void encoder_B_task(void *p_params)</div><div class="ttdoc">Task to run the right encoder, Encoder B (Motor 2 Encoder)</div><div class="ttdef"><b>Definition:</b> encoder_task.cpp:118</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

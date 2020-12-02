@@ -1,0 +1,41 @@
+\hypertarget{temperature__task_8h}{}\doxysection{temperature\+\_\+task.\+h File Reference}
+\label{temperature__task_8h}\index{temperature\_task.h@{temperature\_task.h}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for temperature\+\_\+task.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{temperature__task_8h_ac9ce0c5163f1f8ce710270b5e0ba2b11}{temperature\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em implements a task function to use digital temperature sensor like an industrial heat detector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{temperature__task_8h_ae5d0001d4cc96f5e0c8b388de52cbe94}\label{temperature__task_8h_ae5d0001d4cc96f5e0c8b388de52cbe94}} 
+const Tick\+Type\+\_\+t {\bfseries temperature\+\_\+task\+\_\+period} = 100000
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+the header file for the temperature reading task function that attempts to detect flame-\/out conditions on the laser cutter using a D\+S18\+B20 Onewire (c) digital temeprature sensor. \begin{DoxyAuthor}{Author}
+Ethan A Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22 Nov 2020 Original file 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{temperature__task_8h_ac9ce0c5163f1f8ce710270b5e0ba2b11}\label{temperature__task_8h_ac9ce0c5163f1f8ce710270b5e0ba2b11}} 
+\index{temperature\_task.h@{temperature\_task.h}!temperature\_task@{temperature\_task}}
+\index{temperature\_task@{temperature\_task}!temperature\_task.h@{temperature\_task.h}}
+\doxysubsubsection{\texorpdfstring{temperature\_task()}{temperature\_task()}}
+{\footnotesize\ttfamily void temperature\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+implements a task function to use digital temperature sensor like an industrial heat detector 
+
+uses the One\+Wire library and Dallas\+Temperature library to interface with the a D\+S18\+B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function. 

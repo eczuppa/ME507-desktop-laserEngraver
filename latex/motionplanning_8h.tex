@@ -1,0 +1,28 @@
+\hypertarget{motionplanning_8h}{}\doxysection{motionplanning.\+h File Reference}
+\label{motionplanning_8h}\index{motionplanning.h@{motionplanning.h}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for motionplanning.\+h\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMotionPlanning}{Motion\+Planning}}
+\begin{DoxyCompactList}\small\item\em a class that implements a linearly interpolated ramp input generator for a classical control loop ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the header file for the motion planning class \begin{DoxyAuthor}{Author}
+Ethan A Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+19 Nov 2020 Original file 
+
+20 Nov 2020 Mapped out header file and needed functions as pseudocode 
+
+22 Nov 2020 Completed first revision of class, need to fix the memory allocation so the dynamic array does not point to nothing instead of the intended ouput ramp element. 
+
+23 Nov 2020 Completed second revision of class, dynamic allocation of array memory is now done in a separate method and required to have succeeded for the ramp generator method to run. Uses the trick Dr. Ridgely mentioned in lecture of checking that the pointer to the dynamic array points to something instead of zero as an indicator that the memory allocation was successful 
+
+30 Nov 2020 Updated doxygen documentation and added an important class method. The {\ttfamily update\+\_\+setpoints()} was added and this method that allows the current position and feed rate setpoints to be changed without reinstantiating the class. 
+\end{DoxyDate}

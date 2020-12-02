@@ -1,0 +1,124 @@
+\hypertarget{classTB6612FNG}{}\doxysection{T\+B6612\+F\+NG Class Reference}
+\label{classTB6612FNG}\index{TB6612FNG@{TB6612FNG}}
+
+
+a motor driver class that is specific to Toshiba\textquotesingle{}s \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver IC  
+
+
+
+
+{\ttfamily \#include $<$T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTB6612FNG_ac64e7929d50cb5a5a65560a508b7eeeb}{T\+B6612\+F\+NG}} (uint8\+\_\+t stby\+\_\+pin, uint8\+\_\+t mot\+\_\+pin\+\_\+1, uint8\+\_\+t mot\+\_\+pin\+\_\+2, uint8\+\_\+t a\+\_\+pwm\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTB6612FNG_a8caf6e53fb50d08cf9a040cae07368df}{set\+Duty\+Cycle}} (int8\+\_\+t duty\+\_\+cycle)
+\begin{DoxyCompactList}\small\item\em Class method for setting the duty cycle of the attached motor via the H-\/bridge output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTB6612FNG_a78dea8dd2d7582890836f408a8b03fa7}{brake}} (void)
+\begin{DoxyCompactList}\small\item\em method to brake motors \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTB6612FNG_abcd1e675d1503ef08c892383f73f2e60}{disable}} (void)
+\begin{DoxyCompactList}\small\item\em software E-\/\+Stop for dual H-\/bridge chip \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTB6612FNG_a72097126a93a29f924cb78a1204840d0}{enable}} (void)
+\begin{DoxyCompactList}\small\item\em software reset for dual H-\/bridge chip after being disabled \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTB6612FNG_a007ab41bca62847708ca2f42d60413e8}\label{classTB6612FNG_a007ab41bca62847708ca2f42d60413e8}} 
+uint8\+\_\+t \mbox{\hyperlink{classTB6612FNG_a007ab41bca62847708ca2f42d60413e8}{\+\_\+motor\+\_\+dir\+\_\+pin\+\_\+1}}
+\begin{DoxyCompactList}\small\item\em Motor Direction Pin 1 (Enables for which direction the motor will rotate in) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTB6612FNG_a9dc120bfa12ef9042d8114c38c56c6be}\label{classTB6612FNG_a9dc120bfa12ef9042d8114c38c56c6be}} 
+uint8\+\_\+t \mbox{\hyperlink{classTB6612FNG_a9dc120bfa12ef9042d8114c38c56c6be}{\+\_\+motor\+\_\+dir\+\_\+pin\+\_\+2}}
+\begin{DoxyCompactList}\small\item\em Motor Direction Pin 2 (Enables for which direction the motor will rotate in) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTB6612FNG_a5d10a2b72f258bc9e6e81a8f29fa24dc}\label{classTB6612FNG_a5d10a2b72f258bc9e6e81a8f29fa24dc}} 
+uint8\+\_\+t \mbox{\hyperlink{classTB6612FNG_a5d10a2b72f258bc9e6e81a8f29fa24dc}{\+\_\+pwm\+\_\+input\+\_\+pin}}
+\begin{DoxyCompactList}\small\item\em Motor Driver P\+WM input pin (Sets speed at which motor is driven) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTB6612FNG_ac1cbb05f2437cca3752d71311a6d6341}\label{classTB6612FNG_ac1cbb05f2437cca3752d71311a6d6341}} 
+uint8\+\_\+t \mbox{\hyperlink{classTB6612FNG_ac1cbb05f2437cca3752d71311a6d6341}{\+\_\+standby\+\_\+pin}}
+\begin{DoxyCompactList}\small\item\em Motor Driver Standby Pin (Enable Pin for H-\/\+Bridge) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a motor driver class that is specific to Toshiba\textquotesingle{}s \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} motor driver IC 
+
+makes use of arduino commands to create a simple driver that interfaces with toshiba\textquotesingle{}s \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} dual H-\/bridge motor driver IC. The P\+WM signal generation is handeled by the Arduino {\ttfamily analog\+Write()} and the direction pin settings for changing the direction of the motor is done with Arduino\textquotesingle{}s {\ttfamily digital\+Write}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTB6612FNG_ac64e7929d50cb5a5a65560a508b7eeeb}\label{classTB6612FNG_ac64e7929d50cb5a5a65560a508b7eeeb}} 
+\index{TB6612FNG@{TB6612FNG}!TB6612FNG@{TB6612FNG}}
+\index{TB6612FNG@{TB6612FNG}!TB6612FNG@{TB6612FNG}}
+\doxysubsubsection{\texorpdfstring{TB6612FNG()}{TB6612FNG()}}
+{\footnotesize\ttfamily T\+B6612\+F\+N\+G\+::\+T\+B6612\+F\+NG (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{stby\+\_\+pin,  }\item[{uint8\+\_\+t}]{mot\+\_\+pin\+\_\+1,  }\item[{uint8\+\_\+t}]{mot\+\_\+pin\+\_\+2,  }\item[{uint8\+\_\+t}]{a\+\_\+pwm\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} Constructor. 
+
+Saves instances of class member data for all required input pins to run one H-\/bridge on the motor driver chip and brings the h-\/bridge into the enabled, L\+OW state were all outputs are zeroed out to ensure nothing starts moving unexpectedly. Also sets up the hardware timer to send out P\+WM pulses at 20k\+Hz (so motors are quiet) and sets the initial duty\+\_\+cylce to zero. 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+standby\+\_\+pin} & the digital pin that send the enable/disable singal to the dual H-\/bridge \\
+\hline
+{\em \+\_\+motor\+\_\+dir\+\_\+pin\+\_\+1} & the digital pin that maps to the I\+N1 motor direction input on 1 of the H-\/bridges \\
+\hline
+{\em \+\_\+motor\+\_\+dir\+\_\+pin\+\_\+2} & the digital pin that maps to the I\+N2 motor direction input on 1 of the H-\/bridges \\
+\hline
+{\em \+\_\+pwm\+\_\+input\+\_\+pin} & the pin from the microcontroller that is then configured to be attached to the specifed hardware timer \\
+\hline
+{\em \+\_\+pwm\+\_\+tim\+\_\+chan\+\_\+num} & the channel number (1,2,3, or 4) of the timer specified that is attached to the pwm input pin \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTB6612FNG_a78dea8dd2d7582890836f408a8b03fa7}\label{classTB6612FNG_a78dea8dd2d7582890836f408a8b03fa7}} 
+\index{TB6612FNG@{TB6612FNG}!brake@{brake}}
+\index{brake@{brake}!TB6612FNG@{TB6612FNG}}
+\doxysubsubsection{\texorpdfstring{brake()}{brake()}}
+{\footnotesize\ttfamily void T\+B6612\+F\+N\+G\+::brake (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+method to brake motors 
+
+based on the truth table for the \mbox{\hyperlink{classTB6612FNG}{T\+B6612\+F\+NG}} driver chip and sparkfun\textquotesingle{}s arduino library for this IC \mbox{\Hypertarget{classTB6612FNG_abcd1e675d1503ef08c892383f73f2e60}\label{classTB6612FNG_abcd1e675d1503ef08c892383f73f2e60}} 
+\index{TB6612FNG@{TB6612FNG}!disable@{disable}}
+\index{disable@{disable}!TB6612FNG@{TB6612FNG}}
+\doxysubsubsection{\texorpdfstring{disable()}{disable()}}
+{\footnotesize\ttfamily void T\+B6612\+F\+N\+G\+::disable (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+software E-\/\+Stop for dual H-\/bridge chip 
+
+drives the ouput of the standby pin L\+OW, which disables the dual H-\/bridge IC entirely \mbox{\Hypertarget{classTB6612FNG_a72097126a93a29f924cb78a1204840d0}\label{classTB6612FNG_a72097126a93a29f924cb78a1204840d0}} 
+\index{TB6612FNG@{TB6612FNG}!enable@{enable}}
+\index{enable@{enable}!TB6612FNG@{TB6612FNG}}
+\doxysubsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily void T\+B6612\+F\+N\+G\+::enable (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+software reset for dual H-\/bridge chip after being disabled 
+
+drives the output of the standby pin H\+I\+GH, which enables the dual H-\/bridge IC \mbox{\Hypertarget{classTB6612FNG_a8caf6e53fb50d08cf9a040cae07368df}\label{classTB6612FNG_a8caf6e53fb50d08cf9a040cae07368df}} 
+\index{TB6612FNG@{TB6612FNG}!setDutyCycle@{setDutyCycle}}
+\index{setDutyCycle@{setDutyCycle}!TB6612FNG@{TB6612FNG}}
+\doxysubsubsection{\texorpdfstring{setDutyCycle()}{setDutyCycle()}}
+{\footnotesize\ttfamily void T\+B6612\+F\+N\+G\+::set\+Duty\+Cycle (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{duty\+\_\+cycle }\end{DoxyParamCaption})}
+
+
+
+Class method for setting the duty cycle of the attached motor via the H-\/bridge output. 
+
+takes in the duty cycle as a precentage (-\/100\% to 100\%) and sets the motor direction and speed. 
+\begin{DoxyParams}{Parameters}
+{\em duty\+\_\+cycle} & provided by a separate class or the user directly, a signed 8 bit integer that is the precentage representation of the desired duty cycle\+: -\/100\% to 100\% \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{TB6612FNG__Driver_8h}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+h}}\item 
+\mbox{\hyperlink{TB6612FNG__Driver_8cpp}{T\+B6612\+F\+N\+G\+\_\+\+Driver.\+cpp}}\end{DoxyCompactItemize}

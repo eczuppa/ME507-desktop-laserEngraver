@@ -1,0 +1,29 @@
+\hypertarget{kinematics_8h}{}\doxysection{kinematics.\+h File Reference}
+\label{kinematics_8h}\index{kinematics.h@{kinematics.h}}
+
+
+File containing the interface for the kinematics class that wil translate G\+C\+O\+DE inputs into a usable type for the control loop.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classKinematics__coreXY}{Kinematics\+\_\+core\+XY}}
+\begin{DoxyCompactList}\small\item\em Class which contains functions to convert from cartesian global coordinates to motor commands. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing the interface for the kinematics class that wil translate G\+C\+O\+DE inputs into a usable type for the control loop. 
+
+This file contains a class which uses the appropriate kinematic equations for Core\+XY to relate Gcode X,Y positions and F feedrate to values of the same type as the motor encoders output.
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+
+Niko Banks 
+
+Matthew Carlson
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+16 Nov 2020 wrote skeleton of module for kinematics\+\_\+\+Core\+XY class, added doxygen comments for documentation 
+\end{DoxyDate}

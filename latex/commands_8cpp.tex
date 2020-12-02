@@ -1,0 +1,70 @@
+\hypertarget{commands_8cpp}{}\doxysection{commands.\+cpp File Reference}
+\label{commands_8cpp}\index{commands.cpp@{commands.cpp}}
+
+
+File containing functions that interpret machine and G-\/code commands.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for commands.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{commands_8cpp_aada2111513abbeb6b7fc02b90ef6c5ad}{task\+\_\+translate}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which reads data from the serial port, translates it, and sends it where it needs to go. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{commands_8cpp_aaa32972362e3446dc60a8899af6b561e}{interpret\+\_\+machinecmd\+\_\+line}} (char $\ast$line)
+\begin{DoxyCompactList}\small\item\em Function which interprets a line containing a machine command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing functions that interpret machine and G-\/code commands. 
+
+This file defines the functions necessary to run the full translation of commands coming from the serial port before sending them to the control task.
+
+\begin{DoxyAuthor}{Author}
+Niko Banks 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 10 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{commands_8cpp_aaa32972362e3446dc60a8899af6b561e}\label{commands_8cpp_aaa32972362e3446dc60a8899af6b561e}} 
+\index{commands.cpp@{commands.cpp}!interpret\_machinecmd\_line@{interpret\_machinecmd\_line}}
+\index{interpret\_machinecmd\_line@{interpret\_machinecmd\_line}!commands.cpp@{commands.cpp}}
+\doxysubsubsection{\texorpdfstring{interpret\_machinecmd\_line()}{interpret\_machinecmd\_line()}}
+{\footnotesize\ttfamily uint8\+\_\+t interpret\+\_\+machinecmd\+\_\+line (\begin{DoxyParamCaption}\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+
+
+Function which interprets a line containing a machine command. 
+
+This function takes in a line containing a command for the laser that begins with a {\ttfamily \$}, signalling that it is a machine command and not a line of gcode. It then interprets the command in the line and returns on the information. {\bfseries{Disclaimer\+: This function currently only supports homing commands. More will be added in the future.}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & A line containing a command to be interpreted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an indicator for the command that was entered 
+\end{DoxyReturn}
+\mbox{\Hypertarget{commands_8cpp_aada2111513abbeb6b7fc02b90ef6c5ad}\label{commands_8cpp_aada2111513abbeb6b7fc02b90ef6c5ad}} 
+\index{commands.cpp@{commands.cpp}!task\_translate@{task\_translate}}
+\index{task\_translate@{task\_translate}!commands.cpp@{commands.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_translate()}{task\_translate()}}
+{\footnotesize\ttfamily void task\+\_\+translate (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which reads data from the serial port, translates it, and sends it where it needs to go. 
+
+This task function reads a line from the read\+\_\+chars queue of gcode or other commands and splits it up into the separate commands. Commands are then sent to the control task via queues and shares. Gcode is translated from {\ttfamily X} {\ttfamily Y} and {\ttfamily F} values into desired positions and feedrates for both motors; {\ttfamily \+\_\+\+A\+\_\+setpoint}, {\ttfamily \+\_\+\+A\+\_\+feed}, {\ttfamily \+\_\+\+B\+\_\+setpoint} and {\ttfamily \+\_\+\+B\+\_\+feed}, which are class member data of the class {\ttfamily \mbox{\hyperlink{classKinematics__coreXY}{Kinematics\+\_\+core\+XY}}}. Regular machine commands such as homing are also translated to motor commands, which are then sent to the control task so it may run them.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,197 @@
+\hypertarget{classMotionPlanning}{}\doxysection{Motion\+Planning Class Reference}
+\label{classMotionPlanning}\index{MotionPlanning@{MotionPlanning}}
+
+
+a class that implements a linearly interpolated ramp input generator for a classical control loop ~\newline
+  
+
+
+
+
+{\ttfamily \#include $<$motionplanning.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMotionPlanning_ab77d73240b06317f3094028c8adc4b15}{Motion\+Planning}} (float setpoint\+\_\+current, float setpoint\+\_\+last, float feed\+\_\+setpoint, uint32\+\_\+t ramp\+\_\+dt\+\_\+period)
+\begin{DoxyCompactList}\small\item\em boolean for how to adjust the index of the dynamically allocated array which stores the ramp input \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}{init\+\_\+ramp}} (void)
+\begin{DoxyCompactList}\small\item\em allocates the memory for the ramp input and initializes output\+\_\+pointer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator}} (void)
+\begin{DoxyCompactList}\small\item\em generates the ramp input to the control loop as a dynamic array \end{DoxyCompactList}\item 
+float $\ast$ \mbox{\hyperlink{classMotionPlanning_afdffcdab5159c9f57fbb72b17645b0ac}{get\+\_\+ramp}} (void)
+\begin{DoxyCompactList}\small\item\em get-\/er method to extract {\ttfamily \+\_\+output\+\_\+ramp} made by {\ttfamily \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator()}}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMotionPlanning_aacc8e431397a8d9b745d7182b86ed415}{deinit\+\_\+ramp}} (void)
+\begin{DoxyCompactList}\small\item\em deletes the dynamically allocated ramp input array and sets up for the next ramp \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMotionPlanning_a0f34b061518d2d9f7b3bd2f57f29e2ce}{update\+\_\+setpoints}} (float current\+\_\+setpoint, float current\+\_\+feedrate)
+\begin{DoxyCompactList}\small\item\em a set-\/er function to update feed and position setpoints \end{DoxyCompactList}\item 
+int16\+\_\+t $\ast$ \mbox{\hyperlink{classMotionPlanning_a2ca16e87a3e5b8c82d747d4c3b103234}{time\+\_\+to\+\_\+wait}} (void)
+\begin{DoxyCompactList}\small\item\em gets the pointer to the first element in the {\ttfamily \+\_\+output\+\_\+ramp\+\_\+time} array \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMotionPlanning_ad867b5bbad347b466fffa58a7652e97b}\label{classMotionPlanning_ad867b5bbad347b466fffa58a7652e97b}} 
+float {\bfseries \+\_\+setpoint\+\_\+current}
+\item 
+\mbox{\Hypertarget{classMotionPlanning_a5b2714768a14334bcba690aae3e5af42}\label{classMotionPlanning_a5b2714768a14334bcba690aae3e5af42}} 
+float \mbox{\hyperlink{classMotionPlanning_a5b2714768a14334bcba690aae3e5af42}{\+\_\+setpoint\+\_\+last}}
+\begin{DoxyCompactList}\small\item\em Stores current target position (in mm) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_ae1c9103d3e82c96981d12a86698fe772}\label{classMotionPlanning_ae1c9103d3e82c96981d12a86698fe772}} 
+float \mbox{\hyperlink{classMotionPlanning_ae1c9103d3e82c96981d12a86698fe772}{\+\_\+feed\+\_\+setpoint}}
+\begin{DoxyCompactList}\small\item\em stores last target postion (in mm) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_ad1b4102e495535557e92918f509a1ae5}\label{classMotionPlanning_ad1b4102e495535557e92918f509a1ae5}} 
+float \mbox{\hyperlink{classMotionPlanning_ad1b4102e495535557e92918f509a1ae5}{\+\_\+delta\+\_\+dist}}
+\begin{DoxyCompactList}\small\item\em store the target feed rate for the motor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_a1f1b8b186fa99de43237b5209b8d8de8}\label{classMotionPlanning_a1f1b8b186fa99de43237b5209b8d8de8}} 
+float \mbox{\hyperlink{classMotionPlanning_a1f1b8b186fa99de43237b5209b8d8de8}{\+\_\+tot\+\_\+travel\+\_\+period}}
+\begin{DoxyCompactList}\small\item\em the distance between the current and last setpoints \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_a3758bd2e810b2268cdd32c534a9df461}\label{classMotionPlanning_a3758bd2e810b2268cdd32c534a9df461}} 
+uint32\+\_\+t \mbox{\hyperlink{classMotionPlanning_a3758bd2e810b2268cdd32c534a9df461}{\+\_\+ramp\+\_\+dt\+\_\+period}}
+\begin{DoxyCompactList}\small\item\em the amount of time required to travel from last to current point based on the current feedrate \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_a7c102317b113c9ef93bba0093c320628}\label{classMotionPlanning_a7c102317b113c9ef93bba0093c320628}} 
+uint32\+\_\+t \mbox{\hyperlink{classMotionPlanning_a7c102317b113c9ef93bba0093c320628}{\+\_\+ramp\+\_\+sections}}
+\begin{DoxyCompactList}\small\item\em the dt for each section of the ramp input \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_ab0ba16c3a88b36fbafb1ab1149762833}\label{classMotionPlanning_ab0ba16c3a88b36fbafb1ab1149762833}} 
+float $\ast$ \mbox{\hyperlink{classMotionPlanning_ab0ba16c3a88b36fbafb1ab1149762833}{\+\_\+output\+\_\+ramp}}
+\begin{DoxyCompactList}\small\item\em the number of discrete sections of the ramp input \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_aea07b8241b6886283a81f1f8b3453048}\label{classMotionPlanning_aea07b8241b6886283a81f1f8b3453048}} 
+int16\+\_\+t $\ast$ \mbox{\hyperlink{classMotionPlanning_aea07b8241b6886283a81f1f8b3453048}{\+\_\+output\+\_\+ramp\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em the pointer to the float array of linearly interpollated portions of the overall movement specified between the lines of G-\/code \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMotionPlanning_aea7465b4ca0add24e0b51d71c982b083}\label{classMotionPlanning_aea7465b4ca0add24e0b51d71c982b083}} 
+bool \mbox{\hyperlink{classMotionPlanning_aea7465b4ca0add24e0b51d71c982b083}{\+\_\+even}} = false
+\begin{DoxyCompactList}\small\item\em the pointer to the int\+\_\+16 array of ramp\+\_\+dt\+\_\+periods for each \+\_\+ramp\+\_\+section in \+\_\+output\+\_\+ramp \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a class that implements a linearly interpolated ramp input generator for a classical control loop ~\newline
+ 
+
+Generates a linearly interpolated ramp input for use in P, PI, and P\+ID control loop between two lines of parsed G\+C\+O\+DE. This was implemented in the form of a class in order to avoid having to make a large number of static variables and to do cleaner dynamic memory allocation for the array which holds the generated ramp input. By providing our classical control loops with a ramp input instead of a step input we are able to control both position and velocity with a P\+ID postion control loop. Additionally, the classical control loop behaves in a linear manner since it is subjected to several smaller disturbances instead of one large step disturbance. Maintaining linear control loop behavior eases parameterization of the closed loop system as well as reduces the likelyhood for eratic controller behavior due to non-\/linearities.\hypertarget{classMotionPlanning_MotionPlanning_usage}{}\doxysubsection{Usage}\label{classMotionPlanning_MotionPlanning_usage}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMotionPlanning_ab77d73240b06317f3094028c8adc4b15}\label{classMotionPlanning_ab77d73240b06317f3094028c8adc4b15}} 
+\index{MotionPlanning@{MotionPlanning}!MotionPlanning@{MotionPlanning}}
+\index{MotionPlanning@{MotionPlanning}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{MotionPlanning()}{MotionPlanning()}}
+{\footnotesize\ttfamily Motion\+Planning\+::\+Motion\+Planning (\begin{DoxyParamCaption}\item[{float}]{setpoint\+\_\+current,  }\item[{float}]{setpoint\+\_\+last,  }\item[{float}]{feed\+\_\+setpoint,  }\item[{uint32\+\_\+t}]{ramp\+\_\+dt\+\_\+period }\end{DoxyParamCaption})}
+
+
+
+boolean for how to adjust the index of the dynamically allocated array which stores the ramp input 
+
+Motionplanning Class constructor which takes in decoded G\+C\+O\+DE inputs and a user set discrete ramp section period.
+
+Save all inputted arguments to class member data from the current and last lines of queued G\+C\+O\+DE. Make the pointer to the dynamically allocated array {\ttfamily \+\_\+output\+\_\+ramp} point to N\+U\+LL in preparation for memory allocation. 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+setpoint\+\_\+current} & the current position setpoints in \mbox{[}mm\mbox{]} for the motor of interest from the current line of G\+C\+O\+DE. \\
+\hline
+{\em \+\_\+setpoint\+\_\+last} & the last position setpoint in \mbox{[}mm\mbox{]} for the motor of interest from the last line of G\+C\+O\+DE. ~\newline
+ \\
+\hline
+{\em \+\_\+feed\+\_\+setpoint} & the current feed rate in \mbox{[}mm/sec\mbox{]} that the laser is commanded to move at from the current line of G\+C\+O\+DE. \\
+\hline
+{\em \+\_\+ramp\+\_\+dt\+\_\+period} & the discrete time period that each section of the ramp output is built with in \mbox{[}microseconds\mbox{]}, set by the user. \\
+\hline
+{\em \+\_\+ramp\+\_\+sections} & the number of discrete sections of the ramp input to the control loop generated by the {\ttfamily \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator()}}} method \\
+\hline
+{\em \+\_\+output\+\_\+ramp} & the pointer to the dynamically allocated array that holds what will be the ramp input to the control loop that is controlling the motor of interest. Initialized as a null pointer to ensure \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMotionPlanning_aacc8e431397a8d9b745d7182b86ed415}\label{classMotionPlanning_aacc8e431397a8d9b745d7182b86ed415}} 
+\index{MotionPlanning@{MotionPlanning}!deinit\_ramp@{deinit\_ramp}}
+\index{deinit\_ramp@{deinit\_ramp}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{deinit\_ramp()}{deinit\_ramp()}}
+{\footnotesize\ttfamily void Motion\+Planning\+::deinit\+\_\+ramp (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+deletes the dynamically allocated ramp input array and sets up for the next ramp 
+
+In order to prevent memory leaks, since dynamic memory allocation is made use of in this class, once all of the elements of {\ttfamily \+\_\+output\+\_\+ramp}\mbox{[}\mbox{]} have been passed into the receiving control loop, this method must be called. The recommended workflow is then to call this method once the previously generated ramp input had been successfully passed, in its entirety, to the control loop of interest and then call the {\ttfamily \mbox{\hyperlink{classMotionPlanning_a0f34b061518d2d9f7b3bd2f57f29e2ce}{update\+\_\+setpoints()}}} method to prepare the current instance of the \mbox{\hyperlink{classMotionPlanning}{Motion\+Planning}} class for making the next ramp. ~\newline
+ \mbox{\Hypertarget{classMotionPlanning_afdffcdab5159c9f57fbb72b17645b0ac}\label{classMotionPlanning_afdffcdab5159c9f57fbb72b17645b0ac}} 
+\index{MotionPlanning@{MotionPlanning}!get\_ramp@{get\_ramp}}
+\index{get\_ramp@{get\_ramp}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{get\_ramp()}{get\_ramp()}}
+{\footnotesize\ttfamily float $\ast$ Motion\+Planning\+::get\+\_\+ramp (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+get-\/er method to extract {\ttfamily \+\_\+output\+\_\+ramp} made by {\ttfamily \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator()}}}. 
+
+gets the pointer {\ttfamily \+\_\+output\+\_\+ramp} which points to the first element of the dynamically allocated array that contains what will be the ramp input to the control loop. Since this pointer is saved as class member data and set/reset by the constructor and de\+\_\+init methods in this class the array is persistent and does not need to be declared static.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily \+\_\+output\+\_\+ramp} the pointer to the first element in the ramp input dynamic array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}\label{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}} 
+\index{MotionPlanning@{MotionPlanning}!init\_ramp@{init\_ramp}}
+\index{init\_ramp@{init\_ramp}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{init\_ramp()}{init\_ramp()}}
+{\footnotesize\ttfamily void Motion\+Planning\+::init\+\_\+ramp (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+allocates the memory for the ramp input and initializes output\+\_\+pointer 
+
+calculates the required size of the dynamic array {\ttfamily \+\_\+output\+\_\+ramp} by from the time required to traverse the position change specified by the current and last lines of G\+C\+O\+DE and then creates the appropriate sized array to hold the ramp input to the control loop. To get an array with a positive integer for the index a abbreviated approximate version of Euclid\textquotesingle{}s algorithm is used to calculate the greatest common factor between the {\ttfamily tot\+\_\+travel\+\_\+time} and {\ttfamily \+\_\+ramp\+\_\+dt\+\_\+period} . Since the distance and the travel time are both floating point numbers the floating point version of the modulo (\%) operator is used -\/ {\ttfamily fmodf(float\+\_\+x,float\+\_\+y)} in the equation that calculates the number of ramp sections {\ttfamily \+\_\+ramp\+\_\+sections}. ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em dist} & the distance between the current and last setpoint in \mbox{[}mm\mbox{]}, used to calculate the the time it takes for the laser to traverse the move between the current and last X,Y setpoints from the current and last lines of G\+C\+O\+DE. \\
+\hline
+{\em \+\_\+even} & a boolean that adjusts how index of the dynamically allocated array, {\ttfamily \+\_\+output\+\_\+ramp} is augmented to include the current setpoint and feed rate. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}\label{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}} 
+\index{MotionPlanning@{MotionPlanning}!ramp\_generator@{ramp\_generator}}
+\index{ramp\_generator@{ramp\_generator}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{ramp\_generator()}{ramp\_generator()}}
+{\footnotesize\ttfamily void Motion\+Planning\+::ramp\+\_\+generator (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+generates the ramp input to the control loop as a dynamic array 
+
+checks that the ramp should be generated by ensuring the total travel peirod {\ttfamily \+\_\+tot\+\_\+travel\+\_\+period} is greater than or equal to the discrete ramp period and the dynamic memory allocation was successful such that the pointer {\ttfamily \+\_\+ouput\+\_\+ramp} is no longer a N\+U\+LL pointer then, the ramp generator for loop is run and the ramp input for the controller is generated. (this is called output\+\_\+ramp instead of input ramp because the motion planning class is outputs this, even though it is then taken and inputted into the control loop). {\ttfamily \mbox{\hyperlink{classMotionPlanning_a547647e630d7c33b11ba73b08013f894}{ramp\+\_\+generator()}}} must be run after {\ttfamily \mbox{\hyperlink{classMotionPlanning_a60f1b040d485df34cb53077441568f7b}{init\+\_\+ramp()}}} as the dynamic memory allocation is handled separately from the {\ttfamily \+\_\+output\+\_\+ramp} array population.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & a variable to store the length of the dynamic array \+\_\+output\+\_\+array. \\
+\hline
+{\em aug\+\_\+index} & a variable that adjusts the index based on a specified quantity as a function of the {\ttfamily \+\_\+even} boolean -\/ true if the {\ttfamily \+\_\+ramp\+\_\+dt\+\_\+period} divided evenly into the {\ttfamily \+\_\+tot\+\_\+travel\+\_\+period} and false if not. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMotionPlanning_a2ca16e87a3e5b8c82d747d4c3b103234}\label{classMotionPlanning_a2ca16e87a3e5b8c82d747d4c3b103234}} 
+\index{MotionPlanning@{MotionPlanning}!time\_to\_wait@{time\_to\_wait}}
+\index{time\_to\_wait@{time\_to\_wait}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{time\_to\_wait()}{time\_to\_wait()}}
+{\footnotesize\ttfamily int16\+\_\+t $\ast$ Motion\+Planning\+::time\+\_\+to\+\_\+wait (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+gets the pointer to the first element in the {\ttfamily \+\_\+output\+\_\+ramp\+\_\+time} array 
+
+a simple get-\/er function that should be called within a for loop while asking for what the pointer points to at the specified index in order to unload the the dynamically allocated time array. This array holds the time period that the {\ttfamily distributer\+\_\+task} will update the control loops queues in the {\ttfamily control\+\_\+task} with, and is accomplished by setting the value of the {\ttfamily v\+Task\+Delay()} in the {\ttfamily distributer\+\_\+task} to the desired delay period. \begin{DoxyReturn}{Returns}
+{\ttfamily \+\_\+output\+\_\+ramp\+\_\+time} pointer to the first element of the persistent dynamic array for ramp update times. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMotionPlanning_a0f34b061518d2d9f7b3bd2f57f29e2ce}\label{classMotionPlanning_a0f34b061518d2d9f7b3bd2f57f29e2ce}} 
+\index{MotionPlanning@{MotionPlanning}!update\_setpoints@{update\_setpoints}}
+\index{update\_setpoints@{update\_setpoints}!MotionPlanning@{MotionPlanning}}
+\doxysubsubsection{\texorpdfstring{update\_setpoints()}{update\_setpoints()}}
+{\footnotesize\ttfamily void Motion\+Planning\+::update\+\_\+setpoints (\begin{DoxyParamCaption}\item[{float}]{current\+\_\+setpoint,  }\item[{float}]{current\+\_\+feedrate }\end{DoxyParamCaption})}
+
+
+
+a set-\/er function to update feed and position setpoints 
+
+Expects the current postion setpoint and current feedrate for the motor of interest from the new, current line of G\+C\+O\+DE and sets the class member data for position and feed rate setpoints accordingly. This method should be called after the {\ttfamily \mbox{\hyperlink{classMotionPlanning_aacc8e431397a8d9b745d7182b86ed415}{deinit\+\_\+ramp()}}} method is called within a loop. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{motionplanning_8h}{motionplanning.\+h}}\item 
+\mbox{\hyperlink{motionplanning_8cpp}{motionplanning.\+cpp}}\end{DoxyCompactItemize}
