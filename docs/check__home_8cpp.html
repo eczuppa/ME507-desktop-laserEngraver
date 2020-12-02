@@ -84,12 +84,14 @@ $(document).ready(function(){initNavTree('check__home_8cpp.html',''); initResiza
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">check_home.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>File containing all functions related to homing the laser.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_6constants_8h_source.html">libraries&amp;constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for check_home.cpp:</div>
@@ -99,24 +101,13 @@ Include dependency graph for check_home.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a148097651e24fbca12d17205865d6022"><td class="memItemLeft" align="right" valign="top"><a id="a148097651e24fbca12d17205865d6022"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>X_home</b> (&quot;Check the home of X position&quot;)</td></tr>
-<tr class="separator:a148097651e24fbca12d17205865d6022"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ec812550cbf6646a3db674973ee63f"><td class="memItemLeft" align="right" valign="top"><a id="af7ec812550cbf6646a3db674973ee63f"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Y_home</b> (&quot;Check the home of Y position&quot;)</td></tr>
-<tr class="separator:af7ec812550cbf6646a3db674973ee63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab22fdf5d527804cfc969e36d85c7e334"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="check__home_8cpp.html#ab22fdf5d527804cfc969e36d85c7e334">check_home_task</a> (void *p_params)</td></tr>
 <tr class="memdesc:ab22fdf5d527804cfc969e36d85c7e334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task which, when called, activates home switches to establish home and zero the encoders.  <a href="check__home_8cpp.html#ab22fdf5d527804cfc969e36d85c7e334">More...</a><br /></td></tr>
 <tr class="separator:ab22fdf5d527804cfc969e36d85c7e334"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:acf3cd7eb7589393773acf30f3e4f5d61"><td class="memItemLeft" align="right" valign="top"><a id="acf3cd7eb7589393773acf30f3e4f5d61"></a>
-Share&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>check_home</b></td></tr>
-<tr class="separator:acf3cd7eb7589393773acf30f3e4f5d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>is the check home task function file implementation. It will interface with the limit switches and debouncer class in order to tell when the switches have been hit</p>
+<div class="textblock"><p>File containing all functions related to homing the laser. </p>
+<p>This file defines all functions that allow the laser to be homed. The laser will interface with the limit switches and debouncer class in order to tell when the switches have been hit.</p>
 <dl class="section author"><dt>Author</dt><dd>Matthew Carlson </dd>
 <dd>
 Ethan Czuppa</dd></dl>

@@ -45,7 +45,8 @@
  * 
  *  @section dcl_hl_wf High Level Work Flow
  * 
- *  @image html ProgramFlow.png 
+ *  @image html ProgramFlow.png
+ *  @image latex ProgramFlow.eps "Program Flow" width =18cm
  * 
  *  @section dcl_fn Current & Intended Functionality
  * 

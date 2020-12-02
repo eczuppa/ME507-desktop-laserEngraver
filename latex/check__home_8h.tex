@@ -1,0 +1,50 @@
+\hypertarget{check__home_8h}{}\doxysection{check\+\_\+home.\+h File Reference}
+\label{check__home_8h}\index{check\_home.h@{check\_home.h}}
+
+
+File containing the header for \mbox{\hyperlink{check__home_8cpp}{check\+\_\+home.\+cpp}}.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for check\+\_\+home.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{check__home_8h_ab22fdf5d527804cfc969e36d85c7e334}{check\+\_\+home\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which, when called, activates home switches to establish home and zero the encoders. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing the header for \mbox{\hyperlink{check__home_8cpp}{check\+\_\+home.\+cpp}}. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Carlson 
+
+Ethan Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+23 Nov 2020 Created files for the check home task 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{check__home_8h_ab22fdf5d527804cfc969e36d85c7e334}\label{check__home_8h_ab22fdf5d527804cfc969e36d85c7e334}} 
+\index{check\_home.h@{check\_home.h}!check\_home\_task@{check\_home\_task}}
+\index{check\_home\_task@{check\_home\_task}!check\_home.h@{check\_home.h}}
+\doxysubsubsection{\texorpdfstring{check\_home\_task()}{check\_home\_task()}}
+{\footnotesize\ttfamily void check\+\_\+home\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which, when called, activates home switches to establish home and zero the encoders. 
+
+This task check to see when the X and Y limit switches are triggered (and debounced). It will then send a flag to the encoders telling them to zero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

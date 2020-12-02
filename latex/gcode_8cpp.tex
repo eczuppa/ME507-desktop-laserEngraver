@@ -1,0 +1,42 @@
+\hypertarget{gcode_8cpp}{}\doxysection{gcode.\+cpp File Reference}
+\label{gcode_8cpp}\index{gcode.cpp@{gcode.cpp}}
+
+
+File containing methods and classes to interpret G-\/code.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for gcode.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{gcode_8cpp_a4cae07d0430f67509a27d5c375e10d43}{read\+\_\+float}} (char $\ast$line, uint8\+\_\+t $\ast$char\+\_\+counter, float $\ast$float\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Extracts a floating point value from a string. {\bfseries{This function was taken directly from G\+R\+BL.}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing methods and classes to interpret G-\/code. 
+
+This file defines functions for to interpret lines of gcode into commands that control the laser cutter. Many of the methods used in this file were inspired by G\+R\+BL code.
+
+\begin{DoxyAuthor}{Author}
+Niko Banks 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 10 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gcode_8cpp_a4cae07d0430f67509a27d5c375e10d43}\label{gcode_8cpp_a4cae07d0430f67509a27d5c375e10d43}} 
+\index{gcode.cpp@{gcode.cpp}!read\_float@{read\_float}}
+\index{read\_float@{read\_float}!gcode.cpp@{gcode.cpp}}
+\doxysubsubsection{\texorpdfstring{read\_float()}{read\_float()}}
+{\footnotesize\ttfamily uint8\+\_\+t read\+\_\+float (\begin{DoxyParamCaption}\item[{char $\ast$}]{line,  }\item[{uint8\+\_\+t $\ast$}]{char\+\_\+counter,  }\item[{float $\ast$}]{float\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Extracts a floating point value from a string. {\bfseries{This function was taken directly from G\+R\+BL.}} 
+
+The following code is based loosely on the avr-\/libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely available conversion method examples, but has been highly optimized for Grbl. For known C\+NC applications, the typical decimal value is expected to be in the range of E0 to E-\/4. Scientific notation is officially not supported by g-\/code, and the \textquotesingle{}E\textquotesingle{} character may be a g-\/code word on some C\+NC systems. So, \textquotesingle{}E\textquotesingle{} notation will not be recognized. N\+O\+TE\+: Thanks to Radu-\/\+Eosif Mihailescu for identifying the issues with using strtod(). 

@@ -1,0 +1,199 @@
+\hypertarget{classQuad__Encoder}{}\doxysection{Quad\+\_\+\+Encoder Class Reference}
+\label{classQuad__Encoder}\index{Quad\_Encoder@{Quad\_Encoder}}
+
+
+Sets up the user specified timer into encoder mode and handles read values from it.  
+
+
+
+
+{\ttfamily \#include $<$Quad\+\_\+\+Encoder.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classQuad__Encoder_ab6dc44da124e15d90d4a827438c417e6}{Quad\+\_\+\+Encoder}} (uint8\+\_\+t enc\+\_\+sigpin\+\_\+A, uint8\+\_\+t enc\+\_\+sigpin\+\_\+B, uint8\+\_\+t enc\+\_\+chan\+\_\+A, uint8\+\_\+t enc\+\_\+chan\+\_\+B, T\+I\+M\+\_\+\+Type\+Def $\ast$p\+\_\+e\+T\+IM, int32\+\_\+t bound=1000, bool invert=false)
+\begin{DoxyCompactList}\small\item\em Constructor for Quad Encoder Class. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}{enc\+\_\+read}} (void)
+\begin{DoxyCompactList}\small\item\em handles the changing value in the timer count register and returns the total displacement in encoder ticks \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classQuad__Encoder_a77a194b8850b7d34231e48c9df4e23c3}{enc\+\_\+read\+\_\+pos}} (void)
+\begin{DoxyCompactList}\small\item\em converts the raw value in ticks from {\ttfamily \mbox{\hyperlink{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}{enc\+\_\+read()}}} to belt displacement in mm \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a4d9fdb077cd2c1c1a800c5de872f45cd}\label{classQuad__Encoder_a4d9fdb077cd2c1c1a800c5de872f45cd}} 
+float {\bfseries enc\+\_\+d\+\_\+pos} (void)
+\item 
+void \mbox{\hyperlink{classQuad__Encoder_ade9644057a5337d071025e43a56b44a7}{enc\+\_\+zero}} (void)
+\begin{DoxyCompactList}\small\item\em resets \+\_\+abspos, the accumulated encoder ticks variable, to 0 \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classQuad__Encoder_ab82ee109c2b2d0a72d9d15c319b7a18c}{enc\+\_\+test}} (void)
+\begin{DoxyCompactList}\small\item\em quick way to check if encoder is counting \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a11a29e1cb2db78d154788b91fed8d4bf}{get\+\_\+overflow}} (void)
+\begin{DoxyCompactList}\small\item\em quick way to check if timer overflow value for counter register is what you expect \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a536996cca3fad7ea8f2d55ef5f99dff6}{get\+\_\+prescale}} (void)
+\begin{DoxyCompactList}\small\item\em quick way to check if timer prescaler is what you expect \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classQuad__Encoder_a15271549de2c8401d34c2278898167c6}\label{classQuad__Encoder_a15271549de2c8401d34c2278898167c6}} 
+uint8\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a15271549de2c8401d34c2278898167c6}{\+\_\+enc\+\_\+sigpin\+\_\+A}}
+\begin{DoxyCompactList}\small\item\em the pin that is receiving the A output signal of the encoder and is tied to the first timer channel \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a44753d6944c49276fd9ca4350009160b}\label{classQuad__Encoder_a44753d6944c49276fd9ca4350009160b}} 
+uint8\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a44753d6944c49276fd9ca4350009160b}{\+\_\+enc\+\_\+sigpin\+\_\+B}}
+\begin{DoxyCompactList}\small\item\em the pin that is receiving the B output signal of the encoder and is tied to the second timer channel \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a18663a38b6d3ae791393ec0390939144}\label{classQuad__Encoder_a18663a38b6d3ae791393ec0390939144}} 
+uint8\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a18663a38b6d3ae791393ec0390939144}{\+\_\+enc\+\_\+chan\+\_\+A}}
+\begin{DoxyCompactList}\small\item\em the timer channel number the encoder A signal pin is connected to. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_af54241836a1c92b1e413d0b142d938ae}\label{classQuad__Encoder_af54241836a1c92b1e413d0b142d938ae}} 
+uint8\+\_\+t \mbox{\hyperlink{classQuad__Encoder_af54241836a1c92b1e413d0b142d938ae}{\+\_\+enc\+\_\+chan\+\_\+B}}
+\begin{DoxyCompactList}\small\item\em the timer channel number the encoder B signal pin is connected to. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_ac291a78d55f05baabd10a156c1a32e87}\label{classQuad__Encoder_ac291a78d55f05baabd10a156c1a32e87}} 
+int32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_ac291a78d55f05baabd10a156c1a32e87}{\+\_\+bound}}
+\begin{DoxyCompactList}\small\item\em user specified overflow threshold parameter \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_adcb368b055e365f46b4b29266a0844da}\label{classQuad__Encoder_adcb368b055e365f46b4b29266a0844da}} 
+T\+I\+M\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{classQuad__Encoder_adcb368b055e365f46b4b29266a0844da}{\+\_\+p\+\_\+e\+T\+IM}}
+\begin{DoxyCompactList}\small\item\em pointer that contains user passed-\/in timer object (T\+I\+M1, T\+I\+M2, etc) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a6721ec735f4e4c4a8f102942c8e88618}\label{classQuad__Encoder_a6721ec735f4e4c4a8f102942c8e88618}} 
+Hardware\+Timer $\ast$ \mbox{\hyperlink{classQuad__Encoder_a6721ec735f4e4c4a8f102942c8e88618}{Enc\+Tmr}}
+\begin{DoxyCompactList}\small\item\em Instance of Hardware Timer class used for an instance of the encoder class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_abae5dd763e022c160b50aae6a562e07a}\label{classQuad__Encoder_abae5dd763e022c160b50aae6a562e07a}} 
+uint16\+\_\+t \mbox{\hyperlink{classQuad__Encoder_abae5dd763e022c160b50aae6a562e07a}{\+\_\+lastcount}}
+\begin{DoxyCompactList}\small\item\em the previous count from the timer counter register \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a63f9ee67e18eb094b85f3c552903c5c5}\label{classQuad__Encoder_a63f9ee67e18eb094b85f3c552903c5c5}} 
+uint16\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a63f9ee67e18eb094b85f3c552903c5c5}{\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em the current count from the timer counter register \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a12f5ee7ad48ca23243f8361be78860ab}\label{classQuad__Encoder_a12f5ee7ad48ca23243f8361be78860ab}} 
+int32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a12f5ee7ad48ca23243f8361be78860ab}{\+\_\+abspos}}
+\begin{DoxyCompactList}\small\item\em position in the global frame \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_a3fb6f34d580542acb0f427941452688f}\label{classQuad__Encoder_a3fb6f34d580542acb0f427941452688f}} 
+int32\+\_\+t \mbox{\hyperlink{classQuad__Encoder_a3fb6f34d580542acb0f427941452688f}{\+\_\+last\+\_\+abspos}}
+\begin{DoxyCompactList}\small\item\em the previous postion in the global frame \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQuad__Encoder_aa4bb56835af757fd86c0de37c41eb5b4}\label{classQuad__Encoder_aa4bb56835af757fd86c0de37c41eb5b4}} 
+bool \mbox{\hyperlink{classQuad__Encoder_aa4bb56835af757fd86c0de37c41eb5b4}{\+\_\+invert}}
+\begin{DoxyCompactList}\small\item\em Software correction for encoder wiring. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sets up the user specified timer into encoder mode and handles read values from it. 
+
+This is a class which uses the Hardware Timer A\+PI and some low level register setting to read a quadrature encoder on a motor and then do various useful tasks with that read value. This class has debugging methods which are documented in the .cpp file. The primary methods of this class are {\ttfamily \mbox{\hyperlink{classQuad__Encoder_ade9644057a5337d071025e43a56b44a7}{enc\+\_\+zero()}}} , {\ttfamily \mbox{\hyperlink{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}{enc\+\_\+read()}}} , and its variants {\ttfamily \mbox{\hyperlink{classQuad__Encoder_a77a194b8850b7d34231e48c9df4e23c3}{enc\+\_\+read\+\_\+pos()}}} and {\ttfamily enc\+\_\+d\+\_\+pos()}. In general the class works by counting pulses from the quadrature encoder on a brushed DC motor by leveraging the S\+T\+M32 Generic hardware timer A\+PI with a bound based over/underflow detection scheme for determining direction. This approach gives maximum performance and minimal C\+PU load as all counting is done with hardware giving nanosecond latencies -\/ based on your main clock speed that is (80 M\+Hz in the case of the Nucleo L476\+RG).Methods which zero the encoder, keep track of the absolute as well as the incremental postion with input from the read method are present as this is intended to be used with a desktop C\+NC machine. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classQuad__Encoder_ab6dc44da124e15d90d4a827438c417e6}\label{classQuad__Encoder_ab6dc44da124e15d90d4a827438c417e6}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!Quad\_Encoder@{Quad\_Encoder}}
+\index{Quad\_Encoder@{Quad\_Encoder}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{Quad\_Encoder()}{Quad\_Encoder()}}
+{\footnotesize\ttfamily Quad\+\_\+\+Encoder\+::\+Quad\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{enc\+\_\+sigpin\+\_\+A,  }\item[{uint8\+\_\+t}]{enc\+\_\+sigpin\+\_\+B,  }\item[{uint8\+\_\+t}]{enc\+\_\+chan\+\_\+A,  }\item[{uint8\+\_\+t}]{enc\+\_\+chan\+\_\+B,  }\item[{T\+I\+M\+\_\+\+Type\+Def $\ast$}]{p\+\_\+e\+T\+IM,  }\item[{int32\+\_\+t}]{bound = {\ttfamily 1000},  }\item[{bool}]{invert = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Constructor for Quad Encoder Class. 
+
+takes the two pins from the encoder that will tie to specific pins for timer functionality in encoder mode as well as the desired timer to be used (T\+I\+M1, T\+I\+M2, etc.) and has default values for the bound and invert parameters. Puts the timer into a specific encoder mode -\/ the count register value is incremented on the rising and falling edges of each encoder singal input. And saves input parameters and other useful, state-\/determining values into class member data 
+\begin{DoxyParams}{Parameters}
+{\em enc\+\_\+sigpin\+\_\+A} & is the 8-\/bit unsigned integer representation of the timer channel (pin) the first encoder output signal is tied to (e.\+g P\+C6 or P\+C7 for T\+I\+M8) \\
+\hline
+{\em enc\+\_\+sigpin\+\_\+B} & is the 8-\/bit unsigned integer representation of the timer channel (pin) the second encoder output signal is tied to (e.\+g P\+C6 or P\+C7 for T\+I\+M8) \\
+\hline
+{\em enc\+\_\+chan\+\_\+A} & ~\newline
+ \\
+\hline
+{\em enc\+\_\+chan\+\_\+B} & \\
+\hline
+{\em p\+\_\+e\+T\+IM} & the pointer of type {\ttfamily T\+I\+M\+\_\+\+Type\+Def} which matches the type of the predefined T\+I\+Mx objects (e.\+g. T\+I\+M1, ..., T\+I\+M16) \\
+\hline
+{\em bound} & the value which determines the area where the enc\+\_\+read method begins checking for an under/overflow condition \\
+\hline
+{\em invert} & a boolean to compensate for hardware issues -\/ if you switch the encoder signal outputs on the timer channel pins then setting invert to true allows you to read the correct encoder values without switching the motor leads, which can sometimes be problematic \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}\label{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!enc\_read@{enc\_read}}
+\index{enc\_read@{enc\_read}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{enc\_read()}{enc\_read()}}
+{\footnotesize\ttfamily int32\+\_\+t Quad\+\_\+\+Encoder\+::enc\+\_\+read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+handles the changing value in the timer count register and returns the total displacement in encoder ticks 
+
+Keeps track of encoder position in ticks in the returned parameter by accumulating the change in timer count register values using the Hardware\+Timer Library\textquotesingle{}s {\ttfamily get\+Count()} method as well as positive and negative overflow handling. 
+\begin{DoxyParams}{Parameters}
+{\em delta} & the difference between the last timer register count value and the current one -\/ checked for overflows. \\
+\hline
+{\em count} & the method specific variable that holds the current timer register count value. ~\newline
+ \\
+\hline
+{\em T\+M\+R\+\_\+\+C\+O\+U\+N\+T\+\_\+\+M\+AX} & the overflow value for the timer, in this case for a 16 bit timer so, 65535. \\
+\hline
+{\em \+\_\+abspos} & is the class member variable that holds the absolute position measured by the encoder it is an int32\+\_\+t so it should be quite difficult to overflow unless your motor is spinning S\+U\+P\+ER fast \\
+\hline
+{\em \+\_\+last\+\_\+abspos} & a snap shot of \+\_\+abspos before being incremented by the appropriate delta -\/ used for instantaneous velocity calculations \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQuad__Encoder_a77a194b8850b7d34231e48c9df4e23c3}\label{classQuad__Encoder_a77a194b8850b7d34231e48c9df4e23c3}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!enc\_read\_pos@{enc\_read\_pos}}
+\index{enc\_read\_pos@{enc\_read\_pos}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{enc\_read\_pos()}{enc\_read\_pos()}}
+{\footnotesize\ttfamily float Quad\+\_\+\+Encoder\+::enc\+\_\+read\+\_\+pos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+converts the raw value in ticks from {\ttfamily \mbox{\hyperlink{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}{enc\+\_\+read()}}} to belt displacement in mm 
+
+The radius of timing belt pulley and the conversion from ticks to radians (motor-\/specific) are used to convert the accrued position returned from {\ttfamily enc\+\_\+read} to a value for the linear movement of the belt driven by the timing pulley in millimeters. 
+\begin{DoxyParams}{Parameters}
+{\em M\+O\+M\+E\+N\+T\+\_\+\+A\+RM} & the radius of the drive mechanism translating rotational motion to linear motion \\
+\hline
+{\em T\+I\+C\+K\+\_\+\+T\+O\+\_\+\+R\+AD} & the number of radians per encoder tick, which is empirically determined by measuring the number of ticks accumulated in the timer count register when moving the O\+U\+T\+P\+UT shaft of the motor through 1 rotation. Do this several times, record the result and average it. Then compute by dividing 2$\ast$\+Pi by your result (ticks/revoltion). \\
+\hline
+{\em current\+\_\+tick} & method specific storage of {\ttfamily \mbox{\hyperlink{classQuad__Encoder_adb9e7bad0bc57d0a6f8700e6cf82ea75}{enc\+\_\+read()}}} return value \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQuad__Encoder_ab82ee109c2b2d0a72d9d15c319b7a18c}\label{classQuad__Encoder_ab82ee109c2b2d0a72d9d15c319b7a18c}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!enc\_test@{enc\_test}}
+\index{enc\_test@{enc\_test}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{enc\_test()}{enc\_test()}}
+{\footnotesize\ttfamily uint16\+\_\+t Quad\+\_\+\+Encoder\+::enc\+\_\+test (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+quick way to check if encoder is counting 
+
+poll the timer with this method in a loop and print out the result to see if the timer is counting the way you expect it to be ~\newline
+ \mbox{\Hypertarget{classQuad__Encoder_ade9644057a5337d071025e43a56b44a7}\label{classQuad__Encoder_ade9644057a5337d071025e43a56b44a7}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!enc\_zero@{enc\_zero}}
+\index{enc\_zero@{enc\_zero}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{enc\_zero()}{enc\_zero()}}
+{\footnotesize\ttfamily void Quad\+\_\+\+Encoder\+::enc\+\_\+zero (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+resets \+\_\+abspos, the accumulated encoder ticks variable, to 0 
+
+applications include prepping the encoder for use, trying to do things in an incremental positioning frame vs the global frame. Not to be confused with the Hardware Timer A\+PI\textquotesingle{}s {\ttfamily set\+Count()} which changes the value of the timer counter register. \mbox{\Hypertarget{classQuad__Encoder_a11a29e1cb2db78d154788b91fed8d4bf}\label{classQuad__Encoder_a11a29e1cb2db78d154788b91fed8d4bf}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!get\_overflow@{get\_overflow}}
+\index{get\_overflow@{get\_overflow}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{get\_overflow()}{get\_overflow()}}
+{\footnotesize\ttfamily uint32\+\_\+t Quad\+\_\+\+Encoder\+::get\+\_\+overflow (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+quick way to check if timer overflow value for counter register is what you expect 
+
+print out the result somewhere convenient in your code, but beware of having multiple things try to print simultaneously \mbox{\Hypertarget{classQuad__Encoder_a536996cca3fad7ea8f2d55ef5f99dff6}\label{classQuad__Encoder_a536996cca3fad7ea8f2d55ef5f99dff6}} 
+\index{Quad\_Encoder@{Quad\_Encoder}!get\_prescale@{get\_prescale}}
+\index{get\_prescale@{get\_prescale}!Quad\_Encoder@{Quad\_Encoder}}
+\doxysubsubsection{\texorpdfstring{get\_prescale()}{get\_prescale()}}
+{\footnotesize\ttfamily uint32\+\_\+t Quad\+\_\+\+Encoder\+::get\+\_\+prescale (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+quick way to check if timer prescaler is what you expect 
+
+print out the result somewhere convenient in your code, but beware of having multiple things try to print simultaneously 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Quad__Encoder_8h}{Quad\+\_\+\+Encoder.\+h}}\item 
+\mbox{\hyperlink{Quad__Encoder_8cpp}{Quad\+\_\+\+Encoder.\+cpp}}\end{DoxyCompactItemize}

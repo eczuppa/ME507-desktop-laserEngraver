@@ -1,0 +1,52 @@
+\hypertarget{check__home_8cpp}{}\doxysection{check\+\_\+home.\+cpp File Reference}
+\label{check__home_8cpp}\index{check\_home.cpp@{check\_home.cpp}}
+
+
+File containing all functions related to homing the laser.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for check\+\_\+home.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{check__home_8cpp_ab22fdf5d527804cfc969e36d85c7e334}{check\+\_\+home\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which, when called, activates home switches to establish home and zero the encoders. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing all functions related to homing the laser. 
+
+This file defines all functions that allow the laser to be homed. The laser will interface with the limit switches and debouncer class in order to tell when the switches have been hit.
+
+\begin{DoxyAuthor}{Author}
+Matthew Carlson 
+
+Ethan Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+23 Nov 2020 Created these files and started outlining the code structure. 
+
+24 Nov 2020 Finalized draft of check home task 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{check__home_8cpp_ab22fdf5d527804cfc969e36d85c7e334}\label{check__home_8cpp_ab22fdf5d527804cfc969e36d85c7e334}} 
+\index{check\_home.cpp@{check\_home.cpp}!check\_home\_task@{check\_home\_task}}
+\index{check\_home\_task@{check\_home\_task}!check\_home.cpp@{check\_home.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_home\_task()}{check\_home\_task()}}
+{\footnotesize\ttfamily void check\+\_\+home\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which, when called, activates home switches to establish home and zero the encoders. 
+
+This task check to see when the X and Y limit switches are triggered (and debounced). It will then send a flag to the encoders telling them to zero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

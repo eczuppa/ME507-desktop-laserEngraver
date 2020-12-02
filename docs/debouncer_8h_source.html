@@ -88,38 +88,38 @@ $(document).ready(function(){initNavTree('debouncer_8h_source.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <a href="debouncer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classDebouncer.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDebouncer.html">Debouncer</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">   19</a></span>&#160;    uint8_t <a class="code" href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">threshold</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">   22</a></span>&#160;    uint8_t <a class="code" href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">input_pin</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// State of the state machine</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    uint8_t state = 0;   </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// define a variable &quot;counter&quot; that will be incrimented in a FOR loop and</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// and compared to &quot;threshhold&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    uint8_t counter = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// This should not be needed, but it is used so that State 0 returns a FALSE and State 2 returns a TRUE</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> button_result = 0;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classDebouncer.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDebouncer.html">Debouncer</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">   18</a></span>&#160;    uint8_t <a class="code" href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">threshold</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">   21</a></span>&#160;    uint8_t <a class="code" href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">input_pin</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// State of the state machine</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    uint8_t state = 0;   </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// define a variable &quot;counter&quot; that will be incrimented in a FOR loop and</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// and compared to &quot;threshhold&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    uint8_t counter = 0;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// This should not be needed, but it is used so that State 0 returns a FALSE and State 2 returns a TRUE</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">bool</span> button_result = 0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// Constructor which is given a pin to look at and a threshold to compare against</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">Debouncer</a> (uint8_t pin, uint8_t threshold_constructor);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> update (<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// Constructor which is given a pin to look at and a threshold to compare against</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">Debouncer</a> (uint8_t pin, uint8_t threshold_constructor);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> update (<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassDebouncer_html"><div class="ttname"><a href="classDebouncer.html">Debouncer</a></div><div class="ttdoc">Class which implements a debouncer for button and switch noise.</div><div class="ttdef"><b>Definition:</b> debouncer.h:15</div></div>
-<div class="ttc" id="aclassDebouncer_html_aaa3276abc72413619349ea3eea53c1e6"><div class="ttname"><a href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">Debouncer::input_pin</a></div><div class="ttdeci">uint8_t input_pin</div><div class="ttdoc">The value of the threshold so that the debouncer knows when to switch states.</div><div class="ttdef"><b>Definition:</b> debouncer.h:22</div></div>
-<div class="ttc" id="aclassDebouncer_html_aaa0f5014366f0e062d2db1163e2a45bd"><div class="ttname"><a href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">Debouncer::Debouncer</a></div><div class="ttdeci">Debouncer(uint8_t pin, uint8_t threshold_constructor)</div><div class="ttdoc">Class which implements a debouncer for button and switch noise.</div><div class="ttdef"><b>Definition:</b> debouncer.cpp:30</div></div>
-<div class="ttc" id="aclassDebouncer_html_aed3820c4502653ad1523455563c84f5a"><div class="ttname"><a href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">Debouncer::threshold</a></div><div class="ttdeci">uint8_t threshold</div><div class="ttdoc">The value of the threshold so that the debouncer knows when to switch states.</div><div class="ttdef"><b>Definition:</b> debouncer.h:19</div></div>
+<div class="ttc" id="aclassDebouncer_html"><div class="ttname"><a href="classDebouncer.html">Debouncer</a></div><div class="ttdoc">Class which implements a debouncer for button and switch noise.</div><div class="ttdef"><b>Definition:</b> debouncer.h:14</div></div>
+<div class="ttc" id="aclassDebouncer_html_aaa3276abc72413619349ea3eea53c1e6"><div class="ttname"><a href="classDebouncer.html#aaa3276abc72413619349ea3eea53c1e6">Debouncer::input_pin</a></div><div class="ttdeci">uint8_t input_pin</div><div class="ttdoc">The value of the threshold so that the debouncer knows when to switch states.</div><div class="ttdef"><b>Definition:</b> debouncer.h:21</div></div>
+<div class="ttc" id="aclassDebouncer_html_aaa0f5014366f0e062d2db1163e2a45bd"><div class="ttname"><a href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">Debouncer::Debouncer</a></div><div class="ttdeci">Debouncer(uint8_t pin, uint8_t threshold_constructor)</div><div class="ttdoc">Creates a debouncer to filter through noise from buttons and switches.</div><div class="ttdef"><b>Definition:</b> debouncer.cpp:26</div></div>
+<div class="ttc" id="aclassDebouncer_html_aed3820c4502653ad1523455563c84f5a"><div class="ttname"><a href="classDebouncer.html#aed3820c4502653ad1523455563c84f5a">Debouncer::threshold</a></div><div class="ttdeci">uint8_t threshold</div><div class="ttdoc">The value of the threshold so that the debouncer knows when to switch states.</div><div class="ttdef"><b>Definition:</b> debouncer.h:18</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

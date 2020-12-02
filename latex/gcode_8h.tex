@@ -1,0 +1,44 @@
+\hypertarget{gcode_8h}{}\doxysection{gcode.\+h File Reference}
+\label{gcode_8h}\index{gcode.h@{gcode.h}}
+
+
+This file contains the header for a file comtaining gcode interpreting functions.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdecode}{decode}}
+\begin{DoxyCompactList}\small\item\em Class which implements decoding object which contains functions for decoding gcode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{gcode_8h_a4cae07d0430f67509a27d5c375e10d43}{read\+\_\+float}} (char $\ast$line, uint8\+\_\+t $\ast$char\+\_\+counter, float $\ast$float\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Extracts a floating point value from a string. {\bfseries{This function was taken directly from G\+R\+BL.}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the header for a file comtaining gcode interpreting functions. 
+
+\begin{DoxyAuthor}{Author}
+Niko Banks 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 10 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gcode_8h_a4cae07d0430f67509a27d5c375e10d43}\label{gcode_8h_a4cae07d0430f67509a27d5c375e10d43}} 
+\index{gcode.h@{gcode.h}!read\_float@{read\_float}}
+\index{read\_float@{read\_float}!gcode.h@{gcode.h}}
+\doxysubsubsection{\texorpdfstring{read\_float()}{read\_float()}}
+{\footnotesize\ttfamily uint8\+\_\+t read\+\_\+float (\begin{DoxyParamCaption}\item[{char $\ast$}]{line,  }\item[{uint8\+\_\+t $\ast$}]{char\+\_\+counter,  }\item[{float $\ast$}]{float\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Extracts a floating point value from a string. {\bfseries{This function was taken directly from G\+R\+BL.}} 
+
+The following code is based loosely on the avr-\/libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely available conversion method examples, but has been highly optimized for Grbl. For known C\+NC applications, the typical decimal value is expected to be in the range of E0 to E-\/4. Scientific notation is officially not supported by g-\/code, and the \textquotesingle{}E\textquotesingle{} character may be a g-\/code word on some C\+NC systems. So, \textquotesingle{}E\textquotesingle{} notation will not be recognized. N\+O\+TE\+: Thanks to Radu-\/\+Eosif Mihailescu for identifying the issues with using strtod(). 

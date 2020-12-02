@@ -1,0 +1,122 @@
+\hypertarget{serial_8cpp}{}\doxysection{serial.\+cpp File Reference}
+\label{serial_8cpp}\index{serial.cpp@{serial.cpp}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for serial.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{serial_8cpp_a8e69e07806940f62fe031d0ed54dc7af}{task\+\_\+read\+\_\+serial}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which reads the serial port and puts it in a queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{serial_8cpp_a899c404f96852d81ce663ccd85a6e67f}{task\+\_\+print\+\_\+serial}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which prints any string that is sent to the chars\+\_\+to\+\_\+print queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{serial_8cpp_a9eeb4b02d41956bc5ef7d1decae57731}\label{serial_8cpp_a9eeb4b02d41956bc5ef7d1decae57731}} 
+void {\bfseries print\+\_\+serial} (String printed\+\_\+string)
+\item 
+\mbox{\Hypertarget{serial_8cpp_adb1d7dd7e7cedb31a0840e8d1360f1df}\label{serial_8cpp_adb1d7dd7e7cedb31a0840e8d1360f1df}} 
+void {\bfseries print\+\_\+serial} (float printed\+\_\+float)
+\item 
+\mbox{\Hypertarget{serial_8cpp_a46b70c1422033d4ffbc5bdd688e21ff6}\label{serial_8cpp_a46b70c1422033d4ffbc5bdd688e21ff6}} 
+void {\bfseries print\+\_\+serial} (uint8\+\_\+t printed\+\_\+int)
+\item 
+\mbox{\Hypertarget{serial_8cpp_aa0938d040bad68dea233e37e90ca0540}\label{serial_8cpp_aa0938d040bad68dea233e37e90ca0540}} 
+void {\bfseries print\+\_\+serial} (char $\ast$printed\+\_\+char)
+\item 
+\mbox{\Hypertarget{serial_8cpp_aad5712b45b332237de4d3ff4fe55a7ae}\label{serial_8cpp_aad5712b45b332237de4d3ff4fe55a7ae}} 
+void {\bfseries print\+\_\+serial} (char printed\+\_\+char)
+\item 
+\mbox{\Hypertarget{serial_8cpp_a4e8c4da1a26dcdbdb84bfe33ab2c3ac3}\label{serial_8cpp_a4e8c4da1a26dcdbdb84bfe33ab2c3ac3}} 
+void {\bfseries print\+\_\+serial} (const char $\ast$printed\+\_\+char)
+\item 
+int32\+\_\+t \mbox{\hyperlink{serial_8cpp_a83e2559905ce06de071389dfb6ea3b97}{parse\+Int\+With\+Echo}} (Stream \&stream)
+\begin{DoxyCompactList}\small\item\em Read an integer from a serial device, echoing input and blocking. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{serial_8cpp_aeca539d059d1b76b873ccdadf74ca23d}{task\+\_\+ui}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which interacts with a user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines functions that will print to and read the serial port in order to communicate with the python script that sends the Gcode and general commands to the laser.
+
+\begin{DoxyAuthor}{Author}
+Niko Banks 
+
+Ethan Czuppa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 10 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{serial_8cpp_a83e2559905ce06de071389dfb6ea3b97}\label{serial_8cpp_a83e2559905ce06de071389dfb6ea3b97}} 
+\index{serial.cpp@{serial.cpp}!parseIntWithEcho@{parseIntWithEcho}}
+\index{parseIntWithEcho@{parseIntWithEcho}!serial.cpp@{serial.cpp}}
+\doxysubsubsection{\texorpdfstring{parseIntWithEcho()}{parseIntWithEcho()}}
+{\footnotesize\ttfamily int32\+\_\+t parse\+Int\+With\+Echo (\begin{DoxyParamCaption}\item[{Stream \&}]{stream }\end{DoxyParamCaption})}
+
+
+
+Read an integer from a serial device, echoing input and blocking. 
+
+This function reads an integer which is typed by a user into a serial device. It uses the Arduino function {\ttfamily read\+Bytes()}, which blocks the task which calls this function until a character is read. When any character is received, it is echoed through the serial port so the user can see what was typed. Only decimal integers are supported; negative integers beginning with a single {\ttfamily -\/} sign or positive ones with a {\ttfamily +} will work.
+
+{\bfseries{N\+O\+TE\+:}} The serial device must have its timeout set to a very long time, or this function will malfunction. A recommended call\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.setTimeout (0xFFFFFFFF);}
+\end{DoxyCode}
+ Assuming that the serial port named {\ttfamily Serial} is being used.
+
+{\bfseries{N\+O\+TE\+:}} This function is only used for testing.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & The serial device such as {\ttfamily Serial} used to communicate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{serial_8cpp_a899c404f96852d81ce663ccd85a6e67f}\label{serial_8cpp_a899c404f96852d81ce663ccd85a6e67f}} 
+\index{serial.cpp@{serial.cpp}!task\_print\_serial@{task\_print\_serial}}
+\index{task\_print\_serial@{task\_print\_serial}!serial.cpp@{serial.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_print\_serial()}{task\_print\_serial()}}
+{\footnotesize\ttfamily void task\+\_\+print\+\_\+serial (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which prints any string that is sent to the chars\+\_\+to\+\_\+print queue. 
+
+This task reads checks if there is anything in the chars\+\_\+to\+\_\+print queue, and if there is something, it prints it to the serial port. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{serial_8cpp_a8e69e07806940f62fe031d0ed54dc7af}\label{serial_8cpp_a8e69e07806940f62fe031d0ed54dc7af}} 
+\index{serial.cpp@{serial.cpp}!task\_read\_serial@{task\_read\_serial}}
+\index{task\_read\_serial@{task\_read\_serial}!serial.cpp@{serial.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_read\_serial()}{task\_read\_serial()}}
+{\footnotesize\ttfamily void task\+\_\+read\+\_\+serial (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which reads the serial port and puts it in a queue. 
+
+This task reads an input into the serial port (from the python UI script presumably) and reads it. The task has 3 main states, which are R\+E\+A\+DY, R\+E\+A\+D\+I\+NG, and N\+O\+T\+\_\+\+R\+E\+A\+DY. The task will remain in R\+E\+A\+DY initially until it is asked \char`\"{}\+Ready?\char`\"{} through the serial port, in which case it will transition to R\+E\+A\+D\+I\+NG to read the data and put it into the read\+\_\+chars queue. If the read\+\_\+chars queue is full, the task will go to the N\+O\+T\+\_\+\+R\+E\+A\+DY state until space has been cleared. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{serial_8cpp_aeca539d059d1b76b873ccdadf74ca23d}\label{serial_8cpp_aeca539d059d1b76b873ccdadf74ca23d}} 
+\index{serial.cpp@{serial.cpp}!task\_ui@{task\_ui}}
+\index{task\_ui@{task\_ui}!serial.cpp@{serial.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_ui()}{task\_ui()}}
+{\footnotesize\ttfamily void task\+\_\+ui (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which interacts with a user. 
+
+This task demonstrates how to use a Free\+R\+T\+OS task for interacting with some user while other more important things are going on. {\bfseries{N\+O\+TE\+:}} This function is only used for testing.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

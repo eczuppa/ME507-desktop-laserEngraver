@@ -1,0 +1,39 @@
+\hypertarget{limit__switch_8cpp}{}\doxysection{limit\+\_\+switch.\+cpp File Reference}
+\label{limit__switch_8cpp}\index{limit\_switch.cpp@{limit\_switch.cpp}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for limit\+\_\+switch.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{limit__switch_8cpp_adc91a22e1ab52e238f08cab4bf40c52a}{task\+\_\+debouncer}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which runs a debouncer for a button or a switch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains a program to use debouncing to activate limit switches
+
+\begin{DoxyAuthor}{Author}
+Matthew Carlson
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+05 Nov 2020 Original file 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{limit__switch_8cpp_adc91a22e1ab52e238f08cab4bf40c52a}\label{limit__switch_8cpp_adc91a22e1ab52e238f08cab4bf40c52a}} 
+\index{limit\_switch.cpp@{limit\_switch.cpp}!task\_debouncer@{task\_debouncer}}
+\index{task\_debouncer@{task\_debouncer}!limit\_switch.cpp@{limit\_switch.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_debouncer()}{task\_debouncer()}}
+{\footnotesize\ttfamily void task\+\_\+debouncer (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which runs a debouncer for a button or a switch. 
+
+This task uses a Constructor called \mbox{\hyperlink{classDebouncer}{Debouncer}} to set up a class called blue\+\_\+button in order to filter out noise that can be caused when pushing a button. This program is simulated by hand using the blue button (P\+C13) on the Nucleo at a task called every 500 ms or so. When the task is run quicker (at say 10ms) the blue button behaves very much like a button should. 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

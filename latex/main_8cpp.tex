@@ -1,0 +1,77 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_aa66421f3a1aa74a467c1e18ee07c489d}\label{main_8cpp_aa66421f3a1aa74a467c1e18ee07c489d}} 
+\#define {\bfseries N\+I\+K\+O\+\_\+\+T\+E\+S\+T\+I\+NG}~0
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_a2ead72fb97fabc3862b59e0874387225}\label{main_8cpp_a2ead72fb97fabc3862b59e0874387225}} 
+Queue$<$ char\mbox{[}L\+I\+N\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE\mbox{]}$>$ {\bfseries chars\+\_\+to\+\_\+print} (W\+R\+I\+T\+E\+\_\+\+Q\+\_\+\+S\+I\+ZE,\char`\"{}char array printer\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_ada6d06cfd63dfaa3938b8b095c5added}\label{main_8cpp_ada6d06cfd63dfaa3938b8b095c5added}} 
+Queue$<$ char\mbox{[}L\+I\+N\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE\mbox{]}$>$ {\bfseries read\+\_\+chars} (R\+E\+A\+D\+\_\+\+Q\+\_\+\+S\+I\+ZE,\char`\"{}read\+\_\+val\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_a4a8421a49b6b32fab3a5a70119737cb3}\label{main_8cpp_a4a8421a49b6b32fab3a5a70119737cb3}} 
+Share$<$ float $>$ {\bfseries encoder\+\_\+\+A\+\_\+pos} (\char`\"{}Encoder A Position\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_a6f80edf67880d13a3840fecaed25e6ec}\label{main_8cpp_a6f80edf67880d13a3840fecaed25e6ec}} 
+Share$<$ float $>$ {\bfseries encoder\+\_\+\+A\+\_\+velocity} (\char`\"{}Encoder A Velocity\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_a94764df99ee19cd5e372fa85782a10ef}\label{main_8cpp_a94764df99ee19cd5e372fa85782a10ef}} 
+Share$<$ uint32\+\_\+t $>$ {\bfseries encoder\+\_\+\+A\+\_\+dt} (\char`\"{}Encoder A delta t\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_a31969971aa88094a591677c997747f53}\label{main_8cpp_a31969971aa88094a591677c997747f53}} 
+Share$<$ float $>$ {\bfseries encoder\+\_\+\+B\+\_\+pos} (\char`\"{}Encoder B Position\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_ad91753d1171813c23d7cdc5ad03fe11a}\label{main_8cpp_ad91753d1171813c23d7cdc5ad03fe11a}} 
+Share$<$ float $>$ {\bfseries encoder\+\_\+\+B\+\_\+velocity} (\char`\"{}Encoder B Velocity\char`\"{})
+\item 
+\mbox{\Hypertarget{main_8cpp_a025332c696cdf9989df8df5cf5b65aab}\label{main_8cpp_a025332c696cdf9989df8df5cf5b65aab}} 
+Share$<$ uint32\+\_\+t $>$ {\bfseries encoder\+\_\+\+B\+\_\+dt} (\char`\"{}Encoder B delta t\char`\"{})
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Arduino\textquotesingle{}s low-\/priority loop function, which we don\textquotesingle{}t use. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is the main file for running laser cutters using a R\+T\+OS. This file is currently in testing mode\+: Each person has there own section marked with \#ifdef lines to write their own testing code without interfereing with others.
+
+\begin{DoxyAuthor}{Author}
+Niko Banks 
+
+Matthew Carlson 
+
+Ethan Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Nov 11 2020 File created 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f}} 
+\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Arduino\textquotesingle{}s low-\/priority loop function, which we don\textquotesingle{}t use. 
+
+A non-\/\+R\+T\+OS Arduino program runs all of its continuously running code in this function after {\ttfamily \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}}} has finished. When using Free\+R\+T\+OS, {\ttfamily \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop()}}} implements a low priority task on most microcontrollers, and crashes on some others, so we\textquotesingle{}ll not use it. \mbox{\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+In order to achieve sub-\/millisecond task timing, the default value of config\+Tick\+\_\+\+R\+A\+T\+E\+\_\+\+HZ was changed to (Sys\+Clock)/10000 instead of (Sys\+Clock)/1000. This means every R\+T\+OS tick is 1/10th of a millisecond instead of 1 millisecond. This comes at the cost of reducing the time slice each task can be given before the C\+PU is overloaded by how fast the R\+T\+OS is trying to run. Use this version with a lower powered microcontroller at your own risk. This fork was created solely for this config change for a grbl-\/like (but not compatible ... yet) desktop laser cutter than uses a S\+T\+M32 Nucleo L476\+RG. Also, delay quantities in v\+Task\+Delay or v\+Task\+Delay\+Until can be updated to account for the change in T\+I\+C\+K\+\_\+\+R\+A\+T\+E\+\_\+\+HZ by using the pd\+M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+K\+S() macro as follows\+: const Tick\+Type\+\_\+t x\+Block\+Time = pd\+M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+K\+S( 100 ); v\+Task\+Delay( x\+Block\+Time ); from \href{https://arduino.stackexchange.com/questions/25746/changing-the-tick-time-in-freertos}{\texttt{ https\+://arduino.\+stackexchange.\+com/questions/25746/changing-\/the-\/tick-\/time-\/in-\/freertos}} answered by Free\+R\+T\+O\+S.\+org and rebatoma. This approach is significantly more convenient than going through and updating all the delay periods for each of your tasks. 

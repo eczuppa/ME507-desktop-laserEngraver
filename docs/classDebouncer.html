@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('classDebouncer.html',''); initResizabl
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aaa0f5014366f0e062d2db1163e2a45bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">Debouncer</a> (uint8_t pin, uint8_t threshold_constructor)</td></tr>
-<tr class="memdesc:aaa0f5014366f0e062d2db1163e2a45bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class which implements a debouncer for button and switch noise.  <a href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">More...</a><br /></td></tr>
+<tr class="memdesc:aaa0f5014366f0e062d2db1163e2a45bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a debouncer to filter through noise from buttons and switches.  <a href="classDebouncer.html#aaa0f5014366f0e062d2db1163e2a45bd">More...</a><br /></td></tr>
 <tr class="separator:aaa0f5014366f0e062d2db1163e2a45bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac91bbb4b042ca7939897c49587d035d8"><td class="memItemLeft" align="right" valign="top"><a id="ac91bbb4b042ca7939897c49587d035d8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (void)</td></tr>
@@ -128,7 +128,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>button_result</b> = 0
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class which implements a debouncer for button and switch noise. </p>
-<p>Defines Protected variables that are used in the <a class="el" href="debouncer_8cpp.html">debouncer.cpp</a> file Also sets up contructor "Debouncer" and function "update" </p>
+<p>Defines Protected variables that are used in the <a class="el" href="debouncer_8cpp.html" title="File containing a debouncer class and its methods.">debouncer.cpp</a> file Also sets up contructor "Debouncer" and function "update" </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaa0f5014366f0e062d2db1163e2a45bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa0f5014366f0e062d2db1163e2a45bd">&#9670;&nbsp;</a></span>Debouncer()</h2>
@@ -156,9 +156,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>button_result</b> = 0
       </table>
 </div><div class="memdoc">
 
-<p>Class which implements a debouncer for button and switch noise. </p>
-<p>Mostly defines the function "update" and impliments the class into the constructor</p>
-<p>Creates a debouncer to filter through noise from buttons and switches</p>
+<p>Creates a debouncer to filter through noise from buttons and switches. </p>
 <p>This contructor looks at a data stream, identifies when the a signal has been activated, and switches state. It sets up an State Machine using a set of IF statements to determine what the values are of an input pin, counts how many consecutive 0's or 1's are detected, and what corresponding state it should be in. State 0 outputs a FALSE and State 2 outputs a TRUE. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>This is the parameter of which pin our button or switch is connected to </td></tr>

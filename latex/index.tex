@@ -1,0 +1,67 @@
+\hypertarget{index_dcl_intro}{}\doxysection{Introduction}\label{index_dcl_intro}
+Welcome to the documentation page for the Digital\+Carpenter -\/ Lite C++ Library! Our hobby level desktop laser engraver is still in the development phase, but feel free to parse all of the currently documented code. This desktop laser engraver software is a less portable, simplified S\+T\+M32\+Free\+R\+T\+OS version of G\+R\+BL, but with significantly less emphasis on portability, and was developed as a project for the ME 507 class at Cal Poly S\+LO. The intent was that this would be a reasonably capable desktop laser engraver laser cutter for the cost of materials and components to make it with a unique hardware setup -\/ Core\+XY positioning done by brushed DC motors with quadrature encoders. Finally, this is an open source project that makes use of open source software and is intended to be kept as such under the conditions of the G\+NU G\+PL v3 License. ~\newline
+\hypertarget{index_dcl_libdeps}{}\doxysection{Library Dependencies}\label{index_dcl_libdeps}
+Our library is built off of several other hardware driver and communication protocol libraries. Due to the current state of development of this opens source project some of the libraries listed below have not been used, but are intended for future work are marked with a double asterisk ($\ast$$\ast$).
+
+
+\begin{DoxyItemize}
+\item Spluttflob\textquotesingle{}s ME 507 Support Library\+: \href{https://github.com/spluttflob/ME507-Support.git}{\texttt{ https\+://github.\+com/spluttflob/\+M\+E507-\/\+Support.\+git}}
+\item Spluttflob\textquotesingle{}s fork of the Arduino Print\+Stream Library\+: \href{https://github.com/spluttflob/Arduino-PrintStream.git}{\texttt{ https\+://github.\+com/spluttflob/\+Arduino-\/\+Print\+Stream.\+git}}
+\item My personal fork of the S\+T\+M32\+Free\+R\+T\+OS library that has a faster tickrate\+: \href{https://github.com/eczuppa/STM32FreeRTOS.git}{\texttt{ https\+://github.\+com/eczuppa/\+S\+T\+M32\+Free\+R\+T\+O\+S.\+git}}
+\item J. Rowberg\textquotesingle{}s I2C Library\+: \href{https://github.com/jrowberg/i2cdevlib.git}{\texttt{ https\+://github.\+com/jrowberg/i2cdevlib.\+git}} $\ast$$\ast$
+\item Electronic\+Cat\textquotesingle{}s M\+P\+U6050 accelerometer driver library\+: \href{https://github.com/ElectronicCats/mpu6050.git}{\texttt{ https\+://github.\+com/\+Electronic\+Cats/mpu6050.\+git}} $\ast$$\ast$
+\item Paul Stoffregen\textquotesingle{}s One\+Wire communication library\+: \href{https://github.com/PaulStoffregen/OneWire.git}{\texttt{ https\+://github.\+com/\+Paul\+Stoffregen/\+One\+Wire.\+git}}
+\item Miles Burton\textquotesingle{}s fork of the Dallas Temperature Library\+: \href{https://github.com/milesburton/Arduino-Temperature-Control-Library.git}{\texttt{ https\+://github.\+com/milesburton/\+Arduino-\/\+Temperature-\/\+Control-\/\+Library.\+git}}
+\item An updated version of the Arduino Core for S\+T\+M32\+Free\+R\+T\+OS\+: \href{https://github.com/stm32duino/Arduino_Core_STM32.git}{\texttt{ https\+://github.\+com/stm32duino/\+Arduino\+\_\+\+Core\+\_\+\+S\+T\+M32.\+git}}
+\item nikob997\textquotesingle{}s fork of tomstewart89\textquotesingle{}s Basic Linear Algebra library\+: \href{https://github.com/nikob997/BasicLinearAlgebra.git}{\texttt{ https\+://github.\+com/nikob997/\+Basic\+Linear\+Algebra.\+git}}
+\end{DoxyItemize}
+
+All of these libraries and our own modules, see the Class list and File Members sections, are stored in a master header file called {\ttfamily libraries\&constants.\+h}. If you make additions to this library be sure to include the header files of the modules you add to the master header file so your modified files will be imported where they are needed.
+
+To avoid include errors please make use of the following technique in all of the header files of the modules you add to this library\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef \_YOURHEADERFILENAME\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define \_YOURHEADERFILENAME\_H}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\#include libraries\&constants.h}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\{your code\}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#end if // \_YOURHEADERFILENAME\_H}}
+\end{DoxyCode}
+\hypertarget{index_dcl_hl_wf}{}\doxysection{High Level Work Flow}\label{index_dcl_hl_wf}
+ 
+\begin{DoxyImage}
+\includegraphics[width=18cm]{ProgramFlow}
+\doxyfigcaption{Program Flow}
+\end{DoxyImage}
+\hypertarget{index_dcl_fn}{}\doxysection{Current \& Intended Functionality}\label{index_dcl_fn}
+The custom shield we designed to interface with the S\+T\+M32 Nucleo L476\+RG for the Digital\+Carpenter -\/ Lite was subject to a few design oversights that currently prevent it from functioning properly. This shield is currently undergoing a redesign process followed by a more thorough design and functionality check. So, at the moment, the Digital\+Carpenter -\/ Lite does not run at all.
+
+Despite current setbacks, here is a preview of the functionality this project is intended to have as well as what has been developed.
+
+
+\begin{DoxyItemize}
+\item 0.\+1 mm positioning accuracy
+\item A 2.\+5W Optical power output laser module
+\item A 330 x 419 mm cutting/engraving area
+\item Basic fume extraction and Flame out detection
+\item A laser-\/safe enclosure with open-\/cover detection
+\item G\+R\+B\+L-\/based G\+C\+O\+DE parsing
+\item A simple Python UI with Hardware/\+Software Emergency Stop
+\item Full P\+ID position and velocity control
+\item Vector cutting
+\end{DoxyItemize}
+
+Future Work\+:
+
+
+\begin{DoxyItemize}
+\item G\+R\+BL compatibility
+\item Simple crash detection -\/ with limit switches on all for corners of frame
+\item Acceleration feedback and control
+\item Air Assist
+\item Rastering/\+Engraving
+\end{DoxyItemize}\hypertarget{index_dcl_portability}{}\doxysection{Software Portability Notice}\label{index_dcl_portability}
+The Digital\+Carpenter -\/ Lite C++ library was developed in V\+Scode using the Platfrom\+IO extension on the Arduino framework. This library is intended for use with the S\+T\+M32 Nucleo L476\+RG and has not been tested on other platforms. If you wish to use this library on a different M\+CU be advised that there is no current existing support for this from our documentation, so, Y\+M\+MV. 

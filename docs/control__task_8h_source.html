@@ -88,31 +88,29 @@ $(document).ready(function(){initNavTree('control__task_8h_source.html',''); ini
 </div><!--header-->
 <div class="contents">
 <a href="control__task_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef _CONTROL_TASK_H_</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define _CONTROL_TASK_H_</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef _CONTROL_TASK_H_</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define _CONTROL_TASK_H_</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="libraries_6constants_8h.html">libraries&amp;constants.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="libraries_6constants_8h.html">libraries&amp;constants.h</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//control_task main states</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define NORMAL_OPERATION 0</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define SAFETY_STOP 1</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define HOMING 2</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//control_task main states</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define NORMAL_OPERATION 0</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define SAFETY_STOP 1</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define HOMING 2</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//Time period for control task</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">const</span> TickType_t control_task_period = 30;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//Control task function to operate PID controller</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> <a class="code" href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a> (<span class="keywordtype">void</span>* p_params);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//Time period for control task</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">const</span> TickType_t control_task_period = 30;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//Control task function to operate PID controller</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a> (<span class="keywordtype">void</span>* p_params);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif // _CONTROL_TASK_H_</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif // _CONTROL_TASK_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="alibraries_6constants_8h_html"><div class="ttname"><a href="libraries_6constants_8h.html">libraries&amp;constants.h</a></div></div>
-<div class="ttc" id="acontrol__task_8h_html_ade29986ed4ef416962f22b46b1ffbb47"><div class="ttname"><a href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a></div><div class="ttdeci">void control_task(void *p_params)</div><div class="ttdoc">Task which recieves incoming commands, runs them through a control loop, and then sends them back out...</div><div class="ttdef"><b>Definition:</b> control_task.cpp:66</div></div>
+<div class="ttc" id="acontrol__task_8h_html_ade29986ed4ef416962f22b46b1ffbb47"><div class="ttname"><a href="control__task_8h.html#ade29986ed4ef416962f22b46b1ffbb47">control_task</a></div><div class="ttdeci">void control_task(void *p_params)</div><div class="ttdoc">Task which recieves incoming commands, runs them through a control loop, and then sends them back out...</div><div class="ttdef"><b>Definition:</b> control_task.cpp:67</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

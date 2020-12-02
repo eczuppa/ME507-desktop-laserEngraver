@@ -1,0 +1,68 @@
+\hypertarget{classDebouncer}{}\doxysection{Debouncer Class Reference}
+\label{classDebouncer}\index{Debouncer@{Debouncer}}
+
+
+Class which implements a debouncer for button and switch noise.  
+
+
+
+
+{\ttfamily \#include $<$debouncer.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDebouncer_aaa0f5014366f0e062d2db1163e2a45bd}{Debouncer}} (uint8\+\_\+t pin, uint8\+\_\+t threshold\+\_\+constructor)
+\begin{DoxyCompactList}\small\item\em Creates a debouncer to filter through noise from buttons and switches. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDebouncer_ac91bbb4b042ca7939897c49587d035d8}\label{classDebouncer_ac91bbb4b042ca7939897c49587d035d8}} 
+bool {\bfseries update} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDebouncer_aed3820c4502653ad1523455563c84f5a}\label{classDebouncer_aed3820c4502653ad1523455563c84f5a}} 
+uint8\+\_\+t \mbox{\hyperlink{classDebouncer_aed3820c4502653ad1523455563c84f5a}{threshold}}
+\begin{DoxyCompactList}\small\item\em The value of the threshold so that the debouncer knows when to switch states. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDebouncer_aaa3276abc72413619349ea3eea53c1e6}\label{classDebouncer_aaa3276abc72413619349ea3eea53c1e6}} 
+uint8\+\_\+t \mbox{\hyperlink{classDebouncer_aaa3276abc72413619349ea3eea53c1e6}{input\+\_\+pin}}
+\begin{DoxyCompactList}\small\item\em The value of the threshold so that the debouncer knows when to switch states. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDebouncer_a50b7f921222452bf7328ad84d09c15af}\label{classDebouncer_a50b7f921222452bf7328ad84d09c15af}} 
+uint8\+\_\+t {\bfseries state} = 0
+\item 
+\mbox{\Hypertarget{classDebouncer_ab52f86ac282e883832cb99daa0363a46}\label{classDebouncer_ab52f86ac282e883832cb99daa0363a46}} 
+uint8\+\_\+t {\bfseries counter} = 0
+\item 
+\mbox{\Hypertarget{classDebouncer_a46f7ed54ab180a42cd308b1fe50a82f6}\label{classDebouncer_a46f7ed54ab180a42cd308b1fe50a82f6}} 
+bool {\bfseries button\+\_\+result} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class which implements a debouncer for button and switch noise. 
+
+Defines Protected variables that are used in the \mbox{\hyperlink{debouncer_8cpp}{debouncer.\+cpp}} file Also sets up contructor \char`\"{}\+Debouncer\char`\"{} and function \char`\"{}update\char`\"{} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDebouncer_aaa0f5014366f0e062d2db1163e2a45bd}\label{classDebouncer_aaa0f5014366f0e062d2db1163e2a45bd}} 
+\index{Debouncer@{Debouncer}!Debouncer@{Debouncer}}
+\index{Debouncer@{Debouncer}!Debouncer@{Debouncer}}
+\doxysubsubsection{\texorpdfstring{Debouncer()}{Debouncer()}}
+{\footnotesize\ttfamily Debouncer\+::\+Debouncer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{pin,  }\item[{uint8\+\_\+t}]{threshold\+\_\+constructor }\end{DoxyParamCaption})}
+
+
+
+Creates a debouncer to filter through noise from buttons and switches. 
+
+This contructor looks at a data stream, identifies when the a signal has been activated, and switches state. It sets up an State Machine using a set of IF statements to determine what the values are of an input pin, counts how many consecutive 0\textquotesingle{}s or 1\textquotesingle{}s are detected, and what corresponding state it should be in. State 0 outputs a F\+A\+L\+SE and State 2 outputs a T\+R\+UE. 
+\begin{DoxyParams}{Parameters}
+{\em pin} & This is the parameter of which pin our button or switch is connected to \\
+\hline
+{\em threshold} & This is set as whatever we want our threshold to be for how many consecutive 1\textquotesingle{}s or 0\textquotesingle{}s are acceptable for saying the button or switch is active or not. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{debouncer_8h}{debouncer.\+h}}\item 
+\mbox{\hyperlink{debouncer_8cpp}{debouncer.\+cpp}}\end{DoxyCompactItemize}

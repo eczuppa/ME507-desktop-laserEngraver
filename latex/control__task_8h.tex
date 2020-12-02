@@ -1,0 +1,44 @@
+\hypertarget{control__task_8h}{}\doxysection{control\+\_\+task.\+h File Reference}
+\label{control__task_8h}\index{control\_task.h@{control\_task.h}}
+
+
+File containing the header for a file containing the {\ttfamily control\+\_\+task} function.  
+
+
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for control\+\_\+task.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{control__task_8h_ade29986ed4ef416962f22b46b1ffbb47}{control\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Task which recieves incoming commands, runs them through a control loop, and then sends them back out. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing the header for a file containing the {\ttfamily control\+\_\+task} function. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{control__task_8h_ade29986ed4ef416962f22b46b1ffbb47}\label{control__task_8h_ade29986ed4ef416962f22b46b1ffbb47}} 
+\index{control\_task.h@{control\_task.h}!control\_task@{control\_task}}
+\index{control\_task@{control\_task}!control\_task.h@{control\_task.h}}
+\doxysubsubsection{\texorpdfstring{control\_task()}{control\_task()}}
+{\footnotesize\ttfamily void control\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Task which recieves incoming commands, runs them through a control loop, and then sends them back out. 
+
+This task receives input commands with desired values for the two motors, sent from {\ttfamily task\+\_\+translate}, and input positions from each of the motor encoders from {\ttfamily encoder\+\_\+\+A\+\_\+task} and {\ttfamily encoder\+\_\+\+B\+\_\+task}. First, the desired positions and velocities are turned into ramp inputs for each motor by creating more points in between two consecutive points through linear interpolation. This allows the laser head to be have tighter control over velocity of the laser head. Each of the inputs of desired and measured positions and velocities are then sent through a P\+ID control loop inside this task, which then outputs P\+WM signals that are sent via queues to {\ttfamily motor\+\_\+\+A\+\_\+driver\+\_\+task} and {\ttfamily motor\+\_\+\+B\+\_\+driver\+\_\+task} to control the motors.
+
+The task has two main states, N\+O\+R\+M\+A\+L\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON and S\+A\+F\+E\+T\+Y\+\_\+\+S\+T\+OP. Under N\+O\+R\+M\+A\+L\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON, any incomming desired positions will be converted to ramps, controlled, and sent to the motors. S\+A\+F\+E\+T\+Y\+\_\+\+S\+T\+OP, if enabled, will immediately shut down the laser and keep it that way until the Safety\+\_\+\+Supervisor task gives the go-\/ahead.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

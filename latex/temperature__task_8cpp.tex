@@ -1,0 +1,24 @@
+\hypertarget{temperature__task_8cpp}{}\doxysection{temperature\+\_\+task.\+cpp File Reference}
+\label{temperature__task_8cpp}\index{temperature\_task.cpp@{temperature\_task.cpp}}
+{\ttfamily \#include \char`\"{}temperature\+\_\+task.\+h\char`\"{}}\newline
+Include dependency graph for temperature\+\_\+task.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{temperature__task_8cpp_ac9ce0c5163f1f8ce710270b5e0ba2b11}{temperature\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em implements a task function to use digital temperature sensor like an industrial heat detector \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{temperature__task_8cpp_ac9ce0c5163f1f8ce710270b5e0ba2b11}\label{temperature__task_8cpp_ac9ce0c5163f1f8ce710270b5e0ba2b11}} 
+\index{temperature\_task.cpp@{temperature\_task.cpp}!temperature\_task@{temperature\_task}}
+\index{temperature\_task@{temperature\_task}!temperature\_task.cpp@{temperature\_task.cpp}}
+\doxysubsubsection{\texorpdfstring{temperature\_task()}{temperature\_task()}}
+{\footnotesize\ttfamily void temperature\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+implements a task function to use digital temperature sensor like an industrial heat detector 
+
+uses the One\+Wire library and Dallas\+Temperature library to interface with the a D\+S18\+B20 digital temperature sensor that is looking at the rate of rise in temperature over a sustained period of time. This task sets up and runs the temperature sensor in this configuration and queues the data to the safety supervisor task function. 

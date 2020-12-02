@@ -1,0 +1,48 @@
+\hypertarget{safetySupervisor_8cpp}{}\doxysection{safety\+Supervisor.\+cpp File Reference}
+\label{safetySupervisor_8cpp}\index{safetySupervisor.cpp@{safetySupervisor.cpp}}
+{\ttfamily \#include \char`\"{}libraries\&constants.\+h\char`\"{}}\newline
+Include dependency graph for safety\+Supervisor.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{safetySupervisor_8cpp_a15425b9d9010c17f041d4871a04698e4}\label{safetySupervisor_8cpp_a15425b9d9010c17f041d4871a04698e4}} 
+Share$<$ uint8\+\_\+t $>$ {\bfseries warning\+\_\+code} (\char`\"{}Safety Event Flag\char`\"{})
+\item 
+void \mbox{\hyperlink{safetySupervisor_8cpp_af56ade9b28a22f52f078c922df5bdd80}{safety\+\_\+task}} (void $\ast$p\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Safet Supervising Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{safetySupervisor_8cpp_ac726e28d2646cd5e24e03e0c85e83211}\label{safetySupervisor_8cpp_ac726e28d2646cd5e24e03e0c85e83211}} 
+Share$<$ bool $>$ {\bfseries fan\+\_\+state}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+safety task function.
+
+\begin{DoxyAuthor}{Author}
+Niko Banks, Matthew Carlson, Ethan Czuppa
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+05 Nov 2020 Original file 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{safetySupervisor_8cpp_af56ade9b28a22f52f078c922df5bdd80}\label{safetySupervisor_8cpp_af56ade9b28a22f52f078c922df5bdd80}} 
+\index{safetySupervisor.cpp@{safetySupervisor.cpp}!safety\_task@{safety\_task}}
+\index{safety\_task@{safety\_task}!safetySupervisor.cpp@{safetySupervisor.cpp}}
+\doxysubsubsection{\texorpdfstring{safety\_task()}{safety\_task()}}
+{\footnotesize\ttfamily void safety\+\_\+task (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Safet Supervising Task. 
+
+This task monitors incoming results from our temperature sensor and limit switches and if an error condition occurs this task sets different flags to make safety stuff happen e.\+g. turning off the laser, turning on the fan before cutting begins, and not letting the cutting start until the top of the laser\textquotesingle{}s enclosure is closed. Fan\+: The fan will turn on when the laser turns on (communicated through a flag). Then, when the laser is off for more than 3 seconds in a row, the fan will turn off. Limit\+: 
+\begin{DoxyParams}{Parameters}
+{\em p\+\_\+params} & A pointer to function parameters which we don\textquotesingle{}t use. \\
+\hline
+\end{DoxyParams}

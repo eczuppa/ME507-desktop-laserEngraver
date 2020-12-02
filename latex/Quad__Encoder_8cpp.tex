@@ -1,0 +1,45 @@
+\hypertarget{Quad__Encoder_8cpp}{}\doxysection{Quad\+\_\+\+Encoder.\+cpp File Reference}
+\label{Quad__Encoder_8cpp}\index{Quad\_Encoder.cpp@{Quad\_Encoder.cpp}}
+{\ttfamily \#include \char`\"{}Quad\+\_\+\+Encoder.\+h\char`\"{}}\newline
+Include dependency graph for Quad\+\_\+\+Encoder.\+cpp\+:
+% FIG 0
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{Quad__Encoder_8cpp_a9645bfee1a8b97066698f96d2bb7f1b7}\label{Quad__Encoder_8cpp_a9645bfee1a8b97066698f96d2bb7f1b7}} 
+const uint16\+\_\+t {\bfseries T\+M\+R\+\_\+\+C\+O\+U\+N\+T\+\_\+\+M\+AX} = 65535
+\item 
+\mbox{\Hypertarget{Quad__Encoder_8cpp_a222ba3c3a7ea85a8ad99cb0cad2b7611}\label{Quad__Encoder_8cpp_a222ba3c3a7ea85a8ad99cb0cad2b7611}} 
+const int32\+\_\+t {\bfseries T\+M\+R\+\_\+\+P\+R\+E\+S\+CL} = 0
+\item 
+\mbox{\Hypertarget{Quad__Encoder_8cpp_a020911cf4ea13282dd1fd4e7cc158045}\label{Quad__Encoder_8cpp_a020911cf4ea13282dd1fd4e7cc158045}} 
+const float {\bfseries M\+O\+M\+E\+N\+T\+\_\+\+A\+RM} = 5.\+95
+\item 
+\mbox{\Hypertarget{Quad__Encoder_8cpp_a93fdf51ff927e484a3d1389cd8e7e798}\label{Quad__Encoder_8cpp_a93fdf51ff927e484a3d1389cd8e7e798}} 
+const float {\bfseries T\+I\+C\+K\+\_\+\+T\+O\+\_\+\+R\+AD} = 0.\+022520
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+class implementation that uses hardware timers to count pulses from a quadrature rotary encoder W\+I\+T\+H\+O\+UT I\+N\+T\+E\+R\+R\+U\+P\+TS
+
+\begin{DoxyAuthor}{Author}
+Ethan A Czuppa 
+
+JR Ridgely -\/ wrote the C++ class that I used the constructor from in order to get my timer to work with the encoder 
+
+Josh Anderson -\/ taught me how to write an encoder reading method in python that I am using in C++ because I am still new to this whole type 
+
+Alexandre Bourdiol -\/ wrote the Hardware\+Timer Library that this class depends on
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+9 Nov 2020 wrote \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} module -\/ mostly pseudocode with some doxygen comments 
+
+11 Nov 2020 finished \mbox{\hyperlink{classQuad__Encoder}{Quad\+\_\+\+Encoder}} class implementation and prepped for testing 
+
+15 Nov 2020 Added several debugging methods to try to figure out what was wrong with the timer setup 
+
+16 Nov 2020 Using JR Ridgely\textquotesingle{}s S\+T\+M32\+Encoder\textquotesingle{}s constructor got timer to count quadrature encoder pulses. Added other needed doxygen stuff 
+
+16 Nov 2020 (later that day) added methods that output the belt\textquotesingle{}s displacement and velocity based on enc\+\_\+read(). Added more doxygen comments 
+\end{DoxyDate}
