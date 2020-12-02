@@ -11,7 +11,7 @@ digraph "libraries&amp;constants.h"
   Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
   Node4 [label="commands.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$commands_8cpp.html",tooltip="File containing functions that interpret machine and G-code commands."];
   Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
-  Node5 [label="control.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$control_8cpp.html",tooltip="File containing a class that implements a P, PI, or PID motor control code to drive the motors."];
+  Node5 [label="control.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$control_8cpp.html",tooltip="File containing a class that implements a PID position control to drive the motors."];
   Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
   Node6 [label="control_task.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$control__task_8cpp.html",tooltip="File containing the main control task."];
   Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
@@ -27,7 +27,7 @@ digraph "libraries&amp;constants.h"
   Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
   Node12 [label="motionplanning.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motionplanning_8cpp.html",tooltip="This file linearly interpolates between two points to create a ramp input to the controller This clas..."];
   Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
-  Node13 [label="motionplanning.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motionplanning_8h.html",tooltip=" "];
+  Node13 [label="motionplanning.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motionplanning_8h.html",tooltip="This file contains the header file for the motion planning class."];
   Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
   Node14 [label="motor_task.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motor__task_8cpp.html",tooltip="This file is the motor driver task function file implementation. It gets a PWM signal from the contro..."];
   Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];

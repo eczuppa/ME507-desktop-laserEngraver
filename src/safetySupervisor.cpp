@@ -48,7 +48,7 @@ void safety_task (void* p_params)
     bool fan_flag;
 
     // Set up threshold and counter to make sure the fan will only turn off 
-    // once the laser has been off for a consectutive 3 seconds
+    // once the laser has been off for a consecutive 3 seconds
     float wait_time = 30000;                                // this is 3 seconds
     float time_threshold = wait_time / float(safety_period);          // = 300000 (0.1ms) / 100 (ms/count)
     // float time_threshold = wait_time / (safety_period);          // = 300000 (0.1ms) / 100 (ms/count)
