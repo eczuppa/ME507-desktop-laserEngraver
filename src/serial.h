@@ -51,7 +51,7 @@ int32_t parseIntWithEcho (Stream& stream);
 void task_ui (void* p_params);
 
 //task_ui's task's latency
-const TickType_t UI_period = 100;
+const TickType_t UI_period = 4;
 
 
 #endif // SERIAL_H

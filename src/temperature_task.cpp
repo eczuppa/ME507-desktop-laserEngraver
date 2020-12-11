@@ -6,7 +6,7 @@
  */
 
 
-extern Queue<float> temperature_queue;
+// extern Queue<float> temperature_data;
 #include "temperature_task.h"
 
 /** @brief   Task to detect flame-out conditions on the laser. 

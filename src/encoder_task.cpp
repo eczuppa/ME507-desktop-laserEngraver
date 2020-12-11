@@ -53,17 +53,17 @@ void encoder_A_task (void* p_params)
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     // Uses the StopWatch class to find out how much time elapses between reads
-    StopWatch velTmrA(TIM2,PA0);             
+    StopWatch velTmrA(TIM5,PF_6);      // change to        
 
     // Create an instance of Quad_Encoder for Encoder A
-    uint8_t enc_sigpin_AA = PC6;             // PC7 = 9
-    uint8_t enc_sigpin_BA = PC7;             // PC6 = 34
+    uint8_t enc_sigpin_AA = PC6;             // PC6 = 34 on TIM8
+    uint8_t enc_sigpin_AB = PC7;             // PC7 = 9
     uint8_t enc_chan_AA = 1;
-    uint8_t enc_chan_BA = 2;
+    uint8_t enc_chan_AB = 2;
     // TIM_TypeDef *a_p_eTIM = TIM8;        // for Encoder on Motor A
     int32_t bound_A = 1000;                 // default not changed 
-    bool invert_A = true;                   // encoder pins are flipped on board, so inversion of read values is needed
-    Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_BA, enc_chan_AA, enc_chan_BA, TIM8, bound_A, invert_A);        
+    bool invert_A = false;                   // encoder pins are flipped on board, so inversion of read values is needed
+    Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_AB, enc_chan_AA, enc_chan_AB, TIM8, bound_A, invert_A);        
     
     // Initialize motor encoder and timer
     encoder_A.enc_zero();
@@ -124,8 +124,8 @@ void encoder_B_task (void* p_params)
     StopWatch velTmrB(TIM4,PD_12);     // DO NOT CHANGE!!!!!!!        
 
     // Create an instance of Quad_Encoder for Encoder B
-    uint8_t enc_sigpin_BA = PA8;             // PA9 = 8
-    uint8_t enc_sigpin_BB = PA9;             // PA8 = 7
+    uint8_t enc_sigpin_BA = PA8;             // PA8 = 7 on TIM1
+    uint8_t enc_sigpin_BB = PA9;             // PA9 = 8
     uint8_t enc_chan_BA = 1;
     uint8_t enc_chan_BB = 2;
     int32_t bound_B = 1000;                 // default not changed 

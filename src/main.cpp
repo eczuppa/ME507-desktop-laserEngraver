@@ -40,7 +40,7 @@ Share<float> encoder_B_velocity ("Encoder B Velocity");
 Share<uint32_t> encoder_B_dt ("Encoder B delta t");
 
 // Temperature Task Queue
-Queue<float> temperature_data (8,"Temp C Data");  
+// Queue<float> temperature_data (10,"Temp C Data");  
 
 
 
@@ -79,7 +79,7 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    #define NIKO_TESTING 0
+    // #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
 
@@ -363,21 +363,21 @@ void setup()
     //Ethan test section
     #ifdef ETHAN_TESTING
 
-    //Task to drive motor A
-    xTaskCreate(motor_A_driver_task,            //Task Function name
-                "test motor A",                 // Name for printouts
-                1024,                           // Stack size
-                NULL,                           // Parameters for task fn.
-                12,                             // Priority
-                NULL);                          // Task handle
+    // //Task to drive motor A
+    // xTaskCreate(motor_A_driver_task,            //Task Function name
+    //             "test motor A",                 // Name for printouts
+    //             1024,                           // Stack size
+    //             NULL,                           // Parameters for task fn.
+    //             12,                             // Priority
+    //             NULL);                          // Task handle
 
-    //Task to drive motor B 
-    xTaskCreate(motor_B_driver_task,            //Task Function name
-                "test motor B",                 // Name for printouts
-                1024,                           // Stack size
-                NULL,                           // Parameters for task fn.
-                12,                             // Priority
-                NULL);                          // Task handle
+    // //Task to drive motor B 
+    // xTaskCreate(motor_B_driver_task,            //Task Function name
+    //             "test motor B",                 // Name for printouts
+    //             1024,                           // Stack size
+    //             NULL,                           // Parameters for task fn.
+    //             12,                             // Priority
+    //             NULL);                          // Task handle
 
     Serial << "motor task init done" << endl;
 
