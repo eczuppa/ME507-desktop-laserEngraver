@@ -137,7 +137,7 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
  *  @param   _last_abspos a snap shot of _abspos before being incremented by the appropriate delta - used for instantaneous velocity calculations
  * 
  */
-int32_t Quad_Encoder::enc_read(void)
+int32_t Quad_Encoder::enc_read(uint8_t read_mode)
 {
     // This code is based on the python implementation of a read method for an encoder
     // I wrote based on the patient instructions from my coding wizard ME 405 lab partner Josh Anderson. 
@@ -164,8 +164,6 @@ int32_t Quad_Encoder::enc_read(void)
         delta = count - _lastcount;
     }
 
-    // delta = count - _lastcount;
-
     // Handle encoder inversion if wiring does not match expected setup
     if (_invert)
     {
@@ -175,7 +173,19 @@ int32_t Quad_Encoder::enc_read(void)
     _last_abspos = _abspos; // take a snap shot abspos before we add the new delta to it
     _abspos += delta;  // increment the absolute position variable by the amount delta from current encoder read
     _lastcount = count; // recycle the last lastcount to the current count used in this loop so the no data is lost when the next count is got 
-    return _abspos;
+
+    if(read_mode == READ_MODE_ABSOLUTE)
+    {
+        return _abspos;
+    }
+    else if(read_mode == READ_MODE_DELTA)
+    {
+        return delta;
+    }
+    else //Default
+    {
+        return _abspos;
+    }
 }
 
 
@@ -187,7 +197,7 @@ int32_t Quad_Encoder::enc_read(void)
  */
 float Quad_Encoder::enc_read_angle_pos(void)
 {
-    int32_t current_tick = enc_read();  // holds the encoder pos value read by the encoder
+    int32_t current_tick = enc_read(READ_MODE_ABSOLUTE);  // holds the encoder pos value read by the encoder
 
     float angle_pos = (float)current_tick/ (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) * 360 /REV_ENC_PER_REVOUT_MOTOR;
 
@@ -195,30 +205,57 @@ float Quad_Encoder::enc_read_angle_pos(void)
 }
 
 
-/** @brief   converts the raw value in ticks from @c enc_read() to belt displacement in mm
- *  @details The radius of timing belt pulley and the conversion from ticks to radians (motor-specific)
- *           are used to convert the accrued position returned from @c enc_read to a value for the
- *           linear movement of the belt driven by the timing pulley in millimeters. 
- *  @param   MOMENT_ARM the radius of the drive mechanism translating rotational motion to linear motion
- *  @param   TICK_TO_RAD the number of radians per encoder tick, which is empirically determined by measuring
- *                       the number of ticks accumulated in the timer count register when moving the 
- *                       OUTPUT shaft of the motor through 1 rotation. Do this several times, record the result
- *                       and average it. Then compute by dividing 2*Pi by your result (ticks/revoltion).
- * @param    current_tick method specific storage of @c enc_read() return value 
- * 
+/** @brief   converts angular output displacement to belt displacement in mm
+ *  @details The radius of timing belt pulley is used to convert the accrued position returned from 
+ *           @c enc_read_angle_pos to a value for the linear movement of the belt driven by the timing pulley 
+ *           in millimeters. 
+ *
+ * @returns  Output belt position in the same units as @c OUTPUT_WHEEL_RADIUS (mm)
  */
 float Quad_Encoder::enc_read_pos(void)
 {
-    int32_t current_tick = enc_read();  // holds the encoder pos value read by the encoder
+    //Get current angle
+    float current_angle = enc_read_angle_pos();  // reads the output position in degrees
 
-    // float linear_pos = 
+    //Convert to belt position
+    float linear_pos = current_angle * (3.141592653589793 / 180) * OUTPUT_WHEEL_RADIUS;
 
-    return (MOMENT_ARM*current_tick*TICK_TO_RAD);
+    return (linear_pos);
 }
 
-float Quad_Encoder::enc_d_pos(void)
+
+/** @brief   Returns change in angular position
+ *  @details This function uses @c enc_read to calculate the delta position in ticks, and then converts that to degrees
+ *           of rotation of the output shaft. 
+ *  @returns Change in angular position of the motor output shaft in degrees
+ */
+float Quad_Encoder::enc_read_d_angle_pos(void)
 {
-    return (MOMENT_ARM*(_abspos - _last_abspos)*TICK_TO_RAD);
+    //Read off delta between last ticks
+    int32_t current_d_tick = enc_read(READ_MODE_DELTA);
+    
+    //Convert ticks to angular position in deg
+    float angle_d_pos = (float)current_d_tick/ (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) * 360 /REV_ENC_PER_REVOUT_MOTOR;
+
+    return (angle_d_pos);
+}
+
+
+/** @brief   Returns change in linear position
+ *  @details The radius of timing belt pulley is used to convert the accrued position returned from 
+ *           @c enc_read_d_angle_pos to a value for the linear movement of the belt driven by the  
+ *           timing pulley in millimeters. 
+ *  @returns Change in output belt position, in the same units as @c OUTPUT_WHEEL_RADIUS (mm)
+ */
+float Quad_Encoder::enc_read_d_pos(void)
+{
+    //Get current delta angle
+    float current_d_angle = enc_read_d_angle_pos();  // reads the output position in degrees
+
+    //Convert to belt delta position
+    float linear_d_pos = current_d_angle * (3.141592653589793 / 180) * OUTPUT_WHEEL_RADIUS;
+
+    return (linear_d_pos);
 }
 
 
@@ -227,12 +264,12 @@ float Quad_Encoder::enc_d_pos(void)
  *           things in an incremental positioning frame vs the global frame.
  *           Not to be confused with the Hardware Timer API's @c setCount()
  *           which changes the value of the timer counter register. 
- * 
  */
 void Quad_Encoder::enc_zero(void)
 {
     // Reset the value of the encoder to zero
     _abspos = 0;
+    _last_abspos = 0;
 }
 
 

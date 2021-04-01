@@ -27,7 +27,7 @@ void task_single_control(void* p_params)
 
     //Set up motor and set duty cycle
     Motor_B.enable();
-    float DC = 10;
+    float DC = 100;
 
     //Set up variables for encoder
     float B_pos;

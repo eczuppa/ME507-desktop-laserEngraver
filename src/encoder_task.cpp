@@ -82,7 +82,7 @@ void task_encoder_A (void* p_params)
         // get position, change in position, and change in time
         position_A = encoder_A.enc_read_pos();
         delta_time_A = velTmrA.lap();
-        delta_position_A = encoder_A.enc_d_pos();
+        delta_position_A = encoder_A.enc_read_d_pos();
         
         // position pre-multiplied by the number of microseconds in one second to produce
         // velocity in mm/second
@@ -147,8 +147,8 @@ void task_encoder_B (void* p_params)
 
     print_serial("Encoder B initialized\n");
 
-    uint8_t count_max = 100;
-    uint8_t count = 0;
+    // uint8_t count_max = 100;
+    // uint8_t count = 0;
     
     for (;;)
     {
@@ -157,7 +157,7 @@ void task_encoder_B (void* p_params)
         // get position, change in position, and change in time
         position_B = encoder_B.enc_read_angle_pos();
         delta_time_B = velTmrB.lap();
-        delta_position_B = encoder_B.enc_d_pos();
+        delta_position_B = encoder_B.enc_read_d_angle_pos();
 
         // if(count < count_max)
         // {
@@ -168,11 +168,10 @@ void task_encoder_B (void* p_params)
         // }
 
 
-
-        //velTmrB.temp_stop();
         // position pre-multiplied by the number of microseconds in one second to produce
         // velocity in mm/seconnd.
-        velocity_B = (delta_position_B*1000000) /delta_time_B;           
+        // velocity_B = (delta_position_B*1000000) /delta_time_B;   
+        velocity_B = delta_position_B;        
         
         // put all those values into their respective shares. Used by the controller and for printing out (parameterization purposes)
         encoder_B_pos.put(position_B);
