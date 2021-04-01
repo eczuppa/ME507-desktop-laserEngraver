@@ -45,12 +45,11 @@ class TB6612FNG
 {
     protected:
     // Create Variables to save as class member data that are only accessible by this class
-    uint8_t _motor_dir_pin_1;    ///< Motor Direction Pin 1 (Enables for which direction the motor will rotate in)
-    uint8_t _motor_dir_pin_2;    ///< Motor Direction Pin 2 (Enables for which direction the motor will rotate in)
-
+    uint8_t _standby_pin;         ///< Motor Driver Standby Pin (Enable Pin for H-Bridge)
+    uint8_t _motor_dir_pin_1;     ///< Motor Direction Pin 1 (Enables for which direction the motor will rotate in)
+    uint8_t _motor_dir_pin_2;     ///< Motor Direction Pin 2 (Enables for which direction the motor will rotate in)
     uint8_t _pwm_input_pin;       ///< Motor Driver PWM input pin (Sets speed at which motor is driven)
 
-    uint8_t _standby_pin;         ///< Motor Driver Standby Pin (Enable Pin for H-Bridge)
     // Setup PWM timer
     // Timer Number and Timer Channel Number 
     // TIM_TypeDef * _p_timer;
@@ -63,7 +62,7 @@ class TB6612FNG
     TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uint8_t a_pwm_pin);
 
     // Class Methods
-    void setDutyCycle(int8_t duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input  
+    void setDutyCycle(float duty_cycle);    // Sets motor speed and direction based on sign of duty cycle input  
     void brake(void);                        // Makes motor hold in place?? (should be accomplished by PID position control) 
     void disable(void);                      // Software Emergency stop
     void enable(void);                       // Software reset of motor driver chip

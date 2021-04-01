@@ -51,7 +51,7 @@ TB6612FNG::TB6612FNG(uint8_t stby_pin, uint8_t mot_pin_1, uint8_t mot_pin_2, uin
  *                    that is the precentage representation of the desired duty cycle: -100% to 100%
  */
 
-void TB6612FNG::setDutyCycle(int8_t duty_cycle)
+void TB6612FNG::setDutyCycle(float duty_cycle)
 { 
     float u_duty_cycle;
     // +/- Saturation Protection for SetPWM method of HardwareTimer class
@@ -70,9 +70,8 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     // Spin Clockwise
     if (duty_cycle < 0)
     {
-        digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW);
         digitalWrite(_motor_dir_pin_1, HIGH);
+        digitalWrite(_motor_dir_pin_2, LOW);
         u_duty_cycle = duty_cycle* -1;   
     }
     
@@ -80,7 +79,6 @@ void TB6612FNG::setDutyCycle(int8_t duty_cycle)
     else if (duty_cycle > 0)
     {
         digitalWrite(_motor_dir_pin_1, LOW);   
-        digitalWrite(_motor_dir_pin_2, LOW);
         digitalWrite(_motor_dir_pin_2, HIGH);
         u_duty_cycle = duty_cycle; 
     }

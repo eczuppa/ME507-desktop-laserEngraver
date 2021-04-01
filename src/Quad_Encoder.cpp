@@ -2,9 +2,7 @@
  *           class implementation that uses hardware timers to count pulses from a quadrature rotary encoder WITHOUT INTERRUPTS
  *  
  *  @author Ethan A Czuppa
- *  @author JR Ridgely - wrote the C++ class that I used the constructor from in order to get my timer to work with the encoder
- *  @author Josh Anderson  - taught me how to write an encoder reading method in python that I am using in C++ because I am still new to this whole type
- *  @author Alexandre Bourdiol - wrote the HardwareTimer Library that this class depends on
+ *  @author JR Ridgely
  * 
  *  @date 9 Nov 2020 wrote Quad_Encoder module - mostly pseudocode with some doxygen comments
  *  @date 11 Nov 2020 finished Quad_Encoder class implementation and prepped for testing
@@ -20,8 +18,7 @@
 // ||            Class  CONSTANTS                ||
 // ||                                            ||
 // ================================================
-const uint16_t TMR_COUNT_MAX = 65535;
-const int32_t TMR_PRESCL = 0;        // Prescaler must be set to zero for Quadrature decoding
+
 // Physical Characteristics of Timing Belt Pulley - set to match your own.
 const float MOMENT_ARM = 5.95; // radius of timing pulley on motor in [mm]
     
@@ -31,7 +28,6 @@ const float MOMENT_ARM = 5.95; // radius of timing pulley on motor in [mm]
 // enc_read() method while slowly rotating the motor output shaft through 1 rotation
 // several times to ensure that the this conversion is correct.
 const float TICK_TO_RAD = 0.022520; // radians per encoder tick
-
 
 
 
@@ -77,7 +73,7 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
     //           for a Quadratrue Rotary encoders in his STM32Encoder class. 
     //           Available from - https://github.com/spluttflob/ME507-Support/blob/master/src/encoder_counter.cpp
     //           Read the Documentation here -  https://spluttflob.github.io/ME507-Support/classSTM32Encoder.html
-    
+
     // new hardware timer class instance using user-inputted TIMx.
     EncTmr = new HardwareTimer(_p_eTIM);
     
@@ -86,16 +82,21 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
 
     // Place both of the encoder signal pins connected to the timer in a compatible mode to 
     // the timer being in encoder mode. This may or may not work for boards besides the STM32L476RG Nucleo 
-    EncTmr -> setMode(_enc_chan_A, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
-    EncTmr -> setMode(_enc_chan_B, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
-    
+    // EncTmr -> setMode(_enc_chan_A, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
+    // EncTmr -> setMode(_enc_chan_B, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
+
+    EncTmr -> setMode(_enc_chan_A, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
+    EncTmr -> setMode(_enc_chan_B, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
+
+
     // Reset the value of the timer count register to 0 so the coutner doesn't start with something weird in it
     EncTmr -> setCount(0);
-    
+
     // Low level mode setting of the specified timer's control register
     // For the encoder mode we are interested in. 
     _p_eTIM -> SMCR |= TIM_SMCR_SMS_0 | TIM_SMCR_SMS_1; // both of the timer channels used enabled to increment the count in the timer counter register
     _p_eTIM -> CR1 |= TIM_CR1_CEN;  // start the actual timer
+
     
     // Attempting to program the bare metal so to speak - put the given timer in encoder mode based on: 
     //       Edwin Farchild's Interface a Rotary Encoder the Right Way.
@@ -131,7 +132,6 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
  *           negative overflow handling. 
  *  @param   delta the difference between the last timer register count value and the current one - checked for overflows.
  *  @param   count the method specific variable that holds the current timer register count value.   
- *  @param   TMR_COUNT_MAX the overflow value for the timer, in this case for a 16 bit timer so, 65535.
  *  @param   _abspos is the class member variable that holds the absolute position measured by the encoder 
  *                   it is an int32_t so it should be quite difficult to overflow unless your motor is spinning SUPER fast
  *  @param   _last_abspos a snap shot of _abspos before being incremented by the appropriate delta - used for instantaneous velocity calculations
@@ -141,7 +141,6 @@ int32_t Quad_Encoder::enc_read(void)
 {
     // This code is based on the python implementation of a read method for an encoder
     // I wrote based on the patient instructions from my coding wizard ME 405 lab partner Josh Anderson. 
-
 
     int32_t delta;    // The difference between the last encoder count and the current one 
     uint16_t count;    // The current encoder count, reinitialized every time this method is called
@@ -180,6 +179,22 @@ int32_t Quad_Encoder::enc_read(void)
 }
 
 
+/** @brief   Method to calculate the angular position of the output shaft of the motor in degrees 
+ *  @details This method calculates the angluar position of the output shaft in degrees by converting from ticks of the 
+ *           timer to degrees of the output shaft, using constants from the encoder and motor as defined it @c Quad_Encoder.h.
+ *
+ *  @returns Angular position in degrees
+ */
+float Quad_Encoder::enc_read_angle_pos(void)
+{
+    int32_t current_tick = enc_read();  // holds the encoder pos value read by the encoder
+
+    float angle_pos = (float)current_tick/ (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) * 360 /REV_ENC_PER_REVOUT_MOTOR;
+
+    return (angle_pos);
+}
+
+
 /** @brief   converts the raw value in ticks from @c enc_read() to belt displacement in mm
  *  @details The radius of timing belt pulley and the conversion from ticks to radians (motor-specific)
  *           are used to convert the accrued position returned from @c enc_read to a value for the
@@ -195,6 +210,9 @@ int32_t Quad_Encoder::enc_read(void)
 float Quad_Encoder::enc_read_pos(void)
 {
     int32_t current_tick = enc_read();  // holds the encoder pos value read by the encoder
+
+    // float linear_pos = 
+
     return (MOMENT_ARM*current_tick*TICK_TO_RAD);
 }
 

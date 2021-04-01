@@ -36,7 +36,6 @@ extern Queue<int8_t> queue_PWM_motor_B;                 // This is just the "out
  *           from the controller task via a queue.
  *  @param   p_params A pointer to function parameters which we don't use.
  */
-
 void motor_A_driver_task (void* p_params)
 {
     (void)p_params;                     // Does nothing but shut up a compiler warning
@@ -111,11 +110,7 @@ void motor_B_driver_task (void* p_params)
 {
     (void)p_params;                     // Does nothing but shut up a compiler warning
 
-    
-
     // HardwareTimer* MotorTmr = ((HardwareTimer*)p_params);
-
-
                                         // Pin names PC10, etc are defines that live in variant.h
     uint8_t stby_motor = PC10;          // PC10 = 16     
     uint8_t mot_dir_1 = PA11;           // PA11 = 37

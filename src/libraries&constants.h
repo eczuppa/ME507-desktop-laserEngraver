@@ -13,7 +13,9 @@
 
 ///@cond
 
-//Standard and copied libraries
+// ---------------------------------------------------------------------------------
+// ------------------------- Standard and copied libraries -------------------------
+// ---------------------------------------------------------------------------------
 #include <Arduino.h>
 #include <PrintStream.h>
 #if (defined STM32L4xx || defined STM32F4xx)
@@ -26,13 +28,10 @@
 #include <stdint.h>
 #include <pins_arduino.h>
 
-
-
 //From Github
 #include "BasicLinearAlgebra.h"
 #include "DallasTemperature.h"
 #include "OneWire.h"
-
 
 //ME507 Laser Library
 #include "control.h"
@@ -51,6 +50,51 @@
 #include "commands.h"
 #include "temperature_task.h"
 #include "control_task.h"
+#include "TEST_single_control.h"
+
+// ---------------------------------------------------------------------------------
+// -------------------- Define pin names as routed on the board -------------------- 
+// ---------------------------------------------------------------------------------
+
+// Motor Direction Input Pins
+#define AIN1 PC11 
+#define AIN2 PD2
+#define BIN1 PB12
+#define BIN2 PB6
+
+//Motor Encoder Pins:
+#define A_C1 PC6
+#define A_C2 PC7
+#define B_C1 PA9
+#define B_C2 PA8
+
+//GPIO Pin Bank:
+#define GPIO_2 PC8
+#define GPIO_3 PC9
+#define GPIO_4 PC11
+#define GPIO_5 PA12
+#define GPIO_6 PC5
+#define GPIO_7 PB9
+#define GPIO_8 PB8
+
+//PWM output pins:
+#define PWM_A PA0
+#define PWM_B PB11
+#define L_PWM PB0
+
+//ADC Pin Bank:
+#define ADC_2 PA1
+#define ADC_3 PA4
+#define ADC_4 PC1
+#define ADC_5 PC0
+       
+//Additional Pins:
+#define L_TEMP PC3
+#define TEMP_SIG PC2
+#define FAN_SIG PC10
+#define STBY PA7
+
+// ---------------------------------------------------------------------------------
 
 ///@endcond
 #endif //LIBRARIES_H

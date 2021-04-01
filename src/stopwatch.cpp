@@ -9,6 +9,7 @@
 
 
 #include "stopwatch.h"
+#include "libraries&constants.h"
 
 /** @brief      Creates a StopWatch constructor
  *  @details    Uses the HardwareTimer methods and user passed hardware timer (TIM1, TIM2, etc)
@@ -29,8 +30,12 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
     // and set it to count at 1 MHz
     a_Tmr -> pause();
     a_Tmr -> setMode(1,TIMER_OUTPUT_COMPARE, _tmrpin);
-    a_Tmr -> setOverflow(1000000, MICROSEC_FORMAT);
-    a_Tmr -> setCount(0, MICROSEC_FORMAT);
+    a_Tmr -> setPrescaleFactor(80);
+
+    // Serial << (a_Tmr -> getPrescaleFactor()) << endl;
+    // Serial << (a_Tmr -> getOverflow()) << endl;
+    // Serial << (a_Tmr -> getTimerClkFreq()) << endl;
+    a_Tmr -> setCount(0);
     _last = 0;
 
 }
@@ -66,13 +71,20 @@ uint16_t StopWatch::elapsed_time(void)
 
 uint32_t StopWatch::lap(void)
 {
-    a_Tmr -> resume();
-    _now = a_Tmr -> getCount();
+    
+    _now = a_Tmr -> getCount(TICK_FORMAT);
     _lap = _now - _last;
-    _last = _now;
+
+    // a_Tmr -> pause();
+    // a_Tmr -> setCount(0);
+    a_Tmr -> resume();
+
+    _last = a_Tmr -> getCount(TICK_FORMAT);
     return _lap;
 
 }
+
+
 
 /** @brief      Restart the timer
  *  @details    This method will methods from the HardwareTimer class

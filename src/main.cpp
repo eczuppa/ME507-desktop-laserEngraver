@@ -79,7 +79,7 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    // #define NIKO_TESTING 0
+    #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
 
@@ -107,14 +107,31 @@ void setup()
                  3,                             // Priority
                  NULL);                         // Task handle
 
-    // Create a task to translate command codes to the contorller
-    xTaskCreate(task_translate,                 //Task Function name
-                 "Translating",                 // Name for printouts
+    // // Create a task to translate command codes to the contorller
+    // xTaskCreate(task_translate,                 //Task Function name
+    //              "Translating",                 // Name for printouts
+    //              1000,                          // Stack size
+    //              NULL,                          // Parameters for task fn.
+    //              9,                             // Priority
+    //              NULL);                         // Task handle
+
+    // Create a task that test runs a single motor
+    xTaskCreate (task_single_control,           //Task Function name
+                 "Motor B",                     // Name for printouts
                  1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
-                 9,                             // Priority
+                 1,                             // Priority
                  NULL);                         // Task handle
 
+    //Task to run encoder B
+    xTaskCreate(task_encoder_B,                 //Task Function name
+                "test encoder B",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
+    Serial << "Tasks created" << endl;
 
     vTaskStartScheduler();
 
@@ -363,26 +380,26 @@ void setup()
     //Ethan test section
     #ifdef ETHAN_TESTING
 
-    // //Task to drive motor A
-    // xTaskCreate(motor_A_driver_task,            //Task Function name
-    //             "test motor A",                 // Name for printouts
-    //             1024,                           // Stack size
-    //             NULL,                           // Parameters for task fn.
-    //             12,                             // Priority
-    //             NULL);                          // Task handle
+    //Task to drive motor A
+    xTaskCreate(motor_A_driver_task,            //Task Function name
+                "test motor A",                 // Name for printouts
+                1024,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                12,                             // Priority
+                NULL);                          // Task handle
 
-    // //Task to drive motor B 
-    // xTaskCreate(motor_B_driver_task,            //Task Function name
-    //             "test motor B",                 // Name for printouts
-    //             1024,                           // Stack size
-    //             NULL,                           // Parameters for task fn.
-    //             12,                             // Priority
-    //             NULL);                          // Task handle
+    //Task to drive motor B 
+    xTaskCreate(motor_B_driver_task,            //Task Function name
+                "test motor B",                 // Name for printouts
+                1024,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                12,                             // Priority
+                NULL);                          // Task handle
 
     Serial << "motor task init done" << endl;
 
     //Task to run encoder A
-    xTaskCreate(encoder_A_task,                 //Task Function name
+    xTaskCreate(task_encoder_A,                 //Task Function name
                 "test encoder A",               // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
@@ -390,7 +407,7 @@ void setup()
                 NULL);                          // Task handle
 
     //Task to run encoder B
-    xTaskCreate(encoder_B_task,                 //Task Function name
+    xTaskCreate(task_encoder_B,                 //Task Function name
                 "test encoder B",               // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
@@ -405,6 +422,7 @@ void setup()
                 NULL,
                 9,
                 NULL);
+
     Serial << "ui task init done" << endl;
 
 

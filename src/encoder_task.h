@@ -16,18 +16,18 @@
 
 ///@cond
 //Encoder A task period
-const TickType_t encoder_period_A = 2;          // According to the task diagram this is only 0.3 ms
+const TickType_t encoder_period_A = 10;          // According to the task diagram this is only 0.3 ms
 
 //Encoder B task period
-const TickType_t encoder_period_B = 2;          // According to the task diagram this is only 0.3 ms
+const TickType_t encoder_period_B = 4;          // According to the task diagram this is only 0.3 ms
 
 ///@endcond
 
 // Encoder A Task
-void encoder_A_task (void* p_params);
+void task_encoder_A (void* p_params);
 
 // Encoder B Task
-void encoder_B_task (void* p_params);
+void task_encoder_B (void* p_params);
 
 
 

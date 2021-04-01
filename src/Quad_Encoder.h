@@ -17,6 +17,16 @@
 
 #include "libraries&constants.h"
 
+// Constants as defined by system
+#define ENCODER_PULSES_PER_REV 11
+#define ENCODER_COUNTS_PER_PULSE 4
+#define REV_ENC_PER_REVOUT_MOTOR 6.3
+#define TMR_COUNT_MAX 65535             //the overflow value for the timer, in this case for a 16 bit timer so, 65535.
+#define OUTPUT_WHEEL_RADIUS 5.95
+
+
+
+
 /** @brief  Sets up the user specified timer into encoder mode and handles read values from it
  *  @details This is a class which uses the Hardware Timer API and some low level register setting to read a quadrature encoder on a motor
  *           and then do various useful tasks with that read value. This class has debugging methods which are documented in the .cpp file. 
@@ -65,10 +75,11 @@ class Quad_Encoder
     // Constructor for quadrature encoder class
     Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t enc_chan_A, uint8_t enc_chan_B, TIM_TypeDef *p_eTIM, int32_t bound = 1000, bool invert = false);
 
-    int32_t enc_read(void);        // encoder read method to get current position in encoder ticks with direction and under/over flow checking
-    float enc_read_pos(void);      // relies on encoder read method but the ouput is the linear displacement of the belt due to the motor's rotation
-    float enc_d_pos (void);        // relies on the encoder read method but the output in the change in linear displacement of the belt due to the motor's rotation since the last measurement
-    void enc_zero(void);           // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
+    int32_t enc_read(void);             // encoder read method to get current position in encoder ticks with direction and under/over flow checking
+    float enc_read_angle_pos(void);     // relies on encoder read method but the ouput is the angular displacement output shaft of the motor
+    float enc_read_pos(void);           // relies on encoder read method but the ouput is the linear displacement of the belt due to the motor's rotation
+    float enc_d_pos (void);             // relies on the encoder read method but the output in the change in linear displacement of the belt due to the motor's rotation since the last measurement
+    void enc_zero(void);                // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
     
     // Debugging Methods
     uint16_t enc_test(void);       // returns the encoder counter register value to see if the timer is counting properly

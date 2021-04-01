@@ -47,7 +47,7 @@ extern Share<uint32_t> encoder_B_dt;
  * 
  *  @param   p_params A pointer to function parameters which we don't use.
  */
-void encoder_A_task (void* p_params)
+void task_encoder_A (void* p_params)
 {
     // Account for the length of time it takes to run the task in the task timing requirement
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -56,13 +56,13 @@ void encoder_A_task (void* p_params)
     StopWatch velTmrA(TIM5,PF_6);      // change to        
 
     // Create an instance of Quad_Encoder for Encoder A
-    uint8_t enc_sigpin_AA = PC6;             // PC6 = 34 on TIM8
-    uint8_t enc_sigpin_AB = PC7;             // PC7 = 9
+    uint8_t enc_sigpin_AA = A_C1;           // PC6 = 34 on TIM8
+    uint8_t enc_sigpin_AB = A_C2;           // PC7 = 9
     uint8_t enc_chan_AA = 1;
     uint8_t enc_chan_AB = 2;
     // TIM_TypeDef *a_p_eTIM = TIM8;        // for Encoder on Motor A
     int32_t bound_A = 1000;                 // default not changed 
-    bool invert_A = false;                   // encoder pins are flipped on board, so inversion of read values is needed
+    bool invert_A = false;                  // encoder pins are flipped on board, so inversion of read values is needed
     Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_AB, enc_chan_AA, enc_chan_AB, TIM8, bound_A, invert_A);        
     
     // Initialize motor encoder and timer
@@ -115,7 +115,7 @@ void encoder_A_task (void* p_params)
  * 
  *  @param   p_params A pointer to function parameters which we don't use.
  */
-void encoder_B_task (void* p_params)
+void task_encoder_B (void* p_params)
 {
     // Account for the length of time it takes to run the task in the task timing requirement
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -124,15 +124,17 @@ void encoder_B_task (void* p_params)
     StopWatch velTmrB(TIM4,PD_12);     // DO NOT CHANGE!!!!!!!        
 
     // Create an instance of Quad_Encoder for Encoder B
-    uint8_t enc_sigpin_BA = PA8;             // PA8 = 7 on TIM1
-    uint8_t enc_sigpin_BB = PA9;             // PA9 = 8
-    uint8_t enc_chan_BA = 1;
-    uint8_t enc_chan_BB = 2;
+    uint8_t enc_sigpin_BA = B_C1;           // PA8 = 7 on TIM1
+    uint8_t enc_sigpin_BB = B_C2;           // PA9 = 8
+    uint8_t enc_chan_BA = 2;
+    uint8_t enc_chan_BB = 1;
     int32_t bound_B = 1000;                 // default not changed 
     bool invert_B = true;                   // encoder pins are flipped on board, so inversion of read values is needed
     // TIM_TypeDef *a_p_eTIM = TIM1         // Hardware Timer for Encoder on Motor B
+
+
     Quad_Encoder encoder_B (enc_sigpin_BA, enc_sigpin_BB, enc_chan_BA, enc_chan_BB, TIM1, bound_B, invert_B); 
-   
+
     // Initialize motor encoder and timer
     encoder_B.enc_zero();
     //velTmrB.restart();
@@ -142,16 +144,31 @@ void encoder_B_task (void* p_params)
     float velocity_B;
     float delta_position_B;
     uint32_t delta_time_B;
-    
 
+    print_serial("Encoder B initialized\n");
+
+    uint8_t count_max = 100;
+    uint8_t count = 0;
+    
     for (;;)
     {
         // velTmrB.now_time();
         
         // get position, change in position, and change in time
-        position_B = encoder_B.enc_read_pos();
+        position_B = encoder_B.enc_read_angle_pos();
         delta_time_B = velTmrB.lap();
         delta_position_B = encoder_B.enc_d_pos();
+
+        // if(count < count_max)
+        // {
+        //     // Serial << delta_time_B << "  ";
+        //     print_serial((float)delta_time_B);
+        //     print_serial("  ");
+        //     count++;
+        // }
+
+
+
         //velTmrB.temp_stop();
         // position pre-multiplied by the number of microseconds in one second to produce
         // velocity in mm/seconnd.
