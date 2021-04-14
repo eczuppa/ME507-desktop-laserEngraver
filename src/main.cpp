@@ -37,7 +37,7 @@ Share<uint32_t> encoder_A_dt ("Encoder A delta t");
 // Shares for Encoder B
 Share<float> encoder_B_pos ("Encoder B Position");
 Share<float> encoder_B_velocity ("Encoder B Velocity");
-Share<uint32_t> encoder_B_dt ("Encoder B delta t");
+Share<float> encoder_B_time ("Encoder B time");
 
 // Temperature Task Queue
 // Queue<float> temperature_data (10,"Temp C Data");  

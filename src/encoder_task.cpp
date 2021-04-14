@@ -33,7 +33,7 @@ extern Share<uint32_t> encoder_A_dt;
 // Shares for Encoder B
 extern Share<float> encoder_B_pos;
 extern Share<float> encoder_B_velocity;
-extern Share<uint32_t> encoder_B_dt;
+extern Share<float> encoder_B_time;
 
 ///@endcond
 
@@ -82,7 +82,7 @@ void task_encoder_A (void* p_params)
         // get position, change in position, and change in time
         position_A = encoder_A.enc_read_pos();
         delta_time_A = velTmrA.lap();
-        delta_position_A = encoder_A.enc_read_d_pos();
+        delta_position_A = encoder_A.enc_read_pos();
         
         // position pre-multiplied by the number of microseconds in one second to produce
         // velocity in mm/second
@@ -137,52 +137,105 @@ void task_encoder_B (void* p_params)
 
     // Initialize motor encoder and timer
     encoder_B.enc_zero();
-    //velTmrB.restart();
 
-    // temporary variables for share data to control task
+    // temporary variables collecting data from encoder and timer
     float position_B;
-    float velocity_B;
-    float delta_position_B;
     uint32_t delta_time_B;
+    int32_t delta_position_B;
+
+    // temporary variables used to for calculations
+    float velocity_B = 0;
+    float raw_vel_B = 0;
+    float total_time = 0;
+
+    //Output variables for position and velocity
+    float pos_B_out = 0;
+    float vel_B_out = 0;
 
     print_serial("Encoder B initialized\n");
-
-    // uint8_t count_max = 100;
-    // uint8_t count = 0;
     
     for (;;)
-    {
-        // velTmrB.now_time();
-        
+    {        
         // get position, change in position, and change in time
-        position_B = encoder_B.enc_read_angle_pos();
+        position_B = encoder_B.enc_read();
         delta_time_B = velTmrB.lap();
-        delta_position_B = encoder_B.enc_read_d_angle_pos();
+        delta_position_B = encoder_B.get_delta();
 
-        // if(count < count_max)
-        // {
-        //     // Serial << delta_time_B << "  ";
-        //     print_serial((float)delta_time_B);
-        //     print_serial("  ");
-        //     count++;
-        // }
+        //Update the total time (in microsec)
+        total_time += delta_time_B;
 
+        //Calculate velocity (encoder ticks/sec)
+        raw_vel_B = (float)delta_position_B / (float)delta_time_B *   1000000;
+                        // ticks            /       microsec      * microsec/sec 
 
-        // position pre-multiplied by the number of microseconds in one second to produce
-        // velocity in mm/seconnd.
-        // velocity_B = (delta_position_B*1000000) /delta_time_B;   
-        velocity_B = delta_position_B;        
-        
-        // put all those values into their respective shares. Used by the controller and for printing out (parameterization purposes)
-        encoder_B_pos.put(position_B);
-        // encoder_B_velocity.put(delta_position_B);
-        encoder_B_velocity.put(velocity_B);
-        encoder_B_dt.put(delta_time_B);
-        
-        // reset the stopwatch so the counter register is less likely to overflow when calculating velocity
-        // velTmrB.temp_stop();
-        
+        //Filter the raw velocity to get meaningful output
+        //Why do we have to convert them to int32_t? No idea. But for whatever reason if I add these two
+        //parts of the filter as floats, they lose all of their precision and add to 0 every time. Super frustrating.
+        velocity_B = (float)( (int32_t)(raw_vel_B*FILTER_B_ALPHA*10000) + (int32_t)(velocity_B*(1-FILTER_B_ALPHA)*10000) )/10000; 
+
+        //Convert values into desired units
+        pos_B_out = convert_units(position_B,ENC_POSITION_MODE_BELT_MM);
+        vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_RPMOUT);
+
+        // Put all those values into their respective shares to be used in other functions
+        encoder_B_pos.put(pos_B_out);
+        encoder_B_velocity.put(vel_B_out);
+        encoder_B_time.put(total_time/1000000);   //Converted to seconds
+
+        // Delay until reset        
         vTaskDelayUntil(&xLastWakeTime, encoder_period_B);
     }
 
+}
+
+
+// ============================= SUBFUNCTIONS =============================
+
+/** @brief   Convert units out of ticks or ticks/sec
+ *  @details This function 
+ * 
+ *  @param   value The value whose units are to be converted
+ *  @param   convert_mode The mode in which to convert the units
+ * 
+ *  @returns converted value
+ */
+float convert_units(float value, uint8_t convert_mode)
+{
+    switch (convert_mode)
+    {
+        case ENC_POSITION_MODE_TICKS:           //starting with ticks
+        case ENC_VELOCITY_MODE_TICKS_PER_SEC:   //starting with ticks/sec
+            break; //No conversion necessary
+        case ENC_POSITION_MODE_REVOUT:
+            //      enc ticks / (      (ticks/pulse)      *    (pulse/enc rev) )    / (enc rev/output rev)
+            value =   value   / (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) / REV_ENC_PER_REVOUT_MOTOR;
+            break;
+
+        case ENC_VELOCITY_MODE_RPMOUT:
+            //      enc ticks/sec / (      (ticks/pulse)      *    (pulse/enc rev) )    / (enc rev/output rev)     * sec/min
+            value =   value       / (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) / REV_ENC_PER_REVOUT_MOTOR * 60;
+            break;
+
+        case ENC_POSITION_MODE_DEGOUT:         //starting with ticks
+        case ENC_VELOCITY_MODE_DEGOUT_PER_SEC: //starting with ticks/sec
+            //      enc ticks / (      (ticks/pulse)      *    (pulse/enc rev) )    / (enc rev/output rev)      * 360deg/rev
+            value =   value   / (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) / REV_ENC_PER_REVOUT_MOTOR  * 360;
+            break;
+
+        case ENC_POSITION_MODE_BELT_MM:             //starting with ticks
+        case ENC_VELOCITY_MODE_BELT_MM_PER_SEC:     //starting with ticks/sec
+            // Convert to output revolutions fist:
+            //      enc ticks / (      (ticks/pulse)      *    (pulse/enc rev) )    / (enc rev/output rev)
+            value =   value   / (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) / REV_ENC_PER_REVOUT_MOTOR;
+
+            //Convert from output rev to belt distance: s = r*theta (theta in radians)
+            //       rev *     2pi rad/rev     *         r (mm)
+            value = value*(2*3.141592653589793)*OUTPUT_WHEEL_RADIUS_MM;
+            break;
+
+        default:
+            break; //No conversion on default
+    }
+    
+    return value;
 }

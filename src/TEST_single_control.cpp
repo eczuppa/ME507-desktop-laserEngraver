@@ -12,7 +12,7 @@
 // Shares for Encoder B
 extern Share<float> encoder_B_pos;
 extern Share<float> encoder_B_velocity;
-extern Share<uint32_t> encoder_B_dt;
+extern Share<float> encoder_B_time;
 
 /** @brief      Task which moves a single motor.
  *  @details    Fill in later
@@ -32,7 +32,7 @@ void task_single_control(void* p_params)
     //Set up variables for encoder
     float B_pos;
     float B_vel;
-    // uint32_t B_dt;
+    float B_time;
 
     //Set the duty cycle
     Motor_B.setDutyCycle(DC);
@@ -45,11 +45,15 @@ void task_single_control(void* p_params)
         //Read off encoder position and velocity
         encoder_B_pos.get(B_pos);
         encoder_B_velocity.get(B_vel);
+        encoder_B_time.get(B_time);
 
         //Print the encoder positions and velocity
-        print_serial("Position:  ");   print_serial(B_pos);
-        print_serial("  Velocity:  "); print_serial(B_vel);
+        print_serial("Position:  ");     print_serial(B_pos);
+        print_serial("  Velocity:  ");   print_serial(B_vel);
+        print_serial("  Time:  "); print_serial((float)B_time);
         print_serial("                                \r");
+        // print_serial("                                \n");
+
 
 
         vTaskDelay(500);

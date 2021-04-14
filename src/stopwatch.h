@@ -15,6 +15,8 @@
 #define STPWATCH_H
 #include <HardwareTimer.h>
 
+#define STOPWATCH_PRESCALE 80
+
 /** @brief   header for a timer class based on the HardwareTimer library that behaves like an actual stopwatch
  *  @details Uses the hardware timer library API to create a timer that just counts but does not trigger any output events. 
  *           the counts and overflow are set to be in @c MICROSECOND_FORMAT to ensure that the sufficient resolution of timing 
@@ -39,18 +41,14 @@ class StopWatch
     uint16_t _elpsd;          ///< the time elapsed between the last and current measurements with now_time();
 
     public:
-    // constructor
-    StopWatch(TIM_TypeDef* p_Stpwtch,uint8_t tmrpin);
-    // all thigs now measured from current time and returns that value
-    uint16_t now_time(void); 
-    // returns time elapsed in microseconds
-    uint16_t elapsed_time(void); 
-    // returns the time elapsed between measurments of a parameter of interest
-    uint32_t lap(void);          
-    // sets the count back to 0;
-    void restart(void); 
-    // pauses the timer until we want it to start counting again
-    void temp_stop(void); 
+    
+    StopWatch(TIM_TypeDef* p_Stpwtch,uint8_t tmrpin); // constructor
+    
+    uint16_t now_time(void);        // all things now measured from current time and returns that value
+    uint16_t elapsed_time(void);    // returns time elapsed in microseconds
+    uint32_t lap(void);             // returns the time elapsed between measurments of a parameter of interest
+    void restart(void);             // sets the count back to 0;
+    void temp_stop(void);           // pauses the timer until we want it to start counting again
 
 };
 #endif //STPWATCH_H

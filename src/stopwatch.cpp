@@ -30,7 +30,7 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
     // and set it to count at 1 MHz
     a_Tmr -> pause();
     a_Tmr -> setMode(1,TIMER_OUTPUT_COMPARE, _tmrpin);
-    a_Tmr -> setPrescaleFactor(80);
+    a_Tmr -> setPrescaleFactor(STOPWATCH_PRESCALE);
 
     // Serial << (a_Tmr -> getPrescaleFactor()) << endl;
     // Serial << (a_Tmr -> getOverflow()) << endl;
@@ -54,7 +54,6 @@ uint16_t StopWatch::now_time(void)
 
 /** @brief      Method to get the elapsed time since the last time point was measured
  *  @returns    _elpsd The elapsed time since the last measurement was taken
- * 
  */ 
 uint16_t StopWatch::elapsed_time(void)
 {
@@ -65,10 +64,8 @@ uint16_t StopWatch::elapsed_time(void)
 }
 
 /** @brief      Method to get the time between when this method was called last and now
- *  @returns    _lap measure of time between times that this lap method was called
- * 
+ *  @returns    @c _lap measure of time since the last time that this funciton was called, in microseconds
  */ 
-
 uint32_t StopWatch::lap(void)
 {
     
