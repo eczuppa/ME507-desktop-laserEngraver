@@ -70,10 +70,6 @@ class Quad_Encoder
 
     int32_t enc_read(void);                 // encoder read method to get current position in encoder ticks with direction and under/over flow checking
     int32_t get_delta(void);                // get the delta position value in ticks between the last two times enc_read was run
-    float enc_read_angle_pos(void);         // relies on encoder read method but the ouput is the angular displacement output shaft of the motor
-    float enc_read_pos(void);               // relies on encoder read method but the ouput is the linear displacement of the belt due to the motor's rotation
-    // float enc_read_d_angle_pos (void);      // relies on the encoder read method but the output in the change in angluar displacement motor output since the last measurement
-    // float enc_read_d_pos (void);            // relies on the encoder read method but the output in the change in linear displacement of the belt due to the motor's rotation since the last measurement
     void enc_zero(void);                    // resets the encoder value - will likely be called after the home command given by the user is executed to ensure the encoder is properly reset.
     
     // Debugging Methods

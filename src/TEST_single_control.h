@@ -14,7 +14,13 @@
 #include "libraries&constants.h"
 
 
-void task_single_control(void* p_params);
+#define CONTROLLER_A_KP 100
+#define CONTROLLER_A_KI 0
+#define CONTROLLER_A_KD 0
+
+void task_single_control_B(void* p_params);
+void task_single_control_A(void* p_params);
+void task_single_control_both(void* p_params);
 
 
 #endif //TEST_SINGLE_CONTROL_H

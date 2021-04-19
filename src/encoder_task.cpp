@@ -3,8 +3,10 @@
  *  
  *  @author Ethan A Czuppa
  *  @author Matthew Carlson
+ *  @author Niko Banks
  * 
  *  @date 22 Nov 2020 Created these files and started outlining the code structure.
+ *  @date 13 Apr 2021 Updated and fully functional
  * 
  */
 
@@ -14,21 +16,10 @@
 ///@cond
 // Set up shares and queues
 
-// // Queues for Encoder A
-// // MOTOR A ENCODER DATA
-// extern Queue<float> encoder_A_pos; 
-// extern Queue<float> encoder_A_velocity;
-// extern Queue<uint16_t> encoder_A_dt;
-
-// // MOTOR B ENCODER DATA
-// extern Queue<float> encoder_B_pos;
-// extern Queue<float> encoder_B_velocity;
-// extern Queue<uint16_t> encoder_B_dt;
-
 // shares for Encoder A
 extern Share<float> encoder_A_pos;
 extern Share<float> encoder_A_velocity;
-extern Share<uint32_t> encoder_A_dt;
+extern Share<float> encoder_A_time;
 
 // Shares for Encoder B
 extern Share<float> encoder_B_pos;
@@ -60,43 +51,59 @@ void task_encoder_A (void* p_params)
     uint8_t enc_sigpin_AB = A_C2;           // PC7 = 9
     uint8_t enc_chan_AA = 1;
     uint8_t enc_chan_AB = 2;
-    // TIM_TypeDef *a_p_eTIM = TIM8;        // for Encoder on Motor A
     int32_t bound_A = 1000;                 // default not changed 
     bool invert_A = false;                  // encoder pins are flipped on board, so inversion of read values is needed
+    // TIM_TypeDef *a_p_eTIM = TIM8;        // for Encoder on Motor A
+    
     Quad_Encoder encoder_A (enc_sigpin_AA, enc_sigpin_AB, enc_chan_AA, enc_chan_AB, TIM8, bound_A, invert_A);        
     
     // Initialize motor encoder and timer
     encoder_A.enc_zero();
-    //velTmrA.restart();
-    
-    // temporary variables for share data to control task
+
+    // temporary variables collecting data from encoder and timer
     float position_A;
-    float velocity_A;
     uint32_t delta_time_A;
-    float delta_position_A;
+    int32_t delta_position_A;
+
+    // temporary variables used to for calculations
+    float velocity_A = 0;
+    float raw_vel_A = 0;
+    float total_time = 0;
+
+    //Output variables for position and velocity
+    float pos_A_out = 0;
+    float vel_A_out = 0;
     
 
     for (;;)
     {
-        // velTmrA.now_time();
         // get position, change in position, and change in time
-        position_A = encoder_A.enc_read_pos();
+        position_A = encoder_A.enc_read();
         delta_time_A = velTmrA.lap();
-        delta_position_A = encoder_A.enc_read_pos();
-        
-        // position pre-multiplied by the number of microseconds in one second to produce
-        // velocity in mm/second
-        velocity_A = (delta_position_A*1000000) /delta_time_A;         
+        delta_position_A = encoder_A.get_delta();
 
-        // put all those values into their respective queues. Used by the controller and for printing out (parameterization purposes)
-        encoder_A_pos.put(position_A);
-        // encoder_A_velocity.put(delta_position_A);
-        encoder_A_velocity.put(velocity_A);
-        encoder_A_dt.put(delta_time_A);
-        
-        // reset the stopwatch so the counter register is less likely to overflow when calculating velocity
-        // velTmrA.temp_stop();
-        
+        //Update the total time (in seconds)
+        total_time += (float)delta_time_A/1000000;
+
+        //Calculate velocity (encoder ticks/sec)
+        raw_vel_A = (float)delta_position_A / (float)delta_time_A *   1000000;
+                        // ticks            /       microsec      * microsec/sec 
+
+        //Filter the raw velocity to get meaningful output
+        //Why do we have to convert them to int32_t? No idea. But for whatever reason if I add these two
+        //parts of the filter as floats, they lose all of their precision and add to 0 every time. Super frustrating.
+        velocity_A = (float)( (int32_t)(raw_vel_A*FILTER_A_ALPHA*10000) + (int32_t)(velocity_A*(1-FILTER_A_ALPHA)*10000) )/10000; 
+
+        //Convert values into desired units
+        pos_A_out = convert_units(position_A,ENC_POSITION_MODE_REVOUT);
+        vel_A_out = convert_units(velocity_A,ENC_VELOCITY_MODE_RPMOUT);
+
+        // Put all those values into their respective shares to be used in other functions
+        encoder_A_pos.put(pos_A_out);
+        encoder_A_velocity.put(vel_A_out);
+        encoder_A_time.put(total_time);
+
+        // Delay until reset        
         vTaskDelayUntil(&xLastWakeTime, encoder_period_A);
     }
 
@@ -120,10 +127,11 @@ void task_encoder_B (void* p_params)
     // Account for the length of time it takes to run the task in the task timing requirement
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
-    // Uses the StopWatch class to find out how much time elapses between encoder reads
-    StopWatch velTmrB(TIM4,PD_12);     // DO NOT CHANGE!!!!!!!        
+    // Create a StopWatch class to find out how much time elapses between encoder reads
+    StopWatch velTmrB(TIM4,PD_12);
 
     // Create an instance of Quad_Encoder for Encoder B
+
     uint8_t enc_sigpin_BA = B_C1;           // PA8 = 7 on TIM1
     uint8_t enc_sigpin_BB = B_C2;           // PA9 = 8
     uint8_t enc_chan_BA = 2;
@@ -161,8 +169,8 @@ void task_encoder_B (void* p_params)
         delta_time_B = velTmrB.lap();
         delta_position_B = encoder_B.get_delta();
 
-        //Update the total time (in microsec)
-        total_time += delta_time_B;
+        //Update the total time (in seconds)
+        total_time += (float)delta_time_B/1000000;
 
         //Calculate velocity (encoder ticks/sec)
         raw_vel_B = (float)delta_position_B / (float)delta_time_B *   1000000;
@@ -174,13 +182,13 @@ void task_encoder_B (void* p_params)
         velocity_B = (float)( (int32_t)(raw_vel_B*FILTER_B_ALPHA*10000) + (int32_t)(velocity_B*(1-FILTER_B_ALPHA)*10000) )/10000; 
 
         //Convert values into desired units
-        pos_B_out = convert_units(position_B,ENC_POSITION_MODE_BELT_MM);
+        pos_B_out = convert_units(position_B,ENC_POSITION_MODE_REVOUT);
         vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_RPMOUT);
 
         // Put all those values into their respective shares to be used in other functions
         encoder_B_pos.put(pos_B_out);
         encoder_B_velocity.put(vel_B_out);
-        encoder_B_time.put(total_time/1000000);   //Converted to seconds
+        encoder_B_time.put(total_time);
 
         // Delay until reset        
         vTaskDelayUntil(&xLastWakeTime, encoder_period_B);

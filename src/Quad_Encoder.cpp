@@ -2,32 +2,17 @@
  *           class implementation that uses hardware timers to count pulses from a quadrature rotary encoder WITHOUT INTERRUPTS
  *  
  *  @author Ethan A Czuppa
- *  @author JR Ridgely
+ *  @author Niko Banks
  * 
  *  @date 9 Nov 2020 wrote Quad_Encoder module - mostly pseudocode with some doxygen comments
  *  @date 11 Nov 2020 finished Quad_Encoder class implementation and prepped for testing
  *  @date 15 Nov 2020 Added several debugging methods to try to figure out what was wrong with the timer setup
  *  @date 16 Nov 2020 Using JR Ridgely's STM32Encoder's constructor got timer to count quadrature encoder pulses. Added other needed doxygen stuff
  *  @date 16 Nov 2020 (later that day) added methods that output the belt's displacement and velocity based on enc_read(). Added more doxygen comments
+ *  @date 13 Apr 2021 Finished updating so it works properly
  */
 
 #include "Quad_Encoder.h"
-
-// ================================================
-// ||                                            ||
-// ||            Class  CONSTANTS                ||
-// ||                                            ||
-// ================================================
-
-// Physical Characteristics of Timing Belt Pulley - set to match your own.
-const float MOMENT_ARM = 5.95; // radius of timing pulley on motor in [mm]
-    
-// The number of radians in 1 revolution of the motor output shaft divided
-// by the number of ticks accrued in the specified timer counter register. 
-// this value was empirically measured by polling the encoder with the
-// enc_read() method while slowly rotating the motor output shaft through 1 rotation
-// several times to ensure that the this conversion is correct.
-const float TICK_TO_RAD = 0.022520; // radians per encoder tick
 
 
 
@@ -82,11 +67,8 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
 
     // Place both of the encoder signal pins connected to the timer in a compatible mode to 
     // the timer being in encoder mode. This may or may not work for boards besides the STM32L476RG Nucleo 
-    // EncTmr -> setMode(_enc_chan_A, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
-    // EncTmr -> setMode(_enc_chan_B, (TimerModes_t)((1UL << 8) | (1UL << 0)), _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
-
-    EncTmr -> setMode(_enc_chan_A, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_A);  // Puts the timer channel 1 into input capture falling and rising edge detection mode
-    EncTmr -> setMode(_enc_chan_B, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_B);  // Puts the timer channel 2 into input capture falling and rising edge detection mode
+    EncTmr -> setMode(_enc_chan_A, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_A);  // Puts the timer channel A into input capture falling and rising edge detection mode
+    EncTmr -> setMode(_enc_chan_B, TIMER_INPUT_CAPTURE_RISING, _enc_sigpin_B);  // Puts the timer channel B into input capture falling and rising edge detection mode
 
 
     // Reset the value of the timer count register to 0 so the coutner doesn't start with something weird in it
@@ -195,75 +177,6 @@ int32_t Quad_Encoder::get_delta(void)
 
 
 
-
-/** @brief   Method to calculate the angular position of the output shaft of the motor in degrees 
- *  @details This method calculates the angluar position of the output shaft in degrees by converting from ticks of the 
- *           timer to degrees of the output shaft, using constants from the encoder and motor as defined it @c Quad_Encoder.h.
- *
- *  @returns Angular position in degrees
- */
-float Quad_Encoder::enc_read_angle_pos(void)
-{
-    int32_t current_tick = enc_read();  // holds the encoder pos value read by the encoder
-
-    float angle_pos = (float)current_tick/ (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) * 360 /REV_ENC_PER_REVOUT_MOTOR;
-
-    return (angle_pos);
-}
-
-
-/** @brief   converts angular output displacement to belt displacement in mm
- *  @details The radius of timing belt pulley is used to convert the accrued position returned from 
- *           @c enc_read_angle_pos to a value for the linear movement of the belt driven by the timing pulley 
- *           in millimeters. 
- *
- * @returns  Output belt position in the same units as @c OUTPUT_WHEEL_RADIUS (mm)
- */
-float Quad_Encoder::enc_read_pos(void)
-{
-    //Get current angle
-    float current_angle = enc_read_angle_pos();  // reads the output position in degrees
-
-    //Convert to belt position
-    float linear_pos = current_angle * (3.141592653589793 / 180) * OUTPUT_WHEEL_RADIUS_MM;
-
-    return (linear_pos);
-}
-
-
-// /** @brief   Returns change in angular position
-//  *  @details This function uses @c enc_read to calculate the delta position in ticks, and then converts that to degrees
-//  *           of rotation of the output shaft. 
-//  *  @returns Change in angular position of the motor output shaft in degrees
-//  */
-// float Quad_Encoder::enc_read_d_angle_pos(void)
-// {
-//     //Read off delta between last ticks
-//     int32_t current_d_tick = enc_read(READ_MODE_DELTA);
-    
-//     //Convert ticks to angular position in deg
-//     float angle_d_pos = (float)current_d_tick/ (ENCODER_COUNTS_PER_PULSE * ENCODER_PULSES_PER_REV) * 360 /REV_ENC_PER_REVOUT_MOTOR;
-
-//     return (angle_d_pos);
-// }
-
-
-// /** @brief   Returns change in linear position
-//  *  @details The radius of timing belt pulley is used to convert the accrued position returned from 
-//  *           @c enc_read_d_angle_pos to a value for the linear movement of the belt driven by the  
-//  *           timing pulley in millimeters. 
-//  *  @returns Change in output belt position, in the same units as @c OUTPUT_WHEEL_RADIUS (mm)
-//  */
-// float Quad_Encoder::enc_read_d_pos(void)
-// {
-//     //Get current delta angle
-//     float current_d_angle = enc_read_d_angle_pos();  // reads the output position in degrees
-
-//     //Convert to belt delta position
-//     float linear_d_pos = current_d_angle * (3.141592653589793 / 180) * OUTPUT_WHEEL_RADIUS;
-
-//     return (linear_d_pos);
-// }
 
 
 /** @brief   resets _abspos, the accumulated encoder ticks variable, to 0

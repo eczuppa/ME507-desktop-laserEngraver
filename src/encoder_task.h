@@ -16,8 +16,8 @@
 
 ///@cond
 
-#define FILTER_A_ALPHA 0.002
-#define FILTER_B_ALPHA 0.002
+#define FILTER_A_ALPHA 0.5
+#define FILTER_B_ALPHA 0.5
 
 // Modes for converting units
 #define ENC_POSITION_MODE_TICKS 0
@@ -38,9 +38,9 @@
 #define OUTPUT_WHEEL_RADIUS_MM 5.95     //Radius of belt wheel on output shaft (mm)
 
 
-const TickType_t encoder_period_A = 1;   //Encoder A task period; According to the task diagram this is only 0.3 ms
+const TickType_t encoder_period_A = 100;   //Encoder A task period; According to the task diagram this is only 0.3 ms
 
-const TickType_t encoder_period_B = 1;    //Encoder B task period; According to the task diagram this is only 0.3 ms
+const TickType_t encoder_period_B = 100;    //Encoder B task period; According to the task diagram this is only 0.3 ms
 
 ///@endcond
 

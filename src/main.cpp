@@ -32,7 +32,7 @@ Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
 // Shares for Encoder A
 Share<float> encoder_A_pos ("Encoder A Position");
 Share<float> encoder_A_velocity ("Encoder A Velocity");
-Share<uint32_t> encoder_A_dt ("Encoder A delta t");
+Share<float> encoder_A_time ("Encoder A delta t");
 
 // Shares for Encoder B
 Share<float> encoder_B_pos ("Encoder B Position");
@@ -116,12 +116,20 @@ void setup()
     //              NULL);                         // Task handle
 
     // Create a task that test runs a single motor
-    xTaskCreate (task_single_control,           //Task Function name
+    xTaskCreate (task_single_control_A,      //Task Function name
                  "Motor B",                     // Name for printouts
                  1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
                  1,                             // Priority
                  NULL);                         // Task handle
+
+    //Task to run encoder A
+    xTaskCreate(task_encoder_A,                 //Task Function name
+                "test encoder A",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
 
     //Task to run encoder B
     xTaskCreate(task_encoder_B,                 //Task Function name
