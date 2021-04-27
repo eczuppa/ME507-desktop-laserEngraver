@@ -17,14 +17,19 @@
 #define MACHINE_CMD_NULL 0
 #define MACHINE_CMD_HOME 1
 
+// Queue size for ramp segment coefficient structs
+#define RAMP_COEFFICIENT_Q_SIZE 32
+
 //Struct to contain all desired values to be sent from the translator to the control task via a queue
-struct desired_pos_vel_S
+struct ramp_segment_coefficients
 {
-    float A_pos = 0;
-    float B_pos = 0;
-    float A_feed = 0;
-    float B_feed = 0;
-    float S = 0;
+    float t0 = 0;       //Initial time of ramp segment
+    float t_end = 0;    //End time of ramp segment
+    float pos_A0 = 0;   //Initial A position
+    float pos_B0 = 0;   //Initial B position
+    float vel_A = 0;    //Velocity of A
+    float vel_B = 0;    //Velocity of B
+    float S = 0;        //Laser PWM signal
 };
 ///@endcond
 

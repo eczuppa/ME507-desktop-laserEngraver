@@ -14,8 +14,8 @@
 ///@cond
 //Shares and queues should go here
 
-// Queue to hold desired positions and feedrates of motors A and B
-Queue<desired_pos_vel_S> desired_queue(DES_Q_SIZE,"Desired A+B Position and Feeds");
+// Queue to hold desired coefficients for ramp inputs to each motor
+extern Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue;
 
 // Share to signal for homing sequence or not
 Share<bool> check_home ("Homing Flag");
@@ -48,7 +48,7 @@ void task_translate(void* p_params)
     decode decoder;
 
     //Create instance of desired struct for passing into the queue
-    desired_pos_vel_S desired;
+    ramp_segment_coefficients seg_coeff;
 
     //Create line char array to hold incoming data from the @c read_chars queue
     char line[LINE_BUFFER_SIZE];
@@ -98,13 +98,13 @@ void task_translate(void* p_params)
                 translator.calculate_kinematics(decoder);
 
                 //Put translated items into struct for clean transfer
-                desired.A_pos = translator.get_A_setpoint();
-                desired.B_pos = translator.get_B_setpoint();
-                desired.A_feed = translator.get_F_A();
-                desired.B_feed = translator.get_F_B();
+                seg_coeff.pos_A0 = translator.get_A_setpoint();
+                seg_coeff.pos_B0 = translator.get_B_setpoint();
+                seg_coeff.vel_A = translator.get_F_A();
+                seg_coeff.vel_B = translator.get_F_B();
 
                 //Put laser power into desired struct
-                desired.S = decoder.get_S();
+                seg_coeff.S = decoder.get_S();
 
                 //In progress: at this stage, we need to use motionplanning to turn the endpoints
                 //into a ramp; and then each increment in that ramp will be sent individually into 

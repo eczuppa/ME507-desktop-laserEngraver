@@ -82,7 +82,7 @@ void task_encoder_A (void* p_params)
         delta_time_A = velTmrA.lap();
         delta_position_A = encoder_A.get_delta();
 
-        //Update the total time (in seconds)
+        //Update the total time (in seconds; microsec / (microsec/sec)  )
         total_time += (float)delta_time_A/1000000;
 
         //Calculate velocity (encoder ticks/sec)

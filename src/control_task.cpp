@@ -15,7 +15,7 @@
 //setup externs for Incoming shares and queues here
 
 // TRANSLATED GCODE QUEUE
-extern Queue<desired_pos_vel_S> desired_queue;
+extern Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue;
 
 // CHECK HOME FLAG
 extern Share<bool> check_home;
@@ -72,7 +72,7 @@ void control_task(void* p_params)
     bool home_flag = false;                         //Homing flag
 
     //Struct containing desired values from task_translate
-    desired_pos_vel_S desired;
+    ramp_segment_coefficients desired;
 
     //Class containing motion-planning data
     MotionPlanning Ramper_A(0,0,0,0);
@@ -101,10 +101,10 @@ void control_task(void* p_params)
 
                 //If we have new desired values, 
                 // * and we have space to put values into the motor A and B queues (later):
-                if (desired_queue.any())
+                if (ramp_segment_coefficient_queue.any())
                 {
                     //Get the desired values:
-                    desired_queue.get(desired);
+                    ramp_segment_coefficient_queue.get(desired);
 
                     //Get the current encoder positions and velocities:
 

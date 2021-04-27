@@ -42,8 +42,8 @@ Share<float> encoder_B_time ("Encoder B time");
 // Temperature Task Queue
 // Queue<float> temperature_data (10,"Temp C Data");  
 
-
-
+// Segment coefficients for each ramp segment
+Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFFICIENT_Q_SIZE,"Ramp Coefficients");
 
 
 /**
@@ -138,6 +138,14 @@ void setup()
                 NULL,                           // Parameters for task fn.
                 13,                             // Priority
                 NULL);                          // Task handle
+
+    // // Create a task to run a test script
+    // xTaskCreate (task_test_script,              //Task Function name
+    //              "Run Test",                    // Name for printouts
+    //              1000,                          // Stack size
+    //              NULL,                          // Parameters for task fn.
+    //              10,                            // Priority
+    //              NULL);                         // Task handle
 
     Serial << "Tasks created" << endl;
 
