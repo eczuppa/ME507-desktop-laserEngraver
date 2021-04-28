@@ -205,7 +205,7 @@ void task_read_serial(void* p_params)
         #endif //TESTING_WITHOUT_PYTHON
 
         //Task delay
-        vTaskDelay(20);
+        vTaskDelay(2);
     }
 }
 
@@ -237,7 +237,7 @@ void task_print_serial(void* p_params)
             //Then print it!
             Serial << print_string;
         }
-        vTaskDelay(100);
+        vTaskDelay(10);
     }
 
 }

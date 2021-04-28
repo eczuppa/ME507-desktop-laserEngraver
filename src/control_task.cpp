@@ -75,8 +75,8 @@ void control_task(void* p_params)
     ramp_segment_coefficients desired;
 
     //Class containing motion-planning data
-    MotionPlanning Ramper_A(0,0,0,0);
-    MotionPlanning Ramper_B(0,0,0,0);
+    // MotionPlanning Ramper_A(0,0,0,0);
+    // MotionPlanning Ramper_B(0,0,0,0);
 
     //Crete PID loop classes
     Controller_PID ControlLoopPID_A(0,0,0,0,0,0,0,0);

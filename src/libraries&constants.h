@@ -29,7 +29,7 @@
 #include <pins_arduino.h>
 
 //From Github
-#include "BasicLinearAlgebra.h"
+// #include "BasicLinearAlgebra.h"
 #include "DallasTemperature.h"
 #include "OneWire.h"
 
@@ -43,14 +43,15 @@
 #include "TB6612FNG_Driver.h"
 #include "motor_task.h"
 #include "serial.h"
-#include "kinematics.h"
+// #include "kinematics.h"
 #include "stopwatch.h"
 #include "safetySupervisor.h"
-#include "motionplanning.h"
+// #include "motionplanning.h"
 #include "commands.h"
 #include "temperature_task.h"
 #include "control_task.h"
 #include "TEST_single_control.h"
+#include "translate.h"
 
 // ---------------------------------------------------------------------------------
 // -------------------- Define pin names as routed on the board -------------------- 

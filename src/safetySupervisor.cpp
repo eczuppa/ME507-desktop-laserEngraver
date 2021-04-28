@@ -65,7 +65,7 @@ void safety_task (void* p_params)
         // Serial << "Fan Flag = " << fan_flag << endl;
         
         // Initialize fan in the off position
-        bool fan_switch;
+        bool fan_switch = 0;
 
         // State 0
         if (state == 0)                         // The fan is off in state 0

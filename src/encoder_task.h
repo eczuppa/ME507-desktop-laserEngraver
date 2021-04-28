@@ -37,10 +37,18 @@
 #define REV_ENC_PER_REVOUT_MOTOR 6.3    //Gear ratio of motor
 #define OUTPUT_WHEEL_RADIUS_MM 5.95     //Radius of belt wheel on output shaft (mm)
 
+// Task timing constants
+#define ENCODER_PERIOD_A 10     //Encoder A task period
+#define ENCODER_PERIOD_B 10     //Encoder B task period
 
-const TickType_t encoder_period_A = 100;   //Encoder A task period; According to the task diagram this is only 0.3 ms
 
-const TickType_t encoder_period_B = 100;    //Encoder B task period; According to the task diagram this is only 0.3 ms
+// Struct for containing encoder output values
+struct encoder_output
+{
+    float pos = 0;
+    float vel = 0;
+    float time = 0;
+};
 
 ///@endcond
 

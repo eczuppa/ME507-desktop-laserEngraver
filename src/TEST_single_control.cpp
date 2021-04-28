@@ -3,24 +3,18 @@
  *
  *  @author  Niko Banks
  *  @date    3-23-2021 File Created
- *  @date    3-24-2021 Last Updated
+ *  @date    4-26-2021 Last Updated
  * 
 */
 
 #include "libraries&constants.h"
 
 
+// Shares for Encoders A and B
+extern Share<encoder_output> encoder_A_output;
+extern Share<encoder_output> encoder_B_output;
 
-// Shares for Encoder A
-extern Share<float> encoder_A_pos;
-extern Share<float> encoder_A_velocity;
-extern Share<float> encoder_A_time;
-
-// Shares for Encoder B
-extern Share<float> encoder_B_pos;
-extern Share<float> encoder_B_velocity;
-extern Share<float> encoder_B_time;
-
+// Queue for Ramp Coefficients
 extern Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue;
 
 
@@ -41,9 +35,10 @@ void task_single_control_B(void* p_params)
     float DC = 9;
 
     //Set up variables for encoder
-    float B_pos;
-    float B_vel;
-    float B_time;
+    // float B_pos;
+    // float B_vel;
+    // float B_time;
+    encoder_output enc_B_read;
 
     //Set the duty cycle
     Motor_B.setDutyCycle(DC);
@@ -58,25 +53,23 @@ void task_single_control_B(void* p_params)
     for(;;)
     {
         //Read off encoder position and velocity
-        encoder_B_pos.get(B_pos);
-        encoder_B_velocity.get(B_vel);
-        encoder_B_time.get(B_time);
+        encoder_B_output.get(enc_B_read);
 
-        if(B_time >=3)
+        if(enc_B_read.time >=3)
         {
             avg_count += 1;
 
-            avg_vel = (avg_vel*(avg_count-1) + B_vel) / (avg_count);
+            avg_vel = (avg_vel*(avg_count-1) + enc_B_read.vel) / (avg_count);
         }
 
         //Print the encoder positions and velocity
-        print_serial("Position:  ");    print_serial(B_pos);
+        print_serial("Position:  ");    print_serial(enc_B_read.pos);
         print_serial("  Velocity:  ");  print_serial(avg_vel);
-        print_serial("  Time:  ");      print_serial(B_time);
+        print_serial("  Time:  ");      print_serial(enc_B_read.time);
         print_serial("                                \r");
         // print_serial("                                \n");
 
-        vTaskDelay(500);
+        vTaskDelay(50);
     }
 }
 
@@ -95,22 +88,24 @@ void task_single_control_A(void* p_params)
 
     //Set up motor and set duty cycle
     Motor_A.enable();
-    float DC = 0;
-
-    //Set up variables for encoder
-    float A_pos;
-    float A_vel;
-    float A_time;
-
+    float DC = 10;
     Motor_A.setDutyCycle(DC);
 
-    // //Set up variables for control loop
+    //Set up variables for encoder
+    // float A_pos;
+    // float A_vel;
+    // float A_time;
+    encoder_output enc_A_read;
+
+    // Set up variables for control loop
     float error = 0;
     float integral = 0;
     float last_time = 0;
 
-    // //Set desired position
+    // Initialize structs
     motor_setpoint setpoint;
+
+    //Initialize classes
     setpoint_of_time xyoft;
 
     print_serial("Motor A Initialized\n");
@@ -137,22 +132,18 @@ void task_single_control_A(void* p_params)
     for(;;)
     {
         //Read off encoder position and velocity
-        encoder_A_pos.get(A_pos);
-        encoder_A_velocity.get(A_vel);
-        encoder_A_time.get(A_time);
-
-
+        encoder_A_output.get(enc_A_read);
         
-        setpoint = xyoft.get_desired_pos_vel(A_time);
+        setpoint = xyoft.get_desired_pos_vel(enc_A_read.time);
 
         //Run Control Loop
-        error = setpoint.A_pos - A_pos;
+        error = setpoint.A_pos - enc_A_read.pos;
 
-        integral += (A_time - last_time)*error;
+        integral += (enc_A_read.time - last_time)*error;
 
         DC = error*CONTROLLER_A_KP + integral*CONTROLLER_A_KI;
 
-        last_time = A_time;
+        last_time = enc_A_read.time;
 
         //Account for motor deadband
         if(DC>=0)  {  DC = DC*( 100 - MOTOR_DEADBAND)/100 - MOTOR_DEADBAND;  }
@@ -161,13 +152,13 @@ void task_single_control_A(void* p_params)
         Motor_A.setDutyCycle(DC);
 
         //Print the encoder positions and velocity
-        print_serial("Position:  ");    print_serial(A_pos);
-        print_serial("  Velocity:  ");  print_serial(A_vel);
-        print_serial("  Time:  ");      print_serial(A_time);
+        print_serial("Position:  ");    print_serial(enc_A_read.pos);
+        print_serial("  Velocity:  ");  print_serial(enc_A_read.vel);
+        print_serial("  Time:  ");      print_serial(enc_A_read.time);
         print_serial("                                \r");
         // print_serial("                                \n");
 
-        vTaskDelay(500);
+        vTaskDelay(50);
     }
 }
 
@@ -184,19 +175,16 @@ void task_single_control_both(void* p_params)
     TB6612FNG Motor_A(STBY,AIN2,AIN1,PWM_A);
     TB6612FNG Motor_B(STBY,BIN2,BIN1,PWM_B);
 
-    //Set up motor and set duty cycle
+    // Enable motors and set duty cycle
     Motor_A.enable();
     Motor_B.enable();
-    float DC_A = 100;
-    float DC_B = 100;
+    float DC_A = 50;
+    float DC_B = 50;
 
     //Set up variables for encoder
-    float A_pos;
-    float A_vel;
-    float A_time;
-    float B_pos;
-    float B_vel;
-    float B_time;
+    encoder_output enc_A_read;
+    encoder_output enc_B_read;
+
 
     //Set the duty cycle
     Motor_A.setDutyCycle(DC_A);
@@ -210,26 +198,21 @@ void task_single_control_both(void* p_params)
     for(;;)
     {
         //Read off encoder position and velocity
-        encoder_A_pos.get(A_pos);
-        encoder_A_velocity.get(A_vel);
-        encoder_A_time.get(A_time);
-
-        encoder_B_pos.get(B_pos);
-        encoder_B_velocity.get(B_vel);
-        encoder_B_time.get(B_time);
+        encoder_A_output.get(enc_A_read);
+        encoder_B_output.get(enc_B_read);
 
 
         //Print the encoder positions and velocity
-        print_serial("     ");      print_serial(A_pos);
-        print_serial("  ");         print_serial(B_pos);
-        print_serial("      ");     print_serial(A_vel);
-        print_serial("  ");         print_serial(B_vel);
-        print_serial("      ");     print_serial(A_time);
-        print_serial("  ");         print_serial(B_time);
+        print_serial("     ");      print_serial(enc_A_read.pos);
+        print_serial("  ");         print_serial(enc_B_read.pos);
+        print_serial("      ");     print_serial(enc_A_read.vel);
+        print_serial("  ");         print_serial(enc_B_read.vel);
+        print_serial("      ");     print_serial(enc_A_read.time);
+        print_serial("  ");         print_serial(enc_B_read.time);
         print_serial("                              \r");
         // print_serial("                                \n");
 
-        vTaskDelay(500);
+        vTaskDelay(50);
     }
 }
 
@@ -238,69 +221,6 @@ void task_single_control_both(void* p_params)
 
 
 // ============================= SUBFUNCTIONS =============================
-
-setpoint_of_time::setpoint_of_time(void)
-{
-    //Don't do anything with the constructor (yet)
-}
-
-
-motor_setpoint setpoint_of_time::get_desired_pos_vel(float time)
-{
-    //Figure out which segment of the desired curve that we're looking at based on the time we're given; 
-    //that will determine what the constants we can use are
-    
-    //Create instance of struct containing setpoints
-    motor_setpoint setpoint;
-
-    bool checking_coefficients = true;
-
-    //Find out which segment we're looking at
-    while(checking_coefficients)    //Loop used to continuously check the coefficients until we find a set that is within our time range
-    {
-        if(time > _seg_coeff.t_end)     //We've passed the end of the current ramp segment; we may need to update coefficients
-        {
-            if(ramp_segment_coefficient_queue.is_empty())
-            {
-                //If there are no new coefficients available, set positions to the final desired position and then 
-                //set velocities to 0 to keep the position steady
-                _seg_coeff.pos_A0 = _seg_coeff.vel_A * (_seg_coeff.t_end - _seg_coeff.t0)  + _seg_coeff.pos_A0;
-                _seg_coeff.pos_B0 = _seg_coeff.vel_B * (_seg_coeff.t_end - _seg_coeff.t0)  + _seg_coeff.pos_B0;
-
-                _seg_coeff.vel_A = 0;
-                _seg_coeff.vel_B = 0;
-
-                //Get us out of the checking loop
-                checking_coefficients = false;
-            }
-            else //We have new coefficients in the queue; get it and replace the old _seg_coeff with this new set.
-            {
-                ramp_segment_coefficient_queue.get(_seg_coeff);
-            }
-        }
-        else //If time <= t_end of the current segment, we don't have to change the segment coefficients. 
-        {
-            checking_coefficients = false;
-        }
-    } //while(checking_coefficients)
-
-    //Caclulate desired position
-    // A(t)  =  vel_A*(t-t0) + A0
-    setpoint.A_pos = _seg_coeff.vel_A * (time - _seg_coeff.t0)  + _seg_coeff.pos_A0;
-    setpoint.B_pos = _seg_coeff.vel_B * (time - _seg_coeff.t0)  + _seg_coeff.pos_B0;
-
-    //Send desired velocity to the output struct
-    // setpoint.A_vel = _seg_coeff.vel_A;
-    setpoint.A_vel = _seg_coeff.vel_A;
-    setpoint.B_vel = _seg_coeff.vel_B;
-
-    return setpoint;
-}
-
-
-
-
-
 
 
 // Testing task function

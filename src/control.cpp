@@ -103,7 +103,7 @@ void Controller_PID::control_loop_PID ()
 {
 
     // Calculate the change in position for each cycle
-    float delta_position = pos_actual - pos_last;
+    // float delta_position = pos_actual - pos_last;
 
     // Error between the currect "desired" and the current "actual" encoder position/velocity
     pos_error = pos_desired - pos_actual;           // This is not being fed values from the inputs

@@ -26,7 +26,7 @@ void temperature_task (void* p_params)
     DallasTemperature Flame_sens(&temp_Sens);       //  Dallas Temperature Class Instance for Flame Sensor
      
     Flame_sens.setResolution(resolution);               
-    uint16_t sens_delay_ms = 750 / (1<<(12-resolution));  // set wait for conversion delay 
+    // uint16_t sens_delay_ms = 750 / (1<<(12-resolution));  // set wait for conversion delay 
 
     // Start all sensors attached to the bus
     Flame_sens.begin();

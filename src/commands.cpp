@@ -31,7 +31,7 @@ extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
  *              and splits it up into the separate commands. Commands are then sent to the control task via queues
  *              and shares. Gcode is translated from @c X @c Y and @c F values into desired positions and feedrates 
  *              for both motors; @c _A_setpoint, @c _A_feed, @c _B_setpoint and @c _B_feed, which are class member 
- *              data of the class @c Kinematics_coreXY. Regular machine commands such as homing are also translated 
+ *              data of the class @c coreXY_to_AB. Regular machine commands such as homing are also translated 
  *              to motor commands, which are then sent to the control task so it may run them. 
  * 
  *  @param      p_params A pointer to function parameters which we don't use.
@@ -44,7 +44,7 @@ void task_translate(void* p_params)
     Serial.setTimeout (0xFFFFFFFF);
 
     //Initialize translator and decoder class members 
-    Kinematics_coreXY translator;
+    coreXY_to_AB translator;
     decode decoder;
 
     //Create instance of desired struct for passing into the queue
@@ -95,16 +95,9 @@ void task_translate(void* p_params)
                 //Interpret the line as gcode (data is stored in decoder class)
                 decoder.interpret_gcode_line(line);
                 //update kinematic translator with new values
-                translator.calculate_kinematics(decoder);
+                translator.translate_to_queue(decoder);
 
-                //Put translated items into struct for clean transfer
-                seg_coeff.pos_A0 = translator.get_A_setpoint();
-                seg_coeff.pos_B0 = translator.get_B_setpoint();
-                seg_coeff.vel_A = translator.get_F_A();
-                seg_coeff.vel_B = translator.get_F_B();
 
-                //Put laser power into desired struct
-                seg_coeff.S = decoder.get_S();
 
                 //In progress: at this stage, we need to use motionplanning to turn the endpoints
                 //into a ramp; and then each increment in that ramp will be sent individually into 

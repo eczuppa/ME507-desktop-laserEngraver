@@ -13,22 +13,21 @@
 
 #include "libraries&constants.h"
 
-///@cond
-// Set up shares and queues
+///@cond 
+//Set up shares and queues
 
-// shares for Encoder A
-extern Share<float> encoder_A_pos;
-extern Share<float> encoder_A_velocity;
-extern Share<float> encoder_A_time;
-
-// Shares for Encoder B
-extern Share<float> encoder_B_pos;
-extern Share<float> encoder_B_velocity;
-extern Share<float> encoder_B_time;
+// Shares for Encoder A and B
+extern Share<encoder_output> encoder_A_output;
+extern Share<encoder_output> encoder_B_output;
 
 ///@endcond
 
-// Encoder A Task
+
+
+
+
+// ========================================= Encoder A Task ========================================= 
+
 
 /** @brief   Task to run the left encoder, Encoder A (Motor 1 Encoder) 
  *  @details This task will interface with the Quad_Encoder class in order
@@ -68,12 +67,12 @@ void task_encoder_A (void* p_params)
     // temporary variables used to for calculations
     float velocity_A = 0;
     float raw_vel_A = 0;
-    float total_time = 0;
 
     //Output variables for position and velocity
     float pos_A_out = 0;
     float vel_A_out = 0;
-    
+    float total_time = 0;
+    encoder_output enc_A;
 
     for (;;)
     {
@@ -99,12 +98,15 @@ void task_encoder_A (void* p_params)
         vel_A_out = convert_units(velocity_A,ENC_VELOCITY_MODE_RPMOUT);
 
         // Put all those values into their respective shares to be used in other functions
-        encoder_A_pos.put(pos_A_out);
-        encoder_A_velocity.put(vel_A_out);
-        encoder_A_time.put(total_time);
+        enc_A.pos  = pos_A_out;
+        enc_A.vel  = vel_A_out;
+        enc_A.time = total_time;
+
+        encoder_A_output.put(enc_A);
+
 
         // Delay until reset        
-        vTaskDelayUntil(&xLastWakeTime, encoder_period_A);
+        vTaskDelayUntil(&xLastWakeTime, ENCODER_PERIOD_A);
     }
 
 }
@@ -112,7 +114,11 @@ void task_encoder_A (void* p_params)
 
 
 
-// Encoder B Task
+
+
+
+// ========================================= Encoder B Task ========================================= 
+
 
 /** @brief   Task to run the right encoder, Encoder B (Motor 2 Encoder) 
  *  @details This task will interface with the Quad_Encoder class in order
@@ -154,11 +160,12 @@ void task_encoder_B (void* p_params)
     // temporary variables used to for calculations
     float velocity_B = 0;
     float raw_vel_B = 0;
-    float total_time = 0;
 
     //Output variables for position and velocity
     float pos_B_out = 0;
     float vel_B_out = 0;
+    float total_time = 0;
+    encoder_output enc_B;
 
     print_serial("Encoder B initialized\n");
     
@@ -186,18 +193,23 @@ void task_encoder_B (void* p_params)
         vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_RPMOUT);
 
         // Put all those values into their respective shares to be used in other functions
-        encoder_B_pos.put(pos_B_out);
-        encoder_B_velocity.put(vel_B_out);
-        encoder_B_time.put(total_time);
+        enc_B.pos  = pos_B_out;
+        enc_B.vel  = vel_B_out;
+        enc_B.time = total_time;
+
+        encoder_B_output.put(enc_B);
 
         // Delay until reset        
-        vTaskDelayUntil(&xLastWakeTime, encoder_period_B);
+        vTaskDelayUntil(&xLastWakeTime, ENCODER_PERIOD_B);
     }
 
 }
 
 
-// ============================= SUBFUNCTIONS =============================
+
+
+// ========================================= SUBFUNCTIONS ========================================= 
+
 
 /** @brief   Convert units out of ticks or ticks/sec
  *  @details This function 

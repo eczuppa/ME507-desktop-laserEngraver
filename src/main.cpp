@@ -14,52 +14,44 @@
 #include "libraries&constants.h"
 
 //Shares and queues should go here
+
+// Queues for serial printing and reading
 Queue<char[LINE_BUFFER_SIZE]> chars_to_print(WRITE_Q_SIZE,"char array printer");
 Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
 
+// Shares for Encoder A and B
+Share<encoder_output> encoder_A_output ("Encoder A variables");
+Share<encoder_output> encoder_B_output ("Encoder B variables");
 
+// Queue for ramp segments
+Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFFICIENT_Q_SIZE,"Ramp Coefficients");
 
-// // Queues for Encoder A
-// Queue<float> encoder_A_pos (100,"Encoder A Position");
-// Queue<float> encoder_A_velocity (1,"Encoder A Velocity");
-// Queue<uint16_t> encoder_A_dt (1,"Encoder A delta t");
-
-// // Queues for Encoder B
-// Queue<float> encoder_B_pos (100,"Encoder B Position");
-// Queue<float> encoder_B_velocity (1,"Encoder B Velocity");
-// Queue<uint16_t> encoder_B_dt (1,"Encoder B delta t");
-
-// Shares for Encoder A
-Share<float> encoder_A_pos ("Encoder A Position");
-Share<float> encoder_A_velocity ("Encoder A Velocity");
-Share<float> encoder_A_time ("Encoder A delta t");
-
-// Shares for Encoder B
-Share<float> encoder_B_pos ("Encoder B Position");
-Share<float> encoder_B_velocity ("Encoder B Velocity");
-Share<float> encoder_B_time ("Encoder B time");
-
-// Temperature Task Queue
+// Queue for Temperature Task 
 // Queue<float> temperature_data (10,"Temp C Data");  
 
-// Segment coefficients for each ramp segment
-Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFFICIENT_Q_SIZE,"Ramp Coefficients");
+
 
 
 /**
- * In order to achieve sub-millisecond task timing, the default value of configTick_RATE_HZ was changed to (SysClock)/10000 instead of (SysClock)/1000. 
- * This means every RTOS tick is 1/10th of a millisecond instead of 1 millisecond. This comes at the cost of reducing the time slice each task can be 
- * given before the CPU is overloaded by how fast the RTOS is trying to run. 
- * Use this version with a lower powered microcontroller at your own risk. This fork was created solely for this config change for a grbl-like 
- * (but not compatible ... yet) desktop laser cutter than uses a STM32 Nucleo L476RG. Also, delay quantities in vTaskDelay or vTaskDelayUntil can be updated
- *  to account for the change in TICK_RATE_HZ by using the pdMS_TO_TICKS() macro as follows:
+ * In order to achieve sub-millisecond task timing, the default value of configTick_RATE_HZ was changed to 
+ * (SysClock)/10000 instead of (SysClock)/1000. This means every RTOS tick is 1/10th of a millisecond instead of 
+ * 1 millisecond. This comes at the cost of reducing the time slice each task can be given before the CPU is overloaded by 
+ * how fast the RTOS is trying to run. Use this version with a lower powered microcontroller at your own risk. This fork was 
+ * created solely for this config change for a grbl-like (but not compatible ... yet) desktop laser cutter than uses a STM32 
+ * Nucleo L476RG. Also, delay quantities in vTaskDelay or vTaskDelayUntil can be updated to account for the change in 
+ * TICK_RATE_HZ by using the pdMS_TO_TICKS() macro as follows:
  *         const TickType_t xBlockTime = pdMS_TO_TICKS( 100 );
  *         vTaskDelay( xBlockTime ); 
  * from https://arduino.stackexchange.com/questions/25746/changing-the-tick-time-in-freertos 
  * answered by FreeRTOS.org and rebatoma. This approach is significantly more convenient than 
  * going through and updating all the delay periods for each of your tasks.
+ * 
+ * UPDATE 4/27/20: sub-millisecond task timing doesn't work, it overloads the controller when multiple tasks are run at 
+ * that speed. and also, we discovered that it isn't necessary; the encoder timers count all the ticks regardless of how 
+ * fast the encoder task function is run. As a result, configTick_RATE_HZ was set back to (SysClock)/1000 in 
+ * FreeRTOSConfig_Default.h to set timing back in milliseconds. 
+ * 
  */ 
-
 
 
 
@@ -116,7 +108,7 @@ void setup()
     //              NULL);                         // Task handle
 
     // Create a task that test runs a single motor
-    xTaskCreate (task_single_control_A,      //Task Function name
+    xTaskCreate (task_single_control_A,         // Task Function name
                  "Motor B",                     // Name for printouts
                  1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
@@ -124,7 +116,7 @@ void setup()
                  NULL);                         // Task handle
 
     //Task to run encoder A
-    xTaskCreate(task_encoder_A,                 //Task Function name
+    xTaskCreate(task_encoder_A,                 // Task Function name
                 "test encoder A",               // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
@@ -132,7 +124,7 @@ void setup()
                 NULL);                          // Task handle
 
     //Task to run encoder B
-    xTaskCreate(task_encoder_B,                 //Task Function name
+    xTaskCreate(task_encoder_B,                 // Task Function name
                 "test encoder B",               // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
