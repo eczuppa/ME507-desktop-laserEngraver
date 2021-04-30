@@ -47,10 +47,10 @@
 #include "stopwatch.h"
 #include "safetySupervisor.h"
 // #include "motionplanning.h"
-#include "commands.h"
+// #include "commands.h"
 #include "temperature_task.h"
 #include "control_task.h"
-#include "TEST_single_control.h"
+#include "motor_test_tasks.h"
 #include "translate.h"
 
 // ---------------------------------------------------------------------------------

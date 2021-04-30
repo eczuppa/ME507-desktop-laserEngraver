@@ -237,10 +237,10 @@ void decode::interpret_gcode_line(char *line)
         }//else (Not a comment or space)
     }
     
-    // ------------------------- And the meek shall inherit the earth... ----------------------------
-
+    
     return;
 }
+
 
 
 /** @brief      Function which initializes the running of gcode
@@ -279,7 +279,8 @@ uint8_t decode::get_S(void)
 
 
 
-//Nuts-Bolts type functions:
+// ================================================== SUBFUNCTIONS ================================================== 
+
 
 /** @brief      Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b> 
  *  @details    The following code is based loosely on the avr-libc strtod() function by Michael Stumpf and Dmitry 

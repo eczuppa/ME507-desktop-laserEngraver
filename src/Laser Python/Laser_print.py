@@ -80,8 +80,10 @@ class Laser_printer:
                         self.ComPort.write(line)
                         i += 1
 
-                        if line[0] == ';':
-                            print(line[1:len(line)])                    
+                        #print the line so we can see what was just sent
+                        # if line[0] == ';':
+                            # print(line[1:len(line)])      
+                        print(line[0:len(line)])                 
 
                 # #If we're told to wait, just wait here until we get a new reading from read_val.
                 # elif read_val == "Wait":

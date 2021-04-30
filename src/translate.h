@@ -18,7 +18,8 @@
 // Queue size for ramp segment coefficient structs
 #define RAMP_COEFFICIENT_Q_SIZE 32
 
-
+#define MACHINE_CMD_NULL 0
+#define MACHINE_CMD_HOME 1
 
 
 
@@ -107,6 +108,15 @@ class coreXY_to_AB
 
 };
 
+
+// =========================================== Functions ===========================================
+
+
+//Task function to translate and send out necessary control data
+void task_translate(void* p_params);
+
+//function which interprets a machine command
+uint8_t interpret_machinecmd_line(char *line);
 
 
 #endif //TRANSLATE_H

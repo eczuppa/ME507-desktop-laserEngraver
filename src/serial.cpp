@@ -14,34 +14,15 @@
 //Don't document this part
 ///@cond
 //Shares and queues should go here
+extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print_queue;
+extern Queue<char[LINE_BUFFER_SIZE]> read_chars_queue;
 
-// // MOTOR A ENCODER DATA
-// extern Queue<float> encoder_A_pos; 
-// extern Queue<float> encoder_A_velocity;
-// extern Queue<uint16_t> encoder_A_dt;
-
-// // MOTOR B ENCODER DATA
-// extern Queue<float> encoder_B_pos;
-// extern Queue<float> encoder_B_velocity;
-// extern Queue<uint16_t> encoder_B_dt;
-
-// REMOVE THESE SHARES ONCE ENCODER TESTING IS NOT REQUIRED
-// Shares for Encoder A
-extern Share<float> encoder_A_pos;
-extern Share<float> encoder_A_velocity;
-extern Share<uint32_t> encoder_A_dt;
-
-// Shares for Encoder B
-extern Share<float> encoder_B_pos;
-extern Share<float> encoder_B_velocity;
-extern Share<uint32_t> encoder_B_dt;
+///@endcond
 
 
 //---------------------------PYTHON SCRIPT COMMUNICATION FILES---------------------------
 
-extern Queue<char[LINE_BUFFER_SIZE]> chars_to_print;
-extern Queue<char[LINE_BUFFER_SIZE]> read_chars;
-///@endcond
+
 
 /** @brief      Task which reads the serial port and puts it in a queue.
  *  @details    This task reads an input into the serial port (from the python UI
@@ -143,7 +124,7 @@ void task_read_serial(void* p_params)
 
                 if (incomingByte == int16_t('\0'))   //If we get the end of a line...
                 {
-                    read_chars.put(line);       //Put line data into the read_string
+                    read_chars_queue.put(line);       //Put line data into the read_string
 
                     // line[strlen(line)] = '\n';       //Add a newline (\n) char to the end to signify to the python script that the line has ended
                     // print_serial(line);              //Temporarily echo
@@ -155,7 +136,7 @@ void task_read_serial(void* p_params)
                     digitalWrite(LED_BUILTIN,LOW);  //Signal recieved, turn light off
 
                     //If the queue is filling and we aren't ready for more data: Go to NOT_READY state
-                    if (read_chars.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)      //NOT ready: queue is close to full
+                    if (read_chars_queue.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)      //NOT ready: queue is close to full
                     {
                         read_state = NOT_READY;         //Switch state to NOT_READY
                     }
@@ -171,7 +152,7 @@ void task_read_serial(void* p_params)
             // the queue has opened up enough to where we can be ready again, in which case we'll go back to 
             // the READY state.
             case NOT_READY:
-                if (read_chars.available() < READ_Q_SIZE - PAUSE_Q_LIMIT)      //Ready to go; queue has enough space
+                if (read_chars_queue.available() < READ_Q_SIZE - PAUSE_Q_LIMIT)      //Ready to go; queue has enough space
                     {
                         read_state = READY;         //Switch state to READY
                     }
@@ -199,7 +180,7 @@ void task_read_serial(void* p_params)
                     line[char_counter] = test_line[char_counter];
                 }
                 // Put line data into the read_string
-                read_chars.put(line);
+                read_chars_queue.put(line);
                 line_one = false;
             }
         #endif //TESTING_WITHOUT_PYTHON
@@ -229,10 +210,10 @@ void task_print_serial(void* p_params)
     for(;;)
     {
         //When you get a string in the string_to_print queue...
-        if (chars_to_print.any())
+        if (chars_to_print_queue.any())
         {
             //Get it from the queue...
-            chars_to_print.get(print_string);
+            chars_to_print_queue.get(print_string);
             
             //Then print it!
             Serial << print_string;
@@ -260,11 +241,11 @@ void task_print_serial(void* p_params)
 void print_serial(String printed_string)
 {
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //set print char array to string of input string
         printed_string.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 //For floats
@@ -273,11 +254,11 @@ void print_serial(float printed_float)
     //Get string of input character array
         String str_print = (String)printed_float;
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //set print char array to char of input string
         str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 //For uint8_t
@@ -286,11 +267,11 @@ void print_serial(uint8_t printed_int)
     //Get string of input character array
         String str_print = (String)printed_int;
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //set print char array to char of input string
         str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 //For character arrays
@@ -299,33 +280,33 @@ void print_serial(char *printed_char)
     //Get string of input character array
         String str_print = (String)printed_char;
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //set print char array to char of string of input char array (redundant? yes. But it doesn't seem to work otherwise.)
         str_print.toCharArray(char_print,LINE_BUFFER_SIZE);
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 //For single chars
 void print_serial(char printed_char)
 {
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //Assign char to char array
         char_print[0] = printed_char;
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 //For constant chars
 void print_serial(const char* printed_char)
 {
     //create char array to print
-        char char_print[LINE_BUFFER_SIZE];
+        char char_print[LINE_BUFFER_SIZE] = "";
     //Assign const char* to char array
         strcpy(char_print,printed_char);
     //Put into queue
-        chars_to_print.put(char_print);
+        chars_to_print_queue.put(char_print);
 }
 
 
@@ -344,6 +325,16 @@ void print_serial(const char* printed_char)
 
 ///@cond
 Share<int32_t> s_duty_cycle ("Power");
+// REMOVE THESE SHARES ONCE ENCODER TESTING IS NOT REQUIRED
+// Shares for Encoder A
+extern Share<float> encoder_A_pos;
+extern Share<float> encoder_A_velocity;
+extern Share<uint32_t> encoder_A_dt;
+
+// Shares for Encoder B
+extern Share<float> encoder_B_pos;
+extern Share<float> encoder_B_velocity;
+extern Share<uint32_t> encoder_B_dt;
 ///@endcond
 
 /** @brief   Read an integer from a serial device, echoing input and blocking.

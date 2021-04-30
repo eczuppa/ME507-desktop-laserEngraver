@@ -16,15 +16,18 @@
 //Shares and queues should go here
 
 // Queues for serial printing and reading
-Queue<char[LINE_BUFFER_SIZE]> chars_to_print(WRITE_Q_SIZE,"char array printer");
-Queue<char[LINE_BUFFER_SIZE]> read_chars(READ_Q_SIZE,"read_val");
+Queue<char[LINE_BUFFER_SIZE]> chars_to_print_queue(WRITE_Q_SIZE,"char array printer");
+Queue<char[LINE_BUFFER_SIZE]> read_chars_queue(READ_Q_SIZE,"read_val");
 
 // Shares for Encoder A and B
-Share<encoder_output> encoder_A_output ("Encoder A variables");
-Share<encoder_output> encoder_B_output ("Encoder B variables");
+Share<encoder_output> enc_A_output_share ("Encoder A variables");
+Share<encoder_output> enc_B_output_share ("Encoder B variables");
 
 // Queue for ramp segments
 Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFFICIENT_Q_SIZE,"Ramp Coefficients");
+
+// Share for signalling to check home
+Share<bool> check_home_share ("Homing Flag");
 
 // Queue for Temperature Task 
 // Queue<float> temperature_data (10,"Temp C Data");  
@@ -61,7 +64,7 @@ void setup()
     // non-RTOS delay() function because the RTOS hasn't been started yet
     Serial.begin (115200);
     delay (2000);
-    Serial << endl << "Laser Program Initializing" << endl;
+    Serial << endl << "\nLaser Program Initializing" << endl;
     
     //Create instance of timer 3 for motors
     // TIM_TypeDef * _p_timer = TIM3;
@@ -71,14 +74,18 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    #define NIKO_TESTING 0
+    // #define NIKO_TESTING 0
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
+    #define TEST_CONST_VELOCITY 3
+    // #define TEST_CONTROL_PATH 4
 
     //======================================================================================
     
     //Niko test section
     #ifdef NIKO_TESTING
+
+    Serial << "Running Niko Testing" << endl;
 
     pinMode(LED_BUILTIN,OUTPUT);
 
@@ -100,16 +107,17 @@ void setup()
                  NULL);                         // Task handle
 
     // // Create a task to translate command codes to the contorller
-    // xTaskCreate(task_translate,                 //Task Function name
+    // xTaskCreate(task_translate,                 // Task Function name
     //              "Translating",                 // Name for printouts
     //              1000,                          // Stack size
     //              NULL,                          // Parameters for task fn.
     //              9,                             // Priority
     //              NULL);                         // Task handle
 
+
     // Create a task that test runs a single motor
-    xTaskCreate (task_single_control_A,         // Task Function name
-                 "Motor B",                     // Name for printouts
+    xTaskCreate (task_test_control_path,        // Task Function name
+                 "Motor Test",                  // Name for printouts
                  1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
                  1,                             // Priority
@@ -117,7 +125,7 @@ void setup()
 
     //Task to run encoder A
     xTaskCreate(task_encoder_A,                 // Task Function name
-                "test encoder A",               // Name for printouts
+                "Run encoder A",                // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
                 13,                             // Priority
@@ -125,7 +133,7 @@ void setup()
 
     //Task to run encoder B
     xTaskCreate(task_encoder_B,                 // Task Function name
-                "test encoder B",               // Name for printouts
+                "Run encoder B",                // Name for printouts
                 4096,                           // Stack size
                 NULL,                           // Parameters for task fn.
                 13,                             // Priority
@@ -138,7 +146,7 @@ void setup()
     //              NULL,                          // Parameters for task fn.
     //              10,                            // Priority
     //              NULL);                         // Task handle
-
+    
     Serial << "Tasks created" << endl;
 
     vTaskStartScheduler();
@@ -150,6 +158,8 @@ void setup()
     
     //MATTHEW test section
     #ifdef MATTHEW_TESTING
+
+    Serial << "Running Matthew Testing" << endl;
 
 
 // FAN TESTING CODE: Using the blue button on the Nucleo to simulate the "laser is on" flag.
@@ -373,20 +383,21 @@ void setup()
 //                 NULL);
 //     Serial << "Receiving task has run successfully" << endl;
 
-
 //     // Start running the tasks, sir!
 //     vTaskStartScheduler ();
 
 
 
-
-
     #endif //MATTHEW_TESTING
+
+
 
     //======================================================================================
     
     //Ethan test section
     #ifdef ETHAN_TESTING
+
+    Serial << "Running Ethan Testing" << endl;
 
     //Task to drive motor A
     xTaskCreate(motor_A_driver_task,            //Task Function name
@@ -433,7 +444,6 @@ void setup()
 
     Serial << "ui task init done" << endl;
 
-
     vTaskStartScheduler ();
 
 
@@ -442,7 +452,99 @@ void setup()
     #endif //ETHAN_TESTING
 
 
+
+    //======================================================================================
+
+    #ifdef TEST_CONST_VELOCITY
+
+    Serial << "Running Constant Velocity Test" << endl;
+
+    // Create a task to read inputs from the serial port
+    xTaskCreate (task_print_serial,             //Task Function name
+                 "Printing Serial",             // Name for printouts
+                 1000,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 3,                             // Priority
+                 NULL);                         // Task handle
+
+    // Create a task that test runs a single motor
+    xTaskCreate (task_test_const_velocity,      // Task Function name
+                 "Motor Test",                  // Name for printouts
+                 1000,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 1,                             // Priority
+                 NULL);                         // Task handle
+
+    //Task to run encoder A
+    xTaskCreate(task_encoder_A,                 // Task Function name
+                "Run encoder A",                // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
+    //Task to run encoder B
+    xTaskCreate(task_encoder_B,                 // Task Function name
+                "Run encoder B",                // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
+    Serial << "Tasks created" << endl;
+
+    vTaskStartScheduler();
+
+    #endif //TEST_CONST_VELOCITY
+
+
+
+    //======================================================================================
+
+
+    #ifdef TEST_CONTROL_PATH
+
+    Serial << "Running Control Path Test" << endl;
+
+    // Create a task to read inputs from the serial port
+    xTaskCreate (task_print_serial,             //Task Function name
+                 "Printing Serial",             // Name for printouts
+                 1000,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 3,                             // Priority
+                 NULL);                         // Task handle
+
+    // Create a task that test runs a single motor
+    xTaskCreate (task_test_control_path,        // Task Function name
+                 "Motor Test",                  // Name for printouts
+                 1000,                          // Stack size
+                 NULL,                          // Parameters for task fn.
+                 1,                             // Priority
+                 NULL);                         // Task handle
+
+    //Task to run encoder A
+    xTaskCreate(task_encoder_A,                 // Task Function name
+                "Run encoder A",                // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+
+    //Task to run encoder B
+    xTaskCreate(task_encoder_B,                 // Task Function name
+                "Run encoder B",                // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                13,                             // Priority
+                NULL);                          // Task handle
+    
+    Serial << "Tasks created" << endl;
+
+    vTaskStartScheduler();
+
+    #endif //TEST_CONTROL_PATH
 }
+
 
 /** @brief   Arduino's low-priority loop function, which we don't use.
  *  @details A non-RTOS Arduino program runs all of its continuously running

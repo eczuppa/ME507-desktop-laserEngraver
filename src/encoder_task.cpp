@@ -17,8 +17,8 @@
 //Set up shares and queues
 
 // Shares for Encoder A and B
-extern Share<encoder_output> encoder_A_output;
-extern Share<encoder_output> encoder_B_output;
+extern Share<encoder_output> enc_A_output_share;
+extern Share<encoder_output> enc_B_output_share;
 
 ///@endcond
 
@@ -74,6 +74,8 @@ void task_encoder_A (void* p_params)
     float total_time = 0;
     encoder_output enc_A;
 
+    print_serial("Encoder A initialized\n");
+
     for (;;)
     {
         // get position, change in position, and change in time
@@ -102,7 +104,7 @@ void task_encoder_A (void* p_params)
         enc_A.vel  = vel_A_out;
         enc_A.time = total_time;
 
-        encoder_A_output.put(enc_A);
+        enc_A_output_share.put(enc_A);
 
 
         // Delay until reset        
@@ -197,7 +199,7 @@ void task_encoder_B (void* p_params)
         enc_B.vel  = vel_B_out;
         enc_B.time = total_time;
 
-        encoder_B_output.put(enc_B);
+        enc_B_output_share.put(enc_B);
 
         // Delay until reset        
         vTaskDelayUntil(&xLastWakeTime, ENCODER_PERIOD_B);

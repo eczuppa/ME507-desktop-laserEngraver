@@ -14,16 +14,16 @@
 
 ///@cond
 //Define Machine Commands
-#define MACHINE_CMD_NULL 0
-#define MACHINE_CMD_HOME 1
+// #define MACHINE_CMD_NULL 0
+// #define MACHINE_CMD_HOME 1
 
 
 ///@endcond
 
 //Task function to translate and send out necessary control data
-void task_translate(void* p_params);
+// void task_translate(void* p_params);
 
-//function which interprets a machine command
-uint8_t interpret_machinecmd_line(char *line);
+// //function which interprets a machine command
+// uint8_t interpret_machinecmd_line(char *line);
 
 #endif //COMMANDS_H

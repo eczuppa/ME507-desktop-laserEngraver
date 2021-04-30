@@ -19,8 +19,8 @@ print('Library imports completed\n')
 
 
 #Create Constants
-SERIAL_DEVICE = '/dev/cu.usbmodem141403'
-# SERIAL_DEVICE = '/dev/cu.usbmodem14203'
+# SERIAL_DEVICE = '/dev/cu.usbmodem141403'
+SERIAL_DEVICE = '/dev/cu.usbmodem14203'
 
 
 # TO CONNECT TO A DEVICE:
