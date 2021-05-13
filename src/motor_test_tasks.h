@@ -21,7 +21,7 @@
 
 
 // Parameters for path test
-#define PATH_TEST_MOTOR 'B'             // 'A' or 'B'
+#define PATH_TEST_MOTOR 'A'             // 'A' or 'B'
 #define PATH_TEST_CONTROL_KP 10
 #define PATH_TEST_CONTROL_KI 1
 #define PATH_TEST_CONTROL_KD 0
@@ -37,6 +37,8 @@ void task_test_control_path(void* p_params);
 
 
 void task_single_control_both(void* p_params);
+
+void task_test_gcode_response(void* p_params);
 void task_test_script(void* p_params);
 
 

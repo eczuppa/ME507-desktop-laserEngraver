@@ -61,6 +61,7 @@ void task_read_serial(void* p_params)
     // bool update_input = true;
 
     //Turn off LED to start
+    pinMode(LED_BUILTIN,OUTPUT);
     digitalWrite(LED_BUILTIN,LOW);
 
     //Task for loop
@@ -136,7 +137,7 @@ void task_read_serial(void* p_params)
                     digitalWrite(LED_BUILTIN,LOW);  //Signal recieved, turn light off
 
                     //If the queue is filling and we aren't ready for more data: Go to NOT_READY state
-                    if (read_chars_queue.available() >= READ_Q_SIZE - PAUSE_Q_LIMIT)      //NOT ready: queue is close to full
+                    if (read_chars_queue.available() >= READ_Q_SIZE - READ_Q_PAUSE_LIMIT)      //NOT ready: queue is close to full
                     {
                         read_state = NOT_READY;         //Switch state to NOT_READY
                     }
@@ -152,7 +153,7 @@ void task_read_serial(void* p_params)
             // the queue has opened up enough to where we can be ready again, in which case we'll go back to 
             // the READY state.
             case NOT_READY:
-                if (read_chars_queue.available() < READ_Q_SIZE - PAUSE_Q_LIMIT)      //Ready to go; queue has enough space
+                if (read_chars_queue.available() < READ_Q_SIZE - READ_Q_PAUSE_LIMIT)      //Ready to go; queue has enough space
                     {
                         read_state = READY;         //Switch state to READY
                     }
@@ -172,7 +173,7 @@ void task_read_serial(void* p_params)
             if (line_one)
             {
                 String test_line = "G1 X46.12 Y39.20 S1.00 F600";
-                test_line = "$H";
+                // test_line = "$H";
                 //Set each character in static char line to match our test string, just like it 
                 //would in the parser (once that's finished)
                 for (uint8_t char_counter = 0; char_counter<=test_line.length();  char_counter++)

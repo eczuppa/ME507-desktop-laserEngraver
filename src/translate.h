@@ -15,12 +15,23 @@
 
 // ========================================== Constants ========================================== 
 
-// Queue size for ramp segment coefficient structs
-#define RAMP_COEFFICIENT_Q_SIZE 32
 
-#define MACHINE_CMD_NULL 0
-#define MACHINE_CMD_HOME 1
+// States for the translate task
+#define TRANSLATE_STATE_NORMAL_OPERATION 0
+#define TRANSLATE_STATE_HOMING 1
+#define TRANSLATE_STATE_PAUSED 2
 
+// Managing Queues
+#define RAMP_COEFF_Q_SIZE 32
+#define RAMP_COEFF_Q_PAUSE_LIMIT 4
+
+// Define timing modes
+#define TIMING_MODE_PAUSED 0
+#define TIMING_MODE_RUNNING 1
+#define TIMING_MODE_RESET 2
+
+// Define task run time
+#define TRANSLATE_TASK_TIMING 100
 
 
 // =========================================== Structs =========================================== 
@@ -98,7 +109,7 @@ class coreXY_to_AB
 
     // Run all the necessary functions to take new X Y and F commands, turn them into updated A and B commands, and put 
     // them into the corret queue. 
-    void translate_to_queue(decode decoder);
+    void translate_to_queue(XYSFvalues XYSF_input);
 
      // Take XYSF values and create desired ramp coefficient struct
     ramp_segment_coefficients calc_ramp_coeff(XYSFvalues XYSF_input);     
@@ -114,9 +125,6 @@ class coreXY_to_AB
 
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);
-
-//function which interprets a machine command
-uint8_t interpret_machinecmd_line(char *line);
 
 
 #endif //TRANSLATE_H

@@ -20,7 +20,7 @@
 #define LINE_BUFFER_SIZE 80
 #define READ_Q_SIZE 32
 #define WRITE_Q_SIZE 32
-#define PAUSE_Q_LIMIT 4
+#define READ_Q_PAUSE_LIMIT 4
 
 
 //States of the reader

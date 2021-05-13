@@ -24,10 +24,13 @@ Share<encoder_output> enc_A_output_share ("Encoder A variables");
 Share<encoder_output> enc_B_output_share ("Encoder B variables");
 
 // Queue for ramp segments
-Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFFICIENT_Q_SIZE,"Ramp Coefficients");
+Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue(RAMP_COEFF_Q_SIZE,"Ramp Coefficients");
 
 // Share for signalling to check home
 Share<bool> check_home_share ("Homing Flag");
+
+// Share for signalling timing mode
+Share<uint8_t> timing_mode_share ("Timing Mode");
 
 // Queue for Temperature Task 
 // Queue<float> temperature_data (10,"Temp C Data");  
@@ -65,6 +68,10 @@ void setup()
     Serial.begin (115200);
     delay (2000);
     Serial << endl << "\nLaser Program Initializing" << endl;
+
+    //Initialize shares
+    check_home_share.put(false);
+    timing_mode_share.put(TIMING_MODE_PAUSED);
     
     //Create instance of timer 3 for motors
     // TIM_TypeDef * _p_timer = TIM3;
@@ -74,10 +81,10 @@ void setup()
     //======================================================================================
 
     //Choose your testing section:
-    // #define NIKO_TESTING 0
+    #define NIKO_TESTING 0 
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
-    #define TEST_CONST_VELOCITY 3
+    // #define TEST_CONST_VELOCITY 3
     // #define TEST_CONTROL_PATH 4
 
     //======================================================================================
@@ -86,8 +93,6 @@ void setup()
     #ifdef NIKO_TESTING
 
     Serial << "Running Niko Testing" << endl;
-
-    pinMode(LED_BUILTIN,OUTPUT);
 
     // Create a task to read inputs from the serial port
     xTaskCreate (task_read_serial,              //Task Function name
@@ -106,38 +111,38 @@ void setup()
                  3,                             // Priority
                  NULL);                         // Task handle
 
-    // // Create a task to translate command codes to the contorller
-    // xTaskCreate(task_translate,                 // Task Function name
-    //              "Translating",                 // Name for printouts
-    //              1000,                          // Stack size
-    //              NULL,                          // Parameters for task fn.
-    //              9,                             // Priority
-    //              NULL);                         // Task handle
-
-
-    // Create a task that test runs a single motor
-    xTaskCreate (task_test_control_path,        // Task Function name
-                 "Motor Test",                  // Name for printouts
+    // Create a task to translate command codes to the contorller
+    xTaskCreate(task_translate,                 // Task Function name
+                 "Translating",                 // Name for printouts
                  1000,                          // Stack size
                  NULL,                          // Parameters for task fn.
-                 1,                             // Priority
+                 9,                             // Priority
                  NULL);                         // Task handle
 
-    //Task to run encoder A
-    xTaskCreate(task_encoder_A,                 // Task Function name
-                "Run encoder A",                // Name for printouts
-                4096,                           // Stack size
-                NULL,                           // Parameters for task fn.
-                13,                             // Priority
-                NULL);                          // Task handle
 
-    //Task to run encoder B
-    xTaskCreate(task_encoder_B,                 // Task Function name
-                "Run encoder B",                // Name for printouts
-                4096,                           // Stack size
-                NULL,                           // Parameters for task fn.
-                13,                             // Priority
-                NULL);                          // Task handle
+    // // Create a task that test runs a single motor
+    // xTaskCreate (task_test_control_path,        // Task Function name
+    //              "Motor Test",                  // Name for printouts
+    //              1000,                          // Stack size
+    //              NULL,                          // Parameters for task fn.
+    //              1,                             // Priority
+    //              NULL);                         // Task handle
+
+    // //Task to run encoder A
+    // xTaskCreate(task_encoder_A,                 // Task Function name
+    //             "Run encoder A",                // Name for printouts
+    //             4096,                           // Stack size
+    //             NULL,                           // Parameters for task fn.
+    //             13,                             // Priority
+    //             NULL);                          // Task handle
+
+    // //Task to run encoder B
+    // xTaskCreate(task_encoder_B,                 // Task Function name
+    //             "Run encoder B",                // Name for printouts
+    //             4096,                           // Stack size
+    //             NULL,                           // Parameters for task fn.
+    //             13,                             // Priority
+    //             NULL);                          // Task handle
 
     // // Create a task to run a test script
     // xTaskCreate (task_test_script,              //Task Function name
@@ -459,6 +464,8 @@ void setup()
 
     Serial << "Running Constant Velocity Test" << endl;
 
+    timing_mode_share.put(TIMING_MODE_RUNNING);
+
     // Create a task to read inputs from the serial port
     xTaskCreate (task_print_serial,             //Task Function name
                  "Printing Serial",             // Name for printouts
@@ -505,6 +512,8 @@ void setup()
     #ifdef TEST_CONTROL_PATH
 
     Serial << "Running Control Path Test" << endl;
+
+    timing_mode_share.put(TIMING_MODE_RUNNING);
 
     // Create a task to read inputs from the serial port
     xTaskCreate (task_print_serial,             //Task Function name

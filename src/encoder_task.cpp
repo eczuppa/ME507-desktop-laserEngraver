@@ -20,6 +20,9 @@
 extern Share<encoder_output> enc_A_output_share;
 extern Share<encoder_output> enc_B_output_share;
 
+// Shares for timing mode
+extern Share<uint8_t> timing_mode_share;
+
 ///@endcond
 
 
@@ -83,9 +86,6 @@ void task_encoder_A (void* p_params)
         delta_time_A = velTmrA.lap();
         delta_position_A = encoder_A.get_delta();
 
-        //Update the total time (in seconds; microsec / (microsec/sec)  )
-        total_time += (float)delta_time_A/1000000;
-
         //Calculate velocity (encoder ticks/sec)
         raw_vel_A = (float)delta_position_A / (float)delta_time_A *   1000000;
                         // ticks            /       microsec      * microsec/sec 
@@ -98,6 +98,9 @@ void task_encoder_A (void* p_params)
         //Convert values into desired units
         pos_A_out = convert_units(position_A,ENC_POSITION_MODE_REVOUT);
         vel_A_out = convert_units(velocity_A,ENC_VELOCITY_MODE_RPMOUT);
+
+        //Update encoder timing (affects how ramps are interpreted)
+        total_time = update_total_time(total_time,delta_time_A);
 
         // Put all those values into their respective shares to be used in other functions
         enc_A.pos  = pos_A_out;
@@ -151,7 +154,7 @@ void task_encoder_B (void* p_params)
 
     Quad_Encoder encoder_B (enc_sigpin_BA, enc_sigpin_BB, enc_chan_BA, enc_chan_BB, TIM1, bound_B, invert_B); 
 
-    // Initialize motor encoder and timer
+    // Initialize motor encoder
     encoder_B.enc_zero();
 
     // temporary variables collecting data from encoder and timer
@@ -178,9 +181,6 @@ void task_encoder_B (void* p_params)
         delta_time_B = velTmrB.lap();
         delta_position_B = encoder_B.get_delta();
 
-        //Update the total time (in seconds)
-        total_time += (float)delta_time_B/1000000;
-
         //Calculate velocity (encoder ticks/sec)
         raw_vel_B = (float)delta_position_B / (float)delta_time_B *   1000000;
                         // ticks            /       microsec      * microsec/sec 
@@ -193,6 +193,9 @@ void task_encoder_B (void* p_params)
         //Convert values into desired units
         pos_B_out = convert_units(position_B,ENC_POSITION_MODE_REVOUT);
         vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_RPMOUT);
+
+        //Update encoder timing (affects how ramps are interpreted)
+        total_time = update_total_time(total_time,delta_time_B);
 
         // Put all those values into their respective shares to be used in other functions
         enc_B.pos  = pos_B_out;
@@ -214,7 +217,7 @@ void task_encoder_B (void* p_params)
 
 
 /** @brief   Convert units out of ticks or ticks/sec
- *  @details This function 
+ *  @details This function converts the units for the encoder into the desired units of choice. 
  * 
  *  @param   value The value whose units are to be converted
  *  @param   convert_mode The mode in which to convert the units
@@ -260,4 +263,40 @@ float convert_units(float value, uint8_t convert_mode)
     }
     
     return value;
+}
+
+
+
+/** @brief   Update the total time based on timing mode
+ *  @details This function updates the total time based on what timing mode we're in. 
+ * 
+ *  @param   total_time     previous total time
+ *  @param   delta_time     time between calls
+ * 
+ *  @returns updated total_time
+ */
+float update_total_time(float total_time, uint32_t delta_time)
+{
+    // Define variables to hold share values
+    uint8_t timing_mode = TIMING_MODE_PAUSED;
+
+    timing_mode_share.get(timing_mode);
+    switch(timing_mode)
+    {
+        case TIMING_MODE_PAUSED:
+            //Don't add to the total time; total time stays constant
+            break;
+        
+        case TIMING_MODE_RESET:
+            total_time = 0;     //Reset total time
+            break;
+
+        case TIMING_MODE_RUNNING:
+        default:
+            //Update the total time (in seconds)
+            total_time += (float)delta_time/1000000;
+            break;
+
+    }
+    return total_time;
 }

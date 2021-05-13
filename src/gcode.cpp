@@ -31,10 +31,10 @@ decode::decode(void)
  *              It then sends out the appropriate data to finish translation.
  *  @param      line A line of gcode to be interpreted. 
  */
-void decode::interpret_gcode_line(char *line) 
+uint8_t decode::interpret_gcode_line(char *line) 
 {
 
-    //Define variables for use in function: Decoding Gcode
+    //Define variables for use in function
     uint8_t char_counter = 0;  
     char letter;
     float value;
@@ -42,11 +42,11 @@ void decode::interpret_gcode_line(char *line)
     int16_t mantissa = 0;
     String str_line = line;     //Convert line into a string for use of string functions
 
+    uint8_t output_signal = GC_CMD_NULL; //Output signal to return
 
     //Define state variables
-    uint8_t move_type = MOVE_NONE;
-    if(move_type){//Do nothing: Shut up compiler warning
-    }
+    _move_type = MOVE_NONE;
+
 
     //Start looping through the line, character by character. Check each character to match 
     //it with certain commands. 
@@ -80,7 +80,7 @@ void decode::interpret_gcode_line(char *line)
             { 
                 print_serial("Error in Gcode: Not starting with letter");
                 _error_signal = SYNTAX_ERROR_LETTER;
-                return; 
+                return GC_CMD_ERROR; 
             }
             //Otherwise, it is a letter, all good! Not a comment or an invalid command. 
             //Move on to next character to read the number now. 
@@ -92,7 +92,7 @@ void decode::interpret_gcode_line(char *line)
             {
                 print_serial("Error in Gcode: Letter not followed by number");
                 _error_signal = SYNTAX_ERROR_NUMBER;
-                return;
+                return GC_CMD_ERROR;
             }
             //At this point, we have a letter and a floating point number. Now, lets get
             //the float into terms we can understand.
@@ -122,13 +122,15 @@ void decode::interpret_gcode_line(char *line)
                     {
                         case 0:
                             //Rapid movement (travel)
-                            move_type = MOVE_TRAVEL;
+                            _move_type = MOVE_TRAVEL;
                             //set feedrate for traveling
                             _XYSFval.F = TRAVEL_SPEED;
+                            output_signal = GC_CMD_UPDATE_XYSF;
                             break;
                         case 1: 
                             //Linear Interpolation
-                            move_type = MOVE_LIN_INTERP;
+                            _move_type = MOVE_LIN_INTERP;
+                            output_signal = GC_CMD_UPDATE_XYSF;
                             break;
                         case 20:
                             //Unit conversion to in
@@ -138,18 +140,19 @@ void decode::interpret_gcode_line(char *line)
                             break;
                         case 28:
                             //Home machine
-                            _go_home = 1;
+                            output_signal = GC_CMD_HOME;
                             break;
                         case 90:
-                            //Set absolute positioning: NOT sent to matrix
+                            //Set absolute positioning
                             break;
                         case 91:
-                            //Set incremental positioning: NOT sent to matrix
+                            //Set incremental positioning
                             break;
                         default:
                             //Error: Unsupported Gcode
                             print_serial("ERROR: Unsupported G Command in line __");
                             _error_signal = G_COMMAND_ERROR;
+                            output_signal = GC_CMD_ERROR;
                     }
                     break;
                 case 'M':
@@ -159,6 +162,7 @@ void decode::interpret_gcode_line(char *line)
                         case 2:
                             //End program
                             _gcode_running = 0;
+                            output_signal = GC_CMD_END_PROGRAM;
                             break;
                         case 3:
                             //Enable Laser
@@ -167,11 +171,14 @@ void decode::interpret_gcode_line(char *line)
                         case 5:
                             //Disable laser
                             _laser_enable = 0;
+                            _XYSFval.S = 0;
+                            output_signal = GC_CMD_UPDATE_XYSF;
                             break;
                         default:
                             //ERROR: Unsupported Mcode
                             print_serial("ERROR: Unsupported M Command in line __");
                             _error_signal = M_COMMAND_ERROR;
+                            output_signal = GC_CMD_ERROR;
                     }
                     break;
 
@@ -232,15 +239,49 @@ void decode::interpret_gcode_line(char *line)
                     //ERROR: Unsupported command
                      print_serial("ERROR: Unsupported Letter Command in line __");
                      _error_signal = LETTER_CMD_ERROR;
+                     output_signal = GC_CMD_ERROR;
                     
             }//switch (letter)
         }//else (Not a comment or space)
+    }//while(line[char_counter] != '\0')
+    return output_signal;
+}
+
+
+// ==================================================================================================================
+
+
+/** @brief      Function which interprets a line containing a machine command.
+ *  @details    This function takes in a line containing a command for the laser that begins with
+ *              a @c $, signalling that it is a machine command and not a line of gcode. It then interprets
+ *              the command in the line and returns on the information. 
+ *              <b>Disclaimer: This function currently only supports homing commands. More will be added in the 
+ *              future.</b>
+ * 
+ *  @param      line A line containing a command to be interpreted. 
+ *  @returns    an indicator for the command that was entered
+ */
+uint8_t decode::interpret_machinecmd_line(char *line)
+{
+    uint8_t cmd_indicator = MACHINE_CMD_NULL;
+    //Homing Command
+    if (strcmp(line,"$H") == 0)
+    {
+        // print_serial("\nFOUND HOME CMD\n");
+        cmd_indicator = MACHINE_CMD_HOME;
+    }
+    //Unsupported command
+    else
+    {
+        cmd_indicator = MACHINE_CMD_NULL;
     }
     
     
-    return;
+    return cmd_indicator;
 }
 
+
+// ==================================================================================================================
 
 
 /** @brief      Function which initializes the running of gcode
@@ -253,7 +294,8 @@ void decode::gcode_initialize(void)
 }
 
 
-//Get-er functions:
+// ==================================================================================================================
+
 
 /** @brief      Function which gets the @c X @c Y @c S and @c F values from the gcode decoder class
  *  @details    This function gets the struct @c _XYSFval from the class member data in order to use
@@ -264,6 +306,10 @@ XYSFvalues decode::get_XYSF(void)
 {
     return _XYSFval;
 }
+
+
+// ==================================================================================================================
+
 
 /** @brief      Function which gets just the @c S value from the gcode decoder class
  *  @details    This function gets @c S (desired laser PWM value) out of the decoder class
@@ -277,9 +323,9 @@ uint8_t decode::get_S(void)
 
 
 
-
-
+// ==================================================================================================================
 // ================================================== SUBFUNCTIONS ================================================== 
+// ==================================================================================================================
 
 
 /** @brief      Extracts a floating point value from a string. <b>This function was taken directly from GRBL.</b> 

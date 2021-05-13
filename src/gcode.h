@@ -15,9 +15,9 @@
 #define TRAVEL_SPEED 600    // mm/min
 
 //Define travel types
-#define MOVE_TRAVEL 0
-#define MOVE_LIN_INTERP 1
-#define MOVE_NONE 2
+#define MOVE_NONE 0
+#define MOVE_TRAVEL 1
+#define MOVE_LIN_INTERP 2
 
 //Define unit systems
 #define MILLIMETERS 0
@@ -31,6 +31,18 @@
 #define M_COMMAND_ERROR 4
 #define MOVE_ERROR 5
 #define LETTER_CMD_ERROR 6
+
+
+// Define gcode output signals
+#define GC_CMD_NULL 0
+#define GC_CMD_UPDATE_XYSF 1
+#define GC_CMD_HOME 2
+#define GC_CMD_END_PROGRAM 3
+#define GC_CMD_ERROR 4
+
+// Define machine commands
+#define MACHINE_CMD_NULL 0
+#define MACHINE_CMD_HOME 1
 
 //For converting chars to floats:
 #define MAX_INT_DIGITS 8 // Maximum number of digits in int32 (and float)
@@ -60,6 +72,9 @@ protected:
     ///struct with values for X, Y, S, and F 
     XYSFvalues _XYSFval;
 
+    ///Moving state
+    uint8_t _move_type = MOVE_NONE;
+
     ///Laser state
     bool _laser_enable = 0;
 
@@ -69,9 +84,6 @@ protected:
     ///Error code signal
     uint8_t _error_signal = NO_ERROR;
 
-    ///Homing Signal
-    bool _go_home = 0;
-
     ///Signal when end of Gcode reached
     bool _gcode_running = 0;
 
@@ -80,7 +92,10 @@ public:
     decode(void);
 
     ///Function to interpret gcode
-    void interpret_gcode_line(char *line);
+    uint8_t interpret_gcode_line(char *line);
+
+    //Function which interprets a machine command
+    uint8_t interpret_machinecmd_line(char *line);
 
     ///Initialize gcode reading
     void gcode_initialize(void);

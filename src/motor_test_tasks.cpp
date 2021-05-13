@@ -17,6 +17,9 @@ extern Share<encoder_output> enc_B_output_share;
 // Queue for Ramp Coefficients
 extern Queue<ramp_segment_coefficients> ramp_segment_coefficient_queue;
 
+//Queue that holds read character arrays (not necessary here except for testing)
+extern Queue<char[LINE_BUFFER_SIZE]> read_chars_queue;
+
 
 
 /** @brief      Task which runs a motor at a set duty cycle and reads average speed.
@@ -177,16 +180,13 @@ void task_test_control_path(void* p_params)
     print_serial("\nMotor Deadband: ");   print_serial((float)PATH_TEST_MOTOR_DEADBAND); print_serial("\n\n");
 
 
-    //Create ramp coefficients for simulation
+    // Create ramp coefficients for simulation
+    //Method 1: Raw Ramps
     ramp_segment_coefficients ramp1;
     ramp_segment_coefficients ramp2;
     ramp_segment_coefficients ramp3;
 
-    //                            sec                rotations                 rps
-    // ramp1.t0 = 0;    ramp1.t_end = 5;       ramp1.pos_A0 =  0;    ramp1.vel_A =   2;    
-    // ramp2.t0 = 5;    ramp2.t_end = 10;      ramp2.pos_A0 = 10;    ramp2.vel_A =   0;    
-    // ramp3.t0 = 10;   ramp3.t_end = 15;      ramp3.pos_A0 = 10;    ramp3.vel_A =  -2;    
-
+    //                            sec                rotations                 rps 
     ramp1.t0 = 0;    ramp1.t_end = 5;       ramp1.pos_A0 =  0;    ramp1.vel_A =   5;    ramp1.pos_B0 =  0;      ramp1.vel_B =   5;
     ramp2.t0 = 5;    ramp2.t_end = 10;      ramp2.pos_A0 = 25;    ramp2.vel_A =   0;    ramp2.pos_B0 = 25;      ramp2.vel_B =   0; 
     ramp3.t0 = 10;   ramp3.t_end = 15;      ramp3.pos_A0 = 25;    ramp3.vel_A =  -5;    ramp3.pos_B0 = 25;      ramp3.vel_B =  -5;
@@ -194,6 +194,17 @@ void task_test_control_path(void* p_params)
     ramp_segment_coefficient_queue.put(ramp1);
     ramp_segment_coefficient_queue.put(ramp2);
     ramp_segment_coefficient_queue.put(ramp3);
+
+    // //Method 2: XYSF
+    // coreXY_to_AB translator;
+    // XYSFvalues point1;      XYSFvalues point2;
+    
+    // point1.X = 25;       point1.Y = 0;       point1.F = 5;
+    // point2.X =  0;       point2.Y = 0;       point2.F = 5;
+
+    // translator.translate_to_queue(point1);
+    // translator.translate_to_queue(point2);
+
 
     //Task for loop
     for(;;)
@@ -242,7 +253,7 @@ void task_test_control_path(void* p_params)
 
 
 /** @brief      Task which moves a single motor.
- *  @details    Fill in later
+ *  @details    Work in progress; test running both motors at the same time. 
  *  @param      p_params A pointer to function parameters which we don't use.
  */
 void task_single_control_both(void* p_params)
@@ -297,7 +308,76 @@ void task_single_control_both(void* p_params)
 
 
 
+/** @brief      Task which moves a single motor.
+ *  @details    Work in progress; test running both motors at the same time. 
+ *  @param      p_params A pointer to function parameters which we don't use.
+ */
+void task_test_gcode_response(void* p_params)
+{
+    (void)p_params;                   // Does nothing but shut up a compiler warning
 
+    // Set up instance of the motor driver class
+    TB6612FNG Motor(STBY,AIN2,AIN1,PWM_A);
+
+    //Set up motor and set duty cycle
+    Motor.enable();
+    float DC = 0;
+    Motor.setDutyCycle(DC);
+
+    //Set up variables for encoder
+    encoder_output enc_read;
+
+    // Set up variables for control loop
+    float error = 0;
+    float integral = 0;
+    float last_time = 0;
+
+    // Initialize structs
+    motor_setpoint setpoint;
+
+    //Initialize classes
+    setpoint_of_time xyoft;
+
+
+    //Add lines of gcode to be interpreted
+    char line[LINE_BUFFER_SIZE] = "G1 X46.18 Y-51.74 S1.00 F600";
+    read_chars_queue.put(line);
+
+    //Task for loop
+    for(;;)
+    {
+        //Read off encoder position and velocity
+        enc_A_output_share.get(enc_read);
+
+        //Get the setpoint for this moment in time
+        setpoint = xyoft.get_desired_pos_vel(enc_read.time);
+
+        //Run Control Loop
+        error = setpoint.A_pos - enc_read.pos;
+        
+        integral += (enc_read.time - last_time)*error;
+
+        DC = error*PATH_TEST_CONTROL_KP + integral*PATH_TEST_CONTROL_KI;
+
+        last_time = enc_read.time;
+
+        //Account for motor deadband
+        if(DC>=0)  {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 - PATH_TEST_MOTOR_DEADBAND;  }
+        else       {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 + PATH_TEST_MOTOR_DEADBAND;  }
+        
+        Motor.setDutyCycle(DC);
+
+        //Print the encoder positions and velocity
+        print_serial("Position:  ");    print_serial(enc_read.pos);
+        print_serial("  Velocity:  ");  print_serial(enc_read.vel);
+        print_serial("  Time:  ");      print_serial(enc_read.time);
+        print_serial("                                \r");
+        // print_serial("                                \n");
+
+        vTaskDelay(50);
+    }
+
+}
 // ============================= SUBFUNCTIONS =============================
 
 

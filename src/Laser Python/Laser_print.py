@@ -33,7 +33,7 @@ class Laser_printer:
         input_command = input('Ok to send to Laser? Y/N')
         if input_command == 'Y' or input_command == 'y' or input_command == '':
 
-            # Currently only writes line 20 of data; update this later to send all data, but we'll use 
+            # Currently only writes line 10 of data; update this later to send all data, but we'll use 
             # this for testing
             # Data_to_write = self.data[17]
             # Data_to_write += '\0'           #termination char for microcontroller

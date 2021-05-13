@@ -63,5 +63,8 @@ void task_encoder_B (void* p_params);
 //Convert units function to change from encoder ticks to desired units
 float convert_units(float value, uint8_t convert_mode);
 
+//Update total time depending on the timing mode
+float update_total_time(float total_time, uint32_t delta_time);
+
 
 #endif // ENCODERTASK_H
