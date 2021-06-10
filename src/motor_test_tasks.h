@@ -22,8 +22,8 @@
 
 // Parameters for path test
 #define PATH_TEST_MOTOR 'A'             // 'A' or 'B'
-#define PATH_TEST_CONTROL_KP 10
-#define PATH_TEST_CONTROL_KI 1
+#define PATH_TEST_CONTROL_KP 20
+#define PATH_TEST_CONTROL_KI 10
 #define PATH_TEST_CONTROL_KD 0
 #define PATH_TEST_MOTOR_DEADBAND 5      // %
 

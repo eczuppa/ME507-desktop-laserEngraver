@@ -233,8 +233,8 @@ void task_test_control_path(void* p_params)
         last_time = enc_read.time;
 
         //Account for motor deadband
-        if(DC>=0)  {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 - PATH_TEST_MOTOR_DEADBAND;  }
-        else       {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 + PATH_TEST_MOTOR_DEADBAND;  }
+        if(DC>=0)  {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 + PATH_TEST_MOTOR_DEADBAND;  }
+        else       {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 - PATH_TEST_MOTOR_DEADBAND;  }
         
         Motor.setDutyCycle(DC);
 
@@ -242,8 +242,8 @@ void task_test_control_path(void* p_params)
         print_serial("Position:  ");    print_serial(enc_read.pos);
         print_serial("  Velocity:  ");  print_serial(enc_read.vel);
         print_serial("  Time:  ");      print_serial(enc_read.time);
-        print_serial("                                \r");
-        // print_serial("                                \n");
+        // print_serial("                                \r");
+        print_serial("                                \n");
 
         vTaskDelay(50);
     }
