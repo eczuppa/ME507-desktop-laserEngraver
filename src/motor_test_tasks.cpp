@@ -242,8 +242,9 @@ void task_test_control_path(void* p_params)
         print_serial("Position:  ");    print_serial(enc_read.pos);
         print_serial("  Velocity:  ");  print_serial(enc_read.vel);
         print_serial("  Time:  ");      print_serial(enc_read.time);
-        // print_serial("                                \r");
-        print_serial("                                \n");
+        print_serial("  Error:  ");     print_serial(error);
+        print_serial("                                \r");
+        // print_serial("                                \n");
 
         vTaskDelay(50);
     }
