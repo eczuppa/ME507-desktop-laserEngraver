@@ -32,7 +32,7 @@ class StopWatch
     //Timer initialization arugments
     TIM_TypeDef* _p_Stpwtch;   ///< pointer to user-passed hardware timer (TIM1,TIM2, etc) 
     HardwareTimer* a_Tmr;      ///< pointer to HardwareTimer class instance
-    uint8_t _tmrpin;           ///< the channel pin specifically assigned to the chosen timer
+    PinName _tmrpin;           ///< the channel pin specifically assigned to the chosen timer
     
     // Class member data
     uint16_t _now;            ///< the current time in microseconds - since the clock was restarted       
@@ -42,8 +42,9 @@ class StopWatch
 
     public:
     
+    StopWatch(TIM_TypeDef* p_Stpwtch,PinName tmrpin);
     StopWatch(TIM_TypeDef* p_Stpwtch,uint8_t tmrpin); // constructor
-    
+
     uint16_t now_time(void);        // all things now measured from current time and returns that value
     uint16_t elapsed_time(void);    // returns time elapsed in microseconds
     uint32_t lap(void);             // returns the time elapsed between measurments of a parameter of interest

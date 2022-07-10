@@ -51,6 +51,8 @@
 #include "control_task.h"
 #include "motor_test_tasks.h"
 #include "translate.h"
+#include "test_script.h"
+#include "laser.h"
 
 // ---------------------------------------------------------------------------------
 // -------------------- Define pin names as routed on the board -------------------- 
@@ -69,13 +71,13 @@
 #define B_C2 PA8
 
 //GPIO Pin Bank:
-#define GPIO_2 PC8
-#define GPIO_3 PC9
-#define GPIO_4 PC11
-#define GPIO_5 PA12
-#define GPIO_6 PC5
-#define GPIO_7 PB9
-#define GPIO_8 PB8
+#define LASER_GPIO_2 PC8
+#define LASER_GPIO_3 PC9
+#define LASER_GPIO_4 PC11
+#define LASER_GPIO_5 PA12
+#define LASER_GPIO_6 PC5
+#define LASER_GPIO_7 PB9
+#define LASER_GPIO_8 PB8
 
 //PWM output pins:
 #define PWM_A PA0
@@ -83,10 +85,10 @@
 #define L_PWM PB0
 
 //ADC Pin Bank:
-#define ADC_2 PA1
-#define ADC_3 PA4
-#define ADC_4 PC1
-#define ADC_5 PC0
+#define LASER_ADC_2 PA1
+#define LASER_ADC_3 PA4
+#define LASER_ADC_4 PC1
+#define LASER_ADC_5 PC0
        
 //Additional Pins:
 #define L_TEMP PC3
@@ -94,7 +96,14 @@
 #define FAN_SIG PC10
 #define STBY PA7
 
+
+//Motor calls:
+#define LASER_CUTTER_MOTOR_A 0
+#define LASER_CUTTER_MOTOR_B 1
+#define LASER_CUTTER_MOTOR_BOTH 2
+
 // ---------------------------------------------------------------------------------
 
 ///@endcond
+
 #endif //LIBRARIES_H

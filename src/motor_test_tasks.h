@@ -15,19 +15,23 @@
 
 
 // Parameters for constant velocity test
-#define CONST_VELOCITY_TEST_MOTOR 'A'       // 'A' or 'B'
-#define CONST_VELOCITY_TEST_DC 50           // Value -100 to 100
-#define CONST_VELOCITY_TEST_MODE 0          // 0 = instantaneous velocity, 1 = average velocity
+#define CONST_VELOCITY_TEST_MOTOR LASER_CUTTER_MOTOR_BOTH          // LASER_CUTTER_MOTOR_A, LASER_CUTTER_MOTOR_B, LASER_CUTTER_MOTOR_BOTH
+#define CONST_VELOCITY_TEST_DC_A 10                             // Value -100 to 100
+#define CONST_VELOCITY_TEST_DC_B 10                             // Value -100 to 100
+#define CONST_VELOCITY_TEST_MODE CONST_VEL_MODE_INSTANTANEOUS   // CONST_VEL_MODE_INSTANTANEOUS or CONST_VEL_MODE_AVERAGE
 
 
 // Parameters for path test
-#define PATH_TEST_MOTOR 'A'             // 'A' or 'B'
+#define PATH_TEST_MOTOR 'B'             // 'A' or 'B'
 #define PATH_TEST_CONTROL_KP 20
 #define PATH_TEST_CONTROL_KI 10
 #define PATH_TEST_CONTROL_KD 0
 #define PATH_TEST_MOTOR_DEADBAND 5      // %
 
 
+//Necessary defines for choosing options
+#define CONST_VEL_MODE_INSTANTANEOUS 0
+#define CONST_VEL_MODE_AVERAGE 1
 
 // Run a test on motor at specific DC, read off average speed
 void task_test_const_velocity(void* p_params);

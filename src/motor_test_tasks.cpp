@@ -32,47 +32,95 @@ void task_test_const_velocity(void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
 
-    char motor_id = CONST_VELOCITY_TEST_MOTOR;
+    bool motor_selected = false;
+    uint8_t motor_choice = CONST_VELOCITY_TEST_MOTOR; 
 
     //Set up default pins
-    uint8_t stby_pin = STBY;        uint8_t mot_pin_1 = AIN2;
-    uint8_t pwm_pin = PWM_A;        uint8_t mot_pin_2 = AIN1;
-    
-    //Change pins for selected motor
-    if(motor_id == 'A' || motor_id == 'a')
-    {
-        stby_pin = STBY;        mot_pin_1 = AIN2;       mot_pin_2 = AIN1;       pwm_pin = PWM_A;
-    }
-    else if(motor_id == 'B' || motor_id == 'b')
-    {
-        stby_pin = STBY;        mot_pin_1 = BIN2;       mot_pin_2 = BIN1;       pwm_pin = PWM_B;
-    }
-    else
-    {
-        print_serial("Warning: motor_id does match options; motor A chosen by default\n");
-    }
-    
-    // Set up instance of the motor driver class
-    TB6612FNG Motor(stby_pin,mot_pin_1,mot_pin_2,pwm_pin);
+    uint8_t stby_pin = STBY;  
+    uint8_t pwmA_pin = PWM_A;           uint8_t pwmB_pin = PWM_B;          
+    uint8_t motA_pin_1 = AIN2;          uint8_t motB_pin_1 = BIN2;
+    uint8_t motA_pin_2 = AIN1;          uint8_t motB_pin_2 = BIN1;
 
-    //Set up motors and set duty cycle
-    Motor.enable();
-    float DC = CONST_VELOCITY_TEST_DC;
-    Motor.setDutyCycle(DC);
-
-    //Set up variables for encoder
-    encoder_output enc_read;
+    //Set up variables
+    float DC_A;                         float DC_B;
+    float avg_vel_A;                    float avg_vel_B;
+    uint16_t avg_count_A;               uint16_t avg_count_B;
+    float vel_out_A;                    float vel_out_B;
+    encoder_output enc_read_A;          encoder_output enc_read_B;
     
-    //Create intermediate variables for calculations
-    float avg_vel = 0;
-    uint16_t avg_count = 0;
-    float vel_out = 0;
+
+    print_serial("Constant Velocity Test Initialized\n");
+
+    // Choose which motors to run in the test
+    while(motor_selected == false)
+    {
+        //Motor A setup:
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            motor_selected = true;
+            // Set up instance of the motor driver class for motor A
+            TB6612FNG Motor_A(stby_pin,motA_pin_1,motA_pin_2,pwmA_pin);
+
+            //Set up motors and set duty cycle
+            Motor_A.enable();
+            DC_A = CONST_VELOCITY_TEST_DC_A;
+            Motor_A.setDutyCycle(DC_A);            
+
+            //Set intermediate variables for calculations
+            avg_vel_A = 0;
+            avg_count_A = 0;
+            vel_out_A = 0;
+
+        }
+
+        //Motor B setup:
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            motor_selected = true;
+            // Set up instance of the motor driver class for motor B
+            TB6612FNG Motor_B(stby_pin,motB_pin_1,motB_pin_2,pwmB_pin);
+
+            //Set up motors and set duty cycle
+            Motor_B.enable();
+            DC_B = CONST_VELOCITY_TEST_DC_B;
+            Motor_B.setDutyCycle(DC_B);
+
+            //Create intermediate variables for calculations
+            avg_vel_B = 0;
+            avg_count_B = 0;
+            vel_out_B = 0;
+        }
+
+        //If no motor is selected or the selection was done incorrectly, enable the override and run motor A.
+        if(motor_selected == false)
+        {
+            print_serial("\nWarning: motor_id does match options; motor A chosen by default\n");
+            motor_choice = LASER_CUTTER_MOTOR_A;
+        }
+    }
 
     //Create printouts for specification
-    print_serial("\nRunning Motor: ");   print_serial(motor_id);
-    if     (CONST_VELOCITY_TEST_MODE == 1){ print_serial("\nMode: Average Velocity\n");      }
-    else if(CONST_VELOCITY_TEST_MODE == 0){ print_serial("\nMode: Instantaneous Velocity\n");}
-    print_serial("Duty Cycle: ");   print_serial(DC);   print_serial("\n\n");
+    switch(motor_choice)
+    {
+        case LASER_CUTTER_MOTOR_A:
+            print_serial("\nRunning Motor: A");
+            print_serial("\nDuty Cycle: ");   print_serial(DC_A);
+            break;
+
+        case LASER_CUTTER_MOTOR_B:
+            print_serial("\nRunning Motor: B");
+            print_serial("\nDuty Cycle: ");   print_serial(DC_B);
+            break;
+
+        case LASER_CUTTER_MOTOR_BOTH:
+        default:
+            print_serial("\nRunning Motor: A & B");
+            print_serial("\nDuty Cycle A: ");   print_serial(DC_A);
+            print_serial("\nDuty Cycle B: ");   print_serial(DC_B);
+            break;
+    }
+    if     (CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_AVERAGE)      { print_serial("\nMode: Average Velocity\n\n");      }
+    else if(CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_INSTANTANEOUS){ print_serial("\nMode: Instantaneous Velocity\n\n");}
 
 
 
@@ -80,43 +128,83 @@ void task_test_const_velocity(void* p_params)
     for(;;)
     {
         //Read off encoder position and velocity
-        if(motor_id == 'B' || motor_id == 'b')
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            enc_B_output_share.get(enc_read);
+            enc_A_output_share.get(enc_read_A);
         }
-        else
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            enc_A_output_share.get(enc_read);
+            enc_B_output_share.get(enc_read_B);
         }
         
 
-        // Calculate average velocity if required (start calculation after 3 seconds to skip motor startup)
-        if(CONST_VELOCITY_TEST_MODE == 1)
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            if(enc_read.time >=3)
+            // Calculate average velocity if required (start calculation after 3 seconds to skip motor startup)
+            if(CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_AVERAGE)
             {
-                avg_count += 1;
-
-                avg_vel = (avg_vel*(avg_count-1) + enc_read.vel) / (avg_count);
+                if(enc_read_A.time >=3)
+                {
+                    avg_count_A += 1;
+                    avg_vel_A = (avg_vel_A*(avg_count_A-1) + enc_read_A.vel) / (avg_count_A);
+                }
+                vel_out_A = avg_vel_A;
             }
-            vel_out = avg_vel;
+            //If instantaneous, just output the value
+            else if(CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_INSTANTANEOUS)
+            {
+                vel_out_A = enc_read_A.vel;
+            }
         }
-        else if(CONST_VELOCITY_TEST_MODE == 0)
+
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            vel_out = enc_read.vel;
+            // Calculate average velocity if required (start calculation after 3 seconds to skip motor startup)
+            if(CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_AVERAGE)
+            {
+                if(enc_read_B.time >=3)
+                {
+                    avg_count_B += 1;
+                    avg_vel_B = (avg_vel_B*(avg_count_B-1) + enc_read_B.vel) / (avg_count_B);
+                }
+                vel_out_B = avg_vel_B;
+            }
+            //If instantaneous, just output the value
+            else if(CONST_VELOCITY_TEST_MODE == CONST_VEL_MODE_INSTANTANEOUS)
+            {
+                vel_out_B = enc_read_B.vel;
+            }
+        }
+            
+        //Print the encoder positions and velocity
+        if(motor_choice == LASER_CUTTER_MOTOR_A)
+        {
+            print_serial("Position:  ");    print_serial(enc_read_A.pos);
+            print_serial("  Velocity:  ");  print_serial(vel_out_A);
+            print_serial("  Time:  ");      print_serial(enc_read_A.time);
+            print_serial("                                \r");
+        }
+        else if(motor_choice == LASER_CUTTER_MOTOR_B)
+        {
+            print_serial("Position:  ");    print_serial(enc_read_B.pos);
+            print_serial("  Velocity:  ");  print_serial(vel_out_B);
+            print_serial("  Time:  ");      print_serial(enc_read_B.time);
+            print_serial("                                \r");
+        }
+        else if(motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            print_serial("Position: ");    print_serial(enc_read_A.pos); print_serial(" (A)  ");  print_serial(enc_read_B.pos);  print_serial(" (B)  ");
+            print_serial("  Velocity: ");  print_serial(vel_out_A);      print_serial(" (A)  ");  print_serial(vel_out_B);       print_serial(" (B)  ");
+            print_serial("  Time:  ");      print_serial(enc_read_A.time);
+            print_serial("                                \r");
         }
         
-
-        //Print the encoder positions and velocity
-        print_serial("Position:  ");    print_serial(enc_read.pos);
-        print_serial("  Velocity:  ");  print_serial(vel_out);
-        print_serial("  Time:  ");      print_serial(enc_read.time);
-        print_serial("                                \r");
-        // print_serial("                                \n");
-
-        vTaskDelay(50);
+        if(motor_choice == LASER_CUTTER_MOTOR_BOTH){vTaskDelay(200);}
+        else{vTaskDelay(50);}
+            
     }
 }
+
 
 
 
@@ -146,6 +234,7 @@ void task_test_control_path(void* p_params)
     }
     else
     {
+        motor_id = 'A';
         print_serial("Warning: motor_id does match options; motor A chosen by default\n");
     }
 
@@ -372,6 +461,7 @@ void task_test_gcode_response(void* p_params)
         print_serial("Position:  ");    print_serial(enc_read.pos);
         print_serial("  Velocity:  ");  print_serial(enc_read.vel);
         print_serial("  Time:  ");      print_serial(enc_read.time);
+        print_serial("  Error:  ");     print_serial(error);
         print_serial("                                \r");
         // print_serial("                                \n");
 

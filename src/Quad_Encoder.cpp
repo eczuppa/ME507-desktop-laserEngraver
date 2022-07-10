@@ -56,7 +56,7 @@ Quad_Encoder::Quad_Encoder(uint8_t enc_sigpin_A, uint8_t enc_sigpin_B, uint8_t e
     // Instantiate and initialize hardware timer for counting encoder pulses based on:
     //           JR Ridgely's implementation of the Hardware Timer API specifically
     //           for a Quadratrue Rotary encoders in his STM32Encoder class. 
-    //           Available from - https://github.com/spluttflob/ME507-Support/blob/master/src/encoder_counter.cpp
+    //           Available from - https://github.com/spluttflob/ME507-Support/tree/master/examples/encoder_counter.cpp
     //           Read the Documentation here -  https://spluttflob.github.io/ME507-Support/classSTM32Encoder.html
 
     // new hardware timer class instance using user-inputted TIMx.

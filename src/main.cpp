@@ -84,8 +84,9 @@ void setup()
     // #define NIKO_TESTING 0 
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
-    // #define TEST_CONST_VELOCITY 3
-    #define TEST_CONTROL_PATH 4
+    #define TEST_CONST_VELOCITY 3
+    // #define TEST_CONTROL_PATH 4
+    // #define TEST_SCRIPT 5
 
     //======================================================================================
     
@@ -466,6 +467,7 @@ void setup()
 
     timing_mode_share.put(TIMING_MODE_RUNNING);
 
+
     // Create a task to read inputs from the serial port
     xTaskCreate (task_print_serial,             //Task Function name
                  "Printing Serial",             // Name for printouts
@@ -490,6 +492,7 @@ void setup()
                 13,                             // Priority
                 NULL);                          // Task handle
 
+
     //Task to run encoder B
     xTaskCreate(task_encoder_B,                 // Task Function name
                 "Run encoder B",                // Name for printouts
@@ -497,6 +500,16 @@ void setup()
                 NULL,                           // Parameters for task fn.
                 13,                             // Priority
                 NULL);                          // Task handle
+
+    //Laser PWM testing task
+    xTaskCreate(laser_test_task,                // Task Function name
+                "Run laser test",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                14,                             // Priority
+                NULL);                          // Task handle 
+
+
 
     Serial << "Tasks created" << endl;
 
@@ -552,6 +565,35 @@ void setup()
     vTaskStartScheduler();
 
     #endif //TEST_CONTROL_PATH
+
+
+    //======================================================================================
+
+
+    #ifdef TEST_SCRIPT
+
+    //Test Script Task
+    // xTaskCreate(test_script_task,               // Task Function name
+    //             "Run test_script",              // Name for printouts
+    //             4096,                           // Stack size
+    //             NULL,                           // Parameters for task fn.
+    //             13,                             // Priority
+    //             NULL);                          // Task handle
+
+    //Laser PWM testing task
+    xTaskCreate(laser_test_task,                // Task Function name
+                "Run laser test",               // Name for printouts
+                4096,                           // Stack size
+                NULL,                           // Parameters for task fn.
+                14,                             // Priority
+                NULL);                          // Task handle
+
+    Serial << "Tasks created" << endl;
+
+    vTaskStartScheduler();
+
+
+    #endif //TEST_SCRIPT
 }
 
 

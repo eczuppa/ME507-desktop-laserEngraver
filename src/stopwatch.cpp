@@ -19,7 +19,14 @@
  *  @param      tmrpin the channel pin specifically assigned to the chosen timer
  */ 
 
+//If the pin is set to the uint8_t pin name variable, use this function
 StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
+{
+    StopWatch(p_Stpwtch, digitalPinToPinName(tmrpin));
+}
+
+//Otherwise, we want the true PinName of the pin we're using
+StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, PinName tmrpin)
 {
     // save inputs to class member data 
     _p_Stpwtch = p_Stpwtch;
@@ -29,7 +36,7 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
     // Initialize the timer into OUTPUT_COMPARE with on output
     // and set it to count at 1 MHz
     a_Tmr -> pause();
-    a_Tmr -> setMode(1,TIMER_OUTPUT_COMPARE, _tmrpin);
+    a_Tmr -> setMode(1,TIMER_DISABLED, _tmrpin);            //TIMER_DISABLED means that there is no pin that reflects the timer value. It is only an internal stopwatch timer.
     a_Tmr -> setPrescaleFactor(STOPWATCH_PRESCALE);
 
     // Serial << (a_Tmr -> getPrescaleFactor()) << endl;
@@ -39,6 +46,8 @@ StopWatch::StopWatch(TIM_TypeDef* p_Stpwtch, uint8_t tmrpin)
     _last = 0;
 
 }
+
+// (pin)
 
 /** @brief      StopWatch class method to overwrite the last timer value with current measured one
  * @returns     _now The current timer value
