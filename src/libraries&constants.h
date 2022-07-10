@@ -82,7 +82,9 @@
 //PWM output pins:
 #define PWM_A PA0
 #define PWM_B PB11
-#define L_PWM PB0
+// #define L_PWM PB0
+#define L_PWM pinNametoDigitalPin(PB_0_ALT2)
+
 
 //ADC Pin Bank:
 #define LASER_ADC_2 PA1

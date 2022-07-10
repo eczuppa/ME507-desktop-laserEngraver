@@ -12,9 +12,6 @@
 #ifndef LASER_H
 #define LASER_H
 
-//Laser initializing function
-void initialize_laser(void);
-
 //Set the laser PWM signal to a percentage
 void set_laser_PWM(uint8_t laser_PWM_signal);
 
