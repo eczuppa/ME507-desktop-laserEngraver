@@ -34,7 +34,7 @@
 #include "OneWire.h"
 
 //ME507 Laser Library
-#include "control.h"
+#include "control_2.h"
 #include "check_home.h"
 #include "debouncer.h"
 #include "encoder_task.h"

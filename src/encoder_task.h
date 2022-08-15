@@ -16,8 +16,20 @@
 
 ///@cond
 
+
+// ======== User Inputs ======== 
 #define FILTER_A_ALPHA 0.5
 #define FILTER_B_ALPHA 0.5
+
+#define ENC_POSITION_UNIT_MODE_A
+#define ENC_POSITION_UNIT_MODE_B
+
+#define ENC_VELOCITY_UNIT_MODE_A
+#define ENC_VELOCITY_UNIT_MODE_B
+
+
+
+
 
 // Modes for converting units
 #define ENC_POSITION_MODE_TICKS 0

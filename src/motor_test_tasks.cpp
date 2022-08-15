@@ -42,11 +42,15 @@ void task_test_const_velocity(void* p_params)
     uint8_t motA_pin_2 = AIN1;          uint8_t motB_pin_2 = BIN1;
 
     //Set up variables
-    float DC_A;                         float DC_B;
-    float avg_vel_A;                    float avg_vel_B;
-    uint16_t avg_count_A;               uint16_t avg_count_B;
-    float vel_out_A;                    float vel_out_B;
+    float                DC_A = 0;      float                DC_B = 0;
+    float           avg_vel_A = 0;      float           avg_vel_B = 0;
+    uint16_t      avg_count_A = 0;      uint16_t      avg_count_B = 0;
+    float           vel_out_A = 0;      float           vel_out_B = 0;
     encoder_output enc_read_A;          encoder_output enc_read_B;
+
+    //Create motor instances
+    TB6612FNG Motor_A(stby_pin,motA_pin_1,motA_pin_2,pwmA_pin);
+    TB6612FNG Motor_B(stby_pin,motB_pin_1,motB_pin_2,pwmB_pin);
     
 
     print_serial("Constant Velocity Test Initialized\n");
@@ -57,38 +61,23 @@ void task_test_const_velocity(void* p_params)
         //Motor A setup:
         if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            motor_selected = true;
-            // Set up instance of the motor driver class for motor A
-            TB6612FNG Motor_A(stby_pin,motA_pin_1,motA_pin_2,pwmA_pin);
+            motor_selected = true;            
 
             //Set up motors and set duty cycle
             Motor_A.enable();
             DC_A = CONST_VELOCITY_TEST_DC_A;
             Motor_A.setDutyCycle(DC_A);            
-
-            //Set intermediate variables for calculations
-            avg_vel_A = 0;
-            avg_count_A = 0;
-            vel_out_A = 0;
-
         }
 
         //Motor B setup:
         if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
             motor_selected = true;
-            // Set up instance of the motor driver class for motor B
-            TB6612FNG Motor_B(stby_pin,motB_pin_1,motB_pin_2,pwmB_pin);
-
+            
             //Set up motors and set duty cycle
             Motor_B.enable();
             DC_B = CONST_VELOCITY_TEST_DC_B;
             Motor_B.setDutyCycle(DC_B);
-
-            //Create intermediate variables for calculations
-            avg_vel_B = 0;
-            avg_count_B = 0;
-            vel_out_B = 0;
         }
 
         //If no motor is selected or the selection was done incorrectly, enable the override and run motor A.
@@ -127,14 +116,18 @@ void task_test_const_velocity(void* p_params)
     //Task for loop
     for(;;)
     {
-        //Read off encoder position and velocity
+        //Read off encoder position and velocity and convert units to desired
         if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
             enc_A_output_share.get(enc_read_A);
+            enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_REVOUT);
+            enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_RPMOUT);
         }
         if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
             enc_B_output_share.get(enc_read_B);
+            enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_REVOUT);
+            enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_RPMOUT);
         }
         
 
@@ -217,52 +210,97 @@ void task_test_control_path(void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
 
-    char motor_id = PATH_TEST_MOTOR;
+    // char motor_id = PATH_TEST_MOTOR;
 
     //Set up default pins
-    uint8_t stby_pin = STBY;        uint8_t mot_pin_1 = AIN2;
-    uint8_t pwm_pin = PWM_A;        uint8_t mot_pin_2 = AIN1;
+    // uint8_t stby_pin = STBY;        uint8_t mot_pin_1 = AIN2;
+    // uint8_t pwm_pin = PWM_A;        uint8_t mot_pin_2 = AIN1;
+
+    bool motor_selected = false;
+    uint8_t motor_choice = PATH_TEST_MOTOR;
     
-    //Change pins for selected motor
-    if(motor_id == 'A' || motor_id == 'a')
-    {
-        stby_pin = STBY;        mot_pin_1 = AIN2;       mot_pin_2 = AIN1;       pwm_pin = PWM_A;
-    }
-    else if(motor_id == 'B' || motor_id == 'b')
-    {
-        stby_pin = STBY;        mot_pin_1 = BIN2;       mot_pin_2 = BIN1;       pwm_pin = PWM_B;
-    }
-    else
-    {
-        motor_id = 'A';
-        print_serial("Warning: motor_id does match options; motor A chosen by default\n");
-    }
+    //Set up default pins
+    uint8_t stby_pin = STBY;  
+    uint8_t pwmA_pin = PWM_A;           uint8_t pwmB_pin = PWM_B;          
+    uint8_t motA_pin_1 = AIN2;          uint8_t motB_pin_1 = BIN2;
+    uint8_t motA_pin_2 = AIN1;          uint8_t motB_pin_2 = BIN1;
 
-    // Set up instance of the motor driver class
-    TB6612FNG Motor(stby_pin,mot_pin_1,mot_pin_2,pwm_pin);
+    //Set up variables
+    float DC_A;                         float DC_B;
+    float avg_vel_A;                    float avg_vel_B;
+    uint16_t avg_count_A;               uint16_t avg_count_B;
+    float vel_out_A;                    float vel_out_B;
+    encoder_output enc_read_A;          encoder_output enc_read_B;
 
-    //Set up motor and set duty cycle
-    Motor.enable();
-    float DC = 0;
-    Motor.setDutyCycle(DC);
+    //Create motor instances
+    TB6612FNG Motor_A(stby_pin,motA_pin_1,motA_pin_2,pwmA_pin);
+    TB6612FNG Motor_B(stby_pin,motB_pin_1,motB_pin_2,pwmB_pin);
 
-    //Set up variables for encoder
-    encoder_output enc_read;
 
-    // Set up variables for control loop
-    float error = 0;
-    float integral = 0;
-    float last_time = 0;
-
-    // Initialize structs
+    // Initialize struct containing position and velocity setpoint for motors A and B
     motor_setpoint setpoint;
 
-    //Initialize classes
+    //Initialize setpoint of time class to calculate specific setpoints based on time
     setpoint_of_time xyoft;
 
+    //Set up controllers
+    PID_Controller control_A(PATH_TEST_CONTROL_KP, PATH_TEST_CONTROL_KI, PATH_TEST_CONTROL_KD, PATH_TEST_MOTOR_DEADBAND, 100, -100, PATH_TEST_DRV_FILTER_TAU);
+    PID_Controller control_B(PATH_TEST_CONTROL_KP, PATH_TEST_CONTROL_KI, PATH_TEST_CONTROL_KD, PATH_TEST_MOTOR_DEADBAND, 100, -100, PATH_TEST_DRV_FILTER_TAU);
 
+    print_serial("Control Path Test Initialized\n");
+
+    //------------------------------------------------
+
+    // Choose which motors to run in the test
+    while(motor_selected == false)
+    {
+        //Motor A setup:
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            motor_selected = true;            
+
+            //Set up motors and set duty cycle
+            Motor_A.enable();
+            DC_A = CONST_VELOCITY_TEST_DC_A;
+            Motor_A.setDutyCycle(DC_A);            
+        }
+
+        //Motor B setup:
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            motor_selected = true;
+            
+            //Set up motors and set duty cycle
+            Motor_B.enable();
+            DC_B = CONST_VELOCITY_TEST_DC_B;
+            Motor_B.setDutyCycle(DC_B);
+        }
+
+        //If no motor is selected or the selection was done incorrectly, enable the override and run motor A.
+        if(motor_selected == false)
+        {
+            print_serial("\nWarning: motor_id does match options; motor A chosen by default\n");
+            motor_choice = LASER_CUTTER_MOTOR_A;
+        }
+    }
+
+    //Create printouts for specification
+    switch(motor_choice)
+    {
+        case LASER_CUTTER_MOTOR_A:
+            print_serial("\nRunning Motor: A");
+            break;
+
+        case LASER_CUTTER_MOTOR_B:
+            print_serial("\nRunning Motor: B");
+            break;
+
+        case LASER_CUTTER_MOTOR_BOTH:
+        default:
+            print_serial("\nRunning Motor: A & B");
+            break;
+    }
     // Printouts for reference
-    print_serial("\nRunning Motor: ");   print_serial(motor_id);
     print_serial("\nKP: ");   print_serial((float)PATH_TEST_CONTROL_KP);
     print_serial("\nKI: ");   print_serial((float)PATH_TEST_CONTROL_KI);
     print_serial("\nKD: ");   print_serial((float)PATH_TEST_CONTROL_KD);
@@ -294,107 +332,146 @@ void task_test_control_path(void* p_params)
     // translator.translate_to_queue(point1);
     // translator.translate_to_queue(point2);
 
+    vTaskDelay(50);
 
     //Task for loop
     for(;;)
     {
         //Read off encoder position and velocity
-        if(motor_id == 'B' || motor_id == 'b')
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            enc_B_output_share.get(enc_read);
+            enc_A_output_share.get(enc_read_A);
+            // enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_BELT_MM);
+            // enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
+            enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_REVOUT);
+            enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_RPMOUT);
+        }
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            enc_B_output_share.get(enc_read_B);
+            // enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_BELT_MM);
+            // enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
+            enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_REVOUT);
+            enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_RPMOUT);
+        }
+
+        // Get the setpoint for this moment in time. 
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            setpoint = xyoft.get_desired_pos_vel(enc_read_A.time);
         }
         else
         {
-            enc_A_output_share.get(enc_read);
+            setpoint = xyoft.get_desired_pos_vel(enc_read_B.time);
         }
 
-        //Get the setpoint for this moment in time
-        setpoint = xyoft.get_desired_pos_vel(enc_read.time);
 
-        //Run Control Loop
-        if     (motor_id == 'A' || motor_id == 'a'){ error = setpoint.A_pos - enc_read.pos; }
-        else if(motor_id == 'B' || motor_id == 'b'){ error = setpoint.B_pos - enc_read.pos; }
-        
-        integral += (enc_read.time - last_time)*error;
+        if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            //Run Control Loop
+            DC_A = control_A.Run_Control_Loop(enc_read_A.pos,setpoint.A_pos,enc_read_A.time);
 
-        DC = error*PATH_TEST_CONTROL_KP + integral*PATH_TEST_CONTROL_KI;
+            //Send command to the motor
+            Motor_A.setDutyCycle(DC_A);
+        }
+        if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            //Run Control Loop
+            DC_B = control_B.Run_Control_Loop(enc_read_B.pos,setpoint.B_pos,enc_read_B.time);
 
-        last_time = enc_read.time;
+            //Send command to the motor
+            Motor_B.setDutyCycle(DC_B);
+        }
 
-        //Account for motor deadband
-        if(DC>=0)  {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 + PATH_TEST_MOTOR_DEADBAND;  }
-        else       {  DC = DC*( 100 - PATH_TEST_MOTOR_DEADBAND)/100 - PATH_TEST_MOTOR_DEADBAND;  }
-        
-        Motor.setDutyCycle(DC);
 
         //Print the encoder positions and velocity
-        print_serial("Position:  ");    print_serial(enc_read.pos);
-        print_serial("  Velocity:  ");  print_serial(enc_read.vel);
-        print_serial("  Time:  ");      print_serial(enc_read.time);
-        print_serial("  Error:  ");     print_serial(error);
-        print_serial("                                \r");
-        // print_serial("                                \n");
-
-        vTaskDelay(50);
+        if(motor_choice == LASER_CUTTER_MOTOR_A)
+        {
+            print_serial("Position:  ");    print_serial(enc_read_A.pos);
+            print_serial("  Velocity:  ");  print_serial(vel_out_A);
+            print_serial("  Error:  ");     print_serial(control_A.get_error());
+            print_serial("  Time:  ");      print_serial(enc_read_A.time);
+            print_serial("                                \r");
+        }
+        else if(motor_choice == LASER_CUTTER_MOTOR_B)
+        {
+            print_serial("Position:  ");    print_serial(enc_read_B.pos);
+            print_serial("  Velocity:  ");  print_serial(vel_out_B);
+            print_serial("  Error:  ");     print_serial(control_B.get_error());
+            print_serial("  Time:  ");      print_serial(enc_read_B.time);
+            print_serial("                                \r");
+        }
+        else if(motor_choice == LASER_CUTTER_MOTOR_BOTH)
+        {
+            print_serial("Position: ");    print_serial(enc_read_A.pos);        print_serial(" (A)  ");  print_serial(enc_read_B.pos);          print_serial(" (B)  ");
+            print_serial("  Velocity: ");  print_serial(vel_out_A);             print_serial(" (A)  ");  print_serial(vel_out_B);               print_serial(" (B)  ");
+            print_serial("  Error:  ");    print_serial(control_A.get_error()); print_serial(" (A)  ");  print_serial(control_B.get_error());   print_serial(" (B)  ");
+            print_serial("  Time:  ");     print_serial(enc_read_A.time);
+            print_serial("                                \r");
+        }
+        
+        if(motor_choice == LASER_CUTTER_MOTOR_BOTH){vTaskDelay(200);}
+        else{vTaskDelay(50);}
     }
 }
 
 
+// ======================================================================================================
+// ============================================== OUTDATED ==============================================
+// ======================================================================================================
+// /** @brief      Task which moves both motors.
+//  *  @details    Work in progress; test running both motors at the same time. 
+//  *  @param      p_params A pointer to function parameters which we don't use.
+//  */
+// void task_single_control_both(void* p_params)
+// {
+//     (void)p_params;                   // Does nothing but shut up a compiler warning
+
+//     // Set up instance of the motor driver class
+//     TB6612FNG Motor_A(STBY,AIN2,AIN1,PWM_A);
+//     TB6612FNG Motor_B(STBY,BIN2,BIN1,PWM_B);
+
+//     // Enable motors and set duty cycle
+//     Motor_A.enable();
+//     Motor_B.enable();
+//     float DC_A = 50;
+//     float DC_B = 50;
+
+//     //Set up variables for encoder
+//     encoder_output enc_A_read;
+//     encoder_output enc_B_read;
 
 
-/** @brief      Task which moves a single motor.
- *  @details    Work in progress; test running both motors at the same time. 
- *  @param      p_params A pointer to function parameters which we don't use.
- */
-void task_single_control_both(void* p_params)
-{
-    (void)p_params;                   // Does nothing but shut up a compiler warning
-
-    // Set up instance of the motor driver class
-    TB6612FNG Motor_A(STBY,AIN2,AIN1,PWM_A);
-    TB6612FNG Motor_B(STBY,BIN2,BIN1,PWM_B);
-
-    // Enable motors and set duty cycle
-    Motor_A.enable();
-    Motor_B.enable();
-    float DC_A = 50;
-    float DC_B = 50;
-
-    //Set up variables for encoder
-    encoder_output enc_A_read;
-    encoder_output enc_B_read;
+//     //Set the duty cycle
+//     Motor_A.setDutyCycle(DC_A);
+//     Motor_B.setDutyCycle(DC_B);
 
 
-    //Set the duty cycle
-    Motor_A.setDutyCycle(DC_A);
-    Motor_B.setDutyCycle(DC_B);
+//     print_serial("Motors Initialized\n");
+//     print_serial("Pos: A     B    Vel: A     B   Time: A     B\n");
+
+//     //Task for loop
+//     for(;;)
+//     {
+//         //Read off encoder position and velocity
+//         enc_A_output_share.get(enc_A_read);
+//         enc_B_output_share.get(enc_B_read);
 
 
-    print_serial("Motors Initialized\n");
-    print_serial("Pos: A     B    Vel: A     B   Time: A     B\n");
+//         //Print the encoder positions and velocity
+//         print_serial("     ");      print_serial(enc_A_read.pos);
+//         print_serial("  ");         print_serial(enc_B_read.pos);
+//         print_serial("      ");     print_serial(enc_A_read.vel);
+//         print_serial("  ");         print_serial(enc_B_read.vel);
+//         print_serial("      ");     print_serial(enc_A_read.time);
+//         print_serial("  ");         print_serial(enc_B_read.time);
+//         print_serial("                              \r");
+//         // print_serial("                                \n");
 
-    //Task for loop
-    for(;;)
-    {
-        //Read off encoder position and velocity
-        enc_A_output_share.get(enc_A_read);
-        enc_B_output_share.get(enc_B_read);
-
-
-        //Print the encoder positions and velocity
-        print_serial("     ");      print_serial(enc_A_read.pos);
-        print_serial("  ");         print_serial(enc_B_read.pos);
-        print_serial("      ");     print_serial(enc_A_read.vel);
-        print_serial("  ");         print_serial(enc_B_read.vel);
-        print_serial("      ");     print_serial(enc_A_read.time);
-        print_serial("  ");         print_serial(enc_B_read.time);
-        print_serial("                              \r");
-        // print_serial("                                \n");
-
-        vTaskDelay(50);
-    }
-}
-
+//         vTaskDelay(50);
+//     }
+// }
+// ======================================================================================================
 
 
 

@@ -378,8 +378,43 @@ void task_translate(void* p_params)
 
         vTaskDelay(TRANSLATE_TASK_TIMING);
     }// for loop
-}
+}//task_translate
 
+
+// // ========================================= Task: task_translate_test =========================================
+
+// /** @brief      Task to test using the translator for converting XYSF points into ramp coefficients. 
+//  *  @details    This task only runs the final part of the translate task, which converts XYSF points into ramp 
+//  *              coefficients to be used by the controller. The full task will convert Gcode into @c X @c Y @c S 
+//  *              and @c F coefficients first, then convert those coeffiients into ramp coefficients.
+//  * 
+//  *  @param      p_params A pointer to function parameters which we don't use.
+//  */
+
+
+// void task_translate_test(void* p_params)
+// {
+//     (void)p_params;                   // Does nothing but shut up a compiler warning
+
+//     coreXY_to_AB gcode_translator;
+
+//     //Hard code points
+//     XYSFvalues point1;      XYSFvalues point2;      XYSFvalues point3;
+//     point1.X = 0;           point2.X = 5;           point3.X = 0;
+//     point1.Y = 0;           point2.Y = 5;           point3.Y = 0;
+
+
+//     gcode_translator.translate_to_queue(point1);
+//     gcode_translator.translate_to_queue(point2);
+//     gcode_translator.translate_to_queue(point3);
+
+//     for(;;)
+//     {
+        
+//         vTaskDelay(TRANSLATE_TASK_TIMING);
+//     }
+
+// }
 
 
 

@@ -79,8 +79,8 @@ void control_task(void* p_params)
     // MotionPlanning Ramper_B(0,0,0,0);
 
     //Crete PID loop classes
-    Controller_PID ControlLoopPID_A(0,0,0,0,0,0,0,0);
-    Controller_PID ControlLoopPID_B(0,0,0,0,0,0,0,0);
+    // Controller_PID ControlLoopPID_A(0,0,0,0,0,0,0,0);
+    // Controller_PID ControlLoopPID_B(0,0,0,0,0,0,0,0);
 
     //Infinite task loop
     for(;;)

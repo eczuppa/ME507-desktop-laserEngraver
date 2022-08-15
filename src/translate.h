@@ -30,7 +30,7 @@
 #define TIMING_MODE_RUNNING 1
 #define TIMING_MODE_RESET 2
 
-// Define task run time
+// Define task run time, in ms
 #define TRANSLATE_TASK_TIMING 100
 
 
@@ -125,6 +125,7 @@ class coreXY_to_AB
 
 //Task function to translate and send out necessary control data
 void task_translate(void* p_params);
+// void task_translate_test(void* p_params);
 
 
 #endif //TRANSLATE_H

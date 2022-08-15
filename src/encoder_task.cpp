@@ -96,8 +96,8 @@ void task_encoder_A (void* p_params)
         velocity_A = (float)( (int32_t)(raw_vel_A*FILTER_A_ALPHA*10000) + (int32_t)(velocity_A*(1-FILTER_A_ALPHA)*10000) )/10000; 
 
         //Convert values into desired units
-        pos_A_out = convert_units(position_A,ENC_POSITION_MODE_REVOUT);
-        vel_A_out = convert_units(velocity_A,ENC_VELOCITY_MODE_RPMOUT);
+        pos_A_out = convert_units(position_A,ENC_POSITION_MODE_TICKS);
+        vel_A_out = convert_units(velocity_A,ENC_VELOCITY_MODE_TICKS_PER_SEC);
 
         //Update encoder timing (affects how ramps are interpreted)
         total_time = update_total_time(total_time,delta_time_A);
@@ -195,8 +195,8 @@ void task_encoder_B (void* p_params)
         velocity_B = (float)( (int32_t)(raw_vel_B*FILTER_B_ALPHA*10000) + (int32_t)(velocity_B*(1-FILTER_B_ALPHA)*10000) )/10000; 
 
         //Convert values into desired units
-        pos_B_out = convert_units(position_B,ENC_POSITION_MODE_REVOUT);
-        vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_RPMOUT);
+        pos_B_out = convert_units(position_B,ENC_POSITION_MODE_TICKS);
+        vel_B_out = convert_units(velocity_B,ENC_VELOCITY_MODE_TICKS_PER_SEC);
 
         //Update encoder timing (affects how ramps are interpreted)
         total_time = update_total_time(total_time,delta_time_B);
@@ -221,7 +221,8 @@ void task_encoder_B (void* p_params)
 
 
 /** @brief   Convert units out of ticks or ticks/sec
- *  @details This function converts the units for the encoder into the desired units of choice. 
+ *  @details This function converts the units for the encoder into the desired units of choice. It is always assumed that the 
+ *           initial value is in units of encoder ticks.
  * 
  *  @param   value The value whose units are to be converted
  *  @param   convert_mode The mode in which to convert the units

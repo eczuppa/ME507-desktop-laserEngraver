@@ -72,11 +72,7 @@ void setup()
     //Initialize shares
     check_home_share.put(false);
     timing_mode_share.put(TIMING_MODE_PAUSED);
-    
-    //Create instance of timer 3 for motors
-    // TIM_TypeDef * _p_timer = TIM3;
-    // static HardwareTimer *MotorTmr;    
-    // MotorTmr = new HardwareTimer(_p_timer);
+
 
     //======================================================================================
 
@@ -84,8 +80,8 @@ void setup()
     // #define NIKO_TESTING 0 
     // #define MATTHEW_TESTING 1
     // #define ETHAN_TESTING 2
-    #define TEST_CONST_VELOCITY 3
-    // #define TEST_CONTROL_PATH 4
+    // #define TEST_CONST_VELOCITY 3
+    #define TEST_CONTROL_PATH 4
     // #define TEST_SCRIPT 5
 
     //======================================================================================
