@@ -210,12 +210,7 @@ void task_test_control_path(void* p_params)
 {
     (void)p_params;                   // Does nothing but shut up a compiler warning
 
-    // char motor_id = PATH_TEST_MOTOR;
-
-    //Set up default pins
-    // uint8_t stby_pin = STBY;        uint8_t mot_pin_1 = AIN2;
-    // uint8_t pwm_pin = PWM_A;        uint8_t mot_pin_2 = AIN1;
-
+    //Set up motor parameters
     bool motor_selected = false;
     uint8_t motor_choice = PATH_TEST_MOTOR;
     
@@ -227,9 +222,6 @@ void task_test_control_path(void* p_params)
 
     //Set up variables
     float DC_A;                         float DC_B;
-    float avg_vel_A;                    float avg_vel_B;
-    uint16_t avg_count_A;               uint16_t avg_count_B;
-    float vel_out_A;                    float vel_out_B;
     encoder_output enc_read_A;          encoder_output enc_read_B;
 
     //Create motor instances
@@ -313,24 +305,29 @@ void task_test_control_path(void* p_params)
     ramp_segment_coefficients ramp2;
     ramp_segment_coefficients ramp3;
 
-    //                            sec                rotations                 rps 
-    ramp1.t0 = 0;    ramp1.t_end = 5;       ramp1.pos_A0 =  0;    ramp1.vel_A =   5;    ramp1.pos_B0 =  0;      ramp1.vel_B =   5;
-    ramp2.t0 = 5;    ramp2.t_end = 10;      ramp2.pos_A0 = 25;    ramp2.vel_A =   0;    ramp2.pos_B0 = 25;      ramp2.vel_B =   0; 
-    ramp3.t0 = 10;   ramp3.t_end = 15;      ramp3.pos_A0 = 25;    ramp3.vel_A =  -5;    ramp3.pos_B0 = 25;      ramp3.vel_B =  -5;
+    // //                            sec                rotations                 rps 
+    // ramp1.t0 = 0;    ramp1.t_end = 5;       ramp1.pos_A0 =  0;    ramp1.vel_A =   5;    ramp1.pos_B0 =  0;      ramp1.vel_B =   5;
+    // ramp2.t0 = 5;    ramp2.t_end = 10;      ramp2.pos_A0 = 25;    ramp2.vel_A =   0;    ramp2.pos_B0 = 25;      ramp2.vel_B =   0; 
+    // ramp3.t0 = 10;   ramp3.t_end = 15;      ramp3.pos_A0 = 25;    ramp3.vel_A =  -5;    ramp3.pos_B0 = 25;      ramp3.vel_B =  -5;
 
-    ramp_segment_coefficient_queue.put(ramp1);
-    ramp_segment_coefficient_queue.put(ramp2);
-    ramp_segment_coefficient_queue.put(ramp3);
+    //                            sec                mm                 mm/s 
+    // ramp1.t0 = 0;    ramp1.t_end = 1;      ramp1.pos_A0 =   0;    ramp1.vel_A =   350;    ramp1.pos_B0 =   0;      ramp1.vel_B =   350;
+    // ramp2.t0 = 1;    ramp2.t_end = 6;      ramp2.pos_A0 = 350;    ramp2.vel_A =     0;    ramp2.pos_B0 = 350;      ramp2.vel_B =     0; 
+    // ramp3.t0 = 6;    ramp3.t_end = 7;      ramp3.pos_A0 = 375;    ramp3.vel_A =  -350;    ramp3.pos_B0 = 350;      ramp3.vel_B =  -350;
+
+    // ramp_segment_coefficient_queue.put(ramp1);
+    // ramp_segment_coefficient_queue.put(ramp2);
+    // ramp_segment_coefficient_queue.put(ramp3);
 
     // //Method 2: XYSF
-    // coreXY_to_AB translator;
-    // XYSFvalues point1;      XYSFvalues point2;
+    coreXY_to_AB translator;
+    XYSFvalues point1;      XYSFvalues point2;
     
-    // point1.X = 25;       point1.Y = 0;       point1.F = 5;
-    // point2.X =  0;       point2.Y = 0;       point2.F = 5;
+    point1.X = -250;       point1.Y = 0;       point1.F = 500;
+    point2.X =    0;       point2.Y = 0;       point2.F = 500;
 
-    // translator.translate_to_queue(point1);
-    // translator.translate_to_queue(point2);
+    translator.translate_to_queue(point1);
+    translator.translate_to_queue(point2);
 
     vTaskDelay(50);
 
@@ -341,18 +338,18 @@ void task_test_control_path(void* p_params)
         if(motor_choice == LASER_CUTTER_MOTOR_A || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
             enc_A_output_share.get(enc_read_A);
-            // enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_BELT_MM);
-            // enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
-            enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_REVOUT);
-            enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_RPMOUT);
+            enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_BELT_MM);
+            enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
+            // enc_read_A.pos = convert_units(enc_read_A.pos,ENC_POSITION_MODE_REVOUT);
+            // enc_read_A.vel = convert_units(enc_read_A.vel,ENC_VELOCITY_MODE_RPMOUT);
         }
         if(motor_choice == LASER_CUTTER_MOTOR_B || motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
             enc_B_output_share.get(enc_read_B);
-            // enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_BELT_MM);
-            // enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
-            enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_REVOUT);
-            enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_RPMOUT);
+            enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_BELT_MM);
+            enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_BELT_MM_PER_SEC);
+            // enc_read_B.pos = convert_units(enc_read_B.pos,ENC_POSITION_MODE_REVOUT);
+            // enc_read_B.vel = convert_units(enc_read_B.vel,ENC_VELOCITY_MODE_RPMOUT);
         }
 
         // Get the setpoint for this moment in time. 
@@ -388,7 +385,7 @@ void task_test_control_path(void* p_params)
         if(motor_choice == LASER_CUTTER_MOTOR_A)
         {
             print_serial("Position:  ");    print_serial(enc_read_A.pos);
-            print_serial("  Velocity:  ");  print_serial(vel_out_A);
+            print_serial("  Velocity:  ");  print_serial(enc_read_A.vel);
             print_serial("  Error:  ");     print_serial(control_A.get_error());
             print_serial("  Time:  ");      print_serial(enc_read_A.time);
             print_serial("                                \r");
@@ -396,16 +393,16 @@ void task_test_control_path(void* p_params)
         else if(motor_choice == LASER_CUTTER_MOTOR_B)
         {
             print_serial("Position:  ");    print_serial(enc_read_B.pos);
-            print_serial("  Velocity:  ");  print_serial(vel_out_B);
+            print_serial("  Velocity:  ");  print_serial(enc_read_B.vel);
             print_serial("  Error:  ");     print_serial(control_B.get_error());
             print_serial("  Time:  ");      print_serial(enc_read_B.time);
             print_serial("                                \r");
         }
         else if(motor_choice == LASER_CUTTER_MOTOR_BOTH)
         {
-            print_serial("Position: ");    print_serial(enc_read_A.pos);        print_serial(" (A)  ");  print_serial(enc_read_B.pos);          print_serial(" (B)  ");
-            print_serial("  Velocity: ");  print_serial(vel_out_A);             print_serial(" (A)  ");  print_serial(vel_out_B);               print_serial(" (B)  ");
-            print_serial("  Error:  ");    print_serial(control_A.get_error()); print_serial(" (A)  ");  print_serial(control_B.get_error());   print_serial(" (B)  ");
+            print_serial("Position: ");    print_serial(enc_read_A.pos);            print_serial(" (A)  ");  print_serial(enc_read_B.pos);          print_serial(" (B)  ");
+            print_serial("  Velocity: ");  print_serial(enc_read_A.vel);            print_serial(" (A)  ");  print_serial(enc_read_B.vel);          print_serial(" (B)  ");
+            print_serial("  Error:  ");    print_serial(control_A.get_error());     print_serial(" (A)  ");  print_serial(control_B.get_error());   print_serial(" (B)  ");
             print_serial("  Time:  ");     print_serial(enc_read_A.time);
             print_serial("                                \r");
         }
@@ -416,62 +413,6 @@ void task_test_control_path(void* p_params)
 }
 
 
-// ======================================================================================================
-// ============================================== OUTDATED ==============================================
-// ======================================================================================================
-// /** @brief      Task which moves both motors.
-//  *  @details    Work in progress; test running both motors at the same time. 
-//  *  @param      p_params A pointer to function parameters which we don't use.
-//  */
-// void task_single_control_both(void* p_params)
-// {
-//     (void)p_params;                   // Does nothing but shut up a compiler warning
-
-//     // Set up instance of the motor driver class
-//     TB6612FNG Motor_A(STBY,AIN2,AIN1,PWM_A);
-//     TB6612FNG Motor_B(STBY,BIN2,BIN1,PWM_B);
-
-//     // Enable motors and set duty cycle
-//     Motor_A.enable();
-//     Motor_B.enable();
-//     float DC_A = 50;
-//     float DC_B = 50;
-
-//     //Set up variables for encoder
-//     encoder_output enc_A_read;
-//     encoder_output enc_B_read;
-
-
-//     //Set the duty cycle
-//     Motor_A.setDutyCycle(DC_A);
-//     Motor_B.setDutyCycle(DC_B);
-
-
-//     print_serial("Motors Initialized\n");
-//     print_serial("Pos: A     B    Vel: A     B   Time: A     B\n");
-
-//     //Task for loop
-//     for(;;)
-//     {
-//         //Read off encoder position and velocity
-//         enc_A_output_share.get(enc_A_read);
-//         enc_B_output_share.get(enc_B_read);
-
-
-//         //Print the encoder positions and velocity
-//         print_serial("     ");      print_serial(enc_A_read.pos);
-//         print_serial("  ");         print_serial(enc_B_read.pos);
-//         print_serial("      ");     print_serial(enc_A_read.vel);
-//         print_serial("  ");         print_serial(enc_B_read.vel);
-//         print_serial("      ");     print_serial(enc_A_read.time);
-//         print_serial("  ");         print_serial(enc_B_read.time);
-//         print_serial("                              \r");
-//         // print_serial("                                \n");
-
-//         vTaskDelay(50);
-//     }
-// }
-// ======================================================================================================
 
 
 
